@@ -11,5 +11,5 @@ package util;
  */
 
 public enum EntityState{
-    run, jump, crunch, attack, dead
+    RUN, JUMP, CRUNCH, ATTACK, DEAD
 }

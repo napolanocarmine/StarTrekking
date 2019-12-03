@@ -12,18 +12,18 @@ import java.awt.event.KeyListener;
  *
  * @author CARMINE
  */
-public class KeyHandler implements KeyListener{
+public class KeyHandler implements KeyListener {
 
     public KeyHandler() {
     }
-    
-    public KeyHandler(GamePanel game){
+
+    public KeyHandler(GamePanel game) {
         game.addKeyListener(this);
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-        
+
     }
 
     @Override
@@ -33,5 +33,5 @@ public class KeyHandler implements KeyListener{
     @Override
     public void keyReleased(KeyEvent e) {
     }
-    
+
 }

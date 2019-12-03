@@ -21,7 +21,5 @@ class TileFacade {
 
     void input(KeyHandler key) {
     }
-    
-    
-    
+
 }

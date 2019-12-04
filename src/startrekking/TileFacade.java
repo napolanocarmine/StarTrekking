@@ -6,6 +6,7 @@
 package startrekking;
 
 import java.awt.Graphics2D;
+import util.KeyHandler;
 
 /**
  *

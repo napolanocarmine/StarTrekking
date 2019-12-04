@@ -3,35 +3,93 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package startrekking;
-
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
+package util;
 /**
  *
- * @author CARMINE
+ * @author Star Trekking Company 
  */
-public class KeyHandler implements KeyListener {
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.Observable;
 
-    public KeyHandler() {
+/**
+ * Class for catching and comunicating the pressed keys
+ */
+public class KeyHandler extends Observable implements KeyListener{
+
+    private EntityState key;
+    private boolean released;
+   
+    /**
+     * KeyHandler's constructor
+     */
+    public KeyHandler(){
+        super();
+        released = false;
+        key = EntityState.None;
     }
-
-    public KeyHandler(GamePanel game) {
-        game.addKeyListener(this);
+    
+    /**
+     * Return the key value
+     */
+    public int getValue(){
+        return key.ordinal();
     }
-
+    
+    /**
+    * Return true if key has been released,
+    * otherwise false
+    */
+    public boolean isPressed(){
+        return released;
+    }
+    /**
+     * Notify that something is changed
+     */
+    private void stateChanged(){
+        setChanged();
+        notifyObservers();
+    }
+    /**
+     * Assign to key variable the pressed key, among the valid key
+     */
     @Override
-    public void keyTyped(KeyEvent e) {
-
+    public void keyPressed(KeyEvent ke) {
+        switch(ke.getKeyCode()){
+            case KeyEvent.VK_SPACE:
+                key = EntityState.JUMP;
+                released = false;
+                stateChanged();
+                break;
+            case KeyEvent.VK_CONTROL:
+                key = EntityState.CRUNCH;
+                released = false;
+                stateChanged();
+                break;
+            case KeyEvent.VK_X:
+                key = EntityState.ATTACK;
+                released = false;
+                stateChanged();
+                break;
+            default:
+                key = EntityState.None;
+                System.out.println("Unknown Key");
+        }
+                
     }
 
+    /**
+     * Set to true the released variable
+     */
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void keyReleased(KeyEvent ke) {
+        released = true;
+        stateChanged();
     }
-
+    
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyTyped(KeyEvent ke) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+        
 }

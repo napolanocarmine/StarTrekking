@@ -88,7 +88,7 @@ public class GamePanel extends JPanel implements Runnable{
         map = new Position(0, 0);
         Position.setWorldVar(map.getX(), map.getY());
         
-        key = new KeyHandler();
+        key = new KeyHandler(this);
         
         tf = new TileFacade("tiles/LevelOne.xml");
         player = new Player(new Sprite("entity/mage.png", 64, 64), new Position(0 + 32, 0 + (GamePanel.HEIGHT) - 126), 96, key);

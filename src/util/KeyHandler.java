@@ -11,6 +11,7 @@ package util;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Observable;
+import startrekking.GamePanel;
 
 /**
  * Class for catching and comunicating the pressed keys
@@ -23,10 +24,11 @@ public class KeyHandler extends Observable implements KeyListener{
     /**
      * KeyHandler's constructor
      */
-    public KeyHandler(){
+    public KeyHandler(GamePanel game){
         super();
         released = false;
         key = EntityState.NONE;
+        game.addKeyListener(this);
     }
     
     /**
@@ -47,6 +49,7 @@ public class KeyHandler extends Observable implements KeyListener{
      * Notify that something is changed
      */
     private void stateChanged(){
+        System.out.println("Tasto premuto");
         setChanged();
         notifyObservers();
     }
@@ -57,6 +60,7 @@ public class KeyHandler extends Observable implements KeyListener{
     public void keyPressed(KeyEvent ke) {
         switch(ke.getKeyCode()){
             case KeyEvent.VK_SPACE:
+                System.out.println("Tasto premuto");
                 key = EntityState.JUMP;
                 released = false;
                 stateChanged();
@@ -75,7 +79,6 @@ public class KeyHandler extends Observable implements KeyListener{
                 key = EntityState.NONE;
                 System.out.println("Unknown Key");
         }
-                
     }
 
     /**

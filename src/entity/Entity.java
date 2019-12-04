@@ -77,13 +77,13 @@ public abstract class Entity {
         ani.setDelay(delay);
     }
     
-    public void animate(){
-        if(jump){
+    public void animate(int action){
+        if(action == 1){
             if(currentAnimation != JUMP || ani.getDelay() == -1){
                 setAnimation(JUMP, sprite.getSpriteArray(JUMP), 5);
             }
         }
-        else if(run){
+        else if(action == 0){
             if(currentAnimation != RUN || ani.getDelay() == -1){
                 setAnimation(RUN, sprite.getSpriteArray(RUN), 5);
             }
@@ -108,8 +108,8 @@ public abstract class Entity {
         }
     }
         
-    public void updateGame(){
-        animate();
+    public void updateGame(int action){
+        animate(action);
         ani.updateGame();
     }
     

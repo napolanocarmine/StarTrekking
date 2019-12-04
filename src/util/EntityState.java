@@ -9,6 +9,7 @@ package util;
  *
  * @author emiso
  */
-public enum EntityState {
-    RUN, JUMP, CRUNCH, ATTACK, DEAD
+
+public enum EntityState{
+    RUN, JUMP, CRUNCH, ATTACK, DEAD, NONE
 }

@@ -80,7 +80,7 @@ public class GamePanel extends Canvas implements Runnable {
         img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
         g = (Graphics2D) img.getGraphics();
 
-        key = new KeyHandler(this);
+        key = new KeyHandler();
 
         tf = new TileFacade();
 

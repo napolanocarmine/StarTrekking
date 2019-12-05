@@ -1,7 +1,6 @@
 package entity;
 
 import graphics.Sprite;
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.Observable;
 import java.util.Observer;
@@ -20,6 +19,7 @@ public class Player extends Entity implements Observer{
     
     public Player(Sprite sprite, Position origin, int size, KeyHandler khdl) {
         super(sprite, origin, size);
+        this.state = EntityState.RUN;
         this.khdl = khdl;
         this.khdl.addObserver(this);
     }
@@ -32,7 +32,7 @@ public class Player extends Entity implements Observer{
         
         if(state == EntityState.JUMP){   //case of jump
             dy -= currentJumpSpeed;     //decrementation for jumping
-            currentJumpSpeed -= .09;     //gravity
+            currentJumpSpeed -= .05;     //gravity
             if(currentJumpSpeed <= 0){
                 state = EntityState.NONE;
             }
@@ -41,17 +41,32 @@ public class Player extends Entity implements Observer{
         if(state == EntityState.NONE){
             dy += currentJumpSpeed;
             if(currentJumpSpeed < jumpSpeed){
-                currentJumpSpeed += .09;
+                currentJumpSpeed += .05;
             }
             if(currentJumpSpeed >= jumpSpeed){
                 currentJumpSpeed = jumpSpeed;   //reset currentHumpSpeed
             }  
-            if(landingY <= pos.getY()){         //after the falling we
+            if(landingY-100 <= pos.getY() && pos.getY() <= landingY + 100){         //after the falling we
                 pos.setY(landingY);
                 dy = 0;                         //reset the delta
                 state = EntityState.RUN;
             }
         }
+        if(state == EntityState.ATTACK){
+           if(action != 3){
+               state = EntityState.RUN;
+           }
+        }
+        
+        if(state==EntityState.CRUNCH){
+            if(action != 5){
+                state = EntityState.NONE;
+            }
+        }
+        
+        
+        
+        
     }
     
     public void updateGame(){   //this update all the aspect of a player
@@ -59,7 +74,7 @@ public class Player extends Entity implements Observer{
         move();
         pos.addX(dx);    //update x position
         pos.addY(dy);  //update y position
-        GamePanel.getMapPos().addX(dx);  //RIVEDERE, NON PULITO DAL PUNTO DI VISTA DEL CODICE POICHE' map E' DICHIARATA COME POSITION STATICA
+        GamePanel.map.addX(dx);  //RIVEDERE, NON PULITO DAL PUNTO DI VISTA DEL CODICE POICHE' map E' DICHIARATA COME POSITION STATICA
         //GamePanel.map.addY(dy);
     }
     
@@ -68,17 +83,26 @@ public class Player extends Entity implements Observer{
         g.drawImage(ani.getImage(), (int)pos.getWorldVar().getX(), (int)pos.getWorldVar().getY(), size, size, null);
     }
     
+    @Override
     public void mapValueAction(int key, boolean b){
         if(true){ //in case the player is alive
-            if((key == 1) && !(state == EntityState.JUMP) && !(state == EntityState.NONE)){
+            if((key == 1) && !(state == EntityState.JUMP) && !(state == EntityState.NONE) && state == EntityState.RUN){
                 action = 1;
                 state = EntityState.JUMP;
             }
-            if(key == 2){
+            if(key == 5 && !(state == EntityState.CRUNCH) && !(state == EntityState.NONE) && state == EntityState.RUN){
+                action = 5;
                 state = EntityState.CRUNCH;
+            }else if (key == 5 && b){
+                action = 0;
+                state = EntityState.RUN;
             }
-            if(key == 3){
+            if(key == 3 && state == EntityState.RUN){
+                action = 3;
                 state = EntityState.ATTACK;
+            } else if (b){
+                action = 0;
+                state = EntityState.RUN;
             }
         }else{
             state = EntityState.DEAD;

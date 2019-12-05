@@ -1,7 +1,6 @@
 package entity;
 
 import graphics.Sprite;
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.Observable;
 import java.util.Observer;
@@ -20,7 +19,6 @@ public class Player extends Entity implements Observer{
     public Player(Sprite sprite, Position origin, int size, KeyHandler khdl) {
         super(sprite, origin, size);
         this.khdl = khdl;
-        this.khdl.addObserver(this);
     }
     
     public void move(){

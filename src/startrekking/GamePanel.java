@@ -3,8 +3,6 @@ package startrekking;
 import entity.Player;
 import graphics.Sprite;
 import tiles.TileFacade;
-import java.awt.BorderLayout;
-import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -89,6 +87,7 @@ public class GamePanel extends JPanel implements Runnable {
         
         tf = new TileFacade("tiles/LevelOne.xml");
         player = new Player(new Sprite("entity/mage.png", 64, 64), new Position(0 + 32, 0 + (GamePanel.HEIGHT) - 126), 96, key);
+        key.addObserver(player);
         font = new Sprite("font/Font.png", 10, 10);
 
     }
@@ -201,7 +200,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public static void main(String[] args) {
-        new GamePanel();
+        GamePanel gamePanel = new GamePanel();
     }
     
     public static Position getMapPos(){

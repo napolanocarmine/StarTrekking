@@ -12,10 +12,11 @@ import util.EntityState;
 
 public class Player extends Entity implements Observer{
     
-    private double jumpSpeed = 5;
-    private double currentJumpSpeed =jumpSpeed;
+    private double jumpSpeed = 1;
+    private double currentJumpSpeed = jumpSpeed;
     private KeyHandler khdl;
-    
+    int action;
+    float landingY = pos.getY();
     public Player(Sprite sprite, Position origin, int size, KeyHandler khdl) {
         super(sprite, origin, size);
         this.khdl = khdl;
@@ -23,32 +24,42 @@ public class Player extends Entity implements Observer{
     }
     
     public void move(){
-        dx += acc;  //Player Acceleration
-        if(dx > maxSpeed){
-            dx = maxSpeed; //if the delta x is over the max we reset it
-        }
-        
-        float landingY = pos.getY();    //start of y position
-        if(state == EntityState.JUMP)   //case of jump
-            dy -= currentJumpSpeed;     //decrementation for jumping
-            currentJumpSpeed -= .1;     //gravity
-            if(currentJumpSpeed <= 0){
-                dy += currentJumpSpeed; //incrementation for falling
-                currentJumpSpeed += .1; //gravity
-                if(pos.getY() == landingY){         //after the falling we
-                    dy = 0;                         //reset the delta
+            dx += acc;  //Player Acceleration
+            if(dx > maxSpeed){
+                dx = maxSpeed; //if the delta x is over the max we reset it
+            }
+            
+            if(state == EntityState.JUMP){   //case of jump
+                dy -= currentJumpSpeed;     //decrementation for jumping
+                currentJumpSpeed -= .09;     //gravity
+                if(currentJumpSpeed <= 0){
+                    state = EntityState.NONE;
+                }
+            }
+            
+            if(state == EntityState.NONE){
+                dy += currentJumpSpeed;
+                if(currentJumpSpeed < jumpSpeed){
+                    currentJumpSpeed += .09;
+                }
+                if(currentJumpSpeed >= jumpSpeed){
                     currentJumpSpeed = jumpSpeed;   //reset currentHumpSpeed
+                }  
+                if(landingY <= pos.getY()){         //after the falling we
+                    pos.setY(landingY);
+                    dy = 0;                         //reset the delta
+                    state = EntityState.RUN;
+                }
             }
         }
-    }
     
     public void updateGame(){   //this update all the aspect of a player
-        super.updateGame();     //e.g. movement, animation, position
+        super.updateGame(action);     //e.g. movement, animation, position
         move();
         pos.addX(dx);    //update x position
         pos.addY(dy);  //update y position
-        GamePanel.map.addX(dx);  //RIVEDERE, NON PULITO DAL PUNTO DI VISTA DEL CODICE POICHE' map E' DICHIARATA COME POSITION STATICA
-        GamePanel.map.addY(dy);
+        GamePanel.getMapPos().addX(dx);  //RIVEDERE, NON PULITO DAL PUNTO DI VISTA DEL CODICE POICHE' map E' DICHIARATA COME POSITION STATICA
+        //GamePanel.map.addY(dy);
     }
     
     @Override
@@ -57,23 +68,16 @@ public class Player extends Entity implements Observer{
     }
     
     public void mapValueAction(int key, boolean b){
-        
         if(true){ //in case the player is alive
-            if(key == 1){
-                System.out.println("JUMPIIING");
+            if((key == 1) && !(state == EntityState.JUMP) && !(state == EntityState.NONE)){
+                action = 1;
                 state = EntityState.JUMP;
-            }else if (b== false){
-                state = EntityState.RUN;
             }
             if(key == 2){
                 state = EntityState.CRUNCH;
-            }else if(b == false){
-                state = EntityState.RUN;
             }
             if(key == 3){
                 state = EntityState.ATTACK;
-            }else if(b == false){
-                state = EntityState.RUN;
             }
         }else{
             state = EntityState.DEAD;

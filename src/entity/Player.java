@@ -32,7 +32,7 @@ public class Player extends Entity implements Observer{
         
         if(state == EntityState.JUMP){   //case of jump
             dy -= currentJumpSpeed;     //decrementation for jumping
-            currentJumpSpeed -= .05;     //gravity
+            currentJumpSpeed -= .09;     //gravity
             if(currentJumpSpeed <= 0){
                 state = EntityState.NONE;
             }
@@ -41,12 +41,12 @@ public class Player extends Entity implements Observer{
         if(state == EntityState.NONE){
             dy += currentJumpSpeed;
             if(currentJumpSpeed < jumpSpeed){
-                currentJumpSpeed += .05;
+                currentJumpSpeed += .09;
             }
             if(currentJumpSpeed >= jumpSpeed){
                 currentJumpSpeed = jumpSpeed;   //reset currentHumpSpeed
             }  
-            if(landingY-100 <= pos.getY() && pos.getY() <= landingY + 100){         //after the falling we
+            if(landingY <= pos.getY()){         //after the falling we
                 pos.setY(landingY);
                 dy = 0;                         //reset the delta
                 state = EntityState.RUN;
@@ -59,7 +59,7 @@ public class Player extends Entity implements Observer{
         move();
         pos.addX(dx);    //update x position
         pos.addY(dy);  //update y position
-        GamePanel.map.addX(dx);  //RIVEDERE, NON PULITO DAL PUNTO DI VISTA DEL CODICE POICHE' map E' DICHIARATA COME POSITION STATICA
+        GamePanel.getMapPos().addX(dx);  //RIVEDERE, NON PULITO DAL PUNTO DI VISTA DEL CODICE POICHE' map E' DICHIARATA COME POSITION STATICA
         //GamePanel.map.addY(dy);
     }
     

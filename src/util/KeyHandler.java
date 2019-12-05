@@ -24,11 +24,10 @@ public class KeyHandler extends Observable implements KeyListener{
     /**
      * KeyHandler's constructor
      */
-    public KeyHandler(GamePanel game){
+    public KeyHandler(){
         super();
         released = false;
         key = EntityState.NONE;
-        game.addKeyListener(this);
     }
     
     /**
@@ -49,7 +48,6 @@ public class KeyHandler extends Observable implements KeyListener{
      * Notify that something is changed
      */
     private void stateChanged(){
-        System.out.println("Tasto premuto");
         setChanged();
         notifyObservers();
     }
@@ -60,7 +58,6 @@ public class KeyHandler extends Observable implements KeyListener{
     public void keyPressed(KeyEvent ke) {
         switch(ke.getKeyCode()){
             case KeyEvent.VK_SPACE:
-                System.out.println("Tasto premuto");
                 key = EntityState.JUMP;
                 released = false;
                 stateChanged();
@@ -92,7 +89,6 @@ public class KeyHandler extends Observable implements KeyListener{
     
     @Override
     public void keyTyped(KeyEvent ke) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
         
 }

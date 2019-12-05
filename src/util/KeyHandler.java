@@ -89,7 +89,6 @@ public class KeyHandler extends Observable implements KeyListener{
     
     @Override
     public void keyTyped(KeyEvent ke) {
-  
     }
         
 }

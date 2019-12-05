@@ -34,7 +34,7 @@ public class GamePanel extends JPanel implements Runnable {
     public static final String NAME = "STAR TREKKING";
 
     public static int oldFrameCount;
-    public static Position map;
+    private static Position map;
 
     private JFrame frame;
     private Thread thread;

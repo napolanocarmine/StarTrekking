@@ -52,7 +52,13 @@ public class Player extends Entity implements Observer{
                         state = EntityState.RUN;
                     }
                 }
-            }        
+            }else if(state == EntityState.ATTACK){
+                if(/*ani.hasPlayed(1)*/ ani.getFrame() == 3){
+                    state = EntityState.RUN;
+                }
+            }else if(state == EntityState.CRUNCH){
+                if(ani.getFrame() == 1) ani.setDelay(-1);
+            }     
     }
     
     public void updateGame(){
@@ -74,8 +80,10 @@ public class Player extends Entity implements Observer{
             if((key == 4) && (state != EntityState.JUMP) && (state != EntityState.NONE)){
                 state = EntityState.JUMP;
             }
-            if(key == 2){
+            if(key == 5 && !b){
                 state = EntityState.CRUNCH;
+            }else if(key == 5 && b){
+                state = EntityState.RUN;
             }
             if(key == 3){
                 state = EntityState.ATTACK;

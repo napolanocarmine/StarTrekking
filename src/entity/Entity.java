@@ -14,23 +14,11 @@ import util.EntityState;
 
 public abstract class Entity {
     
-//    protected final int RUN = 0;
-//    protected final int JUMP = 1;  //position of the row in the frames's png image  in which there will be the UP animation
-//    protected final int CRUNCH = 2;
-//    protected final int ATTACK = 3;
-//    protected final int DEAD = 4;
-    
     protected Animation ani;
     protected Sprite sprite;
     protected Position pos;
     protected int size;
-    
-    //State
-    protected boolean jump;
-    protected boolean run;
-    protected boolean attack;
-    protected boolean dead;
-    protected boolean crunch;
+
     protected EntityState state; //Key premuta
     protected EntityState currentState; //Animazione Corrente
     

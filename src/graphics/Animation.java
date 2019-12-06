@@ -19,8 +19,8 @@ public class Animation {
         currentFrame = 0;
         count = 0;
         timesPlayed = 0;
-        delay = 5;
         numFrames = frames.length;
+        delay = 5;
     }
     
     public Animation(){
@@ -32,7 +32,6 @@ public class Animation {
         currentFrame = 0;
         count = 0;
         timesPlayed = 0;
-        delay = 2;
         numFrames = frames.length;
     }
     

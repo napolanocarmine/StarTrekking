@@ -8,7 +8,7 @@ import util.Position;
 
 public class Sprite {
 
-    private BufferedImage spriteMatrix = null;
+    private BufferedImage spriteMatrix;
     private BufferedImage[][] spriteArray;
     private final int TILE_SIZE = 32;
     public int w;

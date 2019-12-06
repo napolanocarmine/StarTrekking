@@ -79,7 +79,7 @@ public abstract class Entity {
     
     //Setta l'animazione sulla base dello stato;
     public void animate(EntityState state){
-        if(state != this.currentState || ani.getDelay() == -1){          
+        if(state != this.currentState){          
             this.currentState = state;    
             setAnimation(state, sprite.getSpriteArray(state.ordinal()), 5);
         }    

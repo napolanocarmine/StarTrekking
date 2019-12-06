@@ -1,6 +1,5 @@
 package entity;
 
-import graphics.Animation;
 import graphics.Sprite;
 import java.awt.Graphics2D;
 import java.util.Observable;
@@ -17,6 +16,7 @@ public class Player extends Entity implements Observer{
     private KeyHandler khdl;
     int action;
     float landingY = pos.getY();
+    private boolean falling = false;
    
     public Player(Sprite sprite, Position origin, int size, KeyHandler khdl) {
         super(sprite, origin, size, EntityState.RUN);
@@ -29,34 +29,35 @@ public class Player extends Entity implements Observer{
                 dx = maxSpeed; //if the delta x is over the max we reset it
             }
             
-            if(state == EntityState.JUMP){   //case of jump
-                dy -= currentJumpSpeed;     //decrementation for jumping
-                currentJumpSpeed -= .09;     //gravity
-                if(currentJumpSpeed <= 0){
-                    state = EntityState.NONE;
+            if(state == EntityState.JUMP){
+                if(ani.getFrame() == 3) ani.setDelay(-1);
+                if(!falling){
+                  dy -= currentJumpSpeed;     //decrementation for jumping
+                  currentJumpSpeed -= .09;
+                  if(currentJumpSpeed<=0){
+                    falling = true;
+                  }
+                }else{
+                    dy += currentJumpSpeed;
+                    if(currentJumpSpeed < jumpSpeed){
+                        currentJumpSpeed += .09;
+                    }
+                    if(currentJumpSpeed >= jumpSpeed){
+                        currentJumpSpeed = jumpSpeed;   //reset currentHumpSpeed
+                    }  
+                    if(landingY <= pos.getY()){         //after the falling we
+                        pos.setY(landingY);
+                        dy = 0;                         //reset the delta
+                        falling = false;
+                        state = EntityState.RUN;
+                    }
                 }
-            }
-            
-            
-            if(state == EntityState.NONE){
-                dy += currentJumpSpeed;
-                if(currentJumpSpeed < jumpSpeed){
-                    currentJumpSpeed += .09;
-                }
-                if(currentJumpSpeed >= jumpSpeed){
-                    currentJumpSpeed = jumpSpeed;   //reset currentHumpSpeed
-                }  
-                if(landingY <= pos.getY()){         //after the falling we
-                    pos.setY(landingY);
-                    dy = 0;                         //reset the delta
-                    state = EntityState.RUN;
-                }
-            }
-        }
+            }        
+    }
     
-    public void updateGame(){   //this update all the aspect of a player
+    public void updateGame(){
+        move();//this update all the aspect of a player
         super.updateGame(state);     //e.g. movement, animation, position
-        move();
         pos.addX(dx);    //update x position
         pos.addY(dy);  //update y position
         GamePanel.getMapPos().addX(dx);  //RIVEDERE, NON PULITO DAL PUNTO DI VISTA DEL CODICE POICHE' map E' DICHIARATA COME POSITION STATICA

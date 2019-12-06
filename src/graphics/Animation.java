@@ -15,7 +15,12 @@ public class Animation {
     
     public Animation(BufferedImage[] frames){
         timesPlayed = 0;
-        setFrames(frames);
+        this.frames = frames;
+        currentFrame = 0;
+        count = 0;
+        timesPlayed = 0;
+        delay = 5;
+        numFrames = frames.length;
     }
     
     public Animation(){

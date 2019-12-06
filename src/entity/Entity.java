@@ -10,17 +10,15 @@ import java.awt.image.BufferedImage;
 import graphics.Animation;
 import graphics.Sprite;
 import util.Position;
-import util.KeyHandler;
 import util.EntityState;
 
 public abstract class Entity {
     
-    protected final int RUN = 0;
-    protected final int JUMP = 1;  //position of the row in the frames's png image  in which there will be the UP animation
-    protected final int CRUNCH = 2;
-    protected final int ATTACK = 3;
-    protected final int DEAD = 4;
-    protected int currentAnimation;
+//    protected final int RUN = 0;
+//    protected final int JUMP = 1;  //position of the row in the frames's png image  in which there will be the UP animation
+//    protected final int CRUNCH = 2;
+//    protected final int ATTACK = 3;
+//    protected final int DEAD = 4;
     
     protected Animation ani;
     protected Sprite sprite;
@@ -33,7 +31,8 @@ public abstract class Entity {
     protected boolean attack;
     protected boolean dead;
     protected boolean crunch;
-    protected EntityState state;
+    protected EntityState state; //Key premuta
+    protected EntityState currentState; //Animazione Corrente
     
     protected float dx = 0;
     protected float dy = 0;
@@ -47,13 +46,13 @@ public abstract class Entity {
     
     //protected TileCollision tc;
     
-    public Entity(Sprite sprite, Position origin, int size){
+    public Entity(Sprite sprite, Position origin, int size,EntityState state){
         this.sprite = sprite;
         pos = origin;
         this.size = size;
-        
-        ani = new Animation();
-        setAnimation(RUN, sprite.getSpriteArray(RUN), 10);
+        this.ani = new Animation(sprite.getSpriteArray(state.ordinal()));
+        this.state = state;
+        this.currentState = state;
     }
     
     public void setSprite(Sprite sprite){
@@ -71,48 +70,25 @@ public abstract class Entity {
     public int getSize(){ return size; }
     public Animation getAnimation(){ return ani; }
     
-    public void setAnimation(int i, BufferedImage[] frames, int delay){
-        currentAnimation  = i;
+    
+    public void setAnimation(EntityState state, BufferedImage[] frames, int delay){
+        this.state = state;
         ani.setFrames(frames);
         ani.setDelay(delay);
     }
     
-    public void animate(int action){
-        if(action == 1){
-            if(currentAnimation != JUMP || ani.getDelay() == -1){
-                setAnimation(JUMP, sprite.getSpriteArray(JUMP), 5);
-            }
-        }
-        else if(action == 0){
-            if(currentAnimation != RUN || ani.getDelay() == -1){
-                setAnimation(RUN, sprite.getSpriteArray(RUN), 5);
-            }
-        }
-        else if(dead){
-            if(currentAnimation != DEAD || ani.getDelay() == -1){
-                setAnimation(DEAD, sprite.getSpriteArray(DEAD), 5);
-            }
-        }
-        
-        else if(crunch){
-            if(currentAnimation != CRUNCH || ani.getDelay() == -1){
-                setAnimation(CRUNCH, sprite.getSpriteArray(CRUNCH), 5);
-            }
-        }
-        else if(attack){
-            if(currentAnimation != ATTACK || ani.getDelay() == -1){
-                setAnimation(ATTACK, sprite.getSpriteArray(ATTACK), 5);
-            }
-        }else {
-            setAnimation(currentAnimation, sprite.getSpriteArray(currentAnimation), -1);
-        }
+    //Setta l'animazione sulla base dello stato;
+    public void animate(EntityState state){
+        if(state != this.currentState || ani.getDelay() == -1){          
+            this.currentState = state;    
+            setAnimation(state, sprite.getSpriteArray(state.ordinal()), 5);
+        }    
     }
         
-    public void updateGame(int action){
-        animate(action);
+    public void updateGame(EntityState state){
+        animate(state);
         ani.updateGame();
     }
     
     public abstract void render(Graphics2D g);
-    public void mapValueAction(int key, boolean b){};
 }

@@ -1,5 +1,6 @@
 package entity;
 
+import graphics.Animation;
 import graphics.Sprite;
 import java.awt.Graphics2D;
 import java.util.Observable;
@@ -16,8 +17,9 @@ public class Player extends Entity implements Observer{
     private KeyHandler khdl;
     int action;
     float landingY = pos.getY();
+   
     public Player(Sprite sprite, Position origin, int size, KeyHandler khdl) {
-        super(sprite, origin, size);
+        super(sprite, origin, size, EntityState.RUN);
         this.khdl = khdl;
     }
     
@@ -34,6 +36,7 @@ public class Player extends Entity implements Observer{
                     state = EntityState.NONE;
                 }
             }
+            
             
             if(state == EntityState.NONE){
                 dy += currentJumpSpeed;
@@ -52,7 +55,7 @@ public class Player extends Entity implements Observer{
         }
     
     public void updateGame(){   //this update all the aspect of a player
-        super.updateGame(action);     //e.g. movement, animation, position
+        super.updateGame(state);     //e.g. movement, animation, position
         move();
         pos.addX(dx);    //update x position
         pos.addY(dy);  //update y position
@@ -65,10 +68,9 @@ public class Player extends Entity implements Observer{
         g.drawImage(ani.getImage(), (int)pos.getWorldVar().getX(), (int)pos.getWorldVar().getY(), size, size, null);
     }
     
-    public void mapValueAction(int key, boolean b){
+    private void mapValueAction(int key, boolean b){
         if(true){ //in case the player is alive
-            if((key == 1) && !(state == EntityState.JUMP) && !(state == EntityState.NONE)){
-                action = 1;
+            if((key == 4) && (state != EntityState.JUMP) && (state != EntityState.NONE)){
                 state = EntityState.JUMP;
             }
             if(key == 2){

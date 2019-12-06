@@ -1,6 +1,8 @@
 package startrekking;
 
+import entity.Entity;
 import entity.Player;
+import graphics.Animation;
 import graphics.Sprite;
 import tiles.TileFacade;
 import java.awt.Color;
@@ -10,6 +12,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import util.EntityState;
 import util.KeyHandler;
 import util.Position;
 
@@ -63,7 +66,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     }
 
-    public void startThread() {
+    public final void startThread() {
         //super.addNotify();
         if (thread == null) {
             System.out.println("check");
@@ -86,10 +89,10 @@ public class GamePanel extends JPanel implements Runnable {
         addKeyListener(key);
         
         tf = new TileFacade("tiles/LevelOne.xml");
+        
         player = new Player(new Sprite("entity/mage.png", 64, 64), new Position(0 + 32, 0 + (GamePanel.HEIGHT) - 126), 96, key);
         key.addObserver(player);
         font = new Sprite("font/Font.png", 10, 10);
-
     }
 
     @Override
@@ -161,7 +164,6 @@ public class GamePanel extends JPanel implements Runnable {
     public void update() {
         Position.setWorldVar(map.getX(), map.getY());
         player.updateGame();
-
         color = frame.getBackground();
     }
 

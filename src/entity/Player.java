@@ -4,6 +4,8 @@ import graphics.Sprite;
 import java.awt.Graphics2D;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Timer;
+import java.util.TimerTask;
 import startrekking.GamePanel;
 import util.KeyHandler;
 import util.Position;
@@ -17,10 +19,15 @@ public class Player extends Entity implements Observer{
     int action;
     float landingY = pos.getY();
     private boolean falling = false;
-   
+    private Timer timer;
+    private final int PERIOD_INTERVAL = 2;
+    private final int INITIAL_DELAY = 1;
+    
     public Player(Sprite sprite, Position origin, int size, KeyHandler khdl) {
         super(sprite, origin, size, EntityState.RUN);
         this.khdl = khdl;
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new ScheduleTask(), INITIAL_DELAY*1000,PERIOD_INTERVAL*1000);
     }
     
     public void move(){
@@ -101,5 +108,15 @@ public class Player extends Entity implements Observer{
             boolean b = khdl.isPressed();
             mapValueAction(key, b);
         }
+    }
+    
+    private class ScheduleTask extends TimerTask{
+
+        @Override
+        public void run() {
+            setMaxSpeed(getMaxSpeed()+1);
+            System.err.println(getMaxSpeed());
+        }
+        
     }
 }

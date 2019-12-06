@@ -51,7 +51,9 @@ public abstract class Entity {
         state = EntityState.DEAD;
     }
     public void setSize(int i){ size = i; }
+    public float getMaxSpeed(){return maxSpeed;}
     public void setMaxSpeed(float f){ maxSpeed = f;}
+    public float getAcc(){return acc;}
     public void setAcc(float f){ acc = f;}
     public void setDeAcc(float f){ deacc = f; }
     

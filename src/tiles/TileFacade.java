@@ -18,13 +18,13 @@ import org.w3c.dom.NodeList;
 public class TileFacade {
 
     public static ArrayList<TileMap> tm;
-    
-    public TileFacade(){
-        tm = new ArrayList<TileMap>();
+
+    public TileFacade() {
+        tm = new ArrayList<>();
     }
-    
-    public TileFacade(String path){
-        tm = new ArrayList<TileMap>();
+
+    public TileFacade(String path) {
+        tm = new ArrayList<>();
         addTileMap(path, 16, 16);
     }
 
@@ -54,39 +54,38 @@ public class TileFacade {
             imagePath = eElement.getAttribute("name");
             tileWidth = Integer.parseInt(eElement.getAttribute("tilewidth"));
             tileHeight = Integer.parseInt(eElement.getAttribute("tileheight"));
-            tileColumns =  Integer.parseInt(eElement.getAttribute("columns"));
-            
+            tileColumns = Integer.parseInt(eElement.getAttribute("columns"));
+
             sprite = new Sprite("tiles/" + imagePath + ".png", tileWidth, tileHeight);
 
             list = doc.getElementsByTagName("layer");
             layers = list.getLength();
 
-            for(int i = 0; i < layers; i++) {
+            for (int i = 0; i < layers; i++) {
                 node = list.item(i);
                 eElement = (Element) node;
-                if(i <= 0) {
+                if (i <= 0) {
                     width = Integer.parseInt(eElement.getAttribute("width"));
                     height = Integer.parseInt(eElement.getAttribute("height"));
                 }
 
                 data[i] = eElement.getElementsByTagName("data").item(0).getTextContent();
 
-                if(i == 1) {
+                if (i == 1) {
                     tm.add(new TileMapObj(data[i], sprite, width, height, blockWidth, blockHeight, tileColumns));
                 } else {
                     tm.add(new TileMapNorm(data[i], sprite, width, height, blockWidth, blockHeight, tileColumns));
                 }
             }
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.println("ERROR - TILEMANAGER: can not read tilemap:" + path);
-            e.printStackTrace();
             System.exit(0);
         }
     }
 
-    public void render(Graphics2D g){
-        for(int i=0; i<tm.size(); i++){
+    public void render(Graphics2D g) {
+        for (int i = 0; i < tm.size(); i++) {
             tm.get(i).render(g);
         }
     }

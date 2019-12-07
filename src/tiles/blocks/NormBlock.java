@@ -6,16 +6,18 @@ import util.Position;
 
 public class NormBlock extends Block {
 
-    public NormBlock(BufferedImage img, Position pos, int w, int h){
+    public NormBlock(BufferedImage img, Position pos, int w, int h) {
         super(img, pos, w, h);
     }
-    
-    public boolean update(){
+
+    @Override
+    public boolean update() {
         return false;
     }
-    
-    public void render(Graphics2D g){
+
+    @Override
+    public void render(Graphics2D g) {
         super.render(g);
     }
-    
+
 }

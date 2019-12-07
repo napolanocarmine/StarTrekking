@@ -21,26 +21,26 @@ import tiles.TileFacade;
  * @author CARMINE
  */
 public class GamePanelIT {
-    
+
     public GamePanelIT() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
-    
+
     /**
      * Test of main method, of class GamePanel.
      */
@@ -51,30 +51,30 @@ public class GamePanelIT {
         JFrame panel = new JFrame();
         panel.setName("STAR TREKKING");
         GamePanel test = new GamePanel();
-        
+
         //check window's dimension
         assertEquals(1600, GamePanel.getWIDTH());
         System.out.println("larghezza");
         assertEquals(528, GamePanel.getHEIGHT());
         System.out.println("altezza");
-        
+
         //check window's name
         assertEquals(panel.getName(), GamePanel.NAME);
         System.out.println("nome");
-        
+
         //check update window
         panel.setBackground(Color.YELLOW);
         assertEquals(panel.getBackground(), test.color);
         System.out.println("colore");
-        
+
         //check graphics object is not null
         assertEquals(true, test.test);
         System.out.println("oggetto grafico");
-        
+
         //check graphics object is drawed
         assertEquals(true, test.drawImage);
         System.out.println("disegnato");
 
     }
-    
+
 }

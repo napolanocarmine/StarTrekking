@@ -87,7 +87,7 @@ public class Player extends Entity implements Observer{
             if((key == 4) && (state != EntityState.JUMP) && (state != EntityState.NONE)){
                 state = EntityState.JUMP;
             }
-            if(key == 5 && !b){
+            if(key == 5 && !b ){
                 state = EntityState.CRUNCH;
             }else if(key == 5 && b){
                 state = EntityState.RUN;
@@ -116,6 +116,7 @@ public class Player extends Entity implements Observer{
         public void run() {
             setMaxSpeed(getMaxSpeed()+1);
             System.err.println(getMaxSpeed());
+            //jumpSpeed += 1;
         }
         
     }

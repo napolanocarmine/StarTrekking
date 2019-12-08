@@ -64,17 +64,17 @@ public class KeyHandler extends Observable implements KeyListener {
     @Override
     public void keyPressed(KeyEvent ke) {
         switch (ke.getKeyCode()) {
-            case KeyEvent.VK_SPACE:                        //space -> 32
+            case 32: //spacebar key
                 key = EntityState.JUMP;
                 released = false;
                 stateChanged();
                 break;
-            case KeyEvent.VK_CONTROL:                     //control -> 17
+            case 17: //control key
                 key = EntityState.CRUNCH;
                 released = false;
                 stateChanged();
                 break;
-            case KeyEvent.VK_X:                          //x -> 88
+            case 88: //x key
                 key = EntityState.ATTACK;
                 released = false;
                 stateChanged();
@@ -83,7 +83,6 @@ public class KeyHandler extends Observable implements KeyListener {
                 key = EntityState.NONE;
                 System.out.println("Unknown Key");
         }
-        System.out.println(ke.getKeyCode());
     }
 
     /**

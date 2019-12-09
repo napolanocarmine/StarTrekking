@@ -83,7 +83,7 @@ public class KeyHandler extends Observable implements KeyListener {
                 key = EntityState.NONE;
                 System.out.println("Unknown Key");
         }
-        System.out.println(ke.getKeyCode());
+//        System.out.println(ke.getKeyCode());
     }
 
     /**
@@ -93,8 +93,11 @@ public class KeyHandler extends Observable implements KeyListener {
      */
     @Override
     public void keyReleased(KeyEvent ke) {
-        released = true;
-        stateChanged();
+        if(ke.getKeyCode() == KeyEvent.VK_CONTROL){
+            released = true;
+            stateChanged();
+            System.out.println(ke.getKeyCode());
+        }
     }
 
     @Override

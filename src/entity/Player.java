@@ -14,6 +14,7 @@ import util.EntityState;
 public class Player extends Entity implements Observer{
     
     private double jumpSpeed = 1;
+    private double fallspeed = .09;
     private double currentJumpSpeed = jumpSpeed;
     private KeyHandler khdl;
     int action;
@@ -40,14 +41,14 @@ public class Player extends Entity implements Observer{
                 if(ani.getFrame() == 3) ani.setDelay(-1);
                 if(!falling){
                   dy -= currentJumpSpeed;     //decrementation for jumping
-                  currentJumpSpeed -= .09;
+                  currentJumpSpeed -= fallspeed;
                   if(currentJumpSpeed<=0){
                     falling = true;
                   }
                 }else{
                     dy += currentJumpSpeed;
                     if(currentJumpSpeed < jumpSpeed){
-                        currentJumpSpeed += .09;
+                        currentJumpSpeed += fallspeed;
                     }
                     if(currentJumpSpeed >= jumpSpeed){
                         currentJumpSpeed = jumpSpeed;   //reset currentHumpSpeed
@@ -116,7 +117,7 @@ public class Player extends Entity implements Observer{
         public void run() {
             setMaxSpeed(getMaxSpeed()+1);
             System.err.println(getMaxSpeed());
-            //jumpSpeed += 1;
+            //fallspeed += 0.01;
         }
         
     }

@@ -4,70 +4,77 @@
  * and open the template in the editor.
  */
 package util;
+
 /**
  *
- * @author Star Trekking Company 
+ * @author Star Trekking Company
  */
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Observable;
-import startrekking.GamePanel;
 
 /**
- * Class for catching and comunicating the pressed keys
+ * Class for catching and communicating the pressed keys
  */
-public class KeyHandler extends Observable implements KeyListener{
+public class KeyHandler extends Observable implements KeyListener {
 
     private EntityState key;
     private boolean released;
-   
+
     /**
      * KeyHandler's constructor
      */
-    public KeyHandler(){
+    public KeyHandler() {
         super();
         released = false;
         key = EntityState.NONE;
     }
-    
+
     /**
      * Return the key value
+     *
+     * @return
      */
-    public int getValue(){
+    public int getValue() {
         return key.ordinal();
     }
-    
+
     /**
-    * Return true if key has been released,
-    * otherwise false
-    */
-    public boolean isPressed(){
+     * Return true if key has been released, otherwise false
+     *
+     * @return
+     */
+    public boolean isPressed() {
         return released;
     }
+
     /**
      * Notify that something is changed
      */
-    private void stateChanged(){
+    private void stateChanged() {
         setChanged();
         notifyObservers();
     }
+
     /**
      * Assign to key variable the pressed key, among the valid key
+     *
+     * @param ke
      */
     @Override
     public void keyPressed(KeyEvent ke) {
-        switch(ke.getKeyCode()){
-            case KeyEvent.VK_SPACE:
+        switch (ke.getKeyCode()) {
+            case 32: //spacebar key
                 key = EntityState.JUMP;
                 released = false;
                 stateChanged();
                 break;
-            case KeyEvent.VK_CONTROL:
+            case 17: //control key
                 key = EntityState.CRUNCH;
                 released = false;
                 stateChanged();
                 break;
-            case KeyEvent.VK_X:
+            case 88: //x key
                 key = EntityState.ATTACK;
                 released = false;
                 stateChanged();
@@ -80,15 +87,17 @@ public class KeyHandler extends Observable implements KeyListener{
 
     /**
      * Set to true the released variable
+     *
+     * @param ke
      */
     @Override
     public void keyReleased(KeyEvent ke) {
         released = true;
         stateChanged();
     }
-    
+
     @Override
     public void keyTyped(KeyEvent ke) {
     }
-        
+
 }

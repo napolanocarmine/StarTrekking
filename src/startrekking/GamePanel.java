@@ -1,8 +1,6 @@
 package startrekking;
 
-import entity.Entity;
 import entity.Player;
-import graphics.Animation;
 import graphics.Sprite;
 import tiles.TileFacade;
 import java.awt.Color;
@@ -12,7 +10,6 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import util.EntityState;
 import util.KeyHandler;
 import util.Position;
 
@@ -84,12 +81,12 @@ public class GamePanel extends JPanel implements Runnable {
 
         map = new Position(0, 0);
         Position.setWorldVar(map.getX(), map.getY());
-        
+
         key = new KeyHandler();
         addKeyListener(key);
-        
+
         tf = new TileFacade("tiles/LevelOne.xml");
-        
+
         player = new Player(new Sprite("entity/mage.png", 64, 64), new Position(0 + 32, 0 + (GamePanel.HEIGHT) - 126), 96, key);
         key.addObserver(player);
         font = new Sprite("font/Font.png", 10, 10);
@@ -150,7 +147,7 @@ public class GamePanel extends JPanel implements Runnable {
 
                 try {
                     Thread.sleep(1);
-                } catch (Exception e) {
+                } catch (InterruptedException e) {
                     System.out.println("ERROR: yielding thread");
                 }
                 now = System.nanoTime();
@@ -204,8 +201,8 @@ public class GamePanel extends JPanel implements Runnable {
     public static void main(String[] args) {
         GamePanel gamePanel = new GamePanel();
     }
-    
-    public static Position getMapPos(){
+
+    public static Position getMapPos() {
         return map;
     }
 

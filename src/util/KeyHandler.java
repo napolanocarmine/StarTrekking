@@ -19,15 +19,16 @@ import java.util.Observable;
 public class KeyHandler extends Observable implements KeyListener {
 
     private EntityState key;
-    private boolean released;
-
+    private boolean pressed;//True if ctrl or space are pressed, otherwise false
+    private int currentKey;
     /**
      * KeyHandler's constructor
      */
     public KeyHandler() {
         super();
-        released = false;
+        pressed = false;
         key = EntityState.NONE;
+        currentKey = -1;
     }
 
     /**
@@ -40,12 +41,12 @@ public class KeyHandler extends Observable implements KeyListener {
     }
 
     /**
-     * Return true if key has been released, otherwise false
+     * Return true if key is pressed, otherwise false
      *
      * @return
      */
     public boolean isPressed() {
-        return released;
+        return pressed;
     }
 
     /**
@@ -63,25 +64,30 @@ public class KeyHandler extends Observable implements KeyListener {
      */
     @Override
     public void keyPressed(KeyEvent ke) {
-        switch (ke.getKeyCode()) {
-            case 32: //spacebar key
-                key = EntityState.JUMP;
-                released = false;
-                stateChanged();
-                break;
-            case 17: //control key
-                key = EntityState.CRUNCH;
-                released = false;
-                stateChanged();
-                break;
-            case 88: //x key
-                key = EntityState.ATTACK;
-                released = false;
-                stateChanged();
-                break;
-            default:
-                key = EntityState.NONE;
-                System.out.println("Unknown Key");
+        if(!pressed){
+            switch (ke.getKeyCode()) {
+                case 32://KeyEvent.VK_SPACE:                        //space -> 32
+                    key = EntityState.JUMP;
+                    currentKey = 32;
+                    pressed = true;
+                    stateChanged();
+                    break;
+                case 17://KeyEvent.VK_CONTROL:                     //control -> 17
+                    key = EntityState.CRUNCH;
+                    pressed = true;
+                    currentKey = 17;
+                    stateChanged();
+                    break;
+                case 88://KeyEvent.VK_X:                          //x -> 88
+                    key = EntityState.ATTACK;
+                     pressed = true;
+                    currentKey = 88;
+                    stateChanged();
+                    break;
+                default:
+                    key = EntityState.NONE;
+                    System.out.println("Unknown Key");
+            }
         }
     }
 
@@ -92,8 +98,12 @@ public class KeyHandler extends Observable implements KeyListener {
      */
     @Override
     public void keyReleased(KeyEvent ke) {
-        released = true;
-        stateChanged();
+        if(currentKey == ke.getKeyCode()){
+            pressed = false;
+            currentKey = -1;
+            stateChanged();
+            System.out.println(ke.getKeyCode());
+        }
     }
 
     @Override

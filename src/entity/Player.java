@@ -112,15 +112,14 @@ public class Player extends Entity implements Observer {
 
     private void mapValueAction(int key, boolean b) {
         if (true) { //in case the player is alive
-            if ((key == 4) && (state != EntityState.JUMP) && (state != EntityState.NONE) && (tc.collisionTileDown(0, dy) && !tc.collisionTileUp(0, dy))) {
+            if ((key == 4) && (state != EntityState.JUMP) && (state != EntityState.NONE)
+                    && (tc.collisionTileDown(0, dy) && !tc.collisionTileUp(0, dy)) && currentState == EntityState.RUN && b) {
                 state = EntityState.JUMP;
-            }
-            if(key == 5 && !b){
+            }else if(key == 5 && b && currentState == EntityState.RUN){
                 state = EntityState.CRUNCH;
-            }else if(key == 5 && b){
+            }else if(key == 5 && !b ){
                 state = EntityState.RUN;
-            }
-            if (key == 3) {
+            }else if (key == 3 && currentState == EntityState.RUN) {
                 state = EntityState.ATTACK;
             }
         } else {

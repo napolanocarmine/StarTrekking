@@ -89,7 +89,6 @@ public class KeyHandler extends Observable implements KeyListener {
                     System.out.println("Unknown Key");
             }
         }
-//        System.out.println(ke.getKeyCode());
     }
 
     /**

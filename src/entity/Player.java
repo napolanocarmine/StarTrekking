@@ -13,12 +13,10 @@ import util.EntityState;
 
 public class Player extends Entity implements Observer{
     
-    private double jumpSpeed = 1;
-    private double fallspeed = .09;
-    private double currentJumpSpeed = jumpSpeed;
+    private double maxJumpHeight; //refers to max height reachable in jumping
+    private float deltaY = 2; // variation of height character perform on every refresh when jumping
+    private float startJumpPosY; //store character y position when starting his jump
     private KeyHandler khdl;
-    int action;
-    float landingY = pos.getY();
     private boolean falling = false;
     private Timer timer;
     private final int PERIOD_INTERVAL = 2;
@@ -39,23 +37,16 @@ public class Player extends Entity implements Observer{
             
             if(state == EntityState.JUMP){
                 if(ani.getFrame() == 3) ani.setDelay(-1);
-                if(!falling){
-                  dy -= currentJumpSpeed;     //decrementation for jumping
-                  currentJumpSpeed -= fallspeed;
-                  if(currentJumpSpeed<=0){
+                if(falling  == false){
+                 dy = -deltaY;
+                  if(pos.getY() <= maxJumpHeight){
                     falling = true;
+                    dy= deltaY;
                   }
                 }else{
-                    dy += currentJumpSpeed;
-                    if(currentJumpSpeed < jumpSpeed){
-                        currentJumpSpeed += fallspeed;
-                    }
-                    if(currentJumpSpeed >= jumpSpeed){
-                        currentJumpSpeed = jumpSpeed;   //reset currentHumpSpeed
-                    }  
-                    if(landingY <= pos.getY()){         //after the falling we
-                        pos.setY(landingY);
-                        dy = 0;                         //reset the delta
+                   dy = deltaY;
+                    if(pos.getY() >= startJumpPosY ){  
+                        dy = -(pos.getY() - startJumpPosY);
                         falling = false;
                         state = EntityState.RUN;
                     }
@@ -73,7 +64,8 @@ public class Player extends Entity implements Observer{
         move();//this update all the aspect of a player
         super.updateGame(state);     //e.g. movement, animation, position
         pos.addX(dx);    //update x position
-        pos.addY(dy);  //update y position
+        pos.addY(dy);  //update y position //no longer used
+        dy=0;
         GamePanel.getMapPos().addX(dx);  //RIVEDERE, NON PULITO DAL PUNTO DI VISTA DEL CODICE POICHE' map E' DICHIARATA COME POSITION STATICA
         //GamePanel.map.addY(dy);
     }
@@ -87,6 +79,8 @@ public class Player extends Entity implements Observer{
         if(true){ //in case the player is alive
             if((key == 4) && (state != EntityState.JUMP) && (state != EntityState.NONE)){
                 state = EntityState.JUMP;
+                startJumpPosY = pos.getY();
+                maxJumpHeight = startJumpPosY - 100;
             }
             if(key == 5 && !b ){
                 state = EntityState.CRUNCH;
@@ -115,9 +109,12 @@ public class Player extends Entity implements Observer{
 
         @Override
         public void run() {
-            setMaxSpeed(getMaxSpeed()+1);
-            System.err.println(getMaxSpeed());
-            //fallspeed += 0.01;
+            System.out.println( "Jump info: \n"+"startJumpPosY: "+startJumpPosY+"\n"+"deltaY: "+deltaY+"\n");
+            
+            deltaY = deltaY + 0.6f;
+            if (deltaY > maxSpeed) {
+                deltaY = maxSpeed;
+            }
         }
         
     }

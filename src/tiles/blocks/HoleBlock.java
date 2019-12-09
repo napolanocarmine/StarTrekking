@@ -3,6 +3,7 @@ package tiles.blocks;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import util.AABB;
 import util.Position;
 
 public class HoleBlock extends Block {
@@ -14,6 +15,15 @@ public class HoleBlock extends Block {
     @Override
     public boolean update() {
         return false;
+    }
+    
+    public boolean isInside(AABB p){
+        if(p.getPos().getX() + p.getXOffset() < pos.getX()) return false; //player right bound smaller than the left tile bound
+        if(p.getPos().getY() + p.getYOffset() < pos.getY()) return false;
+        if(w + pos.getX() < /*p.getWidth() + */(p.getPos().getX() + p.getXOffset())) return false;  //right side of the tile smaller than the left side of the player bounds
+        if(h + pos.getY() < /*p.getHeight() + */(p.getPos().getY() + p.getYOffset())) return false;
+        
+        return true;
     }
 
     @Override

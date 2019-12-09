@@ -2,6 +2,7 @@ package tiles.blocks;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import util.AABB;
 import util.Position;
 
 public class NormBlock extends Block {
@@ -18,6 +19,11 @@ public class NormBlock extends Block {
     @Override
     public void render(Graphics2D g) {
         super.render(g);
+    }
+
+    @Override
+    public boolean isInside(AABB p) {
+        return false;
     }
 
 }

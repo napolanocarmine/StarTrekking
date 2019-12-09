@@ -3,6 +3,7 @@ package tiles.blocks;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import util.AABB;
 import util.Position;
 
 public class ObjBlock extends Block {
@@ -14,6 +15,11 @@ public class ObjBlock extends Block {
     @Override
     public boolean update() {
         return true;
+    }
+    
+    @Override
+    public boolean isInside(AABB p) {
+        return false;
     }
 
     @Override

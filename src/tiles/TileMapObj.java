@@ -10,7 +10,7 @@ import util.Position;
 
 public class TileMapObj extends TileMap {
 
-    public static HashMap<String, Block> tmp_blocks;
+    public static HashMap<String, Block> tmo_blocks;
 
     private int tileWidth;
     private int tileHeight;
@@ -20,7 +20,7 @@ public class TileMapObj extends TileMap {
 
     public TileMapObj(String data, Sprite sprite, int width, int height, int tileWidth, int tileHeight, int tileColumns) {
         Block tempBlock;
-        tmp_blocks = new HashMap<>();
+        tmo_blocks = new HashMap<>();
         String[] block = data.split(",");
 
         for (int i = 0; i < (width * height); i++) {
@@ -33,14 +33,14 @@ public class TileMapObj extends TileMap {
                     tempBlock = new ObjBlock(sprite.getSprite((int) ((temp - 1) % tileColumns), (int) ((temp - 1) / tileColumns)),
                             new Position((int) (i % width) * tileWidth, (int) (i / width) * tileHeight), tileWidth, tileHeight);
                 }
-                tmp_blocks.put(String.valueOf((int) (i % width)) + "," + String.valueOf((int) (i / width)), tempBlock);
+                tmo_blocks.put(String.valueOf((int) (i % width)) + "," + String.valueOf((int) (i / width)), tempBlock);
             }
         }
     }
 
     @Override
     public void render(Graphics2D g) {
-        for (Block block : tmp_blocks.values()) {
+        for (Block block : tmo_blocks.values()) {
             block.render(g);
         }
     }

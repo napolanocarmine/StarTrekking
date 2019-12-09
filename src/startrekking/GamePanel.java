@@ -87,7 +87,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         tf = new TileFacade("tiles/LevelOne.xml");
 
-        player = new Player(new Sprite("entity/mage.png", 64, 64), new Position(0 + 32, 0 + (GamePanel.HEIGHT) - 126), 96, key);
+        player = new Player(new Sprite("entity/mage.png", 64, 64), new Position(0 + 32, 0 + (GamePanel.HEIGHT) - 200), 96, key);
         key.addObserver(player);
         font = new Sprite("font/Font.png", 10, 10);
     }

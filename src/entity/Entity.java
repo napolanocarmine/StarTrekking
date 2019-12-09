@@ -9,8 +9,10 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import graphics.Animation;
 import graphics.Sprite;
+import util.AABB;
 import util.Position;
 import util.EntityState;
+import util.TileCollision;
 
 public abstract class Entity {
     
@@ -28,6 +30,9 @@ public abstract class Entity {
     protected float maxSpeed = 3f;
     protected float acc = 2f;
     protected float deacc = 0.3f;
+    
+    protected AABB bounds;
+    protected TileCollision tc;
 
     //protected AABB hitBounds;
     //protected AABB bounds;
@@ -39,40 +44,26 @@ public abstract class Entity {
         this.ani = new Animation(sprite.getSpriteArray(state.ordinal()));
         this.state = state;
         this.currentState = state;
+        tc = new TileCollision(this);
     }
-
-    public void setSprite(Sprite sprite) {
+    
+    public Entity(Sprite sprite, Position origin, int size) {
         this.sprite = sprite;
+        pos = origin;
+        this.size = size;
+        this.ani = new Animation(sprite.getSpriteArray(0));
     }
 
-    public void setDead() {
-        state = EntityState.DEAD;
-    }
-
-    public void setSize(int i) {
-        size = i;
-    }
-
-    public void setMaxSpeed(float f) {
-        maxSpeed = f;
-    }
-
-    public void setAcc(float f) {
-        acc = f;
-    }
-
-    public void setDeAcc(float f) {
-        deacc = f;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public Animation getAnimation() {
-        return ani;
-    }
-
+    public void setSprite(Sprite sprite) { this.sprite = sprite; }
+    public void setDead() { state = EntityState.DEAD; }
+    public void setSize(int i) { size = i; }
+    public void setMaxSpeed(float f) { maxSpeed = f; }
+    public void setAcc(float f) { acc = f; }
+    public void setDeAcc(float f) { deacc = f; }
+    public int getSize() { return size; }
+    public Animation getAnimation() { return ani; }
+    public AABB getBounds(){ return bounds; }
+    
     public void setAnimation(EntityState state, BufferedImage[] frames, int delay) {
         this.state = state;
         ani.setFrames(frames);
@@ -89,6 +80,10 @@ public abstract class Entity {
 
     public void updateGame(EntityState state) {
         animate(state);
+        ani.updateGame();
+    }
+    
+    public void updateGame(){
         ani.updateGame();
     }
 

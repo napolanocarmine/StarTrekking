@@ -30,6 +30,7 @@ public class Player extends Entity implements Observer {
         this.bounds = new AABB(pos, 16, 32, 40, 32);
         this.khdl = khdl;
         previousY = pos.getY();
+        this.dx = 4;
     }
 
     public void move() {
@@ -74,12 +75,11 @@ public class Player extends Entity implements Observer {
     }
 
     private void attack(){
-        System.out.println("pos: " + pos.getX() + " - " + pos.getY());
         shots.add(new Shot(new Sprite("Entity/shot.png", 32, 32), new Position(96, pos.getY()+24), 48));
     }
     
     public void updateGame() {
-        //System.out.println("y: " + pos.getY());
+        //System.out.println("x: " + pos.getX() + "y: " + pos.getY());
         move();//this update all the aspect of a player
         super.updateGame(state);     //e.g. movement, animation, position
         if(!tc.collisionTile(dx, 0)){

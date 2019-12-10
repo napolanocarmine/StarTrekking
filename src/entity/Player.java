@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import startrekking.GamePanel;
+import tiles.TileFacade;
 import util.AABB;
 import util.KeyHandler;
 import util.Position;
@@ -39,7 +40,6 @@ public class Player extends Entity implements Observer {
         
         //System.out.println("check: " + pos.getY() + " - " +  previousY);
         if((int)pos.getY() > (int)previousY){
-            System.out.println("if posy");
             state = EntityState.JUMP;
             falling = true;
         }
@@ -55,7 +55,6 @@ public class Player extends Entity implements Observer {
                   falling = true;
                 }
             }else{
-                System.out.println("FALLING");
                 dy += currentJumpSpeed;
                 currentJumpSpeed += .09;
                 if(tc.collisionTileDown(0, dy)){
@@ -85,7 +84,9 @@ public class Player extends Entity implements Observer {
         super.updateGame(state);     //e.g. movement, animation, position
         if(!tc.collisionTile(dx, 0)){
                 pos.addX(dx);    //update x position
-                GamePanel.getMapPos().addX(dx);
+                if(GamePanel.getMapPos().getX()+GamePanel.WIDTH < TileFacade.mapWidth * 16){
+                    GamePanel.getMapPos().addX(dx);
+                }
             }
         if(!tc.collisionTile(0, dy)){
             pos.addY(dy);  //update y position

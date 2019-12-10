@@ -18,6 +18,7 @@ import org.w3c.dom.NodeList;
 public class TileFacade {
 
     public static ArrayList<TileMap> tm;
+    public static int mapWidth;
 
     public TileFacade() {
         tm = new ArrayList<>();
@@ -66,6 +67,7 @@ public class TileFacade {
                 eElement = (Element) node;
                 if (i <= 0) {
                     width = Integer.parseInt(eElement.getAttribute("width"));
+                    mapWidth = width;
                     height = Integer.parseInt(eElement.getAttribute("height"));
                 }
 

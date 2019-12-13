@@ -1,39 +1,37 @@
 package startrekking;
 
-import java.awt.BorderLayout;
-import java.awt.Canvas;
+import entity.Player;
+import graphics.Sprite;
+import tiles.TileFacade;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import util.KeyHandler;
+import util.Position;
 
-/**
- *
- * @author CARMINE
- */
-public class GamePanel extends Canvas implements Runnable {
+public class GamePanel extends JPanel implements Runnable {
 
     /*
-    Goal:
-    1. Open and draw the frame
-    2. Updating thread
+    Responsabilità:
+    aprire e disegnare il frame, thread di aggiornamento
     
-    Operations:
-    1. Looping update of Map and Entity
-    2. References to Map, Entity, KeyHandler and TileFacade objects
+    Operazioni:
+    1- update ciclico di Map e Entity
+    2- Riferimenti di oggetti Map, Entity, KeyHandler, TileFacade
      */
-    //window dimensions
-    public static final int WIDTH = 300;
-    public static final int HEIGHT = WIDTH / 12 * 9;
-    public static final int SCALE = 3;
+    //dimensione finestra
+    public static final int WIDTH = 1600;
+    public static final int HEIGHT = 528;
 
-    //JFrame name
+    //nome JFrame
     public static final String NAME = "STAR TREKKING";
 
     public static int oldFrameCount;
+    private static Position map;
 
     private JFrame frame;
     private Thread thread;
@@ -43,30 +41,30 @@ public class GamePanel extends Canvas implements Runnable {
     private Graphics2D g;
 
     private TileFacade tf;
-
-    public KeyHandler key;
+    private Player player;
+    private Sprite font;
+    private KeyHandler key;
 
     public GamePanel() {
-        //setting window dimensions
-        setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
-        setMaximumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
-        setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 
         frame = new JFrame(NAME);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new BorderLayout());
-
-        frame.add(this, BorderLayout.CENTER);
+        frame.setContentPane(this);
+        frame.setIgnoreRepaint(true);
+        frame.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         frame.pack();
-
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        frame.setBackground(Color.YELLOW);
+        setFocusable(true);
+        requestFocus();
+        startThread();
+
     }
 
-    @Override
-    public void addNotify() {
-        super.addNotify();
+    public final void startThread() {
+        //super.addNotify();
         if (thread == null) {
             thread = new Thread(this, "GameThread");
             thread.start();
@@ -80,10 +78,17 @@ public class GamePanel extends Canvas implements Runnable {
         img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
         g = (Graphics2D) img.getGraphics();
 
+        map = new Position(0, 0);
+        Position.setWorldVar(map.getX(), map.getY());
+
         key = new KeyHandler();
+        addKeyListener(key);
 
-        tf = new TileFacade();
+        tf = new TileFacade("tiles/Level1.xml");
 
+        player = new Player(new Sprite("entity/mage.png", 64, 64), new Position(0 + 32, 0 + (GamePanel.HEIGHT) - 130), 96, key);
+        key.addObserver(player);
+        font = new Sprite("font/Font.png", 10, 10);
     }
 
     @Override
@@ -91,10 +96,11 @@ public class GamePanel extends Canvas implements Runnable {
 
         init();
 
-        final double GAME_HERTZ = 60.0;
+        final double GAME_HERTZ = 100.0;
+        //final double TBU = 1000000000 / GAME_HERTZ;
         final double TBU = 1000000000 / GAME_HERTZ;
 
-        final int MUBR = 5;
+        final int MUBR = 80;
 
         double lastUpdateTime = System.nanoTime();
         double lastRenderTime;
@@ -112,7 +118,6 @@ public class GamePanel extends Canvas implements Runnable {
             int updateCount = 0;
             while (((now - lastUpdateTime) > TBU) && (updateCount < MUBR)) {
                 update();
-                input(key);
                 lastUpdateTime += TBU;
                 updateCount++;
             }
@@ -120,10 +125,8 @@ public class GamePanel extends Canvas implements Runnable {
             if (now - lastUpdateTime > TBU) {
                 lastUpdateTime = now - TBU;
             }
-
-            input(key);
-
-            render();
+            
+            render(g);
             draw();
 
             lastRenderTime = now;
@@ -144,7 +147,7 @@ public class GamePanel extends Canvas implements Runnable {
 
                 try {
                     Thread.sleep(1);
-                } catch (Exception e) {
+                } catch (InterruptedException e) {
                     System.out.println("ERROR: yielding thread");
                 }
                 now = System.nanoTime();
@@ -153,30 +156,54 @@ public class GamePanel extends Canvas implements Runnable {
 
     }
 
+    public Color color;
+
     public void update() {
-        tf.update();
+        Position.setWorldVar(map.getX(), map.getY());
+        player.updateGame();
+        color = frame.getBackground();
     }
 
-    public void render() {
+    public boolean test;
+
+    public void render(Graphics2D g) {
+        /*
+        g.setColor(Color.RED);
+        g.fillRect(100, 100, 64, 64);
+         */
         if (g != null) {
+            test = true;
             g.setColor(new Color(66, 134, 244));
             g.fillRect(0, 0, WIDTH, HEIGHT);
             tf.render(g);
+            player.render(g);
+            Sprite.drawArray(g, font, "FPS: " + GamePanel.oldFrameCount, new Position(GamePanel.WIDTH - (8 * 40), 10), 40, 40, 32, 0);
         }
+        //Sprite.drawArray(g, font, "FPS: " + GamePanel.oldFrameCount , new Vector2f(GamePanel.width - (8 * 40) , 10), 40, 40, 32, 0);    
     }
+
+    public boolean drawImage;
 
     public void draw() {
         Graphics g2 = (Graphics) this.getGraphics();
-        g2.drawImage(img, 0, 0, WIDTH, HEIGHT, null);
+        drawImage = g2.drawImage(img, 0, 0, WIDTH, HEIGHT, null);
         g2.dispose();
+    }
+
+    public static int getWIDTH() {
+        return WIDTH;
+    }
+
+    public static int getHEIGHT() {
+        return HEIGHT;
     }
 
     public static void main(String[] args) {
         GamePanel gamePanel = new GamePanel();
     }
 
-    private void input(KeyHandler key) {
-        tf.input(key);
+    public static Position getMapPos() {
+        return map;
     }
 
 }

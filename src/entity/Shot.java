@@ -1,13 +1,13 @@
 package entity;
 
-import graphics.Sprite;
+import graphics.EntitySprite;
 import java.awt.Graphics2D;
 import startrekking.GamePanel;
 import util.Position;
 
 public class Shot extends Entity{
 
-    public Shot(Sprite sprite, Position origin, int size) {
+    public Shot(EntitySprite sprite, Position origin, int size) {
         super(sprite, origin, size);
     }
     

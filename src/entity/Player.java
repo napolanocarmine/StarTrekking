@@ -1,6 +1,7 @@
  package entity;
 
 import graphics.Sprite;
+import graphics.EntitySprite;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.text.DecimalFormat;
@@ -50,7 +51,7 @@ public class Player extends Entity implements Observer {
     
     
 
-    public Player(Sprite sprite, Position origin, int size, KeyHandler khdl) {
+    public Player(EntitySprite sprite, Position origin, int size, KeyHandler khdl) {
         super(sprite, origin, size, EntityState.RUN);
         this.bounds = new AABB(pos, 16, 32, 40, 32);
         this.khdl = khdl;
@@ -87,7 +88,7 @@ public class Player extends Entity implements Observer {
 //                System.err.println("dy: " + dy);
 //                System.err.println("gravity: " + gravity);
             }
-            if(ani.getFrame() == 3) ani.setDelay(-1);
+            if(ani.playingLastFrame()) ani.setDelay(-1);
         }else{
             vy = 0;
             gravity = -0.01f;
@@ -115,7 +116,7 @@ public class Player extends Entity implements Observer {
     }
 
     private void attack(){
-        shots.add(new Shot(new Sprite("Entity/shot.png", 32, 32), new Position(96, pos.getY()+24), 48));
+        shots.add(new Shot(new EntitySprite("Entity/shot.png", 32, 32), new Position(96, pos.getY()+24), 48));
     }
     
     private void restartPlayer(){

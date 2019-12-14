@@ -2,6 +2,7 @@ package startrekking;
 
 import entity.Player;
 import graphics.Sprite;
+import graphics.EntitySprite;
 import tiles.TileFacade;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -85,8 +86,9 @@ public class GamePanel extends JPanel implements Runnable {
         addKeyListener(key);
 
         tf = new TileFacade("tiles/Level1.xml");
-
-        player = new Player(new Sprite("entity/mage.png", 64, 64), new Position(0 + 32, 0 + (GamePanel.HEIGHT) - 130), 96, key);
+        
+        //player = new Player(new Sprite("entity/mage.png", 64, 64), new Position(0 + 32, 0 + (GamePanel.HEIGHT) - 130), 96, key);
+        player = new Player(new EntitySprite("entity/wizard", 64, 64), new Position(0 + 32, 0 + (GamePanel.HEIGHT) - 130), 96, key);
         key.addObserver(player);
         font = new Sprite("font/Font.png", 10, 10);
     }

@@ -15,10 +15,12 @@ import javax.swing.JPanel;
  * Class which represents the state in which the game shows the Game Over Menu.
  */
 public class GameOverState extends State{
-     /**
+    private GameStateManager gsm; 
+    /**
      * Create the Panel, which represents the Game Over Menu.
      */
-    public GameOverState(){
+    public GameOverState(GameStateManager gsm){
+        this.gsm = gsm;
         this.panel = new JPanel();
         //metodo che inizializza le componenti del JPanel;
         initComponent();

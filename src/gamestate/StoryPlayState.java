@@ -11,10 +11,11 @@ import javax.swing.JPanel;
  * @author Star Trekking
  */
 public class StoryPlayState extends State{
-     /**
+    private GameStateManager gsm;
+    /**
      * Create the Panel on which the Level is runned.
      */
-    public StoryPlayState(){
+    public StoryPlayState(GameStateManager gsm){
         this.panel = new JPanel();
         //metodo che inizializza le componenti del JPanel;
         initComponent();

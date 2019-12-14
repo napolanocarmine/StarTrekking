@@ -16,7 +16,7 @@ public class Window extends javax.swing.JFrame {
      */
     public Window() {
         initComponents();
-        gameStateManager = new GameStateManager(new MainMenuState());
+        gameStateManager = new GameStateManager();
         this.setContentPane(gameStateManager.getState().getPanel());
         this.setVisible(true);
     }

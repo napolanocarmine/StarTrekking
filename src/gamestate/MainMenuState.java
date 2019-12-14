@@ -16,10 +16,12 @@ import javax.swing.JPanel;
  * Class which represents the state in which the game shows the main menu.
  */
 public class MainMenuState extends State{
+    GameStateManager gsm;
     /**
      * Create the Main Menu.
      */
-    public MainMenuState(){
+    public MainMenuState(GameStateManager gsm){
+        this.gsm = gsm;
         this.panel = new JPanel();
         //metodo che inizializza le componenti del JPanel;
         initComponent();

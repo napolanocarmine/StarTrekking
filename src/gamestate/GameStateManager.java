@@ -26,7 +26,7 @@ public class GameStateManager {
      * MainMenuState.
      */
     public GameStateManager(){
-        this.gameState = new MainMenuState();
+        this.gameState = new MainMenuState(this);
     }
     
     /**

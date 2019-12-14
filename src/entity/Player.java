@@ -97,10 +97,6 @@ public class Player extends Entity implements Observer {
         if(tc.collisionTileDown(0, dy-previousY)){
             //System.err.println("collision down");
             dy = previousY;
-            if(state == EntityState.JUMP){
-                System.err.println("distanza: " + (pos.getX()-startingX)/16);
-                //System.err.println("altezza: " + (pos.getY()-startingY));
-            }
             state = EntityState.RUN;
             falling = false;
             timey = 0;
@@ -148,8 +144,6 @@ public class Player extends Entity implements Observer {
     }
     
     public void updateGame() {
-        //System.err.println("yt: " + ((int)(pos.getY()/16)+1) );
-        //System.out.println("x: " + pos.getX() + "y: " + pos.getY());
         move();
         super.updateGame(state);
         pos.setX(dx);    //update x position
@@ -157,13 +151,11 @@ public class Player extends Entity implements Observer {
             GamePanel.getMapPos().setX(dx);
         }
         pos.setY(dy);
-        //GamePanel.map.addY(dy);
         if(!shots.isEmpty()){
             for(int i=0; i<shots.size(); i++){
                 shots.get(i).updateGame();
             }
         }
-        //System.out.println(pos.getY() + " - " + GamePanel.HEIGHT);
         if(pos.getY() > GamePanel.HEIGHT){
             restartPlayer();
         }

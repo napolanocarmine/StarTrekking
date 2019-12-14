@@ -3,6 +3,7 @@ package tiles;
 import graphics.Sprite;
 import java.awt.Graphics2D;
 import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -45,7 +46,8 @@ public class TileFacade {
         try {
             DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = builderFactory.newDocumentBuilder();
-            Document doc = builder.parse(new File(getClass().getClassLoader().getResource(path).toURI()));
+            InputStream is = this.getClass().getClassLoader().getResourceAsStream(path);
+            Document doc = builder.parse(is);
             doc.getDocumentElement().normalize();
 
             NodeList list = doc.getElementsByTagName("tileset");

@@ -63,6 +63,10 @@ public class Sprite {
         return getSprite(x, y);
     }
     
+    public BufferedImage getMatrix(){
+        return spriteMatrix;
+    }
+    
     public static void drawArray(Graphics2D g, Sprite letter, String word, Position pos, int width, int height, int xOffset, int yOffset) {
         float x = pos.getX();
         float y = pos.getY();
@@ -70,6 +74,20 @@ public class Sprite {
         for (int i = 0; i < word.length(); i++) {
             if (word.charAt(i) != 32) {
                 g.drawImage(letter.getLetter(word.charAt(i)), (int) x, (int) y, width, height, null);
+            }
+
+            x += xOffset;
+            y += yOffset;
+        }
+    }
+    
+    public static void drawArray(Graphics2D g, ArrayList<BufferedImage> img, Position pos, int width, int height, int xOffset, int yOffset) {
+        float x = pos.getX();
+        float y = pos.getY();
+
+        for (int i = 0; i < img.size(); i++) {
+            if (img.get(i) != null) {
+                g.drawImage(img.get(i), (int) x, (int) y, width, height, null);
             }
 
             x += xOffset;

@@ -18,6 +18,8 @@ import util.TileCollision;
 
 public class Player extends Entity implements Observer {
 
+    private final int MAXHEALTHPOINTS = 3;
+    private int hp;
     private double jumpSpeed;
     private double currentJumpSpeed;
     private double jumpSpeedDecrement = .09;
@@ -53,6 +55,7 @@ public class Player extends Entity implements Observer {
 
     public Player(EntitySprite sprite, Position origin, int size, KeyHandler khdl) {
         super(sprite, origin, size, EntityState.RUN);
+        this.hp = MAXHEALTHPOINTS;
         this.bounds = new AABB(pos, 16, 32, 40, 32);
         this.khdl = khdl;
         previousY = (int)pos.getY();
@@ -206,5 +209,9 @@ public class Player extends Entity implements Observer {
             boolean b = khdl.isPressed();
             mapValueAction(key, b);
         }
+    }
+    
+    public int getHP(){
+        return this.hp;
     }
 }

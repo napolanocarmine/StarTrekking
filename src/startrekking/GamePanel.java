@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import util.KeyHandler;
@@ -180,6 +181,16 @@ public class GamePanel extends JPanel implements Runnable {
             tf.render(g);
             player.render(g);
             Sprite.drawArray(g, font, "FPS: " + GamePanel.oldFrameCount, new Position(GamePanel.WIDTH - (8 * 40), 10), 40, 40, 32, 0);
+            Sprite hpimg = new Sprite("entity/heart.png", 32,32);
+            ArrayList<BufferedImage> hearts = new ArrayList<BufferedImage>();
+            BufferedImage heartImg; 
+            heartImg = hpimg.getMatrix();
+            hearts.add(heartImg);
+            int space = 10;
+            for (int i =0; i<player.getHP(); i++){
+                Sprite.drawArray(g,hearts,new Position (space,10), 90 , 90, 10,0);
+                  space += 70;
+            }
         }
         //Sprite.drawArray(g, font, "FPS: " + GamePanel.oldFrameCount , new Vector2f(GamePanel.width - (8 * 40) , 10), 40, 40, 32, 0);    
     }

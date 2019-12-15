@@ -8,7 +8,7 @@ import util.EntityState;
 
 public class EntitySprite {
 
-    public static HashMap<EntityState, BufferedImage[]> spriteMap;
+    public HashMap<EntityState, BufferedImage[]> spriteMap;
     
     public int w;
     public int h;
@@ -53,5 +53,11 @@ public class EntitySprite {
     public BufferedImage[] getSprite(EntityState state){
         return spriteMap.get(state);
     }
+//    
+//    public void printStates(){
+//        for(EntityState state: spriteMap.keySet()){
+//            System.out.println("STATE: " + state);
+//        }
+//    }
     
 }

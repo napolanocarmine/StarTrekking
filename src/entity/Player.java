@@ -31,15 +31,10 @@ public class Player extends Entity implements Observer {
     private float previousX;
     private float initialX = 32;
     private float initialY = ((GamePanel.HEIGHT) - 130);
-    private float initialSpeed = 0.5f;
     DecimalFormat df = new DecimalFormat();
     
     //---------
     
-    private float vx = 0;
-    private float vy;
-    private float timex = 0;
-    private float timey = 0;
     private float gravity = -0.5f;
     private float y0 = initialY;
     private float h = 100;
@@ -48,8 +43,6 @@ public class Player extends Entity implements Observer {
     
     private float startingY;
     private float startingX;
-    
-    
 
     public Player(EntitySprite sprite, Position origin, int size, KeyHandler khdl) {
         super(sprite, origin, size, EntityState.RUN);
@@ -60,7 +53,9 @@ public class Player extends Entity implements Observer {
         this.dx = initialSpeed;
         df.setMaximumFractionDigits(2);
         //this.acc = 0.00015f;
-        this.acc = 0.00005f;
+        this.acc = 0.00003f;
+        this.initialSpeed = 0.3f;
+        this.vx = initialSpeed;
     }
 
     public void move() {
@@ -98,13 +93,12 @@ public class Player extends Entity implements Observer {
         if(tc.collisionTileDown(0, dy-previousY)){
             //System.err.println("collision down");
             dy = previousY;
-            state = EntityState.RUN;
             falling = false;
             timey = 0;
             y0 = previousY;
+            if(state != EntityState.ATTACK) state = EntityState.RUN;
         }else if(tc.collisionTileUp(0, dy-previousY)){
             dy = previousY;
-            //timey = 0;
             y0 = previousY;
             falling = true;
             vy = 0;
@@ -113,10 +107,17 @@ public class Player extends Entity implements Observer {
             previousY = dy;
         }
         
+        if(state == EntityState.ATTACK){
+            if(ani.playingLastFrame()){
+                attack();
+                state = EntityState.RUN;
+            }
+        }
+        
     }
 
     private void attack(){
-        shots.add(new Shot(new EntitySprite("Entity/shot.png", 32, 32), new Position(96, pos.getY()+24), 48));
+        shots.add(new Shot(new EntitySprite("Entity/shot", 32, 32), new Position(dx-15, pos.getY()+24), 48, vx+acc*(timex)));
     }
     
     private void restartPlayer(){
@@ -130,21 +131,15 @@ public class Player extends Entity implements Observer {
         state = EntityState.RUN;
     }
     
-    public void initializeJump(){
-        initialX = pos.getX();
-        initialY = pos.getY();
-        int h = 5;
-        int dist = 40;
-        currentJumpSpeed = (dx * 2 * h)/dist;
-        jumpSpeedDecrement = ((Math.pow(dx, 2))*2*h)/(Math.pow(dist, 2));
-//        currentJumpSpeed = 1.3;
-//        jumpSpeedDecrement = .09;
-        jumpSpeed = currentJumpSpeed;
-        dy = 0;
-        time = 0;
+    public ArrayList<Shot> getShots(){
+        return shots;
     }
     
-    public void updateGame() {
+    public void deleteShot(Shot s){
+        shots.remove(s);
+    }
+    
+    public void updateGame(){
         move();
         super.updateGame(state);
         pos.setX(dx);    //update x position
@@ -154,7 +149,12 @@ public class Player extends Entity implements Observer {
         pos.setY(dy);
         if(!shots.isEmpty()){
             for(int i=0; i<shots.size(); i++){
-                shots.get(i).updateGame();
+                if(shots.get(i).pos.getWorldVar().getX() - pos.getWorldVar().getX() > GamePanel.WIDTH ||
+                        shots.get(i).collides()){
+                    deleteShot(shots.get(i));
+                }else{
+                    shots.get(i).updateGame();
+                }
             }
         }
         if(pos.getY() > GamePanel.HEIGHT){
@@ -186,12 +186,12 @@ public class Player extends Entity implements Observer {
                 //jumpSpeedDecrement = (dx*jumpSpeed)/100;
                 //System.out.println("INIZIO SALTO");
                 //System.out.println("check: " + df.format(currentJumpSpeed) + " - " + df.format(jumpSpeedDecrement) + ", tick: " + (currentJumpSpeed/jumpSpeedDecrement));
+            }else if (key == 3 && currentState == EntityState.RUN) {
+                state = EntityState.ATTACK;
             }/*else if(key == 5 && b && currentState == EntityState.RUN){
                 state = EntityState.CRUNCH;
             }else if(key == 5 && !b ){
                 state = EntityState.RUN;
-            }else if (key == 3 && currentState == EntityState.RUN) {
-                state = EntityState.ATTACK;
             }*/
         } else {
             state = EntityState.DEAD;

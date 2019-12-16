@@ -1,6 +1,8 @@
 package startrekking;
 
+import entity.Entity;
 import entity.Player;
+import entity.Shot;
 import graphics.Sprite;
 import graphics.EntitySprite;
 import tiles.TileFacade;
@@ -9,6 +11,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.ListIterator;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import util.KeyHandler;
@@ -43,6 +47,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     private TileFacade tf;
     private Player player;
+    private Player player2;
     private Sprite font;
     private KeyHandler key;
 
@@ -88,7 +93,8 @@ public class GamePanel extends JPanel implements Runnable {
         tf = new TileFacade("tiles/Level1.xml");
         
         //player = new Player(new Sprite("entity/mage.png", 64, 64), new Position(0 + 32, 0 + (GamePanel.HEIGHT) - 130), 96, key);
-        player = new Player(new EntitySprite("entity/wizard", 64, 64), new Position(0 + 32, 0 + (GamePanel.HEIGHT) - 130), 96, key);
+        player = new Player(new EntitySprite("entity/wizard", 64, 64), new Position(0, 0 + (GamePanel.HEIGHT) - 130), 96, key);
+        player2 = new Player(new EntitySprite("entity/wizard", 64, 64), new Position(0 + 2000, 0 + (GamePanel.HEIGHT) - 130), 96, key);
         key.addObserver(player);
         font = new Sprite("font/Font.png", 10, 10);
     }
@@ -98,7 +104,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         init();
 
-        final double GAME_HERTZ = 600.0;
+        final double GAME_HERTZ = 600.0;  //standard is 600
         //final double TBU = 1000000000 / GAME_HERTZ;
         final double TBU = 1000000000 / GAME_HERTZ;
 
@@ -164,6 +170,31 @@ public class GamePanel extends JPanel implements Runnable {
         Position.setWorldVar(map.getX(), map.getY());
         player.updateGame();
         color = frame.getBackground();
+        checkCollision();
+    }
+    
+    public void checkCollision(){
+        ArrayList<Shot> shots = player.getShots();
+        ListIterator<Shot> li = shots.listIterator();
+//        for(Shot shot: shots){
+//            if(shot.getBounds().collides(player2.getBounds())){
+////                player.deleteShot(shots.get(i));
+//                System.err.println("Collisione shot");
+//            }
+//        }
+//        for(int i=0; i<shots.size(); i++){
+//            if(shots.get(i).getBounds().collides(player2.getBounds())){
+//                player.deleteShot(shots.get(i));
+//            }
+//        }
+        while(li.hasNext()){
+            if(li.next().getBounds().collides(player2.getBounds())){
+                li.remove();
+            }
+        }
+//        if(player.getBounds().collides(player2.getBounds())){
+//            System.err.println("Collisione player");
+//        }
     }
 
     public boolean test;
@@ -179,6 +210,7 @@ public class GamePanel extends JPanel implements Runnable {
             g.fillRect(0, 0, WIDTH, HEIGHT);
             tf.render(g);
             player.render(g);
+            player2.render(g);
             Sprite.drawArray(g, font, "FPS: " + GamePanel.oldFrameCount, new Position(GamePanel.WIDTH - (8 * 40), 10), 40, 40, 32, 0);
         }
         //Sprite.drawArray(g, font, "FPS: " + GamePanel.oldFrameCount , new Vector2f(GamePanel.width - (8 * 40) , 10), 40, 40, 32, 0);    

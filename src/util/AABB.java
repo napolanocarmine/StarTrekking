@@ -51,13 +51,15 @@ public class AABB {
     public void setYOffset(float f){ yOffset = f; }
     
     public boolean collides(AABB bBox){
-        float ax = ((pos.getWorldVar().getX() + (xOffset))+(w/2));
-        float ay = ((pos.getWorldVar().getY() + (yOffset))+(h/2));
+        float ax = ((pos.getWorldVar().getX() + (xOffset/2))+(w/2));
+        float ay = ((pos.getWorldVar().getY() + (yOffset/2))+(h/2));
+        //System.err.println("ax: " + ax + " ay: " + ay);
         float bx = ((bBox.pos.getWorldVar().getX() + (bBox.xOffset/2))+(w/2));
         float by = ((bBox.pos.getWorldVar().getY() + (bBox.yOffset/2))+(h/2));
+        //System.err.println("bx: " + bx + " by: " + by);
         
-        if(Math.abs(ax-bx) < (this.w / 2) + (bBox.w / 2)){
-            if(Math.abs(ay-by) < (this.h / 2) + (bBox.h / 2)){
+        if(Math.abs(ax-bx)+7 < (this.w / 2) + (bBox.w / 2)){
+            if(Math.abs(ay-by)-2 < (this.h / 2) + (bBox.h / 2)){
                 return true;
             }
         }

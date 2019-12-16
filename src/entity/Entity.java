@@ -25,8 +25,8 @@ public abstract class Entity {
     protected EntityState state; //Key premuta
     protected EntityState currentState; //Animazione Corrente
 
-    protected float dx = 0;
-    protected float dy = 0;
+    protected float dx;
+    protected float dy;
 
     protected float maxSpeed = 20f;
     protected float acc = 0.0003f;
@@ -36,13 +36,22 @@ public abstract class Entity {
     protected TileCollision tc;
     
     protected int aniDelay = 80;
+    
+    protected float timex = 0;
+    protected float timey = 0;
+    
+    protected float vx = 0;
+    protected float vy;
 
+    
+    protected float initialSpeed;
+    
     //protected AABB hitBounds;
     //protected AABB bounds;
     //protected TileCollision tc;
     public Entity(EntitySprite sprite, Position origin, int size, EntityState state) {
         this.sprite = sprite;
-        pos = origin;
+        this.pos = origin;
         this.size = size;
         this.ani = new Animation(sprite.getSprite(state));
         this.ani.setDelay(aniDelay);

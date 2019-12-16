@@ -20,10 +20,6 @@ public class Player extends Entity implements Observer {
 
     private final int MAXHEALTHPOINTS = 3;
     private int hp;
-    private double jumpSpeed;
-    private double currentJumpSpeed;
-    private double jumpSpeedDecrement = .09;
-    private int time;
     
     private KeyHandler khdl;
     int action;
@@ -36,7 +32,6 @@ public class Player extends Entity implements Observer {
     private float initialSpeed = 0.5f;
     DecimalFormat df = new DecimalFormat();
     
-    //---------
     
     private float vx = 0;
     private float vy;
@@ -60,7 +55,6 @@ public class Player extends Entity implements Observer {
         this.khdl = khdl;
         previousY = (int)pos.getY();
         previousX = (int)pos.getX();
-        this.dx = initialSpeed;
         df.setMaximumFractionDigits(2);
         //this.acc = 0.00015f;
         this.acc = 0.00005f;
@@ -131,20 +125,6 @@ public class Player extends Entity implements Observer {
         //previousX = initialX;
         y0 = initialY;
         state = EntityState.RUN;
-    }
-    
-    public void initializeJump(){
-        initialX = pos.getX();
-        initialY = pos.getY();
-        int h = 5;
-        int dist = 40;
-        currentJumpSpeed = (dx * 2 * h)/dist;
-        jumpSpeedDecrement = ((Math.pow(dx, 2))*2*h)/(Math.pow(dist, 2));
-//        currentJumpSpeed = 1.3;
-//        jumpSpeedDecrement = .09;
-        jumpSpeed = currentJumpSpeed;
-        dy = 0;
-        time = 0;
     }
     
     public void updateGame() {

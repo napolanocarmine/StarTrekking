@@ -94,5 +94,12 @@ public class Sprite {
             y += yOffset;
         }
     }
+    
+    public static void drawArray(Graphics2D g, BufferedImage img, Position pos, int width, int height) {
+        float x = pos.getX();
+        float y = pos.getY();
+
+        g.drawImage(img, (int) x, (int) y, width, height, null);
+    }
 
 }

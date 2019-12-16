@@ -5,7 +5,6 @@
  */
 package gamestate;
 
-import java.awt.Color;
 import java.awt.*;
 import javax.swing.*;
 
@@ -18,7 +17,7 @@ public class SelectLevelState extends State{
     
     public SelectLevelState(GameStateManager gsm){
         this.gsm = gsm;
-        this.panel = new SelectionLevelPanel("/screen/forest.png",this);
+        this.frame = new SelectionLevelFrame("/screen/forest.png",this);
         //metodo che inizializza le componenti del JPanel;
         //initComponent();
     }
@@ -32,6 +31,7 @@ public class SelectLevelState extends State{
     @Override
     public void handleNext(int code){
         if(code == 1){
+            frame.dispose();
             gsm.setState(new StoryPlayState(gsm));
         }else if(code == 2){
             //avviare GamePanel2
@@ -47,7 +47,7 @@ public class SelectLevelState extends State{
     /**
      * Selection Level Panel.
      */
-    private class SelectionLevelPanel extends JPanel {
+    private class SelectionLevelFrame extends JFrame {
         private Image img;
         private JButton level1;
         private JButton level2;
@@ -55,10 +55,11 @@ public class SelectLevelState extends State{
         private JLabel title;
         private SelectLevelState state;
         
-        public SelectionLevelPanel(String img,SelectLevelState state) {
+        public SelectionLevelFrame(String img,SelectLevelState state) {
             this.state = state;
             setImage(new ImageIcon(img).getImage());
             initComponent();
+            setVisible(true);
         }
 
         private void setImage(Image img) {
@@ -77,6 +78,10 @@ public class SelectLevelState extends State{
             level2 = new javax.swing.JButton();
             level1 = new javax.swing.JButton();
 
+            this.setSize(1000, 528);
+            this.setResizable(false);
+            this.setLocationRelativeTo(null);
+            
             level3.setText("Level Three");
             level3.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -103,8 +108,8 @@ public class SelectLevelState extends State{
                 }
             });
 
-            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-            this.setLayout(layout);
+            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+            getContentPane().setLayout(layout);
             layout.setHorizontalGroup(
                     layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -150,8 +155,6 @@ public class SelectLevelState extends State{
 
         }
     
-        
-        @Override
         public void paintComponent(Graphics g) {
             g.drawImage(img, 0, 0, null);
         }

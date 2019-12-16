@@ -5,6 +5,7 @@
  */
 package gamestate;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
@@ -21,7 +22,7 @@ public class GameOverState extends State{
      */
     public GameOverState(GameStateManager gsm){
         this.gsm = gsm;
-        this.panel = new JPanel();
+        this.frame = new JFrame();
         //metodo che inizializza le componenti del JPanel;
         initComponent();
     }

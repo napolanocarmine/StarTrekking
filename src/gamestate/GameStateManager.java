@@ -5,7 +5,6 @@
  */
 package gamestate;
 
-import startrekking.Window;
 
 /**
  *
@@ -16,24 +15,19 @@ import startrekking.Window;
  */
 public class GameStateManager {
     private State gameState;
-    private Window window;
     /**
      * Create a new GameStateManager and initialize the initial state
-     * @param window window that is managed by the manager
      * @param gameState Initial state.
      */
-    public GameStateManager(Window window,State gameState){
+    public GameStateManager(State gameState){
         this.gameState = gameState;
-        this.window = window;
     }
     /**
      * Create a new GameStateManager and initialize the initial state to
      * MainMenuState.
-     * @param window window that is managed by the manager
      */
-    public GameStateManager(Window window){
+    public GameStateManager(){
         this.gameState = new MainMenuState(this);
-        this.window = window;
     }
     
     /**
@@ -49,8 +43,7 @@ public class GameStateManager {
      * @param gameState represents the current state to be setted.
      */
     public void setState(State gameState){
-        this.gameState = gameState;
-        this.window.setPanel(gameState.getPanel());
+        this.gameState = gameState;     
     }
     
 }

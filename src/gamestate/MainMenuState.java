@@ -22,7 +22,7 @@ public class MainMenuState extends State{
      */
     public MainMenuState(GameStateManager gsm){
         this.gsm = gsm;
-        this.panel = new MainMenuPanel(this);
+        this.frame = new MainMenuFrame(this);
         //metodo che inizializza le componenti del JPanel;
         initComponent();
     }
@@ -31,7 +31,6 @@ public class MainMenuState extends State{
      * Define the main menu's components.
      */
     private void initComponent(){
-        
     }
     
     /**
@@ -42,8 +41,10 @@ public class MainMenuState extends State{
     //@Override
      public void  handleNext(int state){
          if(state == 0){
+             frame.dispose();
              gsm.setState(new SelectLevelState(gsm));
          }else if(state == 1){
+             frame.dispose();
              gsm.setState(new ExitState(gsm));
          }
      };
@@ -55,21 +56,17 @@ public class MainMenuState extends State{
     /**
      * Panel that must appear when the game is in MainMenuState 
      */
-    private class MainMenuPanel extends JPanel{
+    private class MainMenuFrame extends JFrame{
        
         private MainMenuState state;
         private JButton storyModeButton;
         private JButton exitButton;
         private JLabel title;
 
-        public MainMenuPanel(MainMenuState state) {
+        public MainMenuFrame(MainMenuState state) {
             this.state = state;
-
-//            this.panel = new ImagePanel(new ImageIcon(getClass()
-//                    .getResource("/screen/forest.png"))
-//                    .getImage());
-            //metodo che inizializza le componenti del JPanel;
             initComponent();
+            setVisible(true);
         }
 
         /**
@@ -80,6 +77,9 @@ public class MainMenuState extends State{
             title = new javax.swing.JLabel();
             exitButton = new javax.swing.JButton();
 
+            this.setSize(1000, 528);
+            this.setResizable(false);
+            this.setLocationRelativeTo(null);
             storyModeButton.setText("StoryMode");
             storyModeButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,8 +99,8 @@ public class MainMenuState extends State{
                 }
             });
 
-            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-            this.setLayout(layout);
+            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+            getContentPane().setLayout(layout);
             layout.setHorizontalGroup(
                     layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -125,7 +125,7 @@ public class MainMenuState extends State{
                                     .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(101, 101, 101))
             );
-
+            
         }
         
         

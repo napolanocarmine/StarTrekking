@@ -4,8 +4,7 @@
  * and open the template in the editor.
  */
 package gamestate;
-import javax.swing.JPanel;
-import startrekking.GamePanel;
+import startrekking.GameFrame;
 
 /**
  *
@@ -17,7 +16,7 @@ public class StoryPlayState extends State{
      * Create the Panel on which the Level is runned.
      */
     public StoryPlayState(GameStateManager gsm){
-        this.panel = new GamePanel();
+        this.frame = new GameFrame();
         //metodo che inizializza le componenti del JPanel;
         initComponent();
     }

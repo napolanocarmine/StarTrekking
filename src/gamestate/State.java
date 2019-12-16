@@ -4,24 +4,24 @@
  * and open the template in the editor.
  */
 package gamestate;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 /**
  *
  * @author StarTrekking
  */
 public abstract class State {
-    protected JPanel panel;
+    protected JFrame frame;
     
     public void  handleNext(int code){};
     
     public void handlePrevious(int code){};
     
-    public JPanel getPanel(){
-        return panel;
+    public JFrame getFrame(){
+        return frame;
     }
     
-    public void setPanel(JPanel panel){
-        this.panel = panel;
+    public void setJFrame(JFrame frame){
+        this.frame = frame;
     }
 }

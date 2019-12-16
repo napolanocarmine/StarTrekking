@@ -5,6 +5,7 @@
  */
 package gamestate;
 import javax.swing.JPanel;
+import startrekking.GamePanel;
 
 /**
  *
@@ -16,7 +17,7 @@ public class StoryPlayState extends State{
      * Create the Panel on which the Level is runned.
      */
     public StoryPlayState(GameStateManager gsm){
-        this.panel = new JPanel();
+        this.panel = new GamePanel();
         //metodo che inizializza le componenti del JPanel;
         initComponent();
     }
@@ -30,10 +31,10 @@ public class StoryPlayState extends State{
     
     /**
      * Method which handles the next state, that could be "Pause" or "Game-Over"
-     * @param current_state 
+     * @param code code represented the next state 
      */
     @Override
-     public void  handleNext(GameStateManager current_state){
+     public void  handleNext(int code){
          /*
             codice che gestisce il prossimo stato,
             per questo sprint quando il maghetto muore da settare al Game-Over.
@@ -42,5 +43,5 @@ public class StoryPlayState extends State{
     
     //Non so se per il play va settato.
     @Override
-    public void handlePrevious(GameStateManager current_state){};
+    public void handlePrevious(int code){};
 }

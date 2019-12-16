@@ -13,11 +13,15 @@ import javax.swing.JPanel;
 public abstract class State {
     protected JPanel panel;
     
-    public void  handleNext(GameStateManager current_state){};
+    public void  handleNext(int code){};
     
-    public void handlePrevious(GameStateManager current_state){};
+    public void handlePrevious(int code){};
     
     public JPanel getPanel(){
         return panel;
+    }
+    
+    public void setPanel(JPanel panel){
+        this.panel = panel;
     }
 }

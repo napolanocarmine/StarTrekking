@@ -35,10 +35,11 @@ public class GameOverState extends State{
     
     /**
      * Method which handles the next state, that could be "Play" or "Main Menu"
-     * @param current_state 
+     * @param code code represented the next state.
+     * 
      */
     @Override
-     public void  handleNext(GameStateManager current_state){
+     public void  handleNext(int code){
          /*
             codice che gestisce il prossimo stato,
          */
@@ -46,5 +47,5 @@ public class GameOverState extends State{
     
     //Non so se per il game over va settato.
     @Override
-    public void handlePrevious(GameStateManager current_state){};
+    public void handlePrevious(int code){};
 }

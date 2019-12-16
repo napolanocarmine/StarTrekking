@@ -204,6 +204,7 @@ public class Player extends Entity implements Observer {
             int key = this.khdl.getValue();
             boolean b = khdl.isPressed();
             mapValueAction(key, b);
+            System.err.println("Mitico");
         }
     }
 }

@@ -71,6 +71,7 @@ public class KeyHandler extends Observable implements KeyListener {
                     currentKey = 32;
                     pressed = true;
                     stateChanged();
+                    System.out.println("Ciao");
                     break;
                 case 17://KeyEvent.VK_CONTROL:                     //control -> 17
                     key = EntityState.CRUNCH;

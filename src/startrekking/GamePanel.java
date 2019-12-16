@@ -47,18 +47,18 @@ public class GamePanel extends JPanel implements Runnable {
 
     public GamePanel() {
 
-        frame = new JFrame(NAME);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setContentPane(this);
-        frame.setIgnoreRepaint(true);
-        frame.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        frame.pack();
-        frame.setResizable(false);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-        frame.setBackground(Color.YELLOW);
-        setFocusable(true);
-        requestFocus();
+//        frame = new JFrame(NAME);
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.setContentPane(this);
+//        frame.setIgnoreRepaint(true);
+//        frame.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+//        frame.pack();
+//        frame.setResizable(false);
+//        frame.setLocationRelativeTo(null);
+//        frame.setVisible(true);
+//        frame.setBackground(Color.YELLOW);
+//        setFocusable(true);
+//        requestFocus();
         startThread();
 
     }
@@ -82,12 +82,14 @@ public class GamePanel extends JPanel implements Runnable {
         Position.setWorldVar(map.getX(), map.getY());
 
         key = new KeyHandler();
-        addKeyListener(key);
+        this.addKeyListener(key);
 
         tf = new TileFacade("tiles/Level1.xml");
 
         player = new Player(new Sprite("entity/mage.png", 64, 64), new Position(0 + 32, 0 + (GamePanel.HEIGHT) - 130), 96, key);
+
         key.addObserver(player);
+        
         font = new Sprite("font/Font.png", 10, 10);
     }
 
@@ -161,7 +163,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void update() {
         Position.setWorldVar(map.getX(), map.getY());
         player.updateGame();
-        color = frame.getBackground();
+        //color = frame.getBackground();
     }
 
     public boolean test;
@@ -198,9 +200,9 @@ public class GamePanel extends JPanel implements Runnable {
         return HEIGHT;
     }
 
-    public static void main(String[] args) {
-        GamePanel gamePanel = new GamePanel();
-    }
+//    public static void main(String[] args) {
+//        GamePanel gamePanel = new GamePanel();
+//    }
 
     public static Position getMapPos() {
         return map;

@@ -1,4 +1,4 @@
-package startrekking;
+package frames;
 
 import java.awt.*;
 import javax.swing.*;

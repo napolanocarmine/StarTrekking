@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package gamestate;
-import startrekking.GameFrame;
+import frames.GameFrame;
 
 /**
  *

@@ -104,4 +104,6 @@ public class MainMenuFrame extends javax.swing.JFrame {
     private javax.swing.JButton storyModeButton;
     private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
+
+
 }

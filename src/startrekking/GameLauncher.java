@@ -6,6 +6,7 @@
 package startrekking;
 
 import gamestate.*;
+import javax.swing.SwingUtilities;
 
 
 /**
@@ -18,9 +19,11 @@ import gamestate.*;
  */
 public class GameLauncher {
     
-    public static void main(String[] args){
-        //new Window();
-        GameStateManager gsm = new GameStateManager();
-    
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+               new GameStateManager();
+            }
+        });
     }
 }

@@ -116,7 +116,9 @@ public class GamePanel extends JPanel implements Runnable{
 
             
             render();
-            draw();
+            repaint();
+            //draw();
+            //paintComponent(g);
             lastRenderTime = now;
             frameCount++;
 
@@ -163,30 +165,13 @@ public class GamePanel extends JPanel implements Runnable{
             Sprite.drawArray(g, font, "FPS: " + GamePanel.oldFrameCount, new Position(this.width - (8 * 40), 40), 40, 40, 32, 0);            //gsm.render(g);
         }
     }
-//    @Override
-//    public void paint(Graphics g) {
-//        /*
-//        g.setColor(Color.RED);
-//        g.fillRect(100, 100, 64, 64);
-//         */
-//        Graphics2D g2d = (Graphics2D) g;
-//        if (g2d != null) {
-//            test = true;
-//            g2d.setColor(new Color(66, 134, 244));
-//            g2d.fillRect(0, 0, width, height);
-//            tf.render(g2d);
-//            player.render(g2d);
-//            Sprite.drawArray(g2d, font, "FPS: " + GamePanel.oldFrameCount, new Position(GamePanel.width - (8 * 40), 40), 40, 40, 32, 0);
-//        }
-//        //Sprite.drawArray(g, font, "FPS: " + GamePanel.oldFrameCount , new Vector2f(GamePanel.width - (8 * 40) , 10), 40, 40, 32, 0);    
-//    }
-    
-    
 
     public boolean drawImage;
 
-    public void draw() {
-        Graphics g2 = (Graphics) this.getGraphics();
+    @Override
+    public void paintComponent(Graphics g){
+        super.paintComponents(g);
+        Graphics g2 = (Graphics) g;
         drawImage = g2.drawImage(img, 0, 0, this.width, this.height, null);
         g2.dispose();
     }
@@ -203,11 +188,5 @@ public class GamePanel extends JPanel implements Runnable{
         return height;
     }
 
-//    public static void main(String[] args) {
-//        GamePanel gamePanel = new GamePanel();
-//    }
-//        public Position getMapPos() {
-//            return map;
-//        }
     
 }

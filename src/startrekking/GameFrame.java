@@ -34,20 +34,6 @@ public final class GameFrame extends JFrame{
         setLocationRelativeTo(null);
         setVisible(true);
         
-        
-//        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        gamePanel = new GamePanel(this);
-//        this.setContentPane(gamePanel);
-//        this.setIgnoreRepaint(true);
-//        this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-//        this.pack();
-//        this.setResizable(false);
-//        this.setLocationRelativeTo(null);
-//        this.setVisible(true);
-//        this.setBackground(Color.YELLOW);
-//        setFocusable(true);
-//        requestFocus();
-//        gamePanel.startThread();
     }
     
 }

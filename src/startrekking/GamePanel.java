@@ -42,7 +42,7 @@ public class GamePanel extends JPanel implements Runnable{
     public GamePanel(int WIDTH, int HEIGHT){
         this.width = WIDTH;
         this.height = HEIGHT;
-        setPreferredSize(new Dimension(WIDTH,HEIGHT));
+        setPreferredSize(new Dimension(width,height));
         setFocusable(true);
         requestFocus();
         startThread();
@@ -114,10 +114,9 @@ public class GamePanel extends JPanel implements Runnable{
                 lastUpdateTime = now - TBU;
             }
 
-            //paint(g);
+            
             render();
             draw();
-            //gf.repaint();
             lastRenderTime = now;
             frameCount++;
 

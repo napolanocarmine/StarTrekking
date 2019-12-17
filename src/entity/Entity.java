@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import graphics.Animation;
 import graphics.Sprite;
+import graphics.EntitySprite;
 import util.AABB;
 import util.Position;
 import util.EntityState;
@@ -17,15 +18,15 @@ import util.TileCollision;
 public abstract class Entity {
     
     protected Animation ani;
-    protected Sprite sprite;
+    protected EntitySprite sprite;
     protected Position pos;
     protected int size;
 
     protected EntityState state; //Key premuta
     protected EntityState currentState; //Animazione Corrente
 
-    protected float dx = 0;
-    protected float dy = 0;
+    protected float dx;
+    protected float dy;
 
     protected float maxSpeed = 20f;
     protected float acc = 0.0003f;
@@ -35,29 +36,39 @@ public abstract class Entity {
     protected TileCollision tc;
     
     protected int aniDelay = 80;
+    
+    protected float timex = 0;
+    protected float timey = 0;
+    
+    protected float vx = 0;
+    protected float vy;
 
+    
+    protected float initialSpeed;
+    protected float initialAcc;
+    
     //protected AABB hitBounds;
     //protected AABB bounds;
     //protected TileCollision tc;
-    public Entity(Sprite sprite, Position origin, int size, EntityState state) {
+    public Entity(EntitySprite sprite, Position origin, int size, EntityState state) {
         this.sprite = sprite;
-        pos = origin;
+        this.pos = origin;
         this.size = size;
-        this.ani = new Animation(sprite.getSpriteArray(state.ordinal()));
+        this.ani = new Animation(sprite.getSprite(state));
         this.ani.setDelay(aniDelay);
         this.state = state;
         this.currentState = state;
         tc = new TileCollision(this);
     }
     
-    public Entity(Sprite sprite, Position origin, int size) {
+    public Entity(EntitySprite sprite, Position origin, int size) {
         this.sprite = sprite;
         pos = origin;
         this.size = size;
-        this.ani = new Animation(sprite.getSpriteArray(0));
+        this.ani = new Animation(sprite.getSprite(state));
     }
 
-    public void setSprite(Sprite sprite) { this.sprite = sprite; }
+    public void setSprite(EntitySprite sprite) { this.sprite = sprite; }
     public void setDead() { state = EntityState.DEAD; }
     public void setSize(int i) { size = i; }
     public void setMaxSpeed(float f) { maxSpeed = f; }
@@ -77,7 +88,7 @@ public abstract class Entity {
     public void animate(EntityState state) {
         if (state != this.currentState) {
             this.currentState = state;
-            setAnimation(state, sprite.getSpriteArray(state.ordinal()), aniDelay);
+            setAnimation(state, sprite.getSprite(state), aniDelay);
         }
     }
 

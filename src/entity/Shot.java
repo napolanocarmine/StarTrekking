@@ -1,32 +1,55 @@
 package entity;
 
-import graphics.Sprite;
+import graphics.EntitySprite;
+import java.awt.Color;
 import java.awt.Graphics2D;
-import frames.GameFrame;
+import util.AABB;
+import util.EntityState;
 import util.Position;
 
 public class Shot extends Entity{
 
-    public Shot(Sprite sprite, Position origin, int size) {
-        super(sprite, origin, size);
+    private float dx0;
+    private float previousX;
+    
+    public Shot(EntitySprite sprite, Position origin, int size, float initialSpeed) {
+        super(sprite, origin, size, EntityState.ATTACK);
+        this.bounds = new AABB(pos, 16, 16, 16, 16);
+        this.initialSpeed = initialSpeed;
+        this.vx = initialSpeed+0.4f;
+        this.acc = 0.001f;
+        this.dx0 = origin.getX();
+        this.dx = dx0;
+    }
+    
+    public boolean collides(){
+        return tc.collisionTile(dx-previousX, 0);
     }
     
     public void move() {
-        dx += 4;  //Player Acceleration
-        if (dx > maxSpeed) {
-            dx = maxSpeed; //if the delta x is over the max we reset it
-        }
+//        dx += 0.001;  //Player Acceleration
+//        if (dx > maxSpeed) {
+//            dx = maxSpeed; //if the delta x is over the max we reset it
+//        }
+        if(timex == 0) vx = initialSpeed;
+        previousX = dx;
+        dx = (float)((0.5*acc*Math.pow(timex, 2) + vx*timex)) + dx0 + 96;
+        //dx = (float)(vx*timex);
+        timex++;
     }
 
     public void updateGame() {
-        super.updateGame();
+        super.updateGame(state);
         move();
-        pos.addX(dx);
+        pos.setX(dx);
     }
 
     @Override
     public void render(Graphics2D g) {  //draw the player in the panel
-        g.drawImage(ani.getImage(), (int) pos.getX(), (int) pos.getY(), size, size, null);
+        g.drawImage(ani.getImage(), (int) pos.getWorldVar().getX(), (int) pos.getWorldVar().getY(), size, size, null);
+        g.setColor(Color.blue);
+        g.drawRect((int) (pos.getWorldVar().getX() + bounds.getXOffset()),
+                (int) (pos.getWorldVar().getY() + bounds.getYOffset()), (int)bounds.getWidth(), (int)bounds.getHeight());
     }
     
 }

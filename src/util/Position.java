@@ -31,7 +31,7 @@ public class Position {
     }
 
     public float getX() {
-        return x;
+        return x;   
     }
 
     public float getY() {

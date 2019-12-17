@@ -84,6 +84,10 @@ public class Animation {
         return timesPlayed > 0;
     }
 
+    public boolean playingLastFrame(){
+        return currentFrame == (numFrames-1);
+    }
+    
     public boolean hasPlayed(int i) {
         return timesPlayed == i;
     }

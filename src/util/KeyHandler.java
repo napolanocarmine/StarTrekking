@@ -73,7 +73,7 @@ public class KeyHandler extends Observable implements KeyListener {
                     stateChanged();
                     break;
                 case 17://KeyEvent.VK_CONTROL:                     //control -> 17
-                    key = EntityState.CRUNCH;
+                    key = EntityState.CROUCH;
                     pressed = true;
                     currentKey = 17;
                     stateChanged();

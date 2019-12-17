@@ -6,6 +6,7 @@ import gamestate.GameOverState;
 import gamestate.State;
 import gamestate.StoryPlayState;
 import graphics.Sprite;
+import graphics.EntitySprite;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.text.DecimalFormat;
@@ -22,10 +23,9 @@ import util.EntityState;
 
 public class Player extends Entity implements Observer {
 
-    private double jumpSpeed;
-    private double currentJumpSpeed;
-    private double jumpSpeedDecrement = .09;
-    private int time;
+    private final int MAXHEALTHPOINTS = 3;
+    private int hp;
+    
     
     private KeyHandler khdl;
     int action;
@@ -35,37 +35,29 @@ public class Player extends Entity implements Observer {
     private float previousX;
     private float initialX = 32;
     private float initialY = ((GameFrame.HEIGHT) - 130);
-    private float initialSpeed = 0.5f;
     DecimalFormat df = new DecimalFormat();
-    private State gameState;
-    
-    //---------
-    
-    private float vx = 0;
-    private float vy;
-    private float timex = 0;
-    private float timey = 0;
     private float gravity = -0.5f;
     private float y0 = initialY;
     private float h = 100;
     private float dist = 150;
     private boolean falling = false;
-    
-    private float startingY;
-    private float startingX;
-    
-    
+    private boolean invincible = false;
+    private float initialSpeed = 0.3f;
+    private float initialAcc = 0.00003f;
+    private float invStartTime;
+    private boolean visible = true;
 
-    public Player(Sprite sprite, Position origin, int size, KeyHandler khdl) {
+    public Player(EntitySprite sprite, Position origin, int size, KeyHandler khdl) {
         super(sprite, origin, size, EntityState.RUN);
+        this.hp = MAXHEALTHPOINTS;
         this.bounds = new AABB(pos, 16, 32, 40, 32);
         this.khdl = khdl;
         previousY = (int)pos.getY();
         previousX = (int)pos.getX();
-        this.dx = initialSpeed;
         df.setMaximumFractionDigits(2);
         //this.acc = 0.00015f;
-        this.acc = 0.00005f;
+        this.acc = initialAcc;
+        this.vx = initialSpeed;
     }
 
     public void move() {
@@ -78,7 +70,7 @@ public class Player extends Entity implements Observer {
             //System.err.println("collision front");
             dx = previousX;
         }else{
-            timex+= 1f;
+            if(state != EntityState.DEAD) timex+= 1f;
             previousX = dx;
         }
         
@@ -93,7 +85,7 @@ public class Player extends Entity implements Observer {
 //                System.err.println("dy: " + dy);
 //                System.err.println("gravity: " + gravity);
             }
-            if(ani.getFrame() == 3) ani.setDelay(-1);
+            if(ani.playingLastFrame()) ani.setDelay(-1);
         }else{
             vy = 0;
             gravity = -0.01f;
@@ -103,13 +95,12 @@ public class Player extends Entity implements Observer {
         if(tc.collisionTileDown(0, dy-previousY)){
             //System.err.println("collision down");
             dy = previousY;
-            state = EntityState.RUN;
             falling = false;
             timey = 0;
             y0 = previousY;
+            if(state != EntityState.ATTACK && state != EntityState.DEAD) state = EntityState.RUN;
         }else if(tc.collisionTileUp(0, dy-previousY)){
             dy = previousY;
-            //timey = 0;
             y0 = previousY;
             falling = true;
             vy = 0;
@@ -118,40 +109,68 @@ public class Player extends Entity implements Observer {
             previousY = dy;
         }
         
-    }
-
-    private void attack(){
-        shots.add(new Shot(new Sprite("Entity/shot.png", 32, 32), new Position(96, pos.getY()+24), 48));
-    }
-    
-    private void restartPlayer(){
-        /*System.err.println("restart");
-        pos.setPos(0 + 32, 0 + (GameFrame.HEIGHT) - 130);
-        GamePanel.getMapPos().setPos(0, 0);
-        timex = 0;
-        timey = 0;
-        //previousX = initialX;
-        y0 = initialY;
-        state = EntityState.RUN;*/
-        gameState.handleNext(0);
+        if(state == EntityState.ATTACK){
+            if(ani.playingLastFrame()){
+                attack();
+                state = EntityState.RUN;
+            }
+        }
+        
+        if(state == EntityState.DEAD) isDead();
         
     }
     
-    public void initializeJump(){
-        initialX = pos.getX();
-        initialY = pos.getY();
-        int h = 5;
-        int dist = 40;
-        currentJumpSpeed = (dx * 2 * h)/dist;
-        jumpSpeedDecrement = ((Math.pow(dx, 2))*2*h)/(Math.pow(dist, 2));
-//        currentJumpSpeed = 1.3;
-//        jumpSpeedDecrement = .09;
-        jumpSpeed = currentJumpSpeed;
-        dy = 0;
-        time = 0;
+    public void isDead(){
+        if(ani.playingLastFrame()){
+            restartPlayer();
+        }
     }
     
-    public void updateGame() {
+    public void hitted(){
+        invincible = true;
+        visible = false;
+        invStartTime = System.nanoTime();
+        if(--hp==0){
+            state = EntityState.DEAD;
+        }
+    }
+
+    private void attack(){
+        shots.add(new Shot(new EntitySprite("Entity/shot", 32, 32), new Position(dx-15, pos.getY()+24), 48, vx+acc*(timex)));
+    }
+    
+    private void restartPlayer(){
+        System.err.println("restart");
+        state = EntityState.RUN;
+        timex = 0;
+        timey = 0;
+        vx = initialSpeed;
+        acc = initialAcc;
+        //previousX = initialX;
+        y0 = initialY;
+        invincible = false;
+        this.hp = 3;
+        pos.setPos(0 + 32, 0 + (GameFrame.HEIGHT) - 130);
+        GamePanel.getMapPos().setPos(0, 0);
+        
+    }
+    
+    public ArrayList<Shot> getShots(){
+        return shots;
+    }
+    
+    public void deleteShot(Shot s){
+        shots.remove(s);
+    }
+    
+    public void updateGame(){
+        if(invincible){
+            if(System.nanoTime()%9000 < 100 || System.nanoTime()%9000 > 100) visible = !visible;
+            if(System.nanoTime() - invStartTime>= GamePanel.unitTime){
+                invincible = false;
+                visible = true;
+            }
+        }
         move();
         super.updateGame(state);
         pos.setX(dx);    //update x position
@@ -161,7 +180,14 @@ public class Player extends Entity implements Observer {
         pos.setY(dy);
         if(!shots.isEmpty()){
             for(int i=0; i<shots.size(); i++){
-                shots.get(i).updateGame();
+                //System.err.println(shots.get(i).pos.getX());
+                System.err.println((shots.get(i).pos.getWorldVar().getX() - pos.getWorldVar().getX()));
+                if(shots.get(i).pos.getWorldVar().getX() - pos.getWorldVar().getX() > GameFrame.WIDTH ||
+                        shots.get(i).collides()){
+                    System.err.println("ELIMINO COLPO");
+                    deleteShot(shots.get(i));
+                }
+                else shots.get(i).updateGame();
             }
         }
         if(pos.getY() > GameFrame.HEIGHT){
@@ -172,9 +198,12 @@ public class Player extends Entity implements Observer {
 
     @Override
     public void render(Graphics2D g) {  //draw the player in the panel
-        g.drawImage(ani.getImage(), (int) pos.getWorldVar().getX(), (int) pos.getWorldVar().getY(), size, size, null);
-        g.setColor(Color.blue);
-        g.drawRect((int) (pos.getWorldVar().getX()  + bounds.getXOffset()), (int) (pos.getWorldVar().getY() + bounds.getYOffset()), (int)bounds.getWidth(), (int)bounds.getHeight());
+        if(visible == true){
+            g.drawImage(ani.getImage(), (int) pos.getWorldVar().getX(), (int) pos.getWorldVar().getY(), size, size, null);
+            g.setColor(Color.blue);
+            g.drawRect((int) (pos.getWorldVar().getX()  + bounds.getXOffset()), (int) (pos.getWorldVar().getY() + bounds.getYOffset()), (int)bounds.getWidth(), (int)bounds.getHeight());
+        }
+                
         if(!shots.isEmpty()){
             for(int i=0; i<shots.size(); i++){
                 shots.get(i).render(g);
@@ -187,22 +216,15 @@ public class Player extends Entity implements Observer {
             if ((key == 4) && (state != EntityState.JUMP) &&
                (!tc.collisionTileDown(0, dy-previousY)) && currentState == EntityState.RUN && b) {
                 state = EntityState.JUMP;
-                startingY = pos.getY();
-                startingX = pos.getX();
                 timey = 0;
-                initializeJump();
-                jumpSpeedDecrement = (dx*jumpSpeed)/100;
-                System.out.println("INIZIO SALTO");
-                System.out.println("check: " + df.format(currentJumpSpeed) + " - " + df.format(jumpSpeedDecrement) + ", tick: " + (currentJumpSpeed/jumpSpeedDecrement));
-            }else if(key == 5 && b && currentState == EntityState.RUN){
+            }else if (key == 3 && currentState == EntityState.RUN) {
+                state = EntityState.ATTACK;
+            }/*else if(key == 5 && b && currentState == EntityState.RUN){
                 state = EntityState.CRUNCH;
                 System.out.println("Crunch");
             }else if(key == 5 && !b ){
                 state = EntityState.RUN;
-            }else if (key == 3 && currentState == EntityState.RUN) {
-                state = EntityState.ATTACK;
-                System.out.println("Attack");
-            }
+            }*/
         } else {
             state = EntityState.DEAD;
         }
@@ -216,5 +238,9 @@ public class Player extends Entity implements Observer {
             boolean b = khdl.isPressed();
             mapValueAction(key, b);
         }
+    }
+    
+    public int getHP(){
+        return this.hp;
     }
 }

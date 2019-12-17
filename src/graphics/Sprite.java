@@ -4,15 +4,14 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.HashMap;
 import javax.imageio.ImageIO;
+import util.EntityState;
 import util.Position;
 
 public class Sprite {
-
+    
     private BufferedImage spriteMatrix;
-    private BufferedImage[][] spriteArray;
     private final int TILE_SIZE = 32;
     public int w;
     public int h;
@@ -27,7 +26,6 @@ public class Sprite {
 
         wSprite = spriteMatrix.getWidth() / w;
         hSprite = spriteMatrix.getHeight() / h;
-        loadSpriteArray();
     }
 
     public Sprite(String file, int w, int h) {
@@ -39,32 +37,8 @@ public class Sprite {
 
         wSprite = spriteMatrix.getWidth() / w;
         hSprite = spriteMatrix.getHeight() / h;
-        loadSpriteArray();
     }
-
-    public void setSize(int width, int height) {
-        setWidth(width);
-        setHeight(height);
-    }
-
-    private void setHeight(int i) {
-        w = i;
-        wSprite = spriteMatrix.getWidth() / w;
-    }
-
-    private void setWidth(int i) {
-        h = i;
-        hSprite = spriteMatrix.getHeight() / h;
-    }
-
-    public int getWidth() {
-        return w;
-    }
-
-    public int getHeight() {
-        return h;
-    }
-
+    
     private BufferedImage loadSprite(String file) {
         BufferedImage sprite = null;
         try {
@@ -76,30 +50,8 @@ public class Sprite {
         return sprite;
     }
 
-    public void loadSpriteArray() {
-        spriteArray = new BufferedImage[hSprite][wSprite];
-
-        for (int y = 0; y < hSprite; y++) {
-            for (int x = 0; x < wSprite; x++) {
-                spriteArray[y][x] = getSprite(x, y);
-            }
-        }
-    }
-
-    public BufferedImage getSpriteSheet() {
-        return spriteMatrix;
-    }
-
     public BufferedImage getSprite(int x, int y) {
         return spriteMatrix.getSubimage(x * w, y * h, w, h);
-    }
-
-    public BufferedImage[] getSpriteArray(int i) {
-        return spriteArray[i];
-    }
-
-    public BufferedImage[][] getSpriteArray2(int i) {
-        return spriteArray;
     }
 
     public BufferedImage getLetter(char letter) {
@@ -110,7 +62,25 @@ public class Sprite {
 
         return getSprite(x, y);
     }
+    
+    public BufferedImage getMatrix(){
+        return spriteMatrix;
+    }
+    
+    public static void drawArray(Graphics2D g, Sprite letter, String word, Position pos, int width, int height, int xOffset, int yOffset) {
+        float x = pos.getX();
+        float y = pos.getY();
 
+        for (int i = 0; i < word.length(); i++) {
+            if (word.charAt(i) != 32) {
+                g.drawImage(letter.getLetter(word.charAt(i)), (int) x, (int) y, width, height, null);
+            }
+
+            x += xOffset;
+            y += yOffset;
+        }
+    }
+    
     public static void drawArray(Graphics2D g, ArrayList<BufferedImage> img, Position pos, int width, int height, int xOffset, int yOffset) {
         float x = pos.getX();
         float y = pos.getY();
@@ -124,19 +94,12 @@ public class Sprite {
             y += yOffset;
         }
     }
-
-    public static void drawArray(Graphics2D g, Sprite letter, String word, Position pos, int width, int height, int xOffset, int yOffset) {
+    
+    public static void drawArray(Graphics2D g, BufferedImage img, Position pos, int width, int height) {
         float x = pos.getX();
         float y = pos.getY();
 
-        for (int i = 0; i < word.length(); i++) {
-            if (word.charAt(i) != 32) {
-                g.drawImage(letter.getLetter(word.charAt(i)), (int) x, (int) y, width, height, null);
-            }
-
-            x += xOffset;
-            y += yOffset;
-        }
+        g.drawImage(img, (int) x, (int) y, width, height, null);
     }
 
 }

@@ -30,7 +30,7 @@ public class Player extends Entity implements Observer {
     private float previousX;
     private float initialX = 32;
     private float initialY = ((GamePanel.HEIGHT) - 130);
-    private float initialSpeed = 0.5f;
+    private float initialSpeed = 0.4f;
     DecimalFormat df = new DecimalFormat();
     
     //---------
@@ -59,7 +59,7 @@ public class Player extends Entity implements Observer {
         this.dx = initialSpeed;
         df.setMaximumFractionDigits(2);
         //this.acc = 0.00015f;
-        this.acc = 0.00005f;
+        this.acc = 0.0000f;
     }
 
     public void move() {
@@ -67,6 +67,7 @@ public class Player extends Entity implements Observer {
         //PLAYER HORIZONTAL MOTION
         if(timex == 0) vx = initialSpeed;
         dx = (float)((0.5*acc*Math.pow(timex, 2) + vx*timex));
+               
         //dx = (float)((vx*timex));
         if(tc.collisionTile(dx-previousX, 0)){
             //System.err.println("collision front");
@@ -163,6 +164,7 @@ public class Player extends Entity implements Observer {
                 shots.get(i).updateGame();
             }
         }
+        
         //System.out.println(pos.getY() + " - " + GamePanel.HEIGHT);
         if(pos.getY() > GamePanel.HEIGHT){
             restartPlayer();

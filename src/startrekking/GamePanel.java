@@ -1,5 +1,6 @@
 package startrekking;
 
+import entity.Enemy;
 import entity.Player;
 import graphics.Sprite;
 import tiles.TileFacade;
@@ -8,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import util.KeyHandler;
@@ -44,9 +46,11 @@ public class GamePanel extends JPanel implements Runnable {
     private Player player;
     private Sprite font;
     private KeyHandler key;
+    private ArrayList<Enemy> enemies;
+    private final int ENEMIES=30; 
 
     public GamePanel() {
-
+        this.enemies = new ArrayList<>();
         frame = new JFrame(NAME);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(this);
@@ -77,7 +81,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
         g = (Graphics2D) img.getGraphics();
-
+        
         map = new Position(0, 0);
         Position.setWorldVar(map.getX(), map.getY());
 
@@ -85,9 +89,15 @@ public class GamePanel extends JPanel implements Runnable {
         addKeyListener(key);
 
         tf = new TileFacade("tiles/Level1.xml");
-
+        //size da dare a Player non viene utilizzata da nessuna parte attualmente 14/12/2019
         player = new Player(new Sprite("entity/mage.png", 64, 64), new Position(0 + 32, 0 + (GamePanel.HEIGHT) - 130), 96, key);
-        key.addObserver(player);
+        key.addObserver(player);   
+        int spacex=GamePanel.WIDTH/2;
+        
+        for(int i=1;i<=ENEMIES;i++){
+            enemies.add(new Enemy(new Sprite("entity/goblin_walk.png", 64, 64), new Position(spacex, 0) , 96));
+            spacex= spacex +(tf.mapWidth*16/ENEMIES);
+        }
         font = new Sprite("font/Font.png", 10, 10);
     }
 
@@ -161,6 +171,10 @@ public class GamePanel extends JPanel implements Runnable {
     public void update() {
         Position.setWorldVar(map.getX(), map.getY());
         player.updateGame();
+        for (int i=0; i< ENEMIES;i++){
+                enemies.get(i).updateGame();
+            }
+        
         color = frame.getBackground();
     }
 
@@ -176,6 +190,9 @@ public class GamePanel extends JPanel implements Runnable {
             g.setColor(new Color(66, 134, 244));
             g.fillRect(0, 0, WIDTH, HEIGHT);
             tf.render(g);
+            for (int i=0; i< ENEMIES;i++){
+                enemies.get(i).render(g);
+            }
             player.render(g);
             Sprite.drawArray(g, font, "FPS: " + GamePanel.oldFrameCount, new Position(GamePanel.WIDTH - (8 * 40), 10), 40, 40, 32, 0);
         }

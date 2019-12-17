@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import startrekking.GameFrame;
+import startrekking.GamePanel;
 import tiles.TileFacade;
 import util.AABB;
 import util.KeyHandler;
 import util.Position;
 import util.EntityState;
-import util.TileCollision;
 
 public class Player extends Entity implements Observer {
 
@@ -121,7 +121,7 @@ public class Player extends Entity implements Observer {
     private void restartPlayer(){
         System.err.println("restart");
         pos.setPos(0 + 32, 0 + (GameFrame.HEIGHT) - 130);
-        GameFrame.getMapPos().setPos(0, 0);
+        GamePanel.getMapPos().setPos(0, 0);
         timex = 0;
         timey = 0;
         //previousX = initialX;
@@ -147,8 +147,8 @@ public class Player extends Entity implements Observer {
         move();
         super.updateGame(state);
         pos.setX(dx);    //update x position
-        if(GameFrame.getMapPos().getX()+GameFrame.WIDTH < TileFacade.mapWidth * 16){
-            GameFrame.getMapPos().setX(dx);
+        if(GamePanel.getMapPos().getX()+GameFrame.WIDTH < TileFacade.mapWidth * 16){
+            GamePanel.getMapPos().setX(dx);
         }
         pos.setY(dy);
         if(!shots.isEmpty()){

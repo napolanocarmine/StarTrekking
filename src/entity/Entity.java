@@ -45,6 +45,7 @@ public abstract class Entity {
 
     
     protected float initialSpeed;
+    protected float initialAcc;
     
     //protected AABB hitBounds;
     //protected AABB bounds;

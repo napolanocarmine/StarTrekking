@@ -21,6 +21,7 @@ public class Player extends Entity implements Observer {
     private final int MAXHEALTHPOINTS = 3;
     private int hp;
     
+    
     private KeyHandler khdl;
     int action;
     float landingY = pos.getY();
@@ -30,16 +31,16 @@ public class Player extends Entity implements Observer {
     private float initialX = 32;
     private float initialY = ((GamePanel.HEIGHT) - 130);
     DecimalFormat df = new DecimalFormat();
-    
-    
     private float gravity = -0.5f;
     private float y0 = initialY;
     private float h = 100;
     private float dist = 150;
     private boolean falling = false;
-    
-    private float startingY;
-    private float startingX;
+    private boolean invincible = false;
+    private float initialSpeed = 0.3f;
+    private float initialAcc = 0.00003f;
+    private float invStartTime;
+    private boolean visible = true;
 
     public Player(EntitySprite sprite, Position origin, int size, KeyHandler khdl) {
         super(sprite, origin, size, EntityState.RUN);
@@ -50,8 +51,7 @@ public class Player extends Entity implements Observer {
         previousX = (int)pos.getX();
         df.setMaximumFractionDigits(2);
         //this.acc = 0.00015f;
-        this.acc = 0.00003f;
-        this.initialSpeed = 0.3f;
+        this.acc = initialAcc;
         this.vx = initialSpeed;
     }
 
@@ -65,7 +65,7 @@ public class Player extends Entity implements Observer {
             //System.err.println("collision front");
             dx = previousX;
         }else{
-            timex+= 1f;
+            if(state != EntityState.DEAD) timex+= 1f;
             previousX = dx;
         }
         
@@ -93,7 +93,7 @@ public class Player extends Entity implements Observer {
             falling = false;
             timey = 0;
             y0 = previousY;
-            if(state != EntityState.ATTACK) state = EntityState.RUN;
+            if(state != EntityState.ATTACK && state != EntityState.DEAD) state = EntityState.RUN;
         }else if(tc.collisionTileUp(0, dy-previousY)){
             dy = previousY;
             y0 = previousY;
@@ -111,6 +111,23 @@ public class Player extends Entity implements Observer {
             }
         }
         
+        if(state == EntityState.DEAD) isDead();
+        
+    }
+    
+    public void isDead(){
+        if(ani.playingLastFrame()){
+            restartPlayer();
+        }
+    }
+    
+    public void hitted(){
+        invincible = true;
+        visible = false;
+        invStartTime = System.nanoTime();
+        if(--hp==0){
+            state = EntityState.DEAD;
+        }
     }
 
     private void attack(){
@@ -119,13 +136,18 @@ public class Player extends Entity implements Observer {
     
     private void restartPlayer(){
         System.err.println("restart");
-        pos.setPos(0 + 32, 0 + (GamePanel.HEIGHT) - 130);
-        GamePanel.getMapPos().setPos(0, 0);
+        state = EntityState.RUN;
         timex = 0;
         timey = 0;
+        vx = initialSpeed;
+        acc = initialAcc;
         //previousX = initialX;
         y0 = initialY;
-        state = EntityState.RUN;
+        invincible = false;
+        this.hp = 3;
+        pos.setPos(0 + 32, 0 + (GamePanel.HEIGHT) - 130);
+        GamePanel.getMapPos().setPos(0, 0);
+        
     }
     
     public ArrayList<Shot> getShots(){
@@ -137,6 +159,13 @@ public class Player extends Entity implements Observer {
     }
     
     public void updateGame(){
+        if(invincible){
+            if(System.nanoTime()%9000 < 100 || System.nanoTime()%9000 > 100) visible = !visible;
+            if(System.nanoTime() - invStartTime>= GamePanel.unitTime){
+                invincible = false;
+                visible = true;
+            }
+        }
         move();
         super.updateGame(state);
         pos.setX(dx);    //update x position
@@ -161,9 +190,12 @@ public class Player extends Entity implements Observer {
 
     @Override
     public void render(Graphics2D g) {  //draw the player in the panel
-        g.drawImage(ani.getImage(), (int) pos.getWorldVar().getX(), (int) pos.getWorldVar().getY(), size, size, null);
-        g.setColor(Color.blue);
-        g.drawRect((int) (pos.getWorldVar().getX()  + bounds.getXOffset()), (int) (pos.getWorldVar().getY() + bounds.getYOffset()), (int)bounds.getWidth(), (int)bounds.getHeight());
+        if(visible == true){
+            g.drawImage(ani.getImage(), (int) pos.getWorldVar().getX(), (int) pos.getWorldVar().getY(), size, size, null);
+            g.setColor(Color.blue);
+            g.drawRect((int) (pos.getWorldVar().getX()  + bounds.getXOffset()), (int) (pos.getWorldVar().getY() + bounds.getYOffset()), (int)bounds.getWidth(), (int)bounds.getHeight());
+        }
+                
         if(!shots.isEmpty()){
             for(int i=0; i<shots.size(); i++){
                 shots.get(i).render(g);
@@ -176,13 +208,7 @@ public class Player extends Entity implements Observer {
             if ((key == 4) && (state != EntityState.JUMP) &&
                     (!tc.collisionTileDown(0, dy-previousY)) && currentState == EntityState.RUN && b) {
                 state = EntityState.JUMP;
-                startingY = pos.getY();
-                startingX = pos.getX();
                 timey = 0;
-                //initializeJump();
-                //jumpSpeedDecrement = (dx*jumpSpeed)/100;
-                //System.out.println("INIZIO SALTO");
-                //System.out.println("check: " + df.format(currentJumpSpeed) + " - " + df.format(jumpSpeedDecrement) + ", tick: " + (currentJumpSpeed/jumpSpeedDecrement));
             }else if (key == 3 && currentState == EntityState.RUN) {
                 state = EntityState.ATTACK;
             }/*else if(key == 5 && b && currentState == EntityState.RUN){

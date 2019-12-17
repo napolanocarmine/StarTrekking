@@ -29,12 +29,15 @@ public class GamePanel extends JPanel implements Runnable {
     2- Riferimenti di oggetti Map, Entity, KeyHandler, TileFacade
      */
     //dimensione finestra
+    
+    public static float unitTime = 700000000;
+
     public static final int WIDTH = 1600;
     public static final int HEIGHT = 528;
 
     //nome JFrame
     public static final String NAME = "STAR TREKKING";
-
+    
     public static int oldFrameCount;
     private static Position map;
 
@@ -48,9 +51,15 @@ public class GamePanel extends JPanel implements Runnable {
     private TileFacade tf;
     private Player player;
     private Player player2;
+    private Player player3;
+    private Player player4;
+    private Sprite hpimg;
     private Sprite font;
     private KeyHandler key;
-
+    
+    private float previousTickHitted = 0;
+    private float TickHitted = 0;
+    
     public GamePanel() {
 
         frame = new JFrame(NAME);
@@ -93,8 +102,13 @@ public class GamePanel extends JPanel implements Runnable {
         tf = new TileFacade("tiles/Level1.xml");
         
         //player = new Player(new Sprite("entity/mage.png", 64, 64), new Position(0 + 32, 0 + (GamePanel.HEIGHT) - 130), 96, key);
-        player = new Player(new EntitySprite("entity/wizard", 64, 64), new Position(0, 0 + (GamePanel.HEIGHT) - 130), 96, key);
-        player2 = new Player(new EntitySprite("entity/wizard", 64, 64), new Position(0 + 2000, 0 + (GamePanel.HEIGHT) - 130), 96, key);
+        EntitySprite playerSprite = new EntitySprite("entity/wizard", 64, 64);
+        player = new Player(playerSprite, new Position(0, 0 + (GamePanel.HEIGHT) - 130), 96, key);
+        
+        player2 = new Player(playerSprite, new Position(0 + 2000, 0 + (GamePanel.HEIGHT) - 130), 96, key);
+        player3 = new Player(playerSprite, new Position(0 + 1000, 0 + (GamePanel.HEIGHT) - 130), 96, key);
+        player4 = new Player(playerSprite, new Position(0 + 1060, 0 + (GamePanel.HEIGHT) - 130), 96, key);
+        hpimg = new Sprite("entity/heart.png", 32,32);
         key.addObserver(player);
         font = new Sprite("font/Font.png", 10, 10);
     }
@@ -192,9 +206,31 @@ public class GamePanel extends JPanel implements Runnable {
                 li.remove();
             }
         }
-//        if(player.getBounds().collides(player2.getBounds())){
-//            System.err.println("Collisione player");
-//        }
+        
+        if(player.getBounds().collides(player2.getBounds())){
+                if(System.nanoTime() - previousTickHitted > unitTime){
+                    System.err.println("Collisione player");
+                    player.hitted();    
+                }
+                previousTickHitted = System.nanoTime();
+                
+        }
+        if(player.getBounds().collides(player3.getBounds())){
+                if(System.nanoTime() - previousTickHitted > unitTime){
+                    System.err.println("Collisione player");
+                    player.hitted();    
+                }
+                previousTickHitted = System.nanoTime();
+                
+        }
+        if(player.getBounds().collides(player4.getBounds())){
+                if(System.nanoTime() - previousTickHitted > unitTime){
+                    System.err.println("Collisione player");
+                    player.hitted();    
+                }
+                previousTickHitted = System.nanoTime();
+                
+        }
     }
 
     public boolean test;
@@ -211,8 +247,9 @@ public class GamePanel extends JPanel implements Runnable {
             tf.render(g);
             player.render(g);
             player2.render(g);
+            player3.render(g);
+            player4.render(g);
             Sprite.drawArray(g, font, "FPS: " + GamePanel.oldFrameCount, new Position(GamePanel.WIDTH - (8 * 40), 10), 40, 40, 32, 0);
-            Sprite hpimg = new Sprite("entity/heart.png", 32,32);
 //            ArrayList<BufferedImage> hearts = new ArrayList<BufferedImage>();
 //            BufferedImage heartImg; 
 //            heartImg = hpimg.getMatrix();

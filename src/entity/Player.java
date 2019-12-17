@@ -7,7 +7,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-import startrekking.GamePanel;
+import startrekking.GameFrame;
 import tiles.TileFacade;
 import util.AABB;
 import util.KeyHandler;
@@ -29,7 +29,7 @@ public class Player extends Entity implements Observer {
     private float previousY;
     private float previousX;
     private float initialX = 32;
-    private float initialY = ((GamePanel.HEIGHT) - 130);
+    private float initialY = ((GameFrame.HEIGHT) - 130);
     private float initialSpeed = 0.5f;
     DecimalFormat df = new DecimalFormat();
     
@@ -120,8 +120,8 @@ public class Player extends Entity implements Observer {
     
     private void restartPlayer(){
         System.err.println("restart");
-        pos.setPos(0 + 32, 0 + (GamePanel.HEIGHT) - 130);
-        GamePanel.getMapPos().setPos(0, 0);
+        pos.setPos(0 + 32, 0 + (GameFrame.HEIGHT) - 130);
+        GameFrame.getMapPos().setPos(0, 0);
         timex = 0;
         timey = 0;
         //previousX = initialX;
@@ -147,8 +147,8 @@ public class Player extends Entity implements Observer {
         move();
         super.updateGame(state);
         pos.setX(dx);    //update x position
-        if(GamePanel.getMapPos().getX()+GamePanel.WIDTH < TileFacade.mapWidth * 16){
-            GamePanel.getMapPos().setX(dx);
+        if(GameFrame.getMapPos().getX()+GameFrame.WIDTH < TileFacade.mapWidth * 16){
+            GameFrame.getMapPos().setX(dx);
         }
         pos.setY(dy);
         if(!shots.isEmpty()){
@@ -156,7 +156,7 @@ public class Player extends Entity implements Observer {
                 shots.get(i).updateGame();
             }
         }
-        if(pos.getY() > GamePanel.HEIGHT){
+        if(pos.getY() > GameFrame.HEIGHT){
             restartPlayer();
         }
     }
@@ -176,22 +176,23 @@ public class Player extends Entity implements Observer {
     private void mapValueAction(int key, boolean b) {
         if (true) { //in case the player is alive
             if ((key == 4) && (state != EntityState.JUMP) &&
-                    (!tc.collisionTileDown(0, dy-previousY)) && currentState == EntityState.RUN && b) {
+               (!tc.collisionTileDown(0, dy-previousY)) && currentState == EntityState.RUN && b) {
                 state = EntityState.JUMP;
                 startingY = pos.getY();
                 startingX = pos.getX();
                 timey = 0;
-                //initializeJump();
-                //jumpSpeedDecrement = (dx*jumpSpeed)/100;
-                //System.out.println("INIZIO SALTO");
-                //System.out.println("check: " + df.format(currentJumpSpeed) + " - " + df.format(jumpSpeedDecrement) + ", tick: " + (currentJumpSpeed/jumpSpeedDecrement));
-            }/*else if(key == 5 && b && currentState == EntityState.RUN){
+                initializeJump();
+                jumpSpeedDecrement = (dx*jumpSpeed)/100;
+                System.out.println("INIZIO SALTO");
+                System.out.println("check: " + df.format(currentJumpSpeed) + " - " + df.format(jumpSpeedDecrement) + ", tick: " + (currentJumpSpeed/jumpSpeedDecrement));
+            }else if(key == 5 && b && currentState == EntityState.RUN){
                 state = EntityState.CRUNCH;
+                System.out.println("Ciao ");
             }else if(key == 5 && !b ){
                 state = EntityState.RUN;
             }else if (key == 3 && currentState == EntityState.RUN) {
                 state = EntityState.ATTACK;
-            }*/
+            }
         } else {
             state = EntityState.DEAD;
         }
@@ -204,7 +205,6 @@ public class Player extends Entity implements Observer {
             int key = this.khdl.getValue();
             boolean b = khdl.isPressed();
             mapValueAction(key, b);
-            System.err.println("Mitico");
         }
     }
 }

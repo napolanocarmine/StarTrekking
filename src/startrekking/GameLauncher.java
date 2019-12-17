@@ -5,13 +5,22 @@
  */
 package startrekking;
 
+import gamestate.*;
+
+
 /**
  *
- * @author 2017
+ * @author Star Trekking
+ */
+
+/***
+ * Class that has the goal of launch the main menu.
  */
 public class GameLauncher {
     
     public static void main(String[] args){
-        new Window();
+        //new Window();
+        GameStateManager gsm = new GameStateManager();
+    
     }
 }

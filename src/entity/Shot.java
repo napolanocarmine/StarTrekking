@@ -2,7 +2,7 @@ package entity;
 
 import graphics.Sprite;
 import java.awt.Graphics2D;
-import startrekking.GamePanel;
+import startrekking.GameFrame;
 import util.Position;
 
 public class Shot extends Entity{

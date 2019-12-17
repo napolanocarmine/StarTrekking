@@ -1,5 +1,10 @@
  package entity;
 
+import frames.GameFrame;
+import frames.GamePanel;
+import gamestate.GameOverState;
+import gamestate.State;
+import gamestate.StoryPlayState;
 import graphics.Sprite;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -7,7 +12,6 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-import startrekking.GameFrame;
 import tiles.TileFacade;
 import util.AABB;
 import util.KeyHandler;
@@ -32,6 +36,7 @@ public class Player extends Entity implements Observer {
     private float initialY = ((GameFrame.HEIGHT) - 130);
     private float initialSpeed = 0.5f;
     DecimalFormat df = new DecimalFormat();
+    private State gameState;
     
     //---------
     
@@ -50,7 +55,7 @@ public class Player extends Entity implements Observer {
     
     
 
-    public Player(Sprite sprite, Position origin, int size, KeyHandler khdl) {
+    public Player(Sprite sprite, Position origin, int size, KeyHandler khdl, StoryPlayState state) {
         super(sprite, origin, size, EntityState.RUN);
         this.bounds = new AABB(pos, 16, 32, 40, 32);
         this.khdl = khdl;
@@ -60,6 +65,7 @@ public class Player extends Entity implements Observer {
         df.setMaximumFractionDigits(2);
         //this.acc = 0.00015f;
         this.acc = 0.00005f;
+        this.gameState = state;
     }
 
     public void move() {
@@ -119,14 +125,16 @@ public class Player extends Entity implements Observer {
     }
     
     private void restartPlayer(){
-        System.err.println("restart");
+        /*System.err.println("restart");
         pos.setPos(0 + 32, 0 + (GameFrame.HEIGHT) - 130);
         GameFrame.getMapPos().setPos(0, 0);
         timex = 0;
         timey = 0;
         //previousX = initialX;
         y0 = initialY;
-        state = EntityState.RUN;
+        state = EntityState.RUN;*/
+        gameState.handleNext(0);
+        
     }
     
     public void initializeJump(){
@@ -147,8 +155,8 @@ public class Player extends Entity implements Observer {
         move();
         super.updateGame(state);
         pos.setX(dx);    //update x position
-        if(GameFrame.getMapPos().getX()+GameFrame.WIDTH < TileFacade.mapWidth * 16){
-            GameFrame.getMapPos().setX(dx);
+        if(GamePanel.getMapPos().getX()+GamePanel.WIDTH < TileFacade.mapWidth * 16){
+            GamePanel.getMapPos().setX(dx);
         }
         pos.setY(dy);
         if(!shots.isEmpty()){
@@ -158,6 +166,7 @@ public class Player extends Entity implements Observer {
         }
         if(pos.getY() > GameFrame.HEIGHT){
             restartPlayer();
+            
         }
     }
 
@@ -187,11 +196,12 @@ public class Player extends Entity implements Observer {
                 System.out.println("check: " + df.format(currentJumpSpeed) + " - " + df.format(jumpSpeedDecrement) + ", tick: " + (currentJumpSpeed/jumpSpeedDecrement));
             }else if(key == 5 && b && currentState == EntityState.RUN){
                 state = EntityState.CRUNCH;
-                System.out.println("Ciao ");
+                System.out.println("Crunch");
             }else if(key == 5 && !b ){
                 state = EntityState.RUN;
             }else if (key == 3 && currentState == EntityState.RUN) {
                 state = EntityState.ATTACK;
+                System.out.println("Attack");
             }
         } else {
             state = EntityState.DEAD;

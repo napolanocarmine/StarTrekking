@@ -16,7 +16,7 @@ import javax.swing.JPanel;
  */
 public class ExitState extends State {
     private GameStateManager gsm;
-    private JButton exit;
+   
     
     public ExitState(GameStateManager gsm) {
         this.gsm = gsm;

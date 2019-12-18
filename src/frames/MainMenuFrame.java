@@ -14,15 +14,17 @@ import java.awt.Toolkit;
  * @author Gianluca
  */
 public class MainMenuFrame extends javax.swing.JFrame {
+
     private final MainMenuState state;
+
     /**
      * Creates new form MainMenuFrame
      */
     public MainMenuFrame(MainMenuState state) {
-        this.state =  state;
+        this.state = state;
         initComponents();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         this.setVisible(true);
     }
 
@@ -97,13 +99,12 @@ public class MainMenuFrame extends javax.swing.JFrame {
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
         state.handleNext(1);
     }//GEN-LAST:event_exitButtonActionPerformed
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton exitButton;
     private javax.swing.JButton storyModeButton;
     private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
-
 
 }

@@ -21,6 +21,7 @@ public class KeyHandler extends Observable implements KeyListener {
     private EntityState key;
     private boolean pressed;//True if ctrl or space are pressed, otherwise false
     private int currentKey;
+
     /**
      * KeyHandler's constructor
      */
@@ -64,7 +65,7 @@ public class KeyHandler extends Observable implements KeyListener {
      */
     @Override
     public void keyPressed(KeyEvent ke) {
-        if(!pressed){
+        if (!pressed) {
             switch (ke.getKeyCode()) {
                 case 32://KeyEvent.VK_SPACE:                        //space -> 32
                     key = EntityState.JUMP;
@@ -73,14 +74,14 @@ public class KeyHandler extends Observable implements KeyListener {
                     stateChanged();
                     break;
                 case 17://KeyEvent.VK_CONTROL:                     //control -> 17
-                    key = EntityState.CROUCH;
+                    key = EntityState.CRUNCH;
                     pressed = true;
                     currentKey = 17;
                     stateChanged();
                     break;
                 case 88://KeyEvent.VK_X:                          //x -> 88
                     key = EntityState.ATTACK;
-                     pressed = true;
+                    pressed = true;
                     currentKey = 88;
                     stateChanged();
                     break;
@@ -98,11 +99,10 @@ public class KeyHandler extends Observable implements KeyListener {
      */
     @Override
     public void keyReleased(KeyEvent ke) {
-        if(currentKey == ke.getKeyCode()){
+        if (currentKey == ke.getKeyCode()) {
             pressed = false;
             currentKey = -1;
             stateChanged();
-            //System.out.println(ke.getKeyCode());
         }
     }
 

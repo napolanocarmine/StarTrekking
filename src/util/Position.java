@@ -24,14 +24,14 @@ public class Position {
         this.x = x;
         this.y = y;
     }
-    
+
     public void setPos(float x, float y) {
         this.x = x;
         this.y = y;
     }
 
     public float getX() {
-        return x;   
+        return x;
     }
 
     public float getY() {

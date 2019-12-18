@@ -8,21 +8,21 @@ package startrekking;
 import gamestate.*;
 import javax.swing.SwingUtilities;
 
-
 /**
  *
  * @author Star Trekking
  */
-
-/***
+/**
+ * *
  * Class that has the goal of launch the main menu.
  */
 public class GameLauncher {
-    
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
+            @Override
             public void run() {
-               new GameStateManager();
+                new GameStateManager();
             }
         });
     }

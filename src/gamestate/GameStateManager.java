@@ -5,7 +5,6 @@
  */
 package gamestate;
 
-
 /**
  *
  * @author Star Trekking
@@ -14,36 +13,42 @@ package gamestate;
  * Class which handles the game's state.
  */
 public class GameStateManager {
+
     private State gameState;
+
     /**
      * Create a new GameStateManager and initialize the initial state
+     *
      * @param gameState Initial state.
      */
-    public GameStateManager(State gameState){
+    public GameStateManager(State gameState) {
         this.gameState = gameState;
     }
+
     /**
      * Create a new GameStateManager and initialize the initial state to
      * MainMenuState.
      */
-    public GameStateManager(){
+    public GameStateManager() {
         this.gameState = new MainMenuState(this);
     }
-    
+
     /**
      * Return the current game state.
+     *
      * @return the current State.
      */
-    public State getState(){
+    public State getState() {
         return gameState;
     }
-    
+
     /**
-     *  Set the current state to gameState.
+     * Set the current state to gameState.
+     *
      * @param gameState represents the current state to be setted.
      */
-    public void setState(State gameState){
-        this.gameState = gameState;     
+    public void setState(State gameState) {
+        this.gameState = gameState;
     }
-    
+
 }

@@ -1,6 +1,5 @@
 package startrekking;
 
-import entity.Entity;
 import entity.Player;
 import entity.Shot;
 import graphics.Sprite;
@@ -29,7 +28,6 @@ public class GamePanel extends JPanel implements Runnable {
     2- Riferimenti di oggetti Map, Entity, KeyHandler, TileFacade
      */
     //dimensione finestra
-    
     public static float unitTime = 700000000;
 
     public static final int WIDTH = 1600;
@@ -37,7 +35,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     //nome JFrame
     public static final String NAME = "STAR TREKKING";
-    
+
     public static int oldFrameCount;
     private static Position map;
 
@@ -56,10 +54,10 @@ public class GamePanel extends JPanel implements Runnable {
     private Sprite hpimg;
     private Sprite font;
     private KeyHandler key;
-    
+
     private float previousTickHitted = 0;
     private float TickHitted = 0;
-    
+
     public GamePanel() {
 
         frame = new JFrame(NAME);
@@ -79,7 +77,6 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public final void startThread() {
-        //super.addNotify();
         if (thread == null) {
             thread = new Thread(this, "GameThread");
             thread.start();
@@ -100,15 +97,14 @@ public class GamePanel extends JPanel implements Runnable {
         addKeyListener(key);
 
         tf = new TileFacade("tiles/Level1.xml");
-        
-        //player = new Player(new Sprite("entity/mage.png", 64, 64), new Position(0 + 32, 0 + (GamePanel.HEIGHT) - 130), 96, key);
+
         EntitySprite playerSprite = new EntitySprite("entity/wizard", 64, 64);
         player = new Player(playerSprite, new Position(0, 0 + (GamePanel.HEIGHT) - 130), 96, key);
-        
+
         player2 = new Player(playerSprite, new Position(0 + 2000, 0 + (GamePanel.HEIGHT) - 130), 96, key);
         player3 = new Player(playerSprite, new Position(0 + 1000, 0 + (GamePanel.HEIGHT) - 130), 96, key);
         player4 = new Player(playerSprite, new Position(0 + 1060, 0 + (GamePanel.HEIGHT) - 130), 96, key);
-        hpimg = new Sprite("entity/heart.png", 32,32);
+        hpimg = new Sprite("entity/heart.png", 32, 32);
         key.addObserver(player);
         font = new Sprite("font/Font.png", 10, 10);
     }
@@ -119,7 +115,6 @@ public class GamePanel extends JPanel implements Runnable {
         init();
 
         final double GAME_HERTZ = 600.0;  //standard is 600
-        //final double TBU = 1000000000 / GAME_HERTZ;
         final double TBU = 1000000000 / GAME_HERTZ;
 
         final int MUBR = 80;
@@ -147,7 +142,7 @@ public class GamePanel extends JPanel implements Runnable {
             if (now - lastUpdateTime > TBU) {
                 lastUpdateTime = now - TBU;
             }
-            
+
             render(g);
             draw();
 
@@ -184,62 +179,47 @@ public class GamePanel extends JPanel implements Runnable {
         Position.setWorldVar(map.getX(), map.getY());
         player.updateGame();
         color = frame.getBackground();
-            checkCollision();
+        checkCollision();
     }
-    
-    public void checkCollision(){
+
+    public void checkCollision() {
         ArrayList<Shot> shots = player.getShots();
         ListIterator<Shot> li = shots.listIterator();
-//        for(Shot shot: shots){
-//            if(shot.getBounds().collides(player2.getBounds())){
-////                player.deleteShot(shots.get(i));
-//                System.err.println("Collisione shot");
-//            }
-//        }
-//        for(int i=0; i<shots.size(); i++){
-//            if(shots.get(i).getBounds().collides(player2.getBounds())){
-//                player.deleteShot(shots.get(i));
-//            }
-//        }
-        while(li.hasNext()){
-            if(li.next().getBounds().collides(player2.getBounds())){
+        while (li.hasNext()) {
+            if (li.next().getBounds().collides(player2.getBounds())) {
                 li.remove();
             }
         }
-        
-        if(player.getBounds().collides(player2.getBounds())){
-                if(System.nanoTime() - previousTickHitted > unitTime){
-                    System.err.println("Collisione player");
-                    player.hitted();    
-                }
-                previousTickHitted = System.nanoTime();
-                
+
+        if (player.getBounds().collides(player2.getBounds())) {
+            if (System.nanoTime() - previousTickHitted > unitTime) {
+                System.err.println("Collisione player");
+                player.hitted();
+            }
+            previousTickHitted = System.nanoTime();
+
         }
-        if(player.getBounds().collides(player3.getBounds())){
-                if(System.nanoTime() - previousTickHitted > unitTime){
-                    System.err.println("Collisione player");
-                    player.hitted();    
-                }
-                previousTickHitted = System.nanoTime();
-                
+        if (player.getBounds().collides(player3.getBounds())) {
+            if (System.nanoTime() - previousTickHitted > unitTime) {
+                System.err.println("Collisione player");
+                player.hitted();
+            }
+            previousTickHitted = System.nanoTime();
+
         }
-        if(player.getBounds().collides(player4.getBounds())){
-                if(System.nanoTime() - previousTickHitted > unitTime){
-                    System.err.println("Collisione player");
-                    player.hitted();    
-                }
-                previousTickHitted = System.nanoTime();
-                
+        if (player.getBounds().collides(player4.getBounds())) {
+            if (System.nanoTime() - previousTickHitted > unitTime) {
+                System.err.println("Collisione player");
+                player.hitted();
+            }
+            previousTickHitted = System.nanoTime();
+
         }
     }
 
     public boolean test;
 
     public void render(Graphics2D g) {
-        /*
-        g.setColor(Color.RED);
-        g.fillRect(100, 100, 64, 64);
-         */
         if (g != null) {
             test = true;
             g.setColor(new Color(66, 134, 244));
@@ -250,22 +230,12 @@ public class GamePanel extends JPanel implements Runnable {
             player3.render(g);
             player4.render(g);
             Sprite.drawArray(g, font, "FPS: " + GamePanel.oldFrameCount, new Position(GamePanel.WIDTH - (8 * 40), 10), 40, 40, 32, 0);
-//            ArrayList<BufferedImage> hearts = new ArrayList<BufferedImage>();
-//            BufferedImage heartImg; 
-//            heartImg = hpimg.getMatrix();
-//            hearts.add(heartImg);
-//            int space = 10;
-//            for (int i =0; i<player.getHP(); i++){
-//                Sprite.drawArray(g,hearts,new Position (space,10), 90 , 90, 10,0);
-//                  space += 70;
-//            }
             int space = 0;
-            for (int i =0; i<player.getHP(); i++){
-                Sprite.drawArray(g,hpimg.getSprite(0, 0),new Position (space,10), 90 , 90);
+            for (int i = 0; i < player.getHP(); i++) {
+                Sprite.drawArray(g, hpimg.getSprite(0, 0), new Position(space, 10), 90, 90);
                 space += 60;
             }
         }
-        //Sprite.drawArray(g, font, "FPS: " + GamePanel.oldFrameCount , new Vector2f(GamePanel.width - (8 * 40) , 10), 40, 40, 32, 0);    
     }
 
     public boolean drawImage;

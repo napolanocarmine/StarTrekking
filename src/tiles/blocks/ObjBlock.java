@@ -16,7 +16,7 @@ public class ObjBlock extends Block {
     public boolean update() {
         return true;
     }
-    
+
     @Override
     public boolean isInside(AABB p) {
         return false;

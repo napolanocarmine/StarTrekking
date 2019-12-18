@@ -4,13 +4,11 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import javax.imageio.ImageIO;
-import util.EntityState;
 import util.Position;
 
 public class Sprite {
-    
+
     private BufferedImage spriteMatrix;
     private final int TILE_SIZE = 32;
     public int w;
@@ -38,7 +36,7 @@ public class Sprite {
         wSprite = spriteMatrix.getWidth() / w;
         hSprite = spriteMatrix.getHeight() / h;
     }
-    
+
     private BufferedImage loadSprite(String file) {
         BufferedImage sprite = null;
         try {
@@ -62,11 +60,11 @@ public class Sprite {
 
         return getSprite(x, y);
     }
-    
-    public BufferedImage getMatrix(){
+
+    public BufferedImage getMatrix() {
         return spriteMatrix;
     }
-    
+
     public static void drawArray(Graphics2D g, Sprite letter, String word, Position pos, int width, int height, int xOffset, int yOffset) {
         float x = pos.getX();
         float y = pos.getY();
@@ -80,7 +78,7 @@ public class Sprite {
             y += yOffset;
         }
     }
-    
+
     public static void drawArray(Graphics2D g, ArrayList<BufferedImage> img, Position pos, int width, int height, int xOffset, int yOffset) {
         float x = pos.getX();
         float y = pos.getY();
@@ -94,7 +92,7 @@ public class Sprite {
             y += yOffset;
         }
     }
-    
+
     public static void drawArray(Graphics2D g, BufferedImage img, Position pos, int width, int height) {
         float x = pos.getX();
         float y = pos.getY();

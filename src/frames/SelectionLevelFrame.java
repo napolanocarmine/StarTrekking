@@ -17,32 +17,36 @@ import javax.swing.ImageIcon;
  * @author Gianluca
  */
 public class SelectionLevelFrame extends javax.swing.JFrame {
+
     private final SelectionLevelState state;
     private Image img;
+
     /**
      * Creates new form MainMenuFrame
      */
     public SelectionLevelFrame(String path, SelectionLevelState state) {
-        this.state =  state;
+        this.state = state;
         setImage(new ImageIcon(path).getImage());
         initComponents();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         this.setVisible(true);
     }
+
     private void setImage(Image img) {
-            this.img = img;
-            /*Dimension size = new Dimension(img.getWidth(null), img.getHeight(null));
+        this.img = img;
+        /*Dimension size = new Dimension(img.getWidth(null), img.getHeight(null));
             setPreferredSize(size);
             setMinimumSize(size);
             setMaximumSize(size);
             setSize(size);*/
-            setLayout(null);
-        }
-    
-    public void paintComponent(Graphics g) {
-            g.drawImage(img, 0, 0, null);
+        setLayout(null);
     }
+
+    public void paintComponent(Graphics g) {
+        g.drawImage(img, 0, 0, null);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -147,7 +151,7 @@ public class SelectionLevelFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         state.handleNext(4);
     }//GEN-LAST:event_backMainMenuButtonActionPerformed
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backMainMenuButton;

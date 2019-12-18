@@ -14,15 +14,17 @@ import java.awt.Toolkit;
  * @author Gianluca
  */
 public class GameOverFrame extends javax.swing.JFrame {
+
     private final GameOverState state;
+
     /**
      * Creates new form MainMenuFrame
      */
     public GameOverFrame(GameOverState state) {
-        this.state =  state;
+        this.state = state;
         initComponents();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         this.setVisible(true);
     }
 
@@ -97,7 +99,7 @@ public class GameOverFrame extends javax.swing.JFrame {
     private void restartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restartButtonActionPerformed
         state.handleNext(0);
     }//GEN-LAST:event_restartButtonActionPerformed
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton mainMenuButton;

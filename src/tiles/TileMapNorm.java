@@ -11,11 +11,6 @@ public class TileMapNorm extends TileMap {
 
     private ArrayList<Block> blocks;
 
-    private int tileWidth;
-    private int tileHeight;
-
-    private int height;
-
     public TileMapNorm(String data, Sprite sprite, int width, int height, int tileWidth, int tileHeight, int tileColumns) {
 
         blocks = new ArrayList<>();

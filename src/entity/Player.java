@@ -46,6 +46,7 @@ public class Player extends Entity implements Observer {
         this.acc = 0.00003f;
         this.visible = true;
         this.invincible = false;
+        
     }
 
     public void move() {
@@ -143,7 +144,7 @@ public class Player extends Entity implements Observer {
     }
 
     private void attack() {
-        shots.add(new Shot(new EntitySprite("Entity/shot", 32, 32), new Position(dx - 15, pos.getY() + 24), 48, vx + acc * (timex)));
+        shots.add(new Shot(new EntitySprite("entity/shot", 32, 32), new Position(dx - 15, pos.getY() + 24), 48, vx + acc * (timex)));
     }
     
     public ArrayList<Shot> getShots(){
@@ -187,8 +188,8 @@ public class Player extends Entity implements Observer {
     public void render(Graphics2D g) {  //draw the player in the panel
         if (visible == true) {
             g.drawImage(ani.getImage(), (int) pos.getWorldVar().getX(), (int) pos.getWorldVar().getY(), size, size, null);
-            g.setColor(Color.blue);
-            g.drawRect((int) (pos.getWorldVar().getX() + bounds.getXOffset()), (int) (pos.getWorldVar().getY() + bounds.getYOffset()), (int) bounds.getWidth(), (int) bounds.getHeight());
+//            g.setColor(Color.blue);
+//            g.drawRect((int) (pos.getWorldVar().getX() + bounds.getXOffset()), (int) (pos.getWorldVar().getY() + bounds.getYOffset()), (int) bounds.getWidth(), (int) bounds.getHeight());
         }
 
         if (!shots.isEmpty()) {

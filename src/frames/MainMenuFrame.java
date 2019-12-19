@@ -88,13 +88,16 @@ public class MainMenuFrame extends javax.swing.JFrame {
         storyModeButton.setBackground(new java.awt.Color(255, 255, 255));
         storyModeButton.setForeground(java.awt.Color.darkGray);
         storyModeButton.setBorder(null);
+        storyModeButton.setBorderPainted(false);
+        storyModeButton.setContentAreaFilled(false);
+        storyModeButton.setFocusPainted(false);
         storyModeButton.setIconTextGap(10);
         storyModeButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                mouseExitHandler(evt);
-            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 mouseSelectionStoryHandler(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                mouseExitHandler(evt);
             }
         });
         storyModeButton.addActionListener(new java.awt.event.ActionListener() {
@@ -115,12 +118,14 @@ public class MainMenuFrame extends javax.swing.JFrame {
         exitButton.setBackground(new java.awt.Color(255, 255, 255));
         exitButton.setForeground(java.awt.Color.darkGray);
         exitButton.setBorder(null);
+        exitButton.setBorderPainted(false);
+        exitButton.setContentAreaFilled(false);
         exitButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                exitButtonMouseExited(evt);
-            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 exitButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                exitButtonMouseExited(evt);
             }
         });
         exitButton.addActionListener(new java.awt.event.ActionListener() {

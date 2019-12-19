@@ -109,12 +109,15 @@ public class SelectionLevelFrame extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(1000, 528));
 
         levelOneButton.setBorder(null);
+        levelOneButton.setBorderPainted(false);
+        levelOneButton.setContentAreaFilled(false);
+        levelOneButton.setFocusPainted(false);
         levelOneButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                levelOneButtonMouseExited(evt);
-            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 levelOneButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                levelOneButtonMouseExited(evt);
             }
         });
         levelOneButton.addActionListener(new java.awt.event.ActionListener() {
@@ -124,12 +127,15 @@ public class SelectionLevelFrame extends javax.swing.JFrame {
         });
 
         levelThreeButton.setBorder(null);
+        levelThreeButton.setBorderPainted(false);
+        levelThreeButton.setContentAreaFilled(false);
+        levelThreeButton.setFocusPainted(false);
         levelThreeButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                levelThreeButtonMouseExited(evt);
-            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 levelThreeButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                levelThreeButtonMouseExited(evt);
             }
         });
         levelThreeButton.addActionListener(new java.awt.event.ActionListener() {
@@ -139,12 +145,15 @@ public class SelectionLevelFrame extends javax.swing.JFrame {
         });
 
         levelTwoButton.setBorder(null);
+        levelTwoButton.setBorderPainted(false);
+        levelTwoButton.setContentAreaFilled(false);
+        levelTwoButton.setFocusPainted(false);
         levelTwoButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                levelTwoButtonMouseExited(evt);
-            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 levelTwoButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                levelTwoButtonMouseExited(evt);
             }
         });
         levelTwoButton.addActionListener(new java.awt.event.ActionListener() {
@@ -156,12 +165,15 @@ public class SelectionLevelFrame extends javax.swing.JFrame {
         backMainMenuButton.setBackground(new java.awt.Color(255, 255, 255));
         backMainMenuButton.setBorder(null);
         backMainMenuButton.setBorderPainted(false);
+        backMainMenuButton.setContentAreaFilled(false);
+        backMainMenuButton.setDefaultCapable(false);
+        backMainMenuButton.setFocusPainted(false);
         backMainMenuButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                backMainMenuButtonMouseExited(evt);
-            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 backMainMenuButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                backMainMenuButtonMouseExited(evt);
             }
         });
         backMainMenuButton.addActionListener(new java.awt.event.ActionListener() {
@@ -173,7 +185,7 @@ public class SelectionLevelFrame extends javax.swing.JFrame {
         titleLabel1.setFont(new java.awt.Font("Beirut", 2, 36)); // NOI18N
         titleLabel1.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.highlight"));
         titleLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titleLabel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        titleLabel1.setBorder(null);
         titleLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 titleLabel1buttonPressedHandler(evt);

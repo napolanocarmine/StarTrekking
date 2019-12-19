@@ -86,12 +86,15 @@ public class GameOverFrame extends javax.swing.JFrame {
         setResizable(false);
 
         mainMenuButton.setBorder(null);
+        mainMenuButton.setBorderPainted(false);
+        mainMenuButton.setContentAreaFilled(false);
+        mainMenuButton.setFocusable(false);
         mainMenuButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                mainMenuButtonMouseExited(evt);
-            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 mainMenuButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                mainMenuButtonMouseExited(evt);
             }
         });
         mainMenuButton.addActionListener(new java.awt.event.ActionListener() {
@@ -100,14 +103,16 @@ public class GameOverFrame extends javax.swing.JFrame {
             }
         });
 
-        restartButton.setActionCommand("");
         restartButton.setBorder(null);
+        restartButton.setBorderPainted(false);
+        restartButton.setContentAreaFilled(false);
+        restartButton.setFocusPainted(false);
         restartButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                restartButtonMouseExited(evt);
-            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 restartButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                restartButtonMouseExited(evt);
             }
         });
         restartButton.addActionListener(new java.awt.event.ActionListener() {

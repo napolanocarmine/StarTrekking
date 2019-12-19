@@ -46,7 +46,7 @@ public abstract class Entity {
     protected float dy0;
     protected float dx0;
     
-    protected float gravity = -0.5f;
+    protected float gravity = -0.01f;
     
     protected float previousY;
     protected float previousX;

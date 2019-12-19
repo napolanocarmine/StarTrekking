@@ -51,6 +51,7 @@ public class GroundEnemy extends Entity {
     @Override
     public void updateGame() {
         super.updateGame(state);
+        if(pos.getWorldVar().getX() < -100) dead = true;
         move();
         pos.setY(dy);
         pos.setX(dx);

@@ -42,7 +42,7 @@ public class Sprite {
         try {
             sprite = ImageIO.read(getClass().getClassLoader().getResourceAsStream(file));
         } catch (IOException e) {
-            System.out.println("ERROR: could nor load file: " + file);
+            System.out.println("ERROR: could not load file: " + file);
         }
 
         return sprite;

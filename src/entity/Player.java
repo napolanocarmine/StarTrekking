@@ -84,12 +84,13 @@ public class Player extends Entity implements Observer {
             //System.err.println("collision down");
             dy = previousY;
             timey = 0;
-            dy0 = previousY;
+            dy0 = dy;
             if(state != EntityState.ATTACK && state != EntityState.DEAD) state = EntityState.RUN;
         }else if(tc.collisionTileUp(0, dy-previousY)){
             dy = previousY;
             dy0 = previousY;
             vy = 0;
+            timey += 1f;
         } else {
             timey += 1f;
             previousY = dy;

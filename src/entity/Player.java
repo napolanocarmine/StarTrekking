@@ -211,7 +211,7 @@ public class Player extends Entity implements Observer {
             if(key == 5 && (state == EntityState.RUN || state == EntityState.CROUCH)){
                 state = EntityState.CROUCH;
                 
-                this.bounds.setBox(16, 16, 40, 48);
+                this.bounds.setBox(16, 12, 40, 52);
                 if(!b){
                     this.bounds.setBox(16, 32, 40, 32);
                     state = EntityState.RUN;

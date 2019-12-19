@@ -91,15 +91,17 @@ public class GamePanel extends JPanel implements Runnable {
         key = new KeyHandler();
         addKeyListener(key);
 
-        tf = new TileFacade("tiles/Level1.xml");
+        tf = new TileFacade("tiles/LevelOne.xml");
         
         EntitySprite playerSprite = new EntitySprite("entity/wizard", 64, 64);
         player = new Player(playerSprite, new Position(0, 0 + (GamePanel.HEIGHT) - 130), 96, key);
         
         EntitySprite enemieSprite = new EntitySprite("entity/goblin", 64, 64);
-        goblins.add(new GroundEnemy(enemieSprite, new Position(500, (GamePanel.HEIGHT) - 130) , 96));
         goblins.add(new GroundEnemy(enemieSprite, new Position(1000, (GamePanel.HEIGHT) - 130) , 96));
         goblins.add(new GroundEnemy(enemieSprite, new Position(1500, (GamePanel.HEIGHT) - 130) , 96));
+        goblins.add(new GroundEnemy(enemieSprite, new Position(2100, (GamePanel.HEIGHT) - 130) , 96));
+        goblins.add(new GroundEnemy(enemieSprite, new Position(3080, (GamePanel.HEIGHT) - 130) , 96));
+        goblins.add(new GroundEnemy(enemieSprite, new Position(4700, (GamePanel.HEIGHT) - 130) , 96));
         
         hpimg = new Sprite("entity/heart.png", 32,32);
         key.addObserver(player);

@@ -6,6 +6,10 @@
 package gamestate;
 
 import frames.MainMenuFrame;
+import java.awt.Color;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -22,7 +26,7 @@ public class MainMenuState extends State {
     /**
      * Create the Main Menu.
      */
-    public MainMenuState(GameStateManager gsm) {
+    public MainMenuState(GameStateManager gsm) throws IOException {
         this.gsm = gsm;
         this.frame = new MainMenuFrame(this);
         //metodo che inizializza le componenti del JPanel;
@@ -45,7 +49,11 @@ public class MainMenuState extends State {
     public void handleNext(int state) {
         if (state == 0) {
             frame.dispose();
-            gsm.setState(new SelectionLevelState(gsm));
+            try {
+                gsm.setState(new SelectionLevelState(gsm));
+            } catch (IOException ex) {
+                Logger.getLogger(MainMenuState.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else if (state == 1) {
             frame.dispose();
             gsm.setState(new ExitState(gsm));

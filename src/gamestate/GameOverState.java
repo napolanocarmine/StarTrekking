@@ -6,6 +6,9 @@
 package gamestate;
 
 import frames.GameOverFrame;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -48,7 +51,11 @@ public class GameOverState extends State {
             gsm.setState(new StoryPlayState(gsm));
         } else if (code == 1) {
             frame.dispose();
-            gsm.setState(new MainMenuState(gsm));
+            try {
+                gsm.setState(new MainMenuState(gsm));
+            } catch (IOException ex) {
+                Logger.getLogger(GameOverState.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }

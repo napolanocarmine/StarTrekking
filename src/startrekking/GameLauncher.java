@@ -6,6 +6,9 @@
 package startrekking;
 
 import gamestate.*;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
 
 /**
@@ -22,7 +25,11 @@ public class GameLauncher {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new GameStateManager();
+                try {
+                    new GameStateManager();
+                } catch (IOException ex) {
+                    Logger.getLogger(GameLauncher.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

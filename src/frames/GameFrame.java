@@ -24,6 +24,7 @@ public final class GameFrame extends JFrame {
 
         setTitle(NAME);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setResizable(false);
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         gamePanel = new GamePanel(WIDTH, HEIGHT);
         setContentPane(gamePanel);

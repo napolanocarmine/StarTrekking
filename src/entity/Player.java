@@ -1,11 +1,5 @@
- package entity;
+package entity;
 
-import frames.GameFrame;
-import frames.GamePanel;
-import gamestate.GameOverState;
-import gamestate.State;
-import gamestate.StoryPlayState;
-import graphics.Sprite;
 import graphics.EntitySprite;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -51,7 +45,6 @@ public class Player extends Entity implements Observer {
     }
 
     public void move() {
-        
         //PLAYER HORIZONTAL MOTION
         if(timex == 0) vx = initialSpeed;
         dx = (float)((0.5*acc*Math.pow(timex, 2) + vx*timex)) + dx0;
@@ -60,11 +53,13 @@ public class Player extends Entity implements Observer {
         if(tc.collisionTile(dx-previousX, 0)){
             //System.err.println("collision front");
             dx = previousX;
-        }else{
-            if(state != EntityState.DEAD) timex+= 1f;
+        } else {
+            if (state != EntityState.DEAD) {
+                timex += 1f;
+            }
             previousX = dx;
         }
-        
+
         //PLAYER VERTICAL MOTION
         
         if(state == EntityState.JUMP){
@@ -76,8 +71,10 @@ public class Player extends Entity implements Observer {
 //                System.err.println("dy: " + dy);
 //                System.err.println("gravity: " + gravity);
             }
-            if(ani.playingLastFrame()) ani.setDelay(-1);
-        }else{
+            if (ani.playingLastFrame()) {
+                ani.setDelay(-1);
+            }
+        } else {
             vy = 0;
             gravity = -0.01f;
         }
@@ -93,20 +90,22 @@ public class Player extends Entity implements Observer {
             dy = previousY;
             dy0 = previousY;
             vy = 0;
-        }else{
-            timey+=1f;
+        } else {
+            timey += 1f;
             previousY = dy;
         }
-        
-        if(state == EntityState.ATTACK){
-            if(ani.playingLastFrame()){
+
+        if (state == EntityState.ATTACK) {
+            if (ani.playingLastFrame()) {
                 attack();
                 state = EntityState.RUN;
             }
         }
-        
-        if(state == EntityState.DEAD) isDead();
-        
+
+        if (state == EntityState.DEAD) {
+            isDead();
+        }
+
     }
     
     public void isDead(){
@@ -114,8 +113,8 @@ public class Player extends Entity implements Observer {
             dead = true;
         }
     }
-    
-    public void hitted(){
+
+    public void hitted() {
         invincible = true;
         visible = false;
         invStartTime = System.nanoTime();
@@ -125,8 +124,8 @@ public class Player extends Entity implements Observer {
         }
     }
 
-    private void attack(){
-        shots.add(new Shot(new EntitySprite("Entity/shot", 32, 32), new Position(dx-15, pos.getY()+24), 48, vx+acc*(timex)));
+    private void attack() {
+        shots.add(new Shot(new EntitySprite("Entity/shot", 32, 32), new Position(dx - 15, pos.getY() + 24), 48, vx + acc * (timex)));
     }
     
 //    private void restart(){
@@ -148,8 +147,8 @@ public class Player extends Entity implements Observer {
     public ArrayList<Shot> getShots(){
         return shots;
     }
-    
-    public void deleteShot(Shot s){
+
+    public void deleteShot(Shot s) {
         shots.remove(s);
     }
     
@@ -164,7 +163,7 @@ public class Player extends Entity implements Observer {
         }
         move();
         pos.setX(dx);    //update x position
-        if(GamePanel.getMapPos().getX()+GameFrame.WIDTH < TileFacade.mapWidth * 16){
+        if (GamePanel.getMapPos().getX() + GameFrame.WIDTH < TileFacade.mapWidth * 16) {
             GamePanel.getMapPos().setX(dx);
         }
         pos.setY(dy);
@@ -172,8 +171,9 @@ public class Player extends Entity implements Observer {
             for(int i=0; i<shots.size(); i++){
                 if(shots.get(i).pos.getWorldVar().getX() - pos.getWorldVar().getX() > GameFrame.WIDTH || shots.get(i).collides()){
                     deleteShot(shots.get(i));
+                } else {
+                    shots.get(i).updateGame();
                 }
-                else shots.get(i).updateGame();
             }
         }
         if(pos.getY() > GameFrame.HEIGHT){
@@ -183,14 +183,14 @@ public class Player extends Entity implements Observer {
 
     @Override
     public void render(Graphics2D g) {  //draw the player in the panel
-        if(visible == true){
+        if (visible == true) {
             g.drawImage(ani.getImage(), (int) pos.getWorldVar().getX(), (int) pos.getWorldVar().getY(), size, size, null);
             g.setColor(Color.blue);
-            g.drawRect((int) (pos.getWorldVar().getX()  + bounds.getXOffset()), (int) (pos.getWorldVar().getY() + bounds.getYOffset()), (int)bounds.getWidth(), (int)bounds.getHeight());
+            g.drawRect((int) (pos.getWorldVar().getX() + bounds.getXOffset()), (int) (pos.getWorldVar().getY() + bounds.getYOffset()), (int) bounds.getWidth(), (int) bounds.getHeight());
         }
-                
-        if(!shots.isEmpty()){
-            for(int i=0; i<shots.size(); i++){
+
+        if (!shots.isEmpty()) {
+            for (int i = 0; i < shots.size(); i++) {
                 shots.get(i).render(g);
             }
         }
@@ -198,18 +198,13 @@ public class Player extends Entity implements Observer {
 
     private void mapValueAction(int key, boolean b) {
         if (true) { //in case the player is alive
-            if ((key == 4) && (state != EntityState.JUMP) &&
-               (!tc.collisionTileDown(0, dy-previousY)) && currentState == EntityState.RUN && b) {
+            if ((key == 4) && (state != EntityState.JUMP)
+                    && (!tc.collisionTileDown(0, dy - previousY)) && currentState == EntityState.RUN && b) {
                 state = EntityState.JUMP;
                 timey = 0;
-            }else if (key == 3 && currentState == EntityState.RUN) {
+            } else if (key == 3 && currentState == EntityState.RUN) {
                 state = EntityState.ATTACK;
-            }/*else if(key == 5 && b && currentState == EntityState.RUN){
-                state = EntityState.CRUNCH;
-                System.out.println("Crunch");
-            }else if(key == 5 && !b ){
-                state = EntityState.RUN;
-            }*/
+            }
         } else {
             state = EntityState.DEAD;
         }
@@ -224,8 +219,8 @@ public class Player extends Entity implements Observer {
             mapValueAction(key, b);
         }
     }
-    
-    public int getHP(){
+
+    public int getHP() {
         return this.hp;
     }
 }

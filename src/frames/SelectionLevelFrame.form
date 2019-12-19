@@ -62,7 +62,6 @@
     <Component class="javax.swing.JButton" name="levelOneButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Level One"/>
-        <Property name="opaque" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="levelOneButtonActionPerformed"/>
@@ -80,7 +79,6 @@
     <Component class="javax.swing.JButton" name="levelThreeButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Level Three"/>
-        <Property name="opaque" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="levelThreeButtonActionPerformed"/>
@@ -89,7 +87,6 @@
     <Component class="javax.swing.JButton" name="levelTwoButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Level Two"/>
-        <Property name="opaque" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="levelTwoButtonActionPerformed"/>
@@ -98,7 +95,6 @@
     <Component class="javax.swing.JButton" name="backMainMenuButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Back to Main Menu"/>
-        <Property name="opaque" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="backMainMenuButtonActionPerformed"/>

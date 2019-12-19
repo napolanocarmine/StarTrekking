@@ -338,7 +338,6 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public final void startThread() {
-        //super.addNotify();
         if (thread == null) {
             thread = new Thread(this, "GameThread");
             thread.start();
@@ -455,8 +454,8 @@ public class GamePanel extends JPanel implements Runnable {
         checkCollision();
         removeEnemies();
     }
-    
-    public void checkCollision(){
+
+    public void checkCollision() {
         ArrayList<Shot> shots = player.getShots();
         ListIterator<Shot> shotListIter = shots.listIterator();
         int i = 0;
@@ -512,8 +511,8 @@ public class GamePanel extends JPanel implements Runnable {
 //                  space += 70;
 //            }
             int space = 0;
-            for (int i =0; i<player.getHP(); i++){
-                Sprite.drawArray(g,hpimg.getSprite(0, 0),new Position (space,10), 90 , 90);
+            for (int i = 0; i < player.getHP(); i++) {
+                Sprite.drawArray(g, hpimg.getSprite(0, 0), new Position(space, 10), 90, 90);
                 space += 60;
             }
         }

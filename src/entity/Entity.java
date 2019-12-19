@@ -4,11 +4,9 @@
  */
 package entity;
 
-//import graphics.*;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import graphics.Animation;
-import graphics.Sprite;
 import graphics.EntitySprite;
 import util.AABB;
 import util.Position;
@@ -16,7 +14,7 @@ import util.EntityState;
 import util.TileCollision;
 
 public abstract class Entity {
-    
+
     protected Animation ani;
     protected EntitySprite sprite;
     protected Position pos;
@@ -34,12 +32,12 @@ public abstract class Entity {
     
     protected AABB bounds;
     protected TileCollision tc;
-    
+
     protected int aniDelay = 80;
-    
+
     protected float timex = 0;
     protected float timey = 0;
-    
+
     protected float vx = 0;
     protected float vy;
 
@@ -73,7 +71,7 @@ public abstract class Entity {
         this.previousX = dy0;
         this.tc = new TileCollision(this);
     }
-    
+
     public Entity(EntitySprite sprite, Position origin, int size) {
         this.sprite = sprite;
         pos = origin;
@@ -111,8 +109,8 @@ public abstract class Entity {
         animate(state);
         ani.updateGame();
     }
-    
-    public void updateGame(){
+
+    public void updateGame() {
         ani.updateGame();
     }
 

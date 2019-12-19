@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package gamestate;
+
 import javax.swing.*;
 
 /**
@@ -11,17 +12,20 @@ import javax.swing.*;
  * @author StarTrekking
  */
 public abstract class State {
+
     protected JFrame frame;
-    
-    public void  handleNext(int code){};
-    
-    public void handlePrevious(int code){};
-    
-    public JFrame getFrame(){
+
+    public void handleNext(int code) {
+    }
+
+    public void handlePrevious(int code) {
+    }
+
+    public JFrame getFrame() {
         return frame;
     }
-    
-    public void setJFrame(JFrame frame){
+
+    public void setJFrame(JFrame frame) {
         this.frame = frame;
     }
 }

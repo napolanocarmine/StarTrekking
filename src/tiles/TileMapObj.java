@@ -12,9 +12,6 @@ public class TileMapObj extends TileMap {
 
     public static HashMap<String, Block> tmo_blocks;
 
-    private int tileWidth;
-    private int tileHeight;
-
     public static int width;
     public static int height;
 

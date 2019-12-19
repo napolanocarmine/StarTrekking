@@ -5,8 +5,7 @@ import gamestate.StoryPlayState;
 import java.awt.*;
 import javax.swing.*;
 
-
-public final class GameFrame extends JFrame{
+public final class GameFrame extends JFrame {
 
     /*
     Responsabilità:
@@ -16,11 +15,10 @@ public final class GameFrame extends JFrame{
     1- update ciclico di Map e Entity
     2- Riferimenti di oggetti Map, Entity, KeyHandler, TileFacade
      */
-    
     //dimensione finestra
     public static final int WIDTH = 980;
     public static final int HEIGHT = 528;
-        //nome JFrame
+    //nome JFrame
     public static final String NAME = "STAR TREKKING";
     private GamePanel gamePanel;
     
@@ -35,8 +33,7 @@ public final class GameFrame extends JFrame{
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
-        
+
     }
-    
+
 }
-    

@@ -6,26 +6,25 @@
 package gamestate;
 
 import frames.SelectionLevelFrame;
-import java.awt.*;
-import javax.swing.*;
 
 /**
  *
  * @author Gianluca
  */
-public class SelectionLevelState extends State{
+public class SelectionLevelState extends State {
+
     private GameStateManager gsm;
-    
-    public SelectionLevelState(GameStateManager gsm){
+
+    public SelectionLevelState(GameStateManager gsm) {
         this.gsm = gsm;
-        this.frame = new SelectionLevelFrame("/screen/forest.png",this);
+        this.frame = new SelectionLevelFrame("/screen/forest.png", this);
     }
-        
-    
+
     /**
-     * Called when "Level 1" or "Level 2" or "Level 3" is pressed, 
-     * based on the pressed button the next state is set. 
-     * @param code button code 
+     * Called when "Level 1" or "Level 2" or "Level 3" is pressed, based on the
+     * pressed button the next state is set.
+     *
+     * @param code button code
      */
     @Override
     public void handleNext(int code){
@@ -36,17 +35,15 @@ public class SelectionLevelState extends State{
 //            frame.dispose();
 //            gsm.setState(new StoryPlayState(gsm));
         }else if(code == 2){
-            //avviare GamePanel2
-        }else if(code == 3){
-            //avviare GamePanl3
         }else{
             frame.dispose();
             gsm.setState((new MainMenuState(gsm)));
         }
     }
-    
+
     //Non so se per il main menu va settato.
     @Override
-    public void handlePrevious(int code){};    
-    
+    public void handlePrevious(int code) {
+    }
+
 }

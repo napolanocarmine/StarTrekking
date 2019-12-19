@@ -13,26 +13,24 @@ public class Shot extends Entity{
         super(sprite, origin, size, EntityState.ATTACK);
         this.bounds = new AABB(pos, 16, 16, 16, 16);
         this.initialSpeed = initialSpeed;
-        this.vx = initialSpeed+0.4f;
+        this.vx = initialSpeed + 0.4f;
         this.acc = 0.001f;
     }
-    
-    public boolean collides(){
-        return tc.collisionTile(dx-previousX, 0);
+
+    public boolean collides() {
+        return tc.collisionTile(dx - previousX, 0);
     }
-    
+
     public void move() {
-//        dx += 0.001;  //Player Acceleration
-//        if (dx > maxSpeed) {
-//            dx = maxSpeed; //if the delta x is over the max we reset it
-//        }
-        if(timex == 0) vx = initialSpeed;
+        if (timex == 0) {
+            vx = initialSpeed;
+        }
         previousX = dx;
-        dx = (float)((0.5*acc*Math.pow(timex, 2) + vx*timex)) + dx0 + 96;
-        //dx = (float)(vx*timex);
+        dx = (float) ((0.5 * acc * Math.pow(timex, 2) + vx * timex)) + dx0 + 96;
         timex++;
     }
 
+    @Override
     public void updateGame() {
         super.updateGame(state);
         move();
@@ -44,7 +42,7 @@ public class Shot extends Entity{
         g.drawImage(ani.getImage(), (int) pos.getWorldVar().getX(), (int) pos.getWorldVar().getY(), size, size, null);
         g.setColor(Color.blue);
         g.drawRect((int) (pos.getWorldVar().getX() + bounds.getXOffset()),
-                (int) (pos.getWorldVar().getY() + bounds.getYOffset()), (int)bounds.getWidth(), (int)bounds.getHeight());
+                (int) (pos.getWorldVar().getY() + bounds.getYOffset()), (int) bounds.getWidth(), (int) bounds.getHeight());
     }
 
     @Override

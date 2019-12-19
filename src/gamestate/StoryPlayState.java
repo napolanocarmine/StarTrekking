@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package gamestate;
+
 import frames.GameFrame;
 import javax.swing.SwingUtilities;
 
@@ -11,8 +12,10 @@ import javax.swing.SwingUtilities;
  *
  * @author Star Trekking
  */
-public class StoryPlayState extends State{
+public class StoryPlayState extends State {
+
     private GameStateManager gsm;
+
     /**
      * Create the Panel on which the Level is runned.
      */
@@ -23,21 +26,22 @@ public class StoryPlayState extends State{
         initComponent();
         System.err.println("ciao");
     }
-    
+
     /**
      * Define the play panel component.
      */
     private void initComponent(){
        
     }
-    
+
     /**
      * Method which handles the next state, that could be "Pause" or "Game-Over"
-     * @param code code represented the next state 
+     *
+     * @param code code represented the next state
      */
     @Override
-     public void  handleNext(int code){
-         /*
+    public void handleNext(int code) {
+        /*
             codice che gestisce il prossimo stato,
             per questo sprint quando il maghetto muore da settare al Game-Over.
          */
@@ -55,5 +59,7 @@ public class StoryPlayState extends State{
     
     //Non so se per il play va settato.
     @Override
-    public void handlePrevious(int code){};
+    public void handlePrevious(int code) {
+    }
+
 }

@@ -2,7 +2,6 @@ package tiles;
 
 import graphics.Sprite;
 import java.awt.Graphics2D;
-import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;

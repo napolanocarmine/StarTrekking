@@ -54,7 +54,6 @@
     <Component class="javax.swing.JButton" name="mainMenuButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Back to Main Menu"/>
-        <Property name="opaque" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mainMenuButtonActionPerformed"/>
@@ -72,7 +71,6 @@
     <Component class="javax.swing.JButton" name="restartButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Restart"/>
-        <Property name="opaque" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="restartButtonActionPerformed"/>

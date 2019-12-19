@@ -30,6 +30,7 @@ public class Player extends Entity implements Observer {
     private boolean invincible;
     private float invStartTime;
     private boolean visible;
+    private boolean falling = false;
 
     public Player(EntitySprite sprite, Position origin, int size, KeyHandler khdl) {
         super(sprite, origin, size, EntityState.RUN);
@@ -65,7 +66,7 @@ public class Player extends Entity implements Observer {
         if(state == EntityState.JUMP){
             if(timey == 0){
                 float vx0 = vx + acc*(timex);
-                vy = -(float)((4*H*vx0)/DIST);
+                if(!falling) vy = -(float)((4*H*vx0)/DIST);
                 gravity = -(float)((H*8*Math.pow(vx0, 2))/Math.pow(DIST, 2));
                 
 //                System.err.println("dy: " + dy);
@@ -85,12 +86,14 @@ public class Player extends Entity implements Observer {
             dy = previousY;
             timey = 0;
             dy0 = dy;
+            falling = false;
             if(state != EntityState.ATTACK && state != EntityState.DEAD) state = EntityState.RUN;
         }else if(tc.collisionTileUp(0, dy-previousY)){
             dy = previousY;
             dy0 = previousY;
             vy = 0;
-            timey += 1f;
+            timey = 0;
+            falling = true;
         } else {
             timey += 1f;
             previousY = dy;

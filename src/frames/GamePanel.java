@@ -36,7 +36,7 @@ public class GamePanel extends JPanel implements Runnable {
     
     public static float unitTime = 700000000;
 
-    public static final int WIDTH = 1600;
+    public static final int WIDTH = 980;
     public static final int HEIGHT = 528;
 
     //nome JFrame
@@ -194,7 +194,7 @@ public class GamePanel extends JPanel implements Runnable {
         while(shotListIter.hasNext()){
             Shot s = shotListIter.next();
             for(GroundEnemy goblin : goblins){
-                if(s.getBounds().collides(goblin.getBounds())){
+                if(goblin.getState() != EntityState.DEAD && s.getBounds().collides(goblin.getBounds())){
                     System.err.println("Nemico colpito");
                     shotListIter.remove();
                     goblin.isDead();

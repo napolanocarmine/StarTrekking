@@ -83,6 +83,7 @@ public class Player extends Entity implements Observer {
         dy = (float)((-0.5*gravity*Math.pow(timey, 2)+vy*timey)+dy0);
         if(tc.collisionTileDown(0, dy-previousY)){
             //System.err.println("collision down");
+            System.err.println("down coll");
             dy = previousY;
             timey = 0;
             dy0 = dy;
@@ -131,22 +132,6 @@ public class Player extends Entity implements Observer {
     private void attack() {
         shots.add(new Shot(new EntitySprite("Entity/shot", 32, 32), new Position(dx - 15, pos.getY() + 24), 48, vx + acc * (timex)));
     }
-    
-//    private void restart(){
-//        System.err.println("restart");
-//        state = EntityState.RUN;
-//        timex = 0;
-//        timey = 0;
-//        vx = initialSpeed;
-//        acc = initialAcc;
-//        //previousX = initialX;
-//        y0 = initialY;
-//        invincible = false;
-//        visible = true;
-//        this.hp = 3;
-//        pos.setPos(originPos.getX(), originPos.getY());
-//        GamePanel.getMapPos().setPos(0, 0);
-//    }
     
     public ArrayList<Shot> getShots(){
         return shots;
@@ -202,8 +187,8 @@ public class Player extends Entity implements Observer {
 
     private void mapValueAction(int key, boolean b) {
         if (true) { //in case the player is alive
-            if ((key == 4) && (state != EntityState.JUMP)
-                    && (!tc.collisionTileDown(0, dy - previousY)) && currentState == EntityState.RUN && b) {
+            if ((key == 4) && state == EntityState.RUN && !tc.collisionTileDown(0, dy - previousY)/*(state != EntityState.JUMP)
+                    && (tc.collisionTileDown(0, dy - previousY)) && currentState == EntityState.RUN && b*/) {
                 state = EntityState.JUMP;
                 timey = 0;
             } else if (key == 3 && currentState == EntityState.RUN) {

@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.ListIterator;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import util.EntityState;
 import util.KeyHandler;
 import util.Position;
@@ -63,6 +64,7 @@ public class GamePanel extends JPanel implements Runnable {
     public GamePanel(StoryPlayState sps) {
         this.goblins = new ArrayList<>();
         this.sps = sps;
+        this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setFocusable(true);
         requestFocus();
         startThread();
@@ -139,8 +141,11 @@ public class GamePanel extends JPanel implements Runnable {
                 lastUpdateTime = now - TBU;
             }
             
-            render(g);
-            draw();
+//            render(g);
+//            draw();
+            render();
+            repaint();
+            
 
             lastRenderTime = now;
             frameCount++;
@@ -215,15 +220,15 @@ public class GamePanel extends JPanel implements Runnable {
 
     public boolean test;
 
-    public void render(Graphics2D g) {
+    public void render() {
         /*
         g.setColor(Color.RED);
         g.fillRect(100, 100, 64, 64);
          */
         if (g != null) {
             test = true;
-            g.setColor(new Color(66, 134, 244));
-            g.fillRect(0, 0, WIDTH, HEIGHT);
+//            g.setColor(new Color(66, 134, 244));
+//            g.fillRect(0, 0, WIDTH, HEIGHT);
             tf.render(g);
             for(GroundEnemy goblin : goblins){
                 goblin.render(g);
@@ -258,13 +263,12 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
     }
-
-    public boolean drawImage;
-
-    public void draw() {
-        Graphics g2 = (Graphics) this.getGraphics();
-        drawImage = g2.drawImage(img, 0, 0, WIDTH, HEIGHT, null);
-        g2.dispose();
+    
+    @Override   
+    public void paintComponent(Graphics g){
+        super.paintComponents(g);
+        g.drawImage(img, 0, 0, WIDTH, HEIGHT, null);
+        g.dispose();
     }
 
     public static int getWIDTH() {

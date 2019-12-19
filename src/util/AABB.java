@@ -54,31 +54,23 @@ public class AABB {
 
         size = Math.max(h, w);
     }
+    
+    public void setWidth(float f){ w = f; }
+    public void setHeight(float f){ h = f; }
+    
+    public void setXOffset(float f){ xOffset = f; }
+    public void setYOffset(float f){ yOffset = f; }
+    
+    public boolean collides(AABB bBox){
+        float ax = ((pos.getWorldVar().getX() + (xOffset/2))+(w/2));
+        float ay = ((pos.getWorldVar().getY() + (yOffset/2))+(h/2));
+        //System.err.println("ax: " + ax + " ay: " + ay);
+        float bx = ((bBox.pos.getWorldVar().getX() + (bBox.xOffset/2))+(w/2));
+        float by = ((bBox.pos.getWorldVar().getY() + (bBox.yOffset/2))+(h/2));
+        //System.err.println("bx: " + bx + " by: " + by);
 
-    public void setWidth(float f) {
-        w = f;
-    }
-
-    public void setHeight(float f) {
-        h = f;
-    }
-
-    public void setXOffset(float f) {
-        xOffset = f;
-    }
-
-    public void setYOffset(float f) {
-        yOffset = f;
-    }
-
-    public boolean collides(AABB bBox) {
-        float ax = ((pos.getWorldVar().getX() + (xOffset / 2)) + (w / 2));
-        float ay = ((pos.getWorldVar().getY() + (yOffset / 2)) + (h / 2));
-        float bx = ((bBox.pos.getWorldVar().getX() + (bBox.xOffset / 2)) + (w / 2));
-        float by = ((bBox.pos.getWorldVar().getY() + (bBox.yOffset / 2)) + (h / 2));
-
-        if (Math.abs(ax - bx) + 7 < (this.w / 2) + (bBox.w / 2)) {
-            if (Math.abs(ay - by) - 2 < (this.h / 2) + (bBox.h / 2)) {
+        if(Math.abs(ax-bx)+7 < (this.w / 2) + (bBox.w / 2)){
+            if(Math.abs(ay-by)-2 < (this.h / 2) + (bBox.h / 2)){
                 return true;
             }
         }

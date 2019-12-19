@@ -18,47 +18,41 @@ import util.EntityState;
 public class Player extends Entity implements Observer {
 
     private final int MAXHEALTHPOINTS = 3;
+    private final float H = 100;
+    private final float DIST = 150;
     private int hp;
-
+    
     private KeyHandler khdl;
     int action;
-    float landingY = pos.getY();
-    private ArrayList<Shot> shots = new ArrayList<>();
-    private float previousY;
-    private float previousX;
-    private float initialX = 32;
-    private float initialY = ((GameFrame.HEIGHT) - 130);
+    private ArrayList<Shot> shots = new ArrayList<Shot>();
+    
     DecimalFormat df = new DecimalFormat();
-    private float gravity = -0.5f;
-    private float y0 = initialY;
-    private float h = 100;
-    private float dist = 150;
-    private boolean falling = false;
-    private boolean invincible = false;
-    private float initialSpeed = 0.3f;
-    private float initialAcc = 0.00003f;
+    private boolean invincible;
     private float invStartTime;
-    private boolean visible = true;
+    private boolean visible;
+    private boolean falling = false;
 
     public Player(EntitySprite sprite, Position origin, int size, KeyHandler khdl) {
         super(sprite, origin, size, EntityState.RUN);
         this.hp = MAXHEALTHPOINTS;
         this.bounds = new AABB(pos, 16, 32, 40, 32);
         this.khdl = khdl;
-        previousY = (int) pos.getY();
-        previousX = (int) pos.getX();
         df.setMaximumFractionDigits(2);
-        this.acc = initialAcc;
+        this.initialSpeed = 0.3f;
         this.vx = initialSpeed;
+        this.acc = 0.00003f;
+        this.visible = true;
+        this.invincible = false;
     }
 
     public void move() {
         //PLAYER HORIZONTAL MOTION
-        if (timex == 0) {
-            vx = initialSpeed;
-        }
-        dx = (float) ((0.5 * acc * Math.pow(timex, 2) + vx * timex));
-        if (tc.collisionTile(dx - previousX, 0)) {
+        if(timex == 0) vx = initialSpeed;
+        dx = (float)((0.5*acc*Math.pow(timex, 2) + vx*timex)) + dx0;
+               
+        //dx = (float)((vx*timex));
+        if(tc.collisionTile(dx-previousX, 0)){
+            //System.err.println("collision front");
             dx = previousX;
         } else {
             if (state != EntityState.DEAD) {
@@ -68,13 +62,15 @@ public class Player extends Entity implements Observer {
         }
 
         //PLAYER VERTICAL MOTION
-        if (state == EntityState.JUMP) {
-            if (timey == 0) {
-                float vx0 = vx + acc * (timex);
-                if (!falling) {
-                    vy = -(float) ((4 * h * vx0) / dist);
-                }
-                gravity = -(float) ((h * 8 * Math.pow(vx0, 2)) / Math.pow(dist, 2));
+        
+        if(state == EntityState.JUMP){
+            if(timey == 0){
+                float vx0 = vx + acc*(timex);
+                if(!falling) vy = -(float)((4*H*vx0)/DIST);
+                gravity = -(float)((H*8*Math.pow(vx0, 2))/Math.pow(DIST, 2));
+                
+//                System.err.println("dy: " + dy);
+//                System.err.println("gravity: " + gravity);
             }
             if (ani.playingLastFrame()) {
                 ani.setDelay(-1);
@@ -83,21 +79,21 @@ public class Player extends Entity implements Observer {
             vy = 0;
             gravity = -0.01f;
         }
-
-        dy = (float) ((-0.5 * gravity * Math.pow(timey, 2) + vy * timey) + y0);
-        if (tc.collisionTileDown(0, dy - previousY)) {
+        
+        dy = (float)((-0.5*gravity*Math.pow(timey, 2)+vy*timey)+dy0);
+        if(tc.collisionTileDown(0, dy-previousY)){
+            //System.err.println("collision down");
             dy = previousY;
-            falling = false;
             timey = 0;
-            y0 = previousY;
-            if (state != EntityState.ATTACK && state != EntityState.DEAD) {
-                state = EntityState.RUN;
-            }
-        } else if (tc.collisionTileUp(0, dy - previousY)) {
+            dy0 = dy;
+            falling = false;
+            if(state != EntityState.ATTACK && state != EntityState.DEAD) state = EntityState.RUN;
+        }else if(tc.collisionTileUp(0, dy-previousY)){
             dy = previousY;
-            y0 = previousY;
-            falling = true;
+            dy0 = previousY;
             vy = 0;
+            timey = 0;
+            falling = true;
         } else {
             timey += 1f;
             previousY = dy;
@@ -115,10 +111,10 @@ public class Player extends Entity implements Observer {
         }
 
     }
-
-    public void isDead() {
-        if (ani.playingLastFrame()) {
-            restartPlayer();
+    
+    public void isDead(){
+        if(ani.playingLastFrame()){
+            dead = true;
         }
     }
 
@@ -126,7 +122,8 @@ public class Player extends Entity implements Observer {
         invincible = true;
         visible = false;
         invStartTime = System.nanoTime();
-        if (--hp == 0) {
+        if(--hp==0){
+            isDead();
             state = EntityState.DEAD;
         }
     }
@@ -134,63 +131,57 @@ public class Player extends Entity implements Observer {
     private void attack() {
         shots.add(new Shot(new EntitySprite("Entity/shot", 32, 32), new Position(dx - 15, pos.getY() + 24), 48, vx + acc * (timex)));
     }
-
-    private void restartPlayer() {
-        System.err.println("restart");
-        state = EntityState.RUN;
-        timex = 0;
-        timey = 0;
-        vx = initialSpeed;
-        acc = initialAcc;
-        y0 = initialY;
-        invincible = false;
-        this.hp = 3;
-        pos.setPos(0 + 32, 0 + (GameFrame.HEIGHT) - 130);
-        GamePanel.getMapPos().setPos(0, 0);
-
-    }
-
-    public ArrayList<Shot> getShots() {
+    
+//    private void restart(){
+//        System.err.println("restart");
+//        state = EntityState.RUN;
+//        timex = 0;
+//        timey = 0;
+//        vx = initialSpeed;
+//        acc = initialAcc;
+//        //previousX = initialX;
+//        y0 = initialY;
+//        invincible = false;
+//        visible = true;
+//        this.hp = 3;
+//        pos.setPos(originPos.getX(), originPos.getY());
+//        GamePanel.getMapPos().setPos(0, 0);
+//    }
+    
+    public ArrayList<Shot> getShots(){
         return shots;
     }
 
     public void deleteShot(Shot s) {
         shots.remove(s);
     }
-
-    @Override
-    public void updateGame() {
-        if (invincible) {
-            if (System.nanoTime() % 9000 < 100 || System.nanoTime() % 9000 > 100) {
-                visible = !visible;
-            }
-            if (System.nanoTime() - invStartTime >= GamePanel.unitTime) {
+    
+    public void updateGame(){
+        super.updateGame(state);
+        if(invincible){
+            if(System.nanoTime()%9000 < 100 || System.nanoTime()%9000 > 100) visible = !visible;
+            if(System.nanoTime() - invStartTime>= GamePanel.unitTime){
                 invincible = false;
                 visible = true;
             }
         }
         move();
-        super.updateGame(state);
         pos.setX(dx);    //update x position
         if (GamePanel.getMapPos().getX() + GameFrame.WIDTH < TileFacade.mapWidth * 16) {
             GamePanel.getMapPos().setX(dx);
         }
         pos.setY(dy);
-        if (!shots.isEmpty()) {
-            for (int i = 0; i < shots.size(); i++) {
-                System.err.println((shots.get(i).pos.getWorldVar().getX() - pos.getWorldVar().getX()));
-                if (shots.get(i).pos.getWorldVar().getX() - pos.getWorldVar().getX() > GameFrame.WIDTH
-                        || shots.get(i).collides()) {
-                    System.err.println("ELIMINO COLPO");
+        if(!shots.isEmpty()){
+            for(int i=0; i<shots.size(); i++){
+                if(shots.get(i).pos.getWorldVar().getX() - pos.getWorldVar().getX() > GameFrame.WIDTH || shots.get(i).collides()){
                     deleteShot(shots.get(i));
                 } else {
                     shots.get(i).updateGame();
                 }
             }
         }
-        if (pos.getY() > GameFrame.HEIGHT) {
-            restartPlayer();
-
+        if(pos.getY() > GameFrame.HEIGHT){
+                dead = true;  
         }
     }
 

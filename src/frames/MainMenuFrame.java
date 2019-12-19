@@ -36,9 +36,12 @@ public class MainMenuFrame extends javax.swing.JFrame {
         
         this.setContentPane(new ImagePanel(myImage));
         initComponents();
+        
+        
         BufferedImage storyModeIcon = ImageIO.read(getClass().getResource("/menuIcon/story_mode_black.png"));
         BufferedImage exitIcon = ImageIO.read(getClass().getResource("/menuIcon/exit_black.png"));
         BufferedImage titleIcon = ImageIO.read(getClass().getResource("/menuIcon/startrekking.png"));
+        
         
         storyModeButton.setIcon(new javax.swing.ImageIcon(storyModeIcon));
         exitButton.setIcon(new javax.swing.ImageIcon(exitIcon));

@@ -34,31 +34,23 @@ public class SelectionLevelState extends State {
      * @param code button code
      */
     @Override
-    public void handleNext(int code) {
-        switch (code) {
-            case 1:
-                frame.dispose();
-                gsm.setState(new StoryPlayState(gsm));
-                break;
-            //avviare GamePanel2
-            case 2:
-                break;
-            //avviare GamePanl3
-            case 3:
-                break;
-            default:
-                frame.dispose();
-                try{
-                    gsm.setState((new MainMenuState(gsm)));
-                    break;
-                }catch(IOException e){
-                    System.err.println(e);
-                }
-                    
-            
+    public void handleNext(int code){
+        if(code == 1){
+           
+            frame.dispose();
+            gsm.setState(new StoryPlayState(gsm));
+//            frame.dispose();
+//            gsm.setState(new StoryPlayState(gsm));
+        }else if(code == 2){
+        }else{
+            frame.dispose();
+            try{
+            gsm.setState((new MainMenuState(gsm)));
+        }catch(IOException e){
+            System.err.println(e);
         }
-    } 
-
+        } 
+    }
     //Non so se per il main menu va settato.
     @Override
     public void handlePrevious(int code) {

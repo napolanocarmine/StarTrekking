@@ -1,5 +1,7 @@
 package frames;
 
+import gamestate.GameStateManager;
+import gamestate.StoryPlayState;
 import java.awt.*;
 import javax.swing.*;
 
@@ -14,19 +16,19 @@ public final class GameFrame extends JFrame {
     2- Riferimenti di oggetti Map, Entity, KeyHandler, TileFacade
      */
     //dimensione finestra
-    public static final int WIDTH = 1600;
+    public static final int WIDTH = 980;
     public static final int HEIGHT = 528;
     //nome JFrame
     public static final String NAME = "STAR TREKKING";
     private GamePanel gamePanel;
-
-    public GameFrame() {
-
+    
+    public GameFrame(StoryPlayState sps) {
+        System.err.println("GameFrame");
         setTitle(NAME);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        gamePanel = new GamePanel(WIDTH, HEIGHT);
+        gamePanel = new GamePanel(sps);
         setContentPane(gamePanel);
         setIgnoreRepaint(true);
         pack();

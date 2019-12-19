@@ -7,12 +7,15 @@ package frames;
 
 import gamestate.GameOverState;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.JComponent;
 
 /**
  *
@@ -25,20 +28,21 @@ public class GameOverFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainMenuFrame
      */
-    public GameOverFrame(GameOverState state) {
+    public GameOverFrame(GameOverState state) throws IOException {
         this.state = state;
         
+        BufferedImage myImage = ImageIO.read(getClass().getResource("/screen/forest.png"));
+        
+        this.setContentPane(new ImagePanel(myImage));
+        
+        
         initComponents();
-        BufferedImage menuIcon = null;
-        BufferedImage restartIcon =null;
+        BufferedImage gameOverIcon=ImageIO.read(getClass().getResource("/menuIcon/gameover.png"));
+        BufferedImage menuIcon = ImageIO.read(getClass().getResource("/menuIcon/back_black.png"));
+        BufferedImage restartIcon = ImageIO.read(getClass().getResource("/menuIcon/restart_black.png"));
         
-        try {
-            menuIcon = ImageIO.read(getClass().getResource("/menuIcon/back_black.png"));
-            restartIcon = ImageIO.read(getClass().getResource("/menuIcon/restart_black.png"));
-        } catch (IOException ex) {
-            Logger.getLogger(GameOverFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        titleLabel1.setIcon(new javax.swing.ImageIcon(gameOverIcon));
+      
         mainMenuButton.setIcon(new javax.swing.ImageIcon(menuIcon));
         mainMenuButton.setBorder(null);
         restartButton.setIcon(new javax.swing.ImageIcon(restartIcon));
@@ -47,6 +51,21 @@ public class GameOverFrame extends javax.swing.JFrame {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         this.setVisible(true);
+        this.setSize( myImage.getWidth(),myImage.getHeight());
+    }
+
+    
+    
+     public class ImagePanel extends JComponent {
+        private Image image;
+        public ImagePanel(Image image) {
+        this.image = image;
+    }
+        @Override
+        protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(image, 0, 0, this);
+    }
     }
 
     /**
@@ -81,7 +100,7 @@ public class GameOverFrame extends javax.swing.JFrame {
             }
         });
 
-        restartButton.setText("Restart");
+        restartButton.setActionCommand("");
         restartButton.setBorder(null);
         restartButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
@@ -100,7 +119,6 @@ public class GameOverFrame extends javax.swing.JFrame {
         titleLabel1.setFont(new java.awt.Font("Beirut", 2, 36)); // NOI18N
         titleLabel1.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.highlight"));
         titleLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titleLabel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         titleLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 titleLabel1buttonPressedHandler(evt);
@@ -194,7 +212,7 @@ public class GameOverFrame extends javax.swing.JFrame {
         BufferedImage exit = null;
 
         try {
-            exit = ImageIO.read(getClass().getResource("/menuIcon/back_black.png"));
+            exit = ImageIO.read(getClass().getResource("/menuIcon/back_yellow.png"));
         } catch (IOException ex) {
             Logger.getLogger(MainMenuFrame.class.getName()).log(Level.SEVERE, null, ex);
         }

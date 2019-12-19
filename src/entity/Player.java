@@ -21,6 +21,7 @@ public class Player extends Entity implements Observer {
     private final float H = 100;
     private final float DIST = 150;
     private int hp;
+    private float vx2;
     
     private KeyHandler khdl;
     int action;
@@ -31,6 +32,8 @@ public class Player extends Entity implements Observer {
     private float invStartTime;
     private boolean visible;
     private boolean falling = false;
+    
+    float instantVx = 0;
 
     public Player(EntitySprite sprite, Position origin, int size, KeyHandler khdl) {
         super(sprite, origin, size, EntityState.RUN);
@@ -47,10 +50,17 @@ public class Player extends Entity implements Observer {
 
     public void move() {
         //PLAYER HORIZONTAL MOTION
-        if(timex == 0) vx = initialSpeed;
+//        if(instantVx < maxSpeed){
+            instantVx = vx + acc*(timex);
+//        }
+//        if(instantVx == maxSpeed){
+//            dx0 = previousX;
+//            acc = 0;
+//            vx = maxSpeed;
+//        }
         dx = (float)((0.5*acc*Math.pow(timex, 2) + vx*timex)) + dx0;
-               
-        //dx = (float)((vx*timex));
+        System.err.println("dx: " + dx);
+        
         if(tc.collisionTile(dx-previousX, 0)){
             //System.err.println("collision front");
             dx = previousX;
@@ -65,9 +75,8 @@ public class Player extends Entity implements Observer {
         
         if(state == EntityState.JUMP){
             if(timey == 0){
-                float vx0 = vx + acc*(timex);
-                if(!falling) vy = -(float)((4*H*vx0)/DIST);
-                gravity = -(float)((H*8*Math.pow(vx0, 2))/Math.pow(DIST, 2));
+                if(!falling) vy = -(float)((4*H*instantVx)/DIST);
+                gravity = -(float)((H*8*Math.pow(instantVx, 2))/Math.pow(DIST, 2));
                 
 //                System.err.println("dy: " + dy);
 //                System.err.println("gravity: " + gravity);

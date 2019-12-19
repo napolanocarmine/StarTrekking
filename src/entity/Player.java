@@ -83,12 +83,11 @@ public class Player extends Entity implements Observer {
         dy = (float)((-0.5*gravity*Math.pow(timey, 2)+vy*timey)+dy0);
         if(tc.collisionTileDown(0, dy-previousY)){
             //System.err.println("collision down");
-            System.err.println("down coll");
             dy = previousY;
             timey = 0;
             dy0 = dy;
             falling = false;
-            if(state != EntityState.ATTACK && state != EntityState.DEAD) state = EntityState.RUN;
+            if(state == EntityState.JUMP) state = EntityState.RUN;
         }else if(tc.collisionTileUp(0, dy-previousY)){
             dy = previousY;
             dy0 = previousY;
@@ -109,6 +108,12 @@ public class Player extends Entity implements Observer {
 
         if (state == EntityState.DEAD) {
             isDead();
+        }
+        
+        if (state == EntityState.CROUCH) {
+            if (ani.playingLastFrame()) {
+                ani.setDelay(-1);
+            }
         }
 
     }
@@ -187,13 +192,23 @@ public class Player extends Entity implements Observer {
 
     private void mapValueAction(int key, boolean b) {
         if (true) { //in case the player is alive
-            if ((key == 4) && state == EntityState.RUN && !tc.collisionTileDown(0, dy - previousY)/*(state != EntityState.JUMP)
-                    && (tc.collisionTileDown(0, dy - previousY)) && currentState == EntityState.RUN && b*/) {
+            if ((key == 4) && state == EntityState.RUN && tc.collisionTileDown(0, 1)) {
                 state = EntityState.JUMP;
                 timey = 0;
-            } else if (key == 3 && currentState == EntityState.RUN) {
+            }
+            if (key == 3 && currentState == EntityState.RUN) {
                 state = EntityState.ATTACK;
             }
+            if(key == 5 && (state == EntityState.RUN || state == EntityState.CROUCH)){
+                state = EntityState.CROUCH;
+                
+                this.bounds.setBox(16, 16, 40, 48);
+                if(!b){
+                    this.bounds.setBox(16, 32, 40, 32);
+                    state = EntityState.RUN;
+                }
+            } 
+            
         } else {
             state = EntityState.DEAD;
         }

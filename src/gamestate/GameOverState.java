@@ -28,8 +28,12 @@ public class GameOverState extends State {
      */
     public GameOverState(GameStateManager gsm) {
         this.gsm = gsm;
-        this.frame = new GameOverFrame(this);
-        //metodo che inizializza le componenti del JPanel;
+        try {
+            this.frame = new GameOverFrame(this);
+            //metodo che inizializza le componenti del JPanel;
+        } catch (IOException ex) {
+            System.err.println(ex);
+        }
     }
 
     /**

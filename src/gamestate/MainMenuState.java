@@ -49,11 +49,7 @@ public class MainMenuState extends State {
     public void handleNext(int state) {
         if (state == 0) {
             frame.dispose();
-            try {
-                gsm.setState(new SelectionLevelState(gsm));
-            } catch (IOException ex) {
-                Logger.getLogger(MainMenuState.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            gsm.setState(new SelectionLevelState(gsm));
         } else if (state == 1) {
             frame.dispose();
             gsm.setState(new ExitState(gsm));

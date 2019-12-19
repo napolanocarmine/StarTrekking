@@ -47,11 +47,12 @@ public class AABB {
         return yOffset;
     }
 
-    public void setBox(Position pos, int w, int h) {
-        this.pos = pos;
+    public void setBox(int w, int h, int xOffset, int yOffset) {
         this.w = w;
         this.h = h;
-
+        this.xOffset = xOffset;
+        this.yOffset = yOffset;
+        
         size = Math.max(h, w);
     }
     

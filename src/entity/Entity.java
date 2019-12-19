@@ -20,6 +20,7 @@ public abstract class Entity {
     protected Animation ani;
     protected EntitySprite sprite;
     protected Position pos;
+    protected Position originPos;
     protected int size;
 
     protected EntityState state; //Key premuta
@@ -30,7 +31,6 @@ public abstract class Entity {
 
     protected float maxSpeed = 20f;
     protected float acc = 0.0003f;
-    protected float deacc = 0.3f;
     
     protected AABB bounds;
     protected TileCollision tc;
@@ -43,9 +43,17 @@ public abstract class Entity {
     protected float vx = 0;
     protected float vy;
 
-    
     protected float initialSpeed;
-    protected float initialAcc;
+    
+    protected float dy0;
+    protected float dx0;
+    
+    protected float gravity = -0.5f;
+    
+    protected float previousY;
+    protected float previousX;
+    
+    protected boolean dead = false;
     
     //protected AABB hitBounds;
     //protected AABB bounds;
@@ -53,12 +61,17 @@ public abstract class Entity {
     public Entity(EntitySprite sprite, Position origin, int size, EntityState state) {
         this.sprite = sprite;
         this.pos = origin;
+        this.originPos = origin;
         this.size = size;
         this.ani = new Animation(sprite.getSprite(state));
         this.ani.setDelay(aniDelay);
         this.state = state;
         this.currentState = state;
-        tc = new TileCollision(this);
+        this.dx0 = pos.getX();
+        this.dy0 = pos.getY();
+        this.previousY = dx0;
+        this.previousX = dy0;
+        this.tc = new TileCollision(this);
     }
     
     public Entity(EntitySprite sprite, Position origin, int size) {
@@ -73,10 +86,12 @@ public abstract class Entity {
     public void setSize(int i) { size = i; }
     public void setMaxSpeed(float f) { maxSpeed = f; }
     public void setAcc(float f) { acc = f; }
-    public void setDeAcc(float f) { deacc = f; }
     public int getSize() { return size; }
     public Animation getAnimation() { return ani; }
     public AABB getBounds(){ return bounds; }
+    public Position getPos(){ return pos; }
+    public boolean getDead(){ return dead; }
+    public EntityState getState(){ return state; }
     
     public void setAnimation(EntityState state, BufferedImage[] frames, int delay) {
         this.state = state;
@@ -101,5 +116,6 @@ public abstract class Entity {
         ani.updateGame();
     }
 
+    public abstract void isDead();
     public abstract void render(Graphics2D g);
 }

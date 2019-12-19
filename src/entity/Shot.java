@@ -8,9 +8,6 @@ import util.EntityState;
 import util.Position;
 
 public class Shot extends Entity{
-
-    private float dx0;
-    private float previousX;
     
     public Shot(EntitySprite sprite, Position origin, int size, float initialSpeed) {
         super(sprite, origin, size, EntityState.ATTACK);
@@ -18,8 +15,6 @@ public class Shot extends Entity{
         this.initialSpeed = initialSpeed;
         this.vx = initialSpeed+0.4f;
         this.acc = 0.001f;
-        this.dx0 = origin.getX();
-        this.dx = dx0;
     }
     
     public boolean collides(){
@@ -50,6 +45,11 @@ public class Shot extends Entity{
         g.setColor(Color.blue);
         g.drawRect((int) (pos.getWorldVar().getX() + bounds.getXOffset()),
                 (int) (pos.getWorldVar().getY() + bounds.getYOffset()), (int)bounds.getWidth(), (int)bounds.getHeight());
+    }
+
+    @Override
+    public void isDead() {
+        
     }
     
 }

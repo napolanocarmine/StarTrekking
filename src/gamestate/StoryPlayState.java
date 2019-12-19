@@ -5,6 +5,7 @@
  */
 package gamestate;
 import frames.GameFrame;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -16,16 +17,18 @@ public class StoryPlayState extends State{
      * Create the Panel on which the Level is runned.
      */
     public StoryPlayState(GameStateManager gsm){
-        this.frame = new GameFrame();
+        this.gsm = gsm;
+        this.frame = new GameFrame(this);
         //metodo che inizializza le componenti del JPanel;
         initComponent();
+        System.err.println("ciao");
     }
     
     /**
      * Define the play panel component.
      */
     private void initComponent(){
-        //Dovrebbe essere il codice presente in GamePanel
+       
     }
     
     /**
@@ -38,6 +41,16 @@ public class StoryPlayState extends State{
             codice che gestisce il prossimo stato,
             per questo sprint quando il maghetto muore da settare al Game-Over.
          */
+         if(code == 1){
+            SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                frame.dispose();
+                gsm.setState(new GameOverState(gsm));
+            }
+            });
+             //this.frame.dispose();
+//             gsm.setState(new GameOverState(gsm));
+         }
      };
     
     //Non so se per il play va settato.

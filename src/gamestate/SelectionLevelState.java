@@ -30,8 +30,11 @@ public class SelectionLevelState extends State{
     @Override
     public void handleNext(int code){
         if(code == 1){
+           
             frame.dispose();
             gsm.setState(new StoryPlayState(gsm));
+//            frame.dispose();
+//            gsm.setState(new StoryPlayState(gsm));
         }else if(code == 2){
             //avviare GamePanel2
         }else if(code == 3){

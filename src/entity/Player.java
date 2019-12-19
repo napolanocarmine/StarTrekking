@@ -48,6 +48,7 @@ public class Player extends Entity implements Observer {
         this.acc = 0.00003f;
         this.visible = true;
         this.invincible = false;
+        
     }
 
     public void move() {
@@ -179,7 +180,7 @@ public class Player extends Entity implements Observer {
     }
 
     private void attack() {
-        shots.add(new Shot(new EntitySprite("Entity/shot", 32, 32), new Position(dx - 15, pos.getY() + 24), 48, vx + acc * (timex)));
+        shots.add(new Shot(new EntitySprite("entity/shot", 32, 32), new Position(dx - 15, pos.getY() + 24), 48, vx + acc * (timex)));
     }
     
     public ArrayList<Shot> getShots(){

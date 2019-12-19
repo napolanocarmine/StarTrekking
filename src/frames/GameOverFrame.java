@@ -7,7 +7,15 @@ package frames;
 
 import gamestate.GameOverState;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.JComponent;
 
 /**
  *
@@ -20,12 +28,44 @@ public class GameOverFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainMenuFrame
      */
-    public GameOverFrame(GameOverState state) {
+    public GameOverFrame(GameOverState state) throws IOException {
         this.state = state;
+        
+        BufferedImage myImage = ImageIO.read(getClass().getResource("/screen/forest.png"));
+        
+        this.setContentPane(new ImagePanel(myImage));
+        
+        
         initComponents();
+        BufferedImage gameOverIcon=ImageIO.read(getClass().getResource("/menuIcon/gameover.png"));
+        BufferedImage menuIcon = ImageIO.read(getClass().getResource("/menuIcon/back_black.png"));
+        BufferedImage restartIcon = ImageIO.read(getClass().getResource("/menuIcon/restart_black.png"));
+        
+        titleLabel1.setIcon(new javax.swing.ImageIcon(gameOverIcon));
+      
+        mainMenuButton.setIcon(new javax.swing.ImageIcon(menuIcon));
+        mainMenuButton.setBorder(null);
+        restartButton.setIcon(new javax.swing.ImageIcon(restartIcon));
+        restartButton.setBorder(null);
+        
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         this.setVisible(true);
+        this.setSize( myImage.getWidth(),myImage.getHeight());
+    }
+
+    
+    
+     public class ImagePanel extends JComponent {
+        private Image image;
+        public ImagePanel(Image image) {
+        this.image = image;
+    }
+        @Override
+        protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(image, 0, 0, this);
+    }
     }
 
     /**
@@ -38,30 +78,55 @@ public class GameOverFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         mainMenuButton = new javax.swing.JButton();
-        titleLabel = new javax.swing.JLabel();
         restartButton = new javax.swing.JButton();
+        titleLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("mainMenuFrame"); // NOI18N
         setResizable(false);
 
-        mainMenuButton.setText("Back to Main Menu");
-        mainMenuButton.setOpaque(false);
+        mainMenuButton.setBorder(null);
+        mainMenuButton.setBorderPainted(false);
+        mainMenuButton.setContentAreaFilled(false);
+        mainMenuButton.setFocusable(false);
+        mainMenuButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                mainMenuButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                mainMenuButtonMouseExited(evt);
+            }
+        });
         mainMenuButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mainMenuButtonActionPerformed(evt);
             }
         });
 
-        titleLabel.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titleLabel.setText("GameOver");
-
-        restartButton.setText("Restart");
-        restartButton.setOpaque(false);
+        restartButton.setBorder(null);
+        restartButton.setBorderPainted(false);
+        restartButton.setContentAreaFilled(false);
+        restartButton.setFocusPainted(false);
+        restartButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                restartButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                restartButtonMouseExited(evt);
+            }
+        });
         restartButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 restartButtonActionPerformed(evt);
+            }
+        });
+
+        titleLabel1.setFont(new java.awt.Font("Beirut", 2, 36)); // NOI18N
+        titleLabel1.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.highlight"));
+        titleLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titleLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                titleLabel1buttonPressedHandler(evt);
             }
         });
 
@@ -70,23 +135,27 @@ public class GameOverFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(317, 317, 317)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(mainMenuButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(titleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
-                    .addComponent(restartButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(335, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(317, 317, 317)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(mainMenuButton, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
+                            .addComponent(restartButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(238, 238, 238)
+                        .addComponent(titleLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(264, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(88, 88, 88)
-                .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(91, 91, 91)
+                .addGap(100, 100, 100)
+                .addComponent(titleLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
                 .addComponent(restartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
+                .addGap(18, 18, 18)
                 .addComponent(mainMenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addContainerGap(167, Short.MAX_VALUE))
         );
 
         pack();
@@ -100,10 +169,67 @@ public class GameOverFrame extends javax.swing.JFrame {
         state.handleNext(0);
     }//GEN-LAST:event_restartButtonActionPerformed
 
+    private void titleLabel1buttonPressedHandler(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_titleLabel1buttonPressedHandler
+        // TODO add your handling code here:
+        //this.setIconImage(image);
+    }//GEN-LAST:event_titleLabel1buttonPressedHandler
+
+    private void restartButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_restartButtonMouseEntered
+        BufferedImage exit = null;
+
+        try {
+            exit = ImageIO.read(getClass().getResource("/menuIcon/restart_yellow.png"));
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        restartButton.setIcon(new javax.swing.ImageIcon(exit));
+        restartButton.setBorder(null);
+    }//GEN-LAST:event_restartButtonMouseEntered
+
+    private void restartButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_restartButtonMouseExited
+        BufferedImage exit = null;
+
+        try {
+            exit = ImageIO.read(getClass().getResource("/menuIcon/restart_black.png"));
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        restartButton.setIcon(new javax.swing.ImageIcon(exit));
+        restartButton.setBorder(null);
+    }//GEN-LAST:event_restartButtonMouseExited
+
+    private void mainMenuButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mainMenuButtonMouseEntered
+        BufferedImage exit = null;
+
+        try {
+            exit = ImageIO.read(getClass().getResource("/menuIcon/back_yellow.png"));
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        mainMenuButton.setIcon(new javax.swing.ImageIcon(exit));
+        mainMenuButton.setBorder(null);
+    }//GEN-LAST:event_mainMenuButtonMouseEntered
+
+    private void mainMenuButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mainMenuButtonMouseExited
+        BufferedImage exit = null;
+
+        try {
+            exit = ImageIO.read(getClass().getResource("/menuIcon/back_yellow.png"));
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        mainMenuButton.setIcon(new javax.swing.ImageIcon(exit));
+        mainMenuButton.setBorder(null);
+    }//GEN-LAST:event_mainMenuButtonMouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton mainMenuButton;
     private javax.swing.JButton restartButton;
-    private javax.swing.JLabel titleLabel;
+    private javax.swing.JLabel titleLabel1;
     // End of variables declaration//GEN-END:variables
 }

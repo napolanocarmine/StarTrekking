@@ -60,6 +60,7 @@ public class GamePanel extends JPanel implements Runnable {
     private ArrayList<GroundEnemy> goblins; 
     private float previousTickHitted = 0;
     private StoryPlayState sps;
+    
 
     public GamePanel(StoryPlayState sps) {
         this.goblins = new ArrayList<>();
@@ -102,6 +103,7 @@ public class GamePanel extends JPanel implements Runnable {
         goblins.add(new GroundEnemy(enemieSprite, new Position(2100, (GamePanel.HEIGHT) - 130) , 96));
         goblins.add(new GroundEnemy(enemieSprite, new Position(3080, (GamePanel.HEIGHT) - 130) , 96));
         goblins.add(new GroundEnemy(enemieSprite, new Position(4700, (GamePanel.HEIGHT) - 130) , 96));
+        
         
         hpimg = new Sprite("entity/heart.png", 32,32);
         key.addObserver(player);
@@ -146,7 +148,14 @@ public class GamePanel extends JPanel implements Runnable {
 //            render(g);
 //            draw();
             render();
-            repaint();
+            SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+               repaint(); 
+            }
+            });
+            
+            
             
 
             lastRenderTime = now;

@@ -7,7 +7,17 @@ package frames;
 
 import gamestate.MainMenuState;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 
 /**
  *
@@ -20,14 +30,44 @@ public class MainMenuFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainMenuFrame
      */
-    public MainMenuFrame(MainMenuState state) {
+    public MainMenuFrame(MainMenuState state) throws IOException {
         this.state = state;
+        BufferedImage myImage = ImageIO.read(getClass().getResource("/screen/forest.png"));
+        
+        this.setContentPane(new ImagePanel(myImage));
         initComponents();
+        
+        
+        BufferedImage storyModeIcon = ImageIO.read(getClass().getResource("/menuIcon/story_mode_black.png"));
+        BufferedImage exitIcon = ImageIO.read(getClass().getResource("/menuIcon/exit_black.png"));
+        BufferedImage titleIcon = ImageIO.read(getClass().getResource("/menuIcon/startrekking.png"));
+        
+        
+        storyModeButton.setIcon(new javax.swing.ImageIcon(storyModeIcon));
+        exitButton.setIcon(new javax.swing.ImageIcon(exitIcon));
+        storyModeButton.setBorder(null);
+        exitButton.setBorder(null);
+        titleLabel.setIcon(new javax.swing.ImageIcon(titleIcon));
+        
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         this.setVisible(true);
+        this.setSize( myImage.getWidth(),myImage.getHeight());
+       
+        
     }
-
+    
+    public class ImagePanel extends JComponent {
+        private Image image;
+        public ImagePanel(Image image) {
+        this.image = image;
+    }
+        @Override
+        protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(image, 0, 0, this);
+    }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,20 +85,49 @@ public class MainMenuFrame extends javax.swing.JFrame {
         setName("mainMenuFrame"); // NOI18N
         setResizable(false);
 
-        storyModeButton.setText("Story Mode");
-        storyModeButton.setOpaque(false);
+        storyModeButton.setBackground(new java.awt.Color(255, 255, 255));
+        storyModeButton.setForeground(java.awt.Color.darkGray);
+        storyModeButton.setBorder(null);
+        storyModeButton.setBorderPainted(false);
+        storyModeButton.setContentAreaFilled(false);
+        storyModeButton.setFocusPainted(false);
+        storyModeButton.setIconTextGap(10);
+        storyModeButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                mouseSelectionStoryHandler(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                mouseExitHandler(evt);
+            }
+        });
         storyModeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 storyModeButtonActionPerformed(evt);
             }
         });
 
-        titleLabel.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        titleLabel.setFont(new java.awt.Font("Beirut", 2, 36)); // NOI18N
+        titleLabel.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.highlight"));
         titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titleLabel.setText("Star Trekking");
+        titleLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                buttonPressedHandler(evt);
+            }
+        });
 
-        exitButton.setText("Exit");
-        exitButton.setOpaque(false);
+        exitButton.setBackground(new java.awt.Color(255, 255, 255));
+        exitButton.setForeground(java.awt.Color.darkGray);
+        exitButton.setBorder(null);
+        exitButton.setBorderPainted(false);
+        exitButton.setContentAreaFilled(false);
+        exitButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                exitButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                exitButtonMouseExited(evt);
+            }
+        });
         exitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exitButtonActionPerformed(evt);
@@ -72,21 +141,24 @@ public class MainMenuFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(317, 317, 317)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(storyModeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(titleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
+                    .addComponent(storyModeButton, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
                     .addComponent(exitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(335, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(88, 88, 88)
                 .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
+                .addGap(27, 27, 27)
                 .addComponent(storyModeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(176, Short.MAX_VALUE))
+                .addContainerGap(191, Short.MAX_VALUE))
         );
 
         pack();
@@ -100,6 +172,64 @@ public class MainMenuFrame extends javax.swing.JFrame {
         state.handleNext(1);
     }//GEN-LAST:event_exitButtonActionPerformed
 
+    private void buttonPressedHandler(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonPressedHandler
+        // TODO add your handling code here:
+        //this.setIconImage(image);
+    }//GEN-LAST:event_buttonPressedHandler
+
+    private void mouseSelectionStoryHandler(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseSelectionStoryHandler
+        
+        BufferedImage storyMode = null;
+        
+        try {
+            storyMode = ImageIO.read(getClass().getResource("/menuIcon/story_mode_yellow.png"));
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        storyModeButton.setIcon(new javax.swing.ImageIcon(storyMode));
+        storyModeButton.setBorder(null);
+    }//GEN-LAST:event_mouseSelectionStoryHandler
+
+    private void mouseExitHandler(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseExitHandler
+        BufferedImage storyMode = null;
+        
+        try {
+            storyMode = ImageIO.read(getClass().getResource("/menuIcon/story_mode_black.png"));
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        storyModeButton.setIcon(new javax.swing.ImageIcon(storyMode));
+        storyModeButton.setBorder(null);
+    }//GEN-LAST:event_mouseExitHandler
+
+    private void exitButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseEntered
+        BufferedImage exit = null;
+
+        try {
+            exit = ImageIO.read(getClass().getResource("/menuIcon/exit_yellow.png"));
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        exitButton.setIcon(new javax.swing.ImageIcon(exit));
+        exitButton.setBorder(null);
+    }//GEN-LAST:event_exitButtonMouseEntered
+
+    private void exitButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseExited
+        BufferedImage exit = null;
+
+        try {
+            exit = ImageIO.read(getClass().getResource("/menuIcon/exit_black.png"));
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        exitButton.setIcon(new javax.swing.ImageIcon(exit));
+        exitButton.setBorder(null);
+    }//GEN-LAST:event_exitButtonMouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton exitButton;
@@ -107,4 +237,5 @@ public class MainMenuFrame extends javax.swing.JFrame {
     private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 
+    
 }

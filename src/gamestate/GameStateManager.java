@@ -5,6 +5,8 @@
  */
 package gamestate;
 
+import java.io.IOException;
+
 /**
  *
  * @author Star Trekking
@@ -29,7 +31,7 @@ public class GameStateManager {
      * Create a new GameStateManager and initialize the initial state to
      * MainMenuState.
      */
-    public GameStateManager() {
+    public GameStateManager() throws IOException {
         this.gameState = new MainMenuState(this);
     }
 

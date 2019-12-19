@@ -61,6 +61,7 @@ public abstract class Entity {
         this.pos = origin;
         this.originPos = origin;
         this.size = size;
+        
         this.ani = new Animation(sprite.getSprite(state));
         this.ani.setDelay(aniDelay);
         this.state = state;

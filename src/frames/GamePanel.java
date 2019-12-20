@@ -89,7 +89,7 @@ public class GamePanel extends JPanel implements Runnable {
         key = new KeyHandler();
         addKeyListener(key);
 
-        tf = new TileFacade("tiles/Level1.xml");
+        tf = new TileFacade("tiles/LevelOne.xml");
         
         EntitySprite playerSprite = new EntitySprite("entity/wizard", 64, 64);
         player = new Player(playerSprite, new Position(0, 0 + (GamePanel.HEIGHT) - 130), 96, key);

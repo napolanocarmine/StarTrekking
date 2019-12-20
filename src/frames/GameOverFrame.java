@@ -5,9 +5,14 @@
  */
 package frames;
 
+import static frames.MainMenuFrame.clipMenu;
 import gamestate.GameOverState;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import sun.audio.AudioPlayer;
 
 /**
  *
@@ -25,9 +30,9 @@ public class GameOverFrame extends javax.swing.JFrame {
         initComponents();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-        this.setVisible(true);
+        this.setVisible(true);     
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

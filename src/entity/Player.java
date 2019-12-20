@@ -9,6 +9,13 @@ import java.util.Observable;
 import java.util.Observer;
 import frames.GameFrame;
 import frames.GamePanel;
+import frames.MainMenuFrame;
+import frames.SelectionLevelFrame;
+import static frames.SelectionLevelFrame.clip;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import sun.audio.AudioPlayer;
 import tiles.TileFacade;
 import util.AABB;
 import util.KeyHandler;
@@ -26,6 +33,8 @@ public class Player extends Entity implements Observer {
     int action;
     private ArrayList<Shot> shots = new ArrayList<Shot>();
     
+    public Clip clipGameOver;
+    
     DecimalFormat df = new DecimalFormat();
     private boolean invincible;
     private float invStartTime;
@@ -40,7 +49,7 @@ public class Player extends Entity implements Observer {
         df.setMaximumFractionDigits(2);
         this.initialSpeed = 0.3f;
         this.vx = initialSpeed;
-        this.acc = 0.00003f;
+        this.acc = 0.00001f;
         this.visible = true;
         this.invincible = false;
     }
@@ -71,6 +80,18 @@ public class Player extends Entity implements Observer {
                 
 //                System.err.println("dy: " + dy);
 //                System.err.println("gravity: " + gravity);
+            try {
+                Clip clipJump;
+                AudioInputStream audio;
+                audio = AudioSystem.getAudioInputStream(AudioPlayer.class.getResourceAsStream("/sounds/JumpMusic.wav"));
+                clipJump = AudioSystem.getClip();
+                clipJump.open(audio);
+                clipJump.start();
+                //clipJump.loop(Clip.LOOP_CONTINUOUSLY);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
             }
             if (ani.playingLastFrame()) {
                 ani.setDelay(-1);
@@ -100,6 +121,15 @@ public class Player extends Entity implements Observer {
         }
 
         if (state == EntityState.ATTACK) {
+            try {
+                AudioInputStream audio;
+                audio = AudioSystem.getAudioInputStream(AudioPlayer.class.getResourceAsStream("/sounds/ShotMusic.wav"));
+                clip = AudioSystem.getClip();
+                clip.open(audio);
+                clip.start();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             if (ani.playingLastFrame()) {
                 attack();
                 state = EntityState.RUN;
@@ -108,6 +138,17 @@ public class Player extends Entity implements Observer {
 
         if (state == EntityState.DEAD) {
             isDead();
+            try {
+                Clip clipJump;
+                AudioInputStream audio;
+                audio = AudioSystem.getAudioInputStream(AudioPlayer.class.getResourceAsStream("/sounds/GameOverMusic.wav"));
+                clipJump = AudioSystem.getClip();
+                clipJump.open(audio);
+                clipJump.start();
+                //clipJump.loop(Clip.LOOP_CONTINUOUSLY);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
     }
@@ -115,6 +156,16 @@ public class Player extends Entity implements Observer {
     public void isDead(){
         if(ani.playingLastFrame()){
             dead = true;
+            SelectionLevelFrame.clip.stop();
+            try {
+                AudioInputStream audio;
+                audio = AudioSystem.getAudioInputStream(AudioPlayer.class.getResourceAsStream("/sounds/GameOverMusic.wav"));
+                clipGameOver = AudioSystem.getClip();
+                clipGameOver.open(audio);
+                clipGameOver.start();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -181,7 +232,7 @@ public class Player extends Entity implements Observer {
             }
         }
         if(pos.getY() > GameFrame.HEIGHT){
-                dead = true;  
+                dead = true;
         }
     }
 

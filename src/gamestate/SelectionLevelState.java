@@ -6,6 +6,10 @@
 package gamestate;
 
 import frames.SelectionLevelFrame;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import sun.audio.AudioPlayer;
 
 /**
  *
@@ -27,15 +31,15 @@ public class SelectionLevelState extends State {
      * @param code button code
      */
     @Override
-    public void handleNext(int code){
-        if(code == 1){
-           
+    public void handleNext(int code) {
+        if (code == 1) {
+
             frame.dispose();
             gsm.setState(new StoryPlayState(gsm));
 //            frame.dispose();
 //            gsm.setState(new StoryPlayState(gsm));
-        }else if(code == 2){
-        }else{
+        } else if (code == 2) {
+        } else {
             frame.dispose();
             gsm.setState((new MainMenuState(gsm)));
         }

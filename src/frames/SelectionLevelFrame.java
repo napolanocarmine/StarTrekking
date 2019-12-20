@@ -10,7 +10,11 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
+import sun.audio.AudioPlayer;
 
 /**
  *
@@ -20,7 +24,8 @@ public class SelectionLevelFrame extends javax.swing.JFrame {
 
     private final SelectionLevelState state;
     private Image img;
-
+    public static Clip clip;
+    
     /**
      * Creates new form MainMenuFrame
      */
@@ -137,6 +142,17 @@ public class SelectionLevelFrame extends javax.swing.JFrame {
 
     private void levelOneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_levelOneButtonActionPerformed
         state.handleNext(1);
+        MainMenuFrame.clipMenu.stop();
+        try {
+                AudioInputStream audio;
+                audio = AudioSystem.getAudioInputStream(AudioPlayer.class.getResourceAsStream("/sounds/LevelOneMusic.wav"));
+                clip = AudioSystem.getClip();
+                clip.open(audio);
+                clip.start();
+                clip.loop(Clip.LOOP_CONTINUOUSLY);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
     }//GEN-LAST:event_levelOneButtonActionPerformed
 
     private void levelThreeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_levelThreeButtonActionPerformed

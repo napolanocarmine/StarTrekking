@@ -8,6 +8,10 @@ package frames;
 import gamestate.MainMenuState;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import sun.audio.AudioPlayer;
 
 /**
  *
@@ -16,6 +20,7 @@ import java.awt.Toolkit;
 public class MainMenuFrame extends javax.swing.JFrame {
 
     private final MainMenuState state;
+    protected static Clip clipMenu;
 
     /**
      * Creates new form MainMenuFrame
@@ -26,7 +31,23 @@ public class MainMenuFrame extends javax.swing.JFrame {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         this.setVisible(true);
+        try {
+                AudioInputStream audio;
+                audio = AudioSystem.getAudioInputStream(AudioPlayer.class.getResourceAsStream("/sounds/MainMenuMusic.wav"));
+                clipMenu = AudioSystem.getClip();
+                clipMenu.open(audio);
+                clipMenu.start();
+                clipMenu.loop(Clip.LOOP_CONTINUOUSLY);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
     }
+
+    public Clip getClipMenu() {
+        return clipMenu;
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

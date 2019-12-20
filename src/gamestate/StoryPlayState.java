@@ -24,7 +24,6 @@ public class StoryPlayState extends State {
         this.frame = new GameFrame(this);
         //metodo che inizializza le componenti del JPanel;
         initComponent();
-        System.err.println("ciao");
     }
 
     /**

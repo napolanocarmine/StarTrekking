@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package entity;
+package gameObjects;
 
 import frames.GamePanel;
 import graphics.EntitySprite;
@@ -73,7 +73,7 @@ public class GroundEnemy extends Entity {
         timey = 0;
         vx = initialSpeed;
         pos.setPos(originPos.getX(), originPos.getY());
-        GamePanel.getMapPos().setPos(0, 0);
+        Level.getMapPos().setPos(0, 0);
     }
     
     @Override

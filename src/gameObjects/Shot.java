@@ -1,4 +1,4 @@
-package entity;
+package gameObjects;
 
 import graphics.EntitySprite;
 import java.awt.Color;

@@ -1,10 +1,12 @@
 package frames;
 
-import entity.GroundEnemy;
-import entity.Player;
-import entity.Shot;
+import gameObjects.GroundEnemy;
+import gameObjects.Level;
+import gameObjects.Player;
+import gameObjects.Shot;
 import gamestate.GameOverState;
 import gamestate.GameStateManager;
+import gamestate.State;
 import gamestate.StoryPlayState;
 import graphics.Sprite;
 import graphics.EntitySprite;
@@ -37,14 +39,13 @@ public class GamePanel extends JPanel implements Runnable {
     
     public static float unitTime = 700000000;
 
-    public static final int WIDTH = 980;
-    public static final int HEIGHT = 528;
+    public static final int WIDTH = GameFrame.WIDTH;
+    public static final int HEIGHT = GameFrame.HEIGHT;
 
     //nome JFrame
     public static final String NAME = "STAR TREKKING";
     
     public static int oldFrameCount;
-    private static Position map;
 
     private Thread thread;
     private boolean running = false;
@@ -52,14 +53,11 @@ public class GamePanel extends JPanel implements Runnable {
     private BufferedImage img;
     private Graphics2D g;
 
-    private TileFacade tf;
-    private Player player;
-    private Sprite hpimg;
-    private Sprite font;
-    private KeyHandler key;
+    
     private ArrayList<GroundEnemy> goblins; 
-    private float previousTickHitted = 0;
     private StoryPlayState sps;
+    private Level level;
+    private KeyHandler key;
     
 
     public GamePanel(StoryPlayState sps) {
@@ -80,34 +78,16 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void init() {
-
         running = true;
 
         img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
         g = (Graphics2D) img.getGraphics();
         
-        map = new Position(0, 0);
-        Position.setWorldVar(map.getX(), map.getY());
-
         key = new KeyHandler();
         addKeyListener(key);
-
-        tf = new TileFacade("tiles/LevelOne.xml");
         
-        EntitySprite playerSprite = new EntitySprite("entity/wizard", 64, 64);
-        player = new Player(playerSprite, new Position(0, 0 + (GamePanel.HEIGHT) - 130), 96, key);
+        this.level = new Level(key, this);
         
-        EntitySprite enemieSprite = new EntitySprite("entity/goblin", 64, 64);
-        goblins.add(new GroundEnemy(enemieSprite, new Position(1000, (GamePanel.HEIGHT) - 130) , 96));
-        goblins.add(new GroundEnemy(enemieSprite, new Position(1500, (GamePanel.HEIGHT) - 130) , 96));
-        goblins.add(new GroundEnemy(enemieSprite, new Position(2100, (GamePanel.HEIGHT) - 130) , 96));
-        goblins.add(new GroundEnemy(enemieSprite, new Position(3080, (GamePanel.HEIGHT) - 130) , 96));
-        goblins.add(new GroundEnemy(enemieSprite, new Position(4700, (GamePanel.HEIGHT) - 130) , 96));
-        
-        
-        hpimg = new Sprite("entity/heart.png", 32,32);
-        key.addObserver(player);
-        font = new Sprite("font/Font.png", 10, 10);
     }
 
     @Override
@@ -149,10 +129,10 @@ public class GamePanel extends JPanel implements Runnable {
 //            draw();
             render();
             SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-               repaint(); 
-            }
+                @Override
+                public void run() {
+                   repaint(); 
+                }
             });
             
             
@@ -188,92 +168,15 @@ public class GamePanel extends JPanel implements Runnable {
     public Color color;
 
     public void update() {
-        Position.setWorldVar(map.getX(), map.getY());
-        player.updateGame();
-        
-        for(GroundEnemy goblin : goblins){
-            if(goblin.getPos().getWorldVar().getX() < GameFrame.WIDTH+100) goblin.updateGame();
-        }
-        
-        if(player.getDead()) {
-            sps.handleNext(1);
-            thread.stop();
-        }
-        checkCollision();
-        removeEnemies();
+        level.updateGame();
     }
-
-    public void checkCollision() {
-        ArrayList<Shot> shots = player.getShots();
-        ListIterator<Shot> shotListIter = shots.listIterator();
-        
-        while(shotListIter.hasNext()){
-            Shot s = shotListIter.next();
-            for(GroundEnemy goblin : goblins){
-                if(goblin.getState() != EntityState.DEAD && s.getBounds().collides(goblin.getBounds())){
-                    System.err.println("Nemico colpito");
-                    shotListIter.remove();
-                    goblin.isDead();
-                }
-            }
-        }
-        
-        for(GroundEnemy goblin : goblins){
-            if(goblin.getState() != EntityState.DEAD && goblin.getBounds().collides(player.getBounds())){
-                if(System.nanoTime() - previousTickHitted > unitTime){
-                    System.err.println("Collisione player");
-                    player.hitted();    
-                }
-                previousTickHitted = System.nanoTime();
-            }
-        }
-    }
-
-    public boolean test;
 
     public void render() {
-        /*
-        g.setColor(Color.RED);
-        g.fillRect(100, 100, 64, 64);
-         */
         if (g != null) {
-            test = true;
-//            g.setColor(new Color(66, 134, 244));
-//            g.fillRect(0, 0, WIDTH, HEIGHT);
-            tf.render(g);
-            for(GroundEnemy goblin : goblins){
-                goblin.render(g);
-            }
-            player.render(g);
-            Sprite.drawArray(g, font, "FPS: " + GamePanel.oldFrameCount, new Position(GamePanel.WIDTH - (8 * 40), 10), 40, 40, 32, 0);
-//            ArrayList<BufferedImage> hearts = new ArrayList<BufferedImage>();
-//            BufferedImage heartImg; 
-//            heartImg = hpimg.getMatrix();
-//            hearts.add(heartImg);
-//            int space = 10;
-//            for (int i =0; i<player.getHP(); i++){
-//                Sprite.drawArray(g,hearts,new Position (space,10), 90 , 90, 10,0);
-//                  space += 70;
-//            }
-            int space = 0;
-            for (int i = 0; i < player.getHP(); i++) {
-                Sprite.drawArray(g, hpimg.getSprite(0, 0), new Position(space, 10), 90, 90);
-                space += 60;
-            }
-        }
-        //Sprite.drawArray(g, font, "FPS: " + GamePanel.oldFrameCount , new Vector2f(GamePanel.width - (8 * 40) , 10), 40, 40, 32, 0);    
+            level.render(g);
+        }   
     }
     
-    private void removeEnemies(){
-        ListIterator<GroundEnemy> goblinListIter = goblins.listIterator();
-        
-        while(goblinListIter.hasNext()){
-            GroundEnemy currGoblin = goblinListIter.next();
-            if(currGoblin.getDead()){
-                goblinListIter.remove();
-            }
-        }
-    }
     
     @Override   
     public void paintComponent(Graphics g){
@@ -282,21 +185,17 @@ public class GamePanel extends JPanel implements Runnable {
         g.dispose();
     }
 
-    public static int getWIDTH() {
-        return WIDTH;
-    }
-
-    public static int getHEIGHT() {
-        return HEIGHT;
-    }
+    public static int getWIDTH() { return WIDTH; }
+    public static int getHEIGHT() { return HEIGHT; }
+    public State getState() { return sps; }
+    public void stopThread() { running = false; }
+    public Thread getThread(){ return thread; }
+    
 //
 //    public static void main(String[] args) {
 //        GamePanel gamePanel = new GamePanel();
 //    }
 
-    public static Position getMapPos() {
-        return map;
-    }
 
 }
 

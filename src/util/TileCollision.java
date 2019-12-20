@@ -1,6 +1,6 @@
 package util;
 
-import entity.Entity;
+import gameObjects.Entity;
 import tiles.TileMapObj;
 import tiles.blocks.Block;
 import tiles.blocks.HoleBlock;

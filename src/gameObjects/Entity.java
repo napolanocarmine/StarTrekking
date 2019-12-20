@@ -2,7 +2,7 @@
  *
  *
  */
-package entity;
+package gameObjects;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -13,7 +13,7 @@ import util.Position;
 import util.EntityState;
 import util.TileCollision;
 
-public abstract class Entity {
+public abstract class Entity implements GameObject{
 
     protected Animation ani;
     protected EntitySprite sprite;
@@ -111,10 +111,10 @@ public abstract class Entity {
         ani.updateGame();
     }
 
+    @Override
     public void updateGame() {
         ani.updateGame();
     }
 
     public abstract void isDead();
-    public abstract void render(Graphics2D g);
 }

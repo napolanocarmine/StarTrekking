@@ -234,11 +234,11 @@ public class SelectionLevelFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_levelOneButtonActionPerformed
 
     private void levelThreeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_levelThreeButtonActionPerformed
-        // TODO add your handling code here:
+        state.handleNext(3);
     }//GEN-LAST:event_levelThreeButtonActionPerformed
 
     private void levelTwoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_levelTwoButtonActionPerformed
-        // TODO add your handling code here:
+        state.handleNext(2);
     }//GEN-LAST:event_levelTwoButtonActionPerformed
 
     private void backMainMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backMainMenuButtonActionPerformed

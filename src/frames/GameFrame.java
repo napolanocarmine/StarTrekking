@@ -17,13 +17,12 @@ public final class GameFrame extends JFrame {
      */
     //dimensione finestra
     public static final int WIDTH = 980;
-    public static final int HEIGHT = 528;
+    public static final int HEIGHT = 560;
     //nome JFrame
     public static final String NAME = "STAR TREKKING";
     private GamePanel gamePanel;
     
     public GameFrame(StoryPlayState sps) {
-        System.err.println("GameFrame");
         setTitle(NAME);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);

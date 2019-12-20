@@ -35,22 +35,29 @@ public class SelectionLevelState extends State {
      */
     @Override
     public void handleNext(int code){
-        if(code == 1){
-           
-            frame.dispose();
-            gsm.setState(new StoryPlayState(gsm));
+//        if(code == 1){
+//           
 //            frame.dispose();
-//            gsm.setState(new StoryPlayState(gsm));
-        }else if(code == 2){
+//            gsm.setState(new StoryPlayState(gsm, code));
+////            frame.dispose();
+////            gsm.setState(new StoryPlayState(gsm));
+//        }else if(code == 2){
+//        }else{
+//            frame.dispose();
+//            try{
+//            gsm.setState((new MainMenuState(gsm)));
+//        }catch(IOException e){
+//            System.err.println(e);
+//        }
+//        } 
+        if(code == 4){
+            frame.dispose();
         }else{
             frame.dispose();
-            try{
-            gsm.setState((new MainMenuState(gsm)));
-        }catch(IOException e){
-            System.err.println(e);
+            gsm.setState(new StoryPlayState(gsm, code));
         }
-        } 
     }
+    
     //Non so se per il main menu va settato.
     @Override
     public void handlePrevious(int code) {

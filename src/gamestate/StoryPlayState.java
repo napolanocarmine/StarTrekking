@@ -15,16 +15,18 @@ import javax.swing.SwingUtilities;
 public class StoryPlayState extends State {
 
     private GameStateManager gsm;
+    public static int level;
 
     /**
      * Create the Panel on which the Level is runned.
      */
-    public StoryPlayState(GameStateManager gsm){
+    public StoryPlayState(GameStateManager gsm, int level){
         this.gsm = gsm;
+        this.level = level;
         this.frame = new GameFrame(this);
+        
         //metodo che inizializza le componenti del JPanel;
         initComponent();
-        System.err.println("ciao");
     }
 
     /**
@@ -49,7 +51,7 @@ public class StoryPlayState extends State {
             SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 frame.dispose();
-                gsm.setState(new GameOverState(gsm));
+                gsm.setState(new GameOverState(gsm, level));
             }
             });
              //this.frame.dispose();
@@ -61,5 +63,7 @@ public class StoryPlayState extends State {
     @Override
     public void handlePrevious(int code) {
     }
+    
+    public int getLevel(){ return this.level; }
 
 }

@@ -1,4 +1,4 @@
-package entity;
+package gameObjects;
 
 import graphics.EntitySprite;
 import java.awt.Color;
@@ -202,8 +202,8 @@ public class Player extends Entity implements Observer {
         }
         move();
         pos.setX(dx);    //update x position
-        if (GamePanel.getMapPos().getX() + GameFrame.WIDTH < TileFacade.mapWidth * 16) {
-            GamePanel.getMapPos().setX(dx);
+        if (Level.getMapPos().getX() + GameFrame.WIDTH < TileFacade.mapWidth * 16) {
+            Level.getMapPos().setX(dx);
         }
         pos.setY(dy);
         if(!shots.isEmpty()){

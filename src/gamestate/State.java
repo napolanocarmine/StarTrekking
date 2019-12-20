@@ -13,7 +13,8 @@ import javax.swing.*;
  */
 public abstract class State {
 
-    protected JFrame frame;
+    protected JPanel panel;
+    protected GameStateManager gsm;
 
     public void handleNext(int code) {
     }
@@ -21,11 +22,15 @@ public abstract class State {
     public void handlePrevious(int code) {
     }
 
-    public JFrame getFrame() {
-        return frame;
+    public JPanel getPanel() {
+        return panel;
     }
 
-    public void setJFrame(JFrame frame) {
-        this.frame = frame;
+    public void setJPanel(JPanel panel) {
+        this.panel = panel;
+    }
+    
+    public void setGSM(GameStateManager gsm){
+        this.gsm = gsm;
     }
 }

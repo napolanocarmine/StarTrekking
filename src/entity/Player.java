@@ -7,8 +7,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-import frames.GameFrame;
-import frames.GamePanel;
+import panels.GameFrame;
+import panels.GamePanel;
 import tiles.TileFacade;
 import util.AABB;
 import util.KeyHandler;
@@ -262,6 +262,7 @@ public class Player extends Entity implements Observer {
 
     @Override
     public void update(Observable o, Object s) {
+        System.out.println("Ciao pippo");
         if (o == this.khdl) {
             int key = this.khdl.getValue();
             boolean b = khdl.isPressed();

@@ -5,7 +5,7 @@
  */
 package entity;
 
-import frames.GamePanel;
+import panels.GamePanel;
 import graphics.EntitySprite;
 import java.awt.Color;
 import java.awt.Graphics2D;

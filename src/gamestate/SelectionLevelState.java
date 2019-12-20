@@ -5,7 +5,7 @@
  */
 package gamestate;
 
-import frames.*;
+import panels.SelectionLevelPanel;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,12 +16,9 @@ import java.util.logging.Logger;
  */
 public class SelectionLevelState extends State {
 
-    private GameStateManager gsm;
-
-    public SelectionLevelState(GameStateManager gsm){
-        this.gsm = gsm;
+    public SelectionLevelState(){
         try{
-            this.frame = new SelectionLevelFrame("/screen/forest.png", this);
+            this.panel = new SelectionLevelPanel("/screen/forest.png", this);
         }catch(IOException e){
             System.out.print(e);
         }
@@ -37,15 +34,13 @@ public class SelectionLevelState extends State {
     public void handleNext(int code){
         if(code == 1){
            
-            frame.dispose();
-            gsm.setState(new StoryPlayState(gsm));
+            gsm.setState(new StoryPlayState());
 //            frame.dispose();
 //            gsm.setState(new StoryPlayState(gsm));
         }else if(code == 2){
         }else{
-            frame.dispose();
             try{
-            gsm.setState((new MainMenuState(gsm)));
+            gsm.setState((new MainMenuState()));
         }catch(IOException e){
             System.err.println(e);
         }

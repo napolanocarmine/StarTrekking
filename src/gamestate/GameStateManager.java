@@ -6,6 +6,7 @@
 package gamestate;
 
 import java.io.IOException;
+import panels.GsmListener;
 
 /**
  *
@@ -17,6 +18,7 @@ import java.io.IOException;
 public class GameStateManager {
 
     private State gameState;
+    private GsmListener listener;
 
     /**
      * Create a new GameStateManager and initialize the initial state
@@ -24,7 +26,9 @@ public class GameStateManager {
      * @param gameState Initial state.
      */
     public GameStateManager(State gameState) {
+        this.listener = null;
         this.gameState = gameState;
+        gameState.setGSM(this);
     }
 
     /**
@@ -32,7 +36,8 @@ public class GameStateManager {
      * MainMenuState.
      */
     public GameStateManager() throws IOException {
-        this.gameState = new MainMenuState(this);
+        this.listener = null;
+        this.gameState = new MainMenuState();
     }
 
     /**
@@ -51,6 +56,16 @@ public class GameStateManager {
      */
     public void setState(State gameState) {
         this.gameState = gameState;
+        if (listener != null){
+            gameState.setGSM(this);
+            System.out.println(gameState);
+            listener.stateChanged(gameState);
+        }
     }
 
+    public void setListener(GsmListener l){
+        this.listener= l;
+    }
+    
+    
 }

@@ -5,7 +5,7 @@
  */
 package gamestate;
 
-import frames.GameOverFrame;
+import panels.GameOverPanel;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,21 +19,14 @@ import java.util.logging.Logger;
  */
 public class GameOverState extends State {
 
-    private GameStateManager gsm;
-
     /**
      * Create the Panel, which represents the Game Over Menu.
      *
      * @param gsm gsm represent the gsm that managed this state
      */
-    public GameOverState(GameStateManager gsm) {
-        this.gsm = gsm;
-        try {
-            this.frame = new GameOverFrame(this);
-            //metodo che inizializza le componenti del JPanel;
-        } catch (IOException ex) {
-            System.err.println(ex);
-        }
+    public GameOverState() throws IOException {
+        this.panel = new GameOverPanel(this);
+        //metodo che inizializza le componenti del JPanel;
     }
 
     /**
@@ -51,12 +44,10 @@ public class GameOverState extends State {
          */
 
         if (code == 0) {
-            frame.dispose();
-            gsm.setState(new StoryPlayState(gsm));
+            gsm.setState(new StoryPlayState());
         } else if (code == 1) {
-            frame.dispose();
             try {
-                gsm.setState(new MainMenuState(gsm));
+                gsm.setState(new MainMenuState());
             } catch (IOException ex) {
                 Logger.getLogger(GameOverState.class.getName()).log(Level.SEVERE, null, ex);
             }

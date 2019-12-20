@@ -10,6 +10,10 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import sun.audio.AudioPlayer;
+import frames.*;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,9 +23,13 @@ public class SelectionLevelState extends State {
 
     private GameStateManager gsm;
 
-    public SelectionLevelState(GameStateManager gsm) {
+    public SelectionLevelState(GameStateManager gsm){
         this.gsm = gsm;
-        this.frame = new SelectionLevelFrame("/screen/forest.png", this);
+        try{
+            this.frame = new SelectionLevelFrame("/screen/forest.png", this);
+        }catch(IOException e){
+            System.out.print(e);
+        }
     }
 
     /**
@@ -41,10 +49,13 @@ public class SelectionLevelState extends State {
         } else if (code == 2) {
         } else {
             frame.dispose();
+            try{
             gsm.setState((new MainMenuState(gsm)));
+        }catch(IOException e){
+            System.err.println(e);
         }
+        } 
     }
-
     //Non so se per il main menu va settato.
     @Override
     public void handlePrevious(int code) {

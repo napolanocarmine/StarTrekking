@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.ListIterator;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import util.EntityState;
 import util.KeyHandler;
 import util.Position;
@@ -59,10 +60,12 @@ public class GamePanel extends JPanel implements Runnable {
     private ArrayList<GroundEnemy> goblins; 
     private float previousTickHitted = 0;
     private StoryPlayState sps;
+    
 
     public GamePanel(StoryPlayState sps) {
         this.goblins = new ArrayList<>();
         this.sps = sps;
+        this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setFocusable(true);
         requestFocus();
         startThread();
@@ -95,9 +98,12 @@ public class GamePanel extends JPanel implements Runnable {
         player = new Player(playerSprite, new Position(0, 0 + (GamePanel.HEIGHT) - 130), 96, key);
         
         EntitySprite enemieSprite = new EntitySprite("entity/goblin", 64, 64);
-        goblins.add(new GroundEnemy(enemieSprite, new Position(500, (GamePanel.HEIGHT) - 130) , 96));
         goblins.add(new GroundEnemy(enemieSprite, new Position(1000, (GamePanel.HEIGHT) - 130) , 96));
         goblins.add(new GroundEnemy(enemieSprite, new Position(1500, (GamePanel.HEIGHT) - 130) , 96));
+        goblins.add(new GroundEnemy(enemieSprite, new Position(2100, (GamePanel.HEIGHT) - 130) , 96));
+        goblins.add(new GroundEnemy(enemieSprite, new Position(3080, (GamePanel.HEIGHT) - 130) , 96));
+        goblins.add(new GroundEnemy(enemieSprite, new Position(4700, (GamePanel.HEIGHT) - 130) , 96));
+        
         
         hpimg = new Sprite("entity/heart.png", 32,32);
         key.addObserver(player);
@@ -139,8 +145,18 @@ public class GamePanel extends JPanel implements Runnable {
                 lastUpdateTime = now - TBU;
             }
             
-            render(g);
-            draw();
+//            render(g);
+//            draw();
+            render();
+            SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+               repaint(); 
+            }
+            });
+            
+            
+            
 
             lastRenderTime = now;
             frameCount++;
@@ -215,15 +231,15 @@ public class GamePanel extends JPanel implements Runnable {
 
     public boolean test;
 
-    public void render(Graphics2D g) {
+    public void render() {
         /*
         g.setColor(Color.RED);
         g.fillRect(100, 100, 64, 64);
          */
         if (g != null) {
             test = true;
-            g.setColor(new Color(66, 134, 244));
-            g.fillRect(0, 0, WIDTH, HEIGHT);
+//            g.setColor(new Color(66, 134, 244));
+//            g.fillRect(0, 0, WIDTH, HEIGHT);
             tf.render(g);
             for(GroundEnemy goblin : goblins){
                 goblin.render(g);
@@ -258,13 +274,12 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
     }
-
-    public boolean drawImage;
-
-    public void draw() {
-        Graphics g2 = (Graphics) this.getGraphics();
-        drawImage = g2.drawImage(img, 0, 0, WIDTH, HEIGHT, null);
-        g2.dispose();
+    
+    @Override   
+    public void paintComponent(Graphics g){
+        super.paintComponents(g);
+        g.drawImage(img, 0, 0, WIDTH, HEIGHT, null);
+        g.dispose();
     }
 
     public static int getWIDTH() {

@@ -27,7 +27,7 @@ public abstract class Entity {
     protected float dx;
     protected float dy;
 
-    protected float maxSpeed = 20f;
+    protected float maxSpeed = 0.5f;
     protected float acc = 0.0003f;
     
     protected AABB bounds;
@@ -61,6 +61,7 @@ public abstract class Entity {
         this.pos = origin;
         this.originPos = origin;
         this.size = size;
+        
         this.ani = new Animation(sprite.getSprite(state));
         this.ani.setDelay(aniDelay);
         this.state = state;

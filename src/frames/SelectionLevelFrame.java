@@ -10,11 +10,17 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import sun.audio.AudioPlayer;
+import javax.swing.JComponent;
 
 /**
  *
@@ -29,14 +35,50 @@ public class SelectionLevelFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainMenuFrame
      */
-    public SelectionLevelFrame(String path, SelectionLevelState state) {
+    public SelectionLevelFrame(String path, SelectionLevelState state) throws IOException {
         this.state = state;
         setImage(new ImageIcon(path).getImage());
+        BufferedImage myImage = ImageIO.read(getClass().getResource("/screen/forest.png"));
+        
+        this.setContentPane(new ImagePanel(myImage));
         initComponents();
+        
+        BufferedImage levelIcon = ImageIO.read(getClass().getResource("/menuIcon/levels.png"));
+        BufferedImage levelOneIcon = ImageIO.read(getClass().getResource("/menuIcon/level_one_black.png"));
+        BufferedImage levelTwoIcon = ImageIO.read(getClass().getResource("/menuIcon/level_two_black.png"));
+        BufferedImage levelThreeIcon = ImageIO.read(getClass().getResource("/menuIcon/level_three_black.png"));
+        BufferedImage backMenuIcon = ImageIO.read(getClass().getResource("/menuIcon/back_black.png"));
+        
+        titleLabel1.setIcon(new javax.swing.ImageIcon(levelIcon));
+        levelOneButton.setIcon(new javax.swing.ImageIcon(levelOneIcon));
+        levelTwoButton.setIcon(new javax.swing.ImageIcon(levelTwoIcon));
+        levelThreeButton.setIcon(new javax.swing.ImageIcon(levelThreeIcon));
+        backMainMenuButton.setIcon(new javax.swing.ImageIcon(backMenuIcon));
+        
+        titleLabel1.setBorder(null);
+        levelOneButton.setBorder(null);
+        levelTwoButton.setBorder(null);
+        levelThreeButton.setBorder(null);
+        backMainMenuButton.setBorder(null);
+        
+        
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         this.setVisible(true);
+        this.setSize( myImage.getWidth(),myImage.getHeight());
     }
+    
+    public class ImagePanel extends JComponent {
+        private Image image;
+        public ImagePanel(Image image) {
+        this.image = image;
+    }
+        @Override
+        protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(image, 0, 0, this);
+    }
+}
 
     private void setImage(Image img) {
         this.img = img;
@@ -62,48 +104,96 @@ public class SelectionLevelFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         levelOneButton = new javax.swing.JButton();
-        titleLabel = new javax.swing.JLabel();
         levelThreeButton = new javax.swing.JButton();
         levelTwoButton = new javax.swing.JButton();
         backMainMenuButton = new javax.swing.JButton();
+        titleLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("mainMenuFrame"); // NOI18N
         setSize(new java.awt.Dimension(1000, 528));
 
-        levelOneButton.setText("Level One");
-        levelOneButton.setOpaque(false);
+        levelOneButton.setBorder(null);
+        levelOneButton.setBorderPainted(false);
+        levelOneButton.setContentAreaFilled(false);
+        levelOneButton.setFocusPainted(false);
+        levelOneButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                levelOneButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                levelOneButtonMouseExited(evt);
+            }
+        });
         levelOneButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 levelOneButtonActionPerformed(evt);
             }
         });
 
-        titleLabel.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titleLabel.setText("Levels");
-
-        levelThreeButton.setText("Level Three");
-        levelThreeButton.setOpaque(false);
+        levelThreeButton.setBorder(null);
+        levelThreeButton.setBorderPainted(false);
+        levelThreeButton.setContentAreaFilled(false);
+        levelThreeButton.setFocusPainted(false);
+        levelThreeButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                levelThreeButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                levelThreeButtonMouseExited(evt);
+            }
+        });
         levelThreeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 levelThreeButtonActionPerformed(evt);
             }
         });
 
-        levelTwoButton.setText("Level Two");
-        levelTwoButton.setOpaque(false);
+        levelTwoButton.setBorder(null);
+        levelTwoButton.setBorderPainted(false);
+        levelTwoButton.setContentAreaFilled(false);
+        levelTwoButton.setFocusPainted(false);
+        levelTwoButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                levelTwoButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                levelTwoButtonMouseExited(evt);
+            }
+        });
         levelTwoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 levelTwoButtonActionPerformed(evt);
             }
         });
 
-        backMainMenuButton.setText("Back to Main Menu");
-        backMainMenuButton.setOpaque(false);
+        backMainMenuButton.setBackground(new java.awt.Color(255, 255, 255));
+        backMainMenuButton.setBorder(null);
+        backMainMenuButton.setBorderPainted(false);
+        backMainMenuButton.setContentAreaFilled(false);
+        backMainMenuButton.setDefaultCapable(false);
+        backMainMenuButton.setFocusPainted(false);
+        backMainMenuButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                backMainMenuButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                backMainMenuButtonMouseExited(evt);
+            }
+        });
         backMainMenuButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backMainMenuButtonActionPerformed(evt);
+            }
+        });
+
+        titleLabel1.setFont(new java.awt.Font("Beirut", 2, 36)); // NOI18N
+        titleLabel1.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.highlight"));
+        titleLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titleLabel1.setBorder(null);
+        titleLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                titleLabel1buttonPressedHandler(evt);
             }
         });
 
@@ -112,21 +202,25 @@ public class SelectionLevelFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(317, 317, 317)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(levelOneButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(titleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
-                    .addComponent(levelThreeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(levelTwoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(backMainMenuButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(335, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(317, 317, 317)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(levelOneButton, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
+                            .addComponent(levelThreeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(levelTwoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(backMainMenuButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(238, 238, 238)
+                        .addComponent(titleLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(264, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(88, 88, 88)
-                .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
+                .addGap(101, 101, 101)
+                .addComponent(titleLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(levelOneButton, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(levelTwoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -168,12 +262,121 @@ public class SelectionLevelFrame extends javax.swing.JFrame {
         state.handleNext(4);
     }//GEN-LAST:event_backMainMenuButtonActionPerformed
 
+    private void titleLabel1buttonPressedHandler(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_titleLabel1buttonPressedHandler
+        // TODO add your handling code here:
+        //this.setIconImage(image);
+    }//GEN-LAST:event_titleLabel1buttonPressedHandler
+
+    private void levelOneButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_levelOneButtonMouseEntered
+        BufferedImage levelOne = null;
+        
+        try {
+            levelOne = ImageIO.read(getClass().getResource("/menuIcon/level_one_yellow.png"));
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        levelOneButton.setIcon(new javax.swing.ImageIcon(levelOne));
+        levelOneButton.setBorder(null);
+    }//GEN-LAST:event_levelOneButtonMouseEntered
+
+    private void levelOneButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_levelOneButtonMouseExited
+        BufferedImage levelOne = null;
+        
+        try {
+            levelOne = ImageIO.read(getClass().getResource("/menuIcon/level_one_black.png"));
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        levelOneButton.setIcon(new javax.swing.ImageIcon(levelOne));
+        levelOneButton.setBorder(null);
+    }//GEN-LAST:event_levelOneButtonMouseExited
+
+    private void levelTwoButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_levelTwoButtonMouseEntered
+        BufferedImage level = null;
+        
+        try {
+            level = ImageIO.read(getClass().getResource("/menuIcon/level_two_yellow.png"));
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        levelTwoButton.setIcon(new javax.swing.ImageIcon(level));
+        levelTwoButton.setBorder(null);
+    }//GEN-LAST:event_levelTwoButtonMouseEntered
+
+    private void levelTwoButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_levelTwoButtonMouseExited
+        BufferedImage level = null;
+        
+        try {
+            level = ImageIO.read(getClass().getResource("/menuIcon/level_two_black.png"));
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        levelTwoButton.setIcon(new javax.swing.ImageIcon(level));
+        levelTwoButton.setBorder(null);
+    }//GEN-LAST:event_levelTwoButtonMouseExited
+
+    private void levelThreeButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_levelThreeButtonMouseEntered
+        BufferedImage level = null;
+        
+        try {
+            level = ImageIO.read(getClass().getResource("/menuIcon/level_three_yellow.png"));
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        levelThreeButton.setIcon(new javax.swing.ImageIcon(level));
+        levelThreeButton.setBorder(null);
+    }//GEN-LAST:event_levelThreeButtonMouseEntered
+
+    private void levelThreeButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_levelThreeButtonMouseExited
+        BufferedImage level = null;
+        
+        try {
+            level = ImageIO.read(getClass().getResource("/menuIcon/level_three_black.png"));
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        levelThreeButton.setIcon(new javax.swing.ImageIcon(level));
+        levelThreeButton.setBorder(null);
+    }//GEN-LAST:event_levelThreeButtonMouseExited
+
+    private void backMainMenuButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMainMenuButtonMouseEntered
+        BufferedImage level = null;
+        
+        try {
+            level = ImageIO.read(getClass().getResource("/menuIcon/back_yellow.png"));
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        backMainMenuButton.setIcon(new javax.swing.ImageIcon(level));
+        backMainMenuButton.setBorder(null);
+    }//GEN-LAST:event_backMainMenuButtonMouseEntered
+
+    private void backMainMenuButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMainMenuButtonMouseExited
+        BufferedImage level = null;
+        
+        try {
+            level = ImageIO.read(getClass().getResource("/menuIcon/back_black.png"));
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        backMainMenuButton.setIcon(new javax.swing.ImageIcon(level));
+        backMainMenuButton.setBorder(null);
+    }//GEN-LAST:event_backMainMenuButtonMouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backMainMenuButton;
     private javax.swing.JButton levelOneButton;
     private javax.swing.JButton levelThreeButton;
     private javax.swing.JButton levelTwoButton;
-    private javax.swing.JLabel titleLabel;
+    private javax.swing.JLabel titleLabel1;
     // End of variables declaration//GEN-END:variables
 }

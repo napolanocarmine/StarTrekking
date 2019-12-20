@@ -23,7 +23,6 @@ public final class GameFrame extends JFrame {
     private GamePanel gamePanel;
     
     public GameFrame(StoryPlayState sps) {
-        System.err.println("GameFrame");
         setTitle(NAME);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);

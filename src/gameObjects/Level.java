@@ -46,6 +46,8 @@ public class Level extends Assembly{
         if(level == 1) tf = new TileFacade("tiles/LevelOne.xml");
         if(level == 2) tf = new TileFacade("tiles/LevelTwo.xml");
         player = new Player(playerSprite, new Position(0, 0 + groundY), 96);
+        key.addObserver(player);
+        player.setKeyHandler(key);
         groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(1000, groundY) , 96));
         groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(1500, groundY) , 96));
         groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(2100, groundY) , 96));

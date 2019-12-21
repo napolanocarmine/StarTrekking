@@ -87,7 +87,6 @@ public class KeyHandler extends Observable implements KeyListener {
                     break;
                 default:
                     key = EntityState.NONE;
-                    System.out.println("Unknown Key");
             }
         }
     }

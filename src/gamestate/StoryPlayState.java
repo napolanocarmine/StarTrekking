@@ -49,8 +49,6 @@ public class StoryPlayState extends State {
                 }
             }
             });
-             //this.frame.dispose();
-//             gsm.setState(new GameOverState(gsm));
          }
      };
     

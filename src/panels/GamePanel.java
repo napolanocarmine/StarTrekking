@@ -65,6 +65,12 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    public final void stopThread() {
+        if (thread != null) {
+            thread.stop();
+        }
+    }
+
     public void init() {
         running = true;
 
@@ -182,9 +188,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     public static int getWIDTH() { return WIDTH; }
     public static int getHEIGHT() { return HEIGHT; }
-    public State getState() { return sps; }
-    public void stopThread() { running = false; }
     public Thread getThread(){ return thread; }
+    public void setState(int code) { sps.handleNext(code); }
     
 //
 //    public static void main(String[] args) {

@@ -71,8 +71,8 @@ public class Level extends Assembly{
         }
         
         if(player.getDead()) {
-//            gp.getState().handleNext(1);
-//            gp.getThread().stop();
+            gp.setState(1);
+            gp.stopThread();
         }
         checkCollision();
         removeEnemies();

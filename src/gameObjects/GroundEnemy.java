@@ -5,10 +5,10 @@
  */
 package gameObjects;
 
-import frames.GamePanel;
 import graphics.EntitySprite;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import panels.GamePanel;
 import util.AABB;
 import util.EntityState;
 import util.Position;

@@ -1,14 +1,13 @@
 package gameObjects;
 
-import frames.GameFrame;
-import frames.GamePanel;
-import static frames.GamePanel.unitTime;
 import gamestate.StoryPlayState;
 import graphics.EntitySprite;
 import graphics.Sprite;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.ListIterator;
+import panels.GamePanel;
+import static panels.GamePanel.unitTime;
 import tiles.TileFacade;
 import util.EntityState;
 import util.KeyHandler;
@@ -46,7 +45,7 @@ public class Level extends Assembly{
         System.out.println("gameObjects.Level.init() -> level: " + level);
         if(level == 1) tf = new TileFacade("tiles/LevelOne.xml");
         if(level == 2) tf = new TileFacade("tiles/LevelTwo.xml");
-        player = new Player(playerSprite, new Position(0, 0 + groundY), 96, key);
+        player = new Player(playerSprite, new Position(0, 0 + groundY), 96);
         groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(1000, groundY) , 96));
         groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(1500, groundY) , 96));
         groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(2100, groundY) , 96));
@@ -66,12 +65,12 @@ public class Level extends Assembly{
         
         for(GameObject leaf : groundEnemies.getObjs()){
             GroundEnemy enemy = (GroundEnemy) leaf; 
-            if(enemy.getPos().getWorldVar().getX() < GameFrame.WIDTH+100) enemy.updateGame();
+            if(enemy.getPos().getWorldVar().getX() < GamePanel.WIDTH+100) enemy.updateGame();
         }
         
         if(player.getDead()) {
-            gp.getState().handleNext(1);
-            gp.getThread().stop();
+//            gp.getState().handleNext(1);
+//            gp.getThread().stop();
         }
         checkCollision();
         removeEnemies();

@@ -5,6 +5,8 @@
  */
 package gamestate;
 
+import javax.swing.JPanel;
+
 /**
  *
  * @author Gianluca
@@ -15,6 +17,7 @@ public class ExitState extends State {
 
     public ExitState(GameStateManager gsm) {
         this.gsm = gsm;
+        this.panel = new JPanel();
     }
 
 }

@@ -7,8 +7,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-import frames.GameFrame;
-import frames.GamePanel;
+import panels.GamePanel;
+import static panels.GamePanel.unitTime;
 import tiles.TileFacade;
 import util.AABB;
 import util.KeyHandler;
@@ -37,11 +37,10 @@ public class Player extends Entity implements Observer {
     
     boolean changeMotion = false;
 
-    public Player(EntitySprite sprite, Position origin, int size, KeyHandler khdl) {
+    public Player(EntitySprite sprite, Position origin, int size) {
         super(sprite, origin, size, EntityState.RUN);
         this.hp = MAXHEALTHPOINTS;
         this.bounds = new AABB(pos, 16, 32, 40, 32);
-        this.khdl = khdl;
         df.setMaximumFractionDigits(2);
         this.initialSpeed = 0.3f;
         this.vx = initialSpeed;
@@ -183,9 +182,8 @@ public class Player extends Entity implements Observer {
         shots.add(new Shot(new EntitySprite("entity/shot", 32, 32), new Position(dx - 15, pos.getY() + 24), 48, vx + acc * (timex)));
     }
     
-    public ArrayList<Shot> getShots(){
-        return shots;
-    }
+    public ArrayList<Shot> getShots(){ return shots; }
+    public void setKeyHandler(KeyHandler k){ this.khdl = k; }
 
     public void deleteShot(Shot s) {
         shots.remove(s);
@@ -195,27 +193,27 @@ public class Player extends Entity implements Observer {
         super.updateGame(state);
         if(invincible){
             if(System.nanoTime()%9000 < 100 || System.nanoTime()%9000 > 100) visible = !visible;
-            if(System.nanoTime() - invStartTime>= GamePanel.unitTime){
+            if(System.nanoTime() - invStartTime>= unitTime){
                 invincible = false;
                 visible = true;
             }
         }
         move();
         pos.setX(dx);    //update x position
-        if (Level.getMapPos().getX() + GameFrame.WIDTH < TileFacade.mapWidth * 16) {
+        if (Level.getMapPos().getX() + GamePanel.WIDTH < TileFacade.mapWidth * 16) {
             Level.getMapPos().setX(dx);
         }
         pos.setY(dy);
         if(!shots.isEmpty()){
             for(int i=0; i<shots.size(); i++){
-                if(shots.get(i).pos.getWorldVar().getX() - pos.getWorldVar().getX() > GameFrame.WIDTH || shots.get(i).collides()){
+                if(shots.get(i).pos.getWorldVar().getX() - pos.getWorldVar().getX() > GamePanel.WIDTH || shots.get(i).collides()){
                     deleteShot(shots.get(i));
                 } else {
                     shots.get(i).updateGame();
                 }
             }
         }
-        if(pos.getY() > GameFrame.HEIGHT){
+        if(pos.getY() > GamePanel.HEIGHT){
                 dead = true;  
         }
     }

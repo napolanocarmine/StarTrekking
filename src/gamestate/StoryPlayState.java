@@ -5,7 +5,11 @@
  */
 package gamestate;
 
-import frames.GameFrame;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import panels.GameFrame;
+import panels.GamePanel;
 import javax.swing.SwingUtilities;
 
 /**
@@ -14,26 +18,13 @@ import javax.swing.SwingUtilities;
  */
 public class StoryPlayState extends State {
 
-    private GameStateManager gsm;
     public static int level;
-
     /**
      * Create the Panel on which the Level is runned.
      */
-    public StoryPlayState(GameStateManager gsm, int level){
-        this.gsm = gsm;
+    public StoryPlayState(int level){
         this.level = level;
-        this.frame = new GameFrame(this);
-        
-        //metodo che inizializza le componenti del JPanel;
-        initComponent();
-    }
-
-    /**
-     * Define the play panel component.
-     */
-    private void initComponent(){
-       
+        this.panel = new GamePanel(this);
     }
 
     /**
@@ -49,9 +40,13 @@ public class StoryPlayState extends State {
          */
          if(code == 1){
             SwingUtilities.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                frame.dispose();
-                gsm.setState(new GameOverState(gsm, level));
+                try {
+                    gsm.setState(new GameOverState());
+                } catch (IOException ex) {
+                    Logger.getLogger(StoryPlayState.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             });
              //this.frame.dispose();
@@ -64,6 +59,5 @@ public class StoryPlayState extends State {
     public void handlePrevious(int code) {
     }
     
-    public int getLevel(){ return this.level; }
 
 }

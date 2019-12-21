@@ -67,7 +67,7 @@ public class KeyHandler extends Observable implements KeyListener {
     public void keyPressed(KeyEvent ke) {
         if (!pressed) {
             switch (ke.getKeyCode()) {
-                case 32://KeyEvent.VK_SPACE:                        //space -> 32
+                case KeyEvent.VK_SPACE:                        //space -> 32
                     key = EntityState.JUMP;
                     currentKey = 32;
                     pressed = true;

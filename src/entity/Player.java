@@ -1,7 +1,6 @@
 package entity;
 
 import graphics.EntitySprite;
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -9,12 +8,11 @@ import java.util.Observable;
 import java.util.Observer;
 import frames.GameFrame;
 import frames.GamePanel;
-import frames.MainMenuFrame;
 import frames.SelectionLevelFrame;
-import static frames.SelectionLevelFrame.clip;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import music.MusicGame;
 import sun.audio.AudioPlayer;
 import tiles.TileFacade;
 import util.AABB;
@@ -29,22 +27,24 @@ public class Player extends Entity implements Observer {
     private final float DIST = 150;
     private int hp;
     private float vx2;
-    
+
     private KeyHandler khdl;
     int action;
     private ArrayList<Shot> shots = new ArrayList<Shot>();
-    
-    public Clip clipGameOver;
-    
+
+    public Clip clipGameOver, clipCrouch;
+
     DecimalFormat df = new DecimalFormat();
     private boolean invincible;
     private float invStartTime;
     private boolean visible;
     private boolean falling = false;
-    
+
     float instantVx = 0;
-    
+
     boolean changeMotion = false;
+
+    private MusicGame mg;
 
     public Player(EntitySprite sprite, Position origin, int size, KeyHandler khdl) {
         super(sprite, origin, size, EntityState.RUN);
@@ -57,33 +57,33 @@ public class Player extends Entity implements Observer {
         this.acc = 0.000015f;
         this.visible = true;
         this.invincible = false;
-        
+        mg = new MusicGame();
     }
 
     public void move() {
         //PLAYER HORIZONTAL MOTION
-        
+
         /*
         The following 2 if statements determine the motion of the player, based on his instant speed.
         If it reaches the max speed, the motion change from linear accelerated motion to linear motion, so the player doesn't increase his speed anymore.
-        */
-        if(instantVx < maxSpeed){
-            instantVx = vx + acc*(timex);
+         */
+        if (instantVx < maxSpeed) {
+            instantVx = vx + acc * (timex);
         }
-        if(instantVx > maxSpeed -0.001 && instantVx < maxSpeed +0.001 && changeMotion == false){
+        if (instantVx > maxSpeed - 0.001 && instantVx < maxSpeed + 0.001 && changeMotion == false) {
             changeMotion = true;
             changeMotion();
         }
-        
+
         /*
         Equation of the linear accelerated motion on the horizontal axis.
-        */
-        dx = (float)((0.5*acc*Math.pow(timex, 2) + vx*timex)) + dx0;
-        
+         */
+        dx = (float) ((0.5 * acc * Math.pow(timex, 2) + vx * timex)) + dx0;
+
         /*
         Collision detection: if the player touches a solid tile during his motion he will stop moving.
-        */
-        if(tc.collisionTile(dx-previousX, 0)){
+         */
+        if (tc.collisionTile(dx - previousX, 0)) {
             dx = previousX;
         } else {
             if (state != EntityState.DEAD) {
@@ -93,33 +93,24 @@ public class Player extends Entity implements Observer {
         }
 
         //PLAYER VERTICAL MOTION
-        
         /*
         Computation of the gravity and of the vertical speed in order to let the player make a jump of constant distance and height, regardless of the horizontal speed.
         When the player isn't in the jump state anymore the standard values of gravity and vertical speed are reset.
-        */
-        if(state == EntityState.JUMP){
-            if(timey == 0){
-                float vx0 = vx + acc*(timex);
-                if(!falling) vy = -(float)((4*H*vx0)/DIST);
-                gravity = -(float)((H*8*Math.pow(vx0, 2))/Math.pow(DIST, 2));
-                
+         */
+        if (state == EntityState.JUMP) {
+            if (timey == 0) {
+                float vx0 = vx + acc * (timex);
+                if (!falling) {
+                    vy = -(float) ((4 * H * vx0) / DIST);
+                }
+                gravity = -(float) ((H * 8 * Math.pow(vx0, 2)) / Math.pow(DIST, 2));
+
 //                System.err.println("dy: " + dy);
 //                System.err.println("gravity: " + gravity);
-            try {
-                Clip clipJump;
-                AudioInputStream audio;
-                audio = AudioSystem.getAudioInputStream(AudioPlayer.class.getResourceAsStream("/sounds/JumpMusic.wav"));
-                clipJump = AudioSystem.getClip();
-                clipJump.open(audio);
-                clipJump.start();
-                //clipJump.loop(Clip.LOOP_CONTINUOUSLY);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            
-                if(!falling) vy = -(float)((4*H*instantVx)/DIST);
-                gravity = -(float)((H*8*Math.pow(instantVx, 2))/Math.pow(DIST, 2));
+                if (!falling) {
+                    vy = -(float) ((4 * H * instantVx) / DIST);
+                }
+                gravity = -(float) ((H * 8 * Math.pow(instantVx, 2)) / Math.pow(DIST, 2));
             }
             if (ani.playingLastFrame()) {
                 ani.setDelay(-1);
@@ -128,23 +119,25 @@ public class Player extends Entity implements Observer {
             vy = 0;
             gravity = -0.01f;
         }
-        
+
         /*
         Equation of the linear accelerated motion on the vertical axis.
-        */
-        dy = (float)((-0.5*gravity*Math.pow(timey, 2)+vy*timey)+dy0);
-        
+         */
+        dy = (float) ((-0.5 * gravity * Math.pow(timey, 2) + vy * timey) + dy0);
+
         /*
         Collision detection: if the player is on the ground he will not fall, if he is jumping and he touches a solid tile above is head he will start to fall..
-        */
-        if(tc.collisionTileDown(0, dy-previousY)){
+         */
+        if (tc.collisionTileDown(0, dy - previousY)) {
             //System.err.println("collision down");
             dy = previousY;
             timey = 0;
             dy0 = dy;
             falling = false;
-            if(state == EntityState.JUMP) state = EntityState.RUN;
-        }else if(tc.collisionTileUp(0, dy-previousY)){
+            if (state == EntityState.JUMP) {
+                state = EntityState.RUN;
+            }
+        } else if (tc.collisionTileUp(0, dy - previousY)) {
             dy = previousY;
             dy0 = previousY;
             vy = 0;
@@ -157,17 +150,8 @@ public class Player extends Entity implements Observer {
 
         /*
         When the player change his state into attack state, he will perform all the attack animation and then he will fire a shot.
-        */
+         */
         if (state == EntityState.ATTACK) {
-            try {
-                AudioInputStream audio;
-                audio = AudioSystem.getAudioInputStream(AudioPlayer.class.getResourceAsStream("/sounds/ShotMusic.wav"));
-                clip = AudioSystem.getClip();
-                clip.open(audio);
-                clip.start();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
             if (ani.playingLastFrame()) {
                 attack();
                 state = EntityState.RUN;
@@ -176,53 +160,31 @@ public class Player extends Entity implements Observer {
 
         /*
         When the player change his state into dead state, he will perform all the dead animation and then he will set himself to dead.
-        */
+         */
         if (state == EntityState.DEAD) {
             isDead();
-            try {
-                Clip clipJump;
-                AudioInputStream audio;
-                audio = AudioSystem.getAudioInputStream(AudioPlayer.class.getResourceAsStream("/sounds/GameOverMusic.wav"));
-                clipJump = AudioSystem.getClip();
-                clipJump.open(audio);
-                clipJump.start();
-                //clipJump.loop(Clip.LOOP_CONTINUOUSLY);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
-        
+
         /*
         When the player change his state into crouch state, he will remain in the last animation frame till his state changes.
-        */
+         */
         if (state == EntityState.CROUCH) {
             if (ani.playingLastFrame()) {
                 ani.setDelay(-1);
             }
         }
-
     }
-    
-    public void changeMotion(){
+
+    public void changeMotion() {
         dx0 = previousX;
         timex = 0;
         acc = 0;
         vx = maxSpeed;
     }
-    
-    public void isDead(){
-        if(ani.playingLastFrame()){
+
+    public void isDead() {
+        if (ani.playingLastFrame()) {
             dead = true;
-            SelectionLevelFrame.clip.stop();
-            try {
-                AudioInputStream audio;
-                audio = AudioSystem.getAudioInputStream(AudioPlayer.class.getResourceAsStream("/sounds/GameOverMusic.wav"));
-                clipGameOver = AudioSystem.getClip();
-                clipGameOver.open(audio);
-                clipGameOver.start();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -230,7 +192,9 @@ public class Player extends Entity implements Observer {
         invincible = true;
         visible = false;
         invStartTime = System.nanoTime();
-        if(--hp==0){
+        if (--hp == 0) {
+            mg.setMusic("GameOver");
+            mg.play();
             isDead();
             state = EntityState.DEAD;
         }
@@ -239,20 +203,22 @@ public class Player extends Entity implements Observer {
     private void attack() {
         shots.add(new Shot(new EntitySprite("entity/shot", 32, 32), new Position(dx - 15, pos.getY() + 24), 48, vx + acc * (timex)));
     }
-    
-    public ArrayList<Shot> getShots(){
+
+    public ArrayList<Shot> getShots() {
         return shots;
     }
 
     public void deleteShot(Shot s) {
         shots.remove(s);
     }
-    
-    public void updateGame(){
+
+    public void updateGame() {
         super.updateGame(state);
-        if(invincible){
-            if(System.nanoTime()%9000 < 100 || System.nanoTime()%9000 > 100) visible = !visible;
-            if(System.nanoTime() - invStartTime>= GamePanel.unitTime){
+        if (invincible) {
+            if (System.nanoTime() % 9000 < 100 || System.nanoTime() % 9000 > 100) {
+                visible = !visible;
+            }
+            if (System.nanoTime() - invStartTime >= GamePanel.unitTime) {
                 invincible = false;
                 visible = true;
             }
@@ -263,17 +229,21 @@ public class Player extends Entity implements Observer {
             GamePanel.getMapPos().setX(dx);
         }
         pos.setY(dy);
-        if(!shots.isEmpty()){
-            for(int i=0; i<shots.size(); i++){
-                if(shots.get(i).pos.getWorldVar().getX() - pos.getWorldVar().getX() > GameFrame.WIDTH || shots.get(i).collides()){
+        if (!shots.isEmpty()) {
+            for (int i = 0; i < shots.size(); i++) {
+                if (shots.get(i).pos.getWorldVar().getX() - pos.getWorldVar().getX() > GameFrame.WIDTH || shots.get(i).collides()) {
                     deleteShot(shots.get(i));
                 } else {
                     shots.get(i).updateGame();
                 }
             }
         }
-        if(pos.getY() > GameFrame.HEIGHT){
-                dead = true;
+        if (pos.getY() > GameFrame.HEIGHT && state != EntityState.DEAD) {
+            /*dead = true;
+            mg.setMusic("GameOver");
+            mg.play();*/
+            hp = 1;
+            hitted();
         }
     }
 
@@ -296,21 +266,27 @@ public class Player extends Entity implements Observer {
         if (true) { //in case the player is alive
             if ((key == 4) && state == EntityState.RUN && tc.collisionTileDown(0, 1)) {
                 state = EntityState.JUMP;
+                mg.setMusic("Jump");
+                mg.play();
                 timey = 0;
             }
             if (key == 3 && currentState == EntityState.RUN) {
                 state = EntityState.ATTACK;
+                mg.setMusic("Shot");
+                mg.play();
             }
-            if(key == 5 && (state == EntityState.RUN || state == EntityState.CROUCH)){
+            if (key == 5 && (state == EntityState.RUN || state == EntityState.CROUCH)) {
                 state = EntityState.CROUCH;
-                
+                mg.setMusic("Crouch");
+                mg.play();
+
                 this.bounds.setBox(16, 12, 40, 52);
-                if(!b){
+                if (!b) {
                     this.bounds.setBox(16, 32, 40, 32);
                     state = EntityState.RUN;
                 }
-            } 
-            
+            }
+
         } else {
             state = EntityState.DEAD;
         }

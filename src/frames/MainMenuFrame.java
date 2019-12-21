@@ -19,6 +19,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.JComponent;
+import music.MusicGame;
 import sun.audio.AudioPlayer;
 
 /**
@@ -28,7 +29,7 @@ import sun.audio.AudioPlayer;
 public class MainMenuFrame extends javax.swing.JFrame {
 
     private final MainMenuState state;
-    protected static Clip clipMenu;
+    private MusicGame mg;
 
     /**
      * Creates new form MainMenuFrame
@@ -36,55 +37,44 @@ public class MainMenuFrame extends javax.swing.JFrame {
     public MainMenuFrame(MainMenuState state) throws IOException {
         this.state = state;
         BufferedImage myImage = ImageIO.read(getClass().getResource("/screen/forest.png"));
-        
+
         this.setContentPane(new ImagePanel(myImage));
         initComponents();
-        
-        
+
         BufferedImage storyModeIcon = ImageIO.read(getClass().getResource("/menuIcon/story_mode_black.png"));
         BufferedImage exitIcon = ImageIO.read(getClass().getResource("/menuIcon/exit_black.png"));
         BufferedImage titleIcon = ImageIO.read(getClass().getResource("/menuIcon/startrekking.png"));
-        
-        
+
         storyModeButton.setIcon(new javax.swing.ImageIcon(storyModeIcon));
         exitButton.setIcon(new javax.swing.ImageIcon(exitIcon));
         storyModeButton.setBorder(null);
         exitButton.setBorder(null);
         titleLabel.setIcon(new javax.swing.ImageIcon(titleIcon));
-        
+
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         this.setVisible(true);
-        try {
-                AudioInputStream audio;
-                audio = AudioSystem.getAudioInputStream(AudioPlayer.class.getResourceAsStream("/sounds/MainMenuMusic.wav"));
-                clipMenu = AudioSystem.getClip();
-                clipMenu.open(audio);
-                clipMenu.start();
-                clipMenu.loop(Clip.LOOP_CONTINUOUSLY);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+
+        mg = new MusicGame();
+        mg.setMusic("MainMenu");
+        mg.play();
     }
 
-    public Clip getClipMenu() {
-        return clipMenu;
-    }
-    
-    
-
-    
     public class ImagePanel extends JComponent {
+
         private Image image;
+
         public ImagePanel(Image image) {
-        this.image = image;
-    }
+            this.image = image;
+        }
+
         @Override
         protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawImage(image, 0, 0, this);
+            super.paintComponent(g);
+            g.drawImage(image, 0, 0, this);
+        }
     }
-}
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -195,28 +185,28 @@ public class MainMenuFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonPressedHandler
 
     private void mouseSelectionStoryHandler(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseSelectionStoryHandler
-        
+
         BufferedImage storyMode = null;
-        
+
         try {
             storyMode = ImageIO.read(getClass().getResource("/menuIcon/story_mode_yellow.png"));
         } catch (IOException ex) {
             Logger.getLogger(MainMenuFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         storyModeButton.setIcon(new javax.swing.ImageIcon(storyMode));
         storyModeButton.setBorder(null);
     }//GEN-LAST:event_mouseSelectionStoryHandler
 
     private void mouseExitHandler(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseExitHandler
         BufferedImage storyMode = null;
-        
+
         try {
             storyMode = ImageIO.read(getClass().getResource("/menuIcon/story_mode_black.png"));
         } catch (IOException ex) {
             Logger.getLogger(MainMenuFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         storyModeButton.setIcon(new javax.swing.ImageIcon(storyMode));
         storyModeButton.setBorder(null);
     }//GEN-LAST:event_mouseExitHandler
@@ -254,5 +244,4 @@ public class MainMenuFrame extends javax.swing.JFrame {
     private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 
-    
 }

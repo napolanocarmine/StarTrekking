@@ -15,22 +15,21 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
-import sun.audio.AudioPlayer;
 import javax.swing.JComponent;
+import music.MusicGame;
 
 /**
  *
  * @author Gianluca
  */
-public class SelectionLevelFrame extends javax.swing.JFrame {
+public class SelectionLevelFrame extends javax.swing.JFrame{
 
     private final SelectionLevelState state;
     private Image img;
-    public static Clip clip;
+    public MusicGame mg,mgMenu;
     
     /**
      * Creates new form MainMenuFrame
@@ -66,6 +65,7 @@ public class SelectionLevelFrame extends javax.swing.JFrame {
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         this.setVisible(true);
         this.setSize( myImage.getWidth(),myImage.getHeight());
+        
     }
     
     public class ImagePanel extends JComponent {
@@ -236,17 +236,9 @@ public class SelectionLevelFrame extends javax.swing.JFrame {
 
     private void levelOneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_levelOneButtonActionPerformed
         state.handleNext(1);
-        MainMenuFrame.clipMenu.stop();
-        try {
-                AudioInputStream audio;
-                audio = AudioSystem.getAudioInputStream(AudioPlayer.class.getResourceAsStream("/sounds/LevelOneMusic.wav"));
-                clip = AudioSystem.getClip();
-                clip.open(audio);
-                clip.start();
-                clip.loop(Clip.LOOP_CONTINUOUSLY);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        mg.stop();
+        mg.setMusic("LevelOne");
+        mg.play();
     }//GEN-LAST:event_levelOneButtonActionPerformed
 
     private void levelThreeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_levelThreeButtonActionPerformed

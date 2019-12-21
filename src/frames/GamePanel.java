@@ -3,8 +3,6 @@ package frames;
 import entity.GroundEnemy;
 import entity.Player;
 import entity.Shot;
-import gamestate.GameOverState;
-import gamestate.GameStateManager;
 import gamestate.StoryPlayState;
 import graphics.Sprite;
 import graphics.EntitySprite;
@@ -16,7 +14,6 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.ListIterator;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import util.EntityState;
@@ -87,7 +84,7 @@ public class GamePanel extends JPanel implements Runnable {
         g = (Graphics2D) img.getGraphics();
         
         map = new Position(0, 0);
-        Position.setWorldVar(map.getX(), map.getY());
+        Position.setWorldVar(map.getX(), map.getY());  
 
         key = new KeyHandler();
         addKeyListener(key);

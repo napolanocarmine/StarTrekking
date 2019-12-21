@@ -12,6 +12,7 @@ package util;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Observable;
+import music.MusicGame;
 
 /**
  * Class for catching and communicating the pressed keys
@@ -21,6 +22,7 @@ public class KeyHandler extends Observable implements KeyListener {
     private EntityState key;
     private boolean pressed;//True if ctrl or space are pressed, otherwise false
     private int currentKey;
+    private MusicGame mg;
 
     /**
      * KeyHandler's constructor
@@ -30,6 +32,7 @@ public class KeyHandler extends Observable implements KeyListener {
         pressed = false;
         key = EntityState.NONE;
         currentKey = -1;
+        mg = new MusicGame();
     }
 
     /**

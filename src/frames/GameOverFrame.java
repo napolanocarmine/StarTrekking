@@ -5,7 +5,6 @@
  */
 package frames;
 
-import static frames.MainMenuFrame.clipMenu;
 import gamestate.GameOverState;
 import java.awt.Dimension;
 import java.awt.Graphics;

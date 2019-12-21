@@ -66,10 +66,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.goblins = new ArrayList<>();
         this.sps = sps;
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        
-        requestFocusInWindow();
         startThread();
-
     }
 
     public final void startThread() {
@@ -93,7 +90,8 @@ public class GamePanel extends JPanel implements Runnable {
         tf = new TileFacade("tiles/LevelOne.xml");
         
         EntitySprite playerSprite = new EntitySprite("entity/wizard", 64, 64);
-        player = new Player(playerSprite, new Position(0, 0 + (GamePanel.HEIGHT) - 130), 96, key);
+        
+        player = new Player(playerSprite, new Position(0, 0 + (GamePanel.HEIGHT) - 130), 96);
         setKeyH();
         EntitySprite enemieSprite = new EntitySprite("entity/goblin", 64, 64);
         goblins.add(new GroundEnemy(enemieSprite, new Position(1000, (GamePanel.HEIGHT) - 130) , 96));
@@ -108,9 +106,12 @@ public class GamePanel extends JPanel implements Runnable {
     }
     
     private void setKeyH(){
+        setFocusable(true);
+        requestFocusInWindow();
         key = new KeyHandler();
         addKeyListener(key);
         key.addObserver(player);
+        player.setKey(key);
     }
 
     @Override

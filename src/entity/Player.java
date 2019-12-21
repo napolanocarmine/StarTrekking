@@ -37,18 +37,16 @@ public class Player extends Entity implements Observer {
     
     boolean changeMotion = false;
 
-    public Player(EntitySprite sprite, Position origin, int size, KeyHandler khdl) {
+    public Player(EntitySprite sprite, Position origin, int size) {
         super(sprite, origin, size, EntityState.RUN);
         this.hp = MAXHEALTHPOINTS;
         this.bounds = new AABB(pos, 16, 32, 40, 32);
-        this.khdl = khdl;
         df.setMaximumFractionDigits(2);
         this.initialSpeed = 0.3f;
         this.vx = initialSpeed;
         this.acc = 0.00003f;
         this.visible = true;
         this.invincible = false;
-        
     }
 
     public void move() {
@@ -183,9 +181,10 @@ public class Player extends Entity implements Observer {
         shots.add(new Shot(new EntitySprite("entity/shot", 32, 32), new Position(dx - 15, pos.getY() + 24), 48, vx + acc * (timex)));
     }
     
-    public ArrayList<Shot> getShots(){
-        return shots;
-    }
+    public ArrayList<Shot> getShots(){ return shots; }
+    public void setKey(KeyHandler k){ khdl = k; }
+    
+    
 
     public void deleteShot(Shot s) {
         shots.remove(s);
@@ -262,7 +261,6 @@ public class Player extends Entity implements Observer {
 
     @Override
     public void update(Observable o, Object s) {
-        System.out.println("Ciao pippo");
         if (o == this.khdl) {
             int key = this.khdl.getValue();
             boolean b = khdl.isPressed();

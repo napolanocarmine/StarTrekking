@@ -29,7 +29,6 @@ public final class GameFrame extends JFrame{
     private JPanel gamePanel;
     private GameStateManager gms;
     private State s;
-    private KeyHandler k;
     
     
     public GameFrame() throws IOException {
@@ -40,11 +39,8 @@ public final class GameFrame extends JFrame{
         setIgnoreRepaint(true);
         setLocationRelativeTo(null);
         setVisible(true);
-//        this.k = new KeyHandler();
-//        addKeyListener(k);
-//        System.out.println(k);
-        
         pack();
+        
         this.s = new MainMenuState();    
         this.gms = new GameStateManager(s);
         this.setContentPane(s.getPanel());

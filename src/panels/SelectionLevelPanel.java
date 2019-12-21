@@ -259,7 +259,8 @@ public class SelectionLevelPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_levelThreeButtonMouseExited
 
     private void levelThreeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_levelThreeButtonActionPerformed
-        // TODO add your handling code here:
+        System.err.println("LEVEL STILL NOT IMPLEMENTED");
+        state.handleNext(3);
     }//GEN-LAST:event_levelThreeButtonActionPerformed
 
     private void levelTwoButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_levelTwoButtonMouseEntered
@@ -289,7 +290,7 @@ public class SelectionLevelPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_levelTwoButtonMouseExited
 
     private void levelTwoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_levelTwoButtonActionPerformed
-        // TODO add your handling code here:
+        state.handleNext(2);
     }//GEN-LAST:event_levelTwoButtonActionPerformed
 
     private void levelOneButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_levelOneButtonMouseEntered

@@ -23,7 +23,7 @@ public final class GameFrame extends JFrame{
      */
     //dimensione finestra
     public static final int WIDTH = 960;
-    public static final int HEIGHT = 540;
+    public static final int HEIGHT = 560;
     //nome JFrame
     public static final String NAME = "STAR TREKKING";
     private JPanel gamePanel;

@@ -15,6 +15,8 @@ import util.KeyHandler;
 import util.Position;
 import util.EntityState;
 
+import music.MusicGame;
+
 public class Player extends Entity implements Observer {
 
     private final int MAXHEALTHPOINTS = 3;
@@ -37,6 +39,8 @@ public class Player extends Entity implements Observer {
     
     boolean changeMotion = false;
 
+    private MusicGame mg;
+    
     public Player(EntitySprite sprite, Position origin, int size) {
         super(sprite, origin, size, EntityState.RUN);
         this.hp = MAXHEALTHPOINTS;
@@ -48,6 +52,7 @@ public class Player extends Entity implements Observer {
         this.visible = true;
         this.invincible = false;
         
+        mg = new MusicGame();
     }
 
     public void move() {
@@ -245,6 +250,8 @@ public class Player extends Entity implements Observer {
         if (true) { //in case the player is alive
             if ((key == 4) && state == EntityState.RUN && tc.collisionTileDown(0, 1)) {
                 state = EntityState.JUMP;
+                mg.setMusic("Jump");
+                mg.play();
                 timey = 0;
             }
             if (key == 3 && currentState == EntityState.RUN) {

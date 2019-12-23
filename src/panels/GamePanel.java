@@ -9,9 +9,12 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import startrekking.GameLauncher;
 import util.KeyHandler;
 
 public class GamePanel extends JPanel implements Runnable {
@@ -46,7 +49,7 @@ public class GamePanel extends JPanel implements Runnable {
     private ArrayList<GroundEnemy> goblins; 
     private StoryPlayState sps;
     private Level level;
-    
+    private KeyHandler key;
 
     public GamePanel(StoryPlayState sps) {
         this.goblins = new ArrayList<>();
@@ -77,17 +80,23 @@ public class GamePanel extends JPanel implements Runnable {
         img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
         g = (Graphics2D) img.getGraphics();
         
-        KeyHandler k = setKeyH();
-        
-        this.level = new Level(k, this);
-        
+        setKeyH();
+        this.level = new Level(this);
     }
     
-    private KeyHandler setKeyH(){
-        setFocusable(true);
-        requestFocusInWindow();
-        KeyHandler key = new KeyHandler();
+    private void setKeyH(){
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                setFocusable(true);
+                requestFocusInWindow();
+            }
+        });
+        key = new KeyHandler();
         addKeyListener(key);
+    }
+    
+    public KeyHandler getKeyH(){
         return key;
     }
 

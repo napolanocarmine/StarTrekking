@@ -17,7 +17,6 @@ public class Level extends Assembly{
 
     private int level;
     private static Position map;
-    private KeyHandler key;
     private TileFacade tf;
     private Player player;
     private Assembly groundEnemies;
@@ -27,10 +26,9 @@ public class Level extends Assembly{
     private GamePanel gp;
     private float groundY = (GamePanel.HEIGHT) - 162;
     
-    public Level(KeyHandler key, GamePanel gp){
+    public Level(GamePanel gp){
         this.groundEnemies = new Assembly();
         this.level = StoryPlayState.level;
-        this.key = key;
         this.gp = gp;
         init();
     }
@@ -42,6 +40,11 @@ public class Level extends Assembly{
         
         EntitySprite playerSprite = new EntitySprite("entity/wizard", 64, 64);
         EntitySprite enemieSprite;
+        
+        player = new Player(playerSprite, new Position(0, 0 + groundY), 96);
+        KeyHandler key = gp.getKeyH();
+        key.addObserver(player);
+        player.setKeyHandler(key);
         
         switch (level) {
             case 1:
@@ -77,9 +80,7 @@ public class Level extends Assembly{
                 break;
         }
         
-        player = new Player(playerSprite, new Position(0, 0 + groundY), 96);
-        key.addObserver(player);
-        player.setKeyHandler(key);
+        
 //        groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(1000, groundY) , 96));
 //        groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(1500, groundY) , 96));
 //        groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(2100, groundY) , 96));
@@ -101,7 +102,7 @@ public class Level extends Assembly{
             GroundEnemy enemy = (GroundEnemy) leaf; 
             if(enemy.getPos().getWorldVar().getX() < GamePanel.WIDTH+100) enemy.updateGame();
         }
-        
+                
         if(player.getDead()) {
             gp.setState(1);
             gp.stopThread();

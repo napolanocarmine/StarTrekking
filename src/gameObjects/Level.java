@@ -103,6 +103,9 @@ public class Level extends Assembly{
         ArrayList<Shot> shots = player.getShots();
         ListIterator<Shot> shotListIter = shots.listIterator();
         
+        /*
+        check if a shot hit a monster
+        */
         while(shotListIter.hasNext()){
             Shot s = shotListIter.next();
             for(GameObject leaf : groundEnemies.getObjs()){
@@ -115,6 +118,10 @@ public class Level extends Assembly{
             }
         }
         
+        /*
+        if the time that has passed from the last time the player have been hitted is longer than unitTime (invincible time)
+            check if the player hit an obstacle or a monster, in which case call the hitted method of player.
+        */
         if(System.nanoTime() - previousTickHitted > unitTime){
             if(player.hitObs()){
                 player.hitted();
@@ -132,7 +139,9 @@ public class Level extends Assembly{
         } 
     }
     
-    
+    /*
+    if an enemy die, he must be removed from the array of the enemies
+    */
     private void removeEnemies(){
         ListIterator<GameObject> groundEnemiesLi = groundEnemies.getObjs().listIterator();
         

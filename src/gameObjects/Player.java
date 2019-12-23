@@ -15,7 +15,7 @@ import util.KeyHandler;
 import util.Position;
 import util.EntityState;
 
-public class Player extends Entity implements Observer {
+public class Player extends Entity{
 
     private final int MAXHEALTHPOINTS = 3;
     private final float H = 100;
@@ -23,7 +23,7 @@ public class Player extends Entity implements Observer {
     private int hp;
     private float vx2;
     
-    private KeyHandler khdl;
+//    private KeyHandler khdl;
     int action;
     private ArrayList<Shot> shots = new ArrayList<Shot>();
     
@@ -183,7 +183,7 @@ public class Player extends Entity implements Observer {
     }
     
     public ArrayList<Shot> getShots(){ return shots; }
-    public void setKeyHandler(KeyHandler k){ this.khdl = k; }
+//    public void setKeyHandler(KeyHandler k){ this.khdl = k; }
 
     public void deleteShot(Shot s) {
         shots.remove(s);
@@ -233,39 +233,39 @@ public class Player extends Entity implements Observer {
         }
     }
 
-    private void mapValueAction(int key, boolean b) {
-        if (true) { //in case the player is alive
-            if ((key == 4) && state == EntityState.RUN && tc.collisionTileDown(0, 1)) {
-                state = EntityState.JUMP;
-                timey = 0;
-            }
-            if (key == 3 && currentState == EntityState.RUN) {
-                state = EntityState.ATTACK;
-            }
-            if(key == 5 && (state == EntityState.RUN || state == EntityState.CROUCH)){
-                state = EntityState.CROUCH;
-                
-                this.bounds.setBox(16, 12, 40, 52);
-                if(!b){
-                    this.bounds.setBox(16, 32, 40, 32);
-                    state = EntityState.RUN;
-                }
-            } 
-            
-        } else {
-            state = EntityState.DEAD;
-        }
+//    private void mapValueAction(int key, boolean b) {
+//        if (true) { //in case the player is alive
+//            if ((key == 4) && state == EntityState.RUN && tc.collisionTileDown(0, 1)) {
+//                state = EntityState.JUMP;
+//                timey = 0;
+//            }
+//            if (key == 3 && currentState == EntityState.RUN) {
+//                state = EntityState.ATTACK;
+//            }
+//            if(key == 5 && (state == EntityState.RUN || state == EntityState.CROUCH)){
+//                state = EntityState.CROUCH;
+//                
+//                this.bounds.setBox(16, 12, 40, 52);
+//                if(!b){
+//                    this.bounds.setBox(16, 32, 40, 32);
+//                    state = EntityState.RUN;
+//                }
+//            } 
+//            
+//        } else {
+//            state = EntityState.DEAD;
+//        }
+//
+//    }
 
-    }
-
-    @Override
-    public void update(Observable o, Object s) {
-        if (o == this.khdl) {
-            int key = this.khdl.getValue();
-            boolean b = khdl.isPressed();
-            mapValueAction(key, b);
-        }
-    }
+//    @Override
+//    public void update(Observable o, Object s) {
+//        if (o == this.khdl) {
+//            int key = this.khdl.getValue();
+//            boolean b = khdl.isPressed();
+//            mapValueAction(key, b);
+//        }
+//    }
 
     public int getHP() {
         return this.hp;

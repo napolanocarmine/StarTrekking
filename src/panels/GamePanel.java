@@ -79,7 +79,7 @@ public class GamePanel extends JPanel implements Runnable {
         
         KeyHandler k = setKeyH();
         
-        this.level = new Level(k, this);
+        this.level = new Level(k,this);
         
     }
     

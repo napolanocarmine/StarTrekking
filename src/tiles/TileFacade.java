@@ -74,8 +74,10 @@ public class TileFacade {
 
                 data[i] = eElement.getElementsByTagName("data").item(0).getTextContent();
 
-                if (i == 1) {
+                if(i == 1){
                     tm.add(new TileMapObj(data[i], sprite, width, height, blockWidth, blockHeight, tileColumns));
+                }else if(i == 2){
+                    tm.add(new TileMapObs(data[i], sprite, width, height, blockWidth, blockHeight, tileColumns));
                 } else {
                     tm.add(new TileMapNorm(data[i], sprite, width, height, blockWidth, blockHeight, tileColumns));
                 }

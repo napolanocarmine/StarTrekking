@@ -18,7 +18,7 @@ public class Shot extends Entity{
     }
 
     public boolean collides() {
-        return tc.collisionTile(dx - previousX, 0);
+        return tc.collisionTileObj(dx - previousX, 0);
     }
 
     public void move() {

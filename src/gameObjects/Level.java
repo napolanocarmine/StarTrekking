@@ -115,16 +115,21 @@ public class Level extends Assembly{
             }
         }
         
-        for(GameObject leaf : groundEnemies.getObjs()){
-            GroundEnemy enemy = (GroundEnemy) leaf; 
-            if(enemy.getState() != EntityState.DEAD && enemy.getBounds().collides(player.getBounds())){
-                if(System.nanoTime() - previousTickHitted > unitTime){
-                    System.err.println("Collisione player");
-                    player.hitted();    
-                }
+        if(System.nanoTime() - previousTickHitted > unitTime){
+            if(player.hitObs()){
+                player.hitted();
                 previousTickHitted = System.nanoTime();
+            }else{
+                for(GameObject leaf : groundEnemies.getObjs()){
+                    GroundEnemy enemy = (GroundEnemy) leaf; 
+                    if(enemy.getState() != EntityState.DEAD && enemy.getBounds().collides(player.getBounds())){
+                            System.err.println("Collisione player");
+                            player.hitted();
+                            previousTickHitted = System.nanoTime();
+                    }
+                }
             }
-        }
+        } 
     }
     
     

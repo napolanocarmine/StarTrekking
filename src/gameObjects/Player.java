@@ -73,7 +73,7 @@ public class Player extends Entity implements Observer {
         /*
         Collision detection: if the player touches a solid tile during his motion he will stop moving.
         */
-        if(tc.collisionTile(dx-previousX, 0)){
+        if(tc.collisionTileObj(dx-previousX, 0)){
             dx = previousX;
         } else {
             if (state != EntityState.DEAD) {
@@ -189,8 +189,16 @@ public class Player extends Entity implements Observer {
         shots.remove(s);
     }
     
+    public boolean hitObs(){
+        if(tc.collisionTileObs(0, dy-previousY) || tc.collisionTileObs(dx-previousX, 0)) return true;
+        return false;
+    }
+    
     public void updateGame(){
         super.updateGame(state);
+//        if(tc.collisionTileObs(0, dy-previousY) || tc.collisionTileObs(dx-previousX, 0)){
+//            hitted();
+//        }
         if(invincible){
             if(System.nanoTime()%9000 < 100 || System.nanoTime()%9000 > 100) visible = !visible;
             if(System.nanoTime() - invStartTime>= unitTime){

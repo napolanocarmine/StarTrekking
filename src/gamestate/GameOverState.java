@@ -42,9 +42,9 @@ public class GameOverState extends State {
         /*
             codice che gestisce il prossimo stato,
          */
-
+        int level = StoryPlayState.level;
         if (code == 0) {
-            gsm.setState(new StoryPlayState(code));
+            gsm.setState(new StoryPlayState(level));
         } else if (code == 1) {
             try {
                 gsm.setState(new MainMenuState());

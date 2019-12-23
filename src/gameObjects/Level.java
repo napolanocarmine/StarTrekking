@@ -44,7 +44,8 @@ public class Level extends Assembly{
         EntitySprite enemieSprite = new EntitySprite("entity/goblin", 64, 64);
         System.out.println("gameObjects.Level.init() -> level: " + level);
         if(level == 1) tf = new TileFacade("tiles/LevelOne.xml");
-        if(level == 2) tf = new TileFacade("tiles/LevelTwo.xml");
+        else if(level == 2) tf = new TileFacade("tiles/LevelTwo.xml");
+        else System.err.println("["+level+"] errore caricamento file mappa.");
         player = new Player(playerSprite, new Position(0, 0 + groundY), 96);
         key.addObserver(player);
         player.setKeyHandler(key);

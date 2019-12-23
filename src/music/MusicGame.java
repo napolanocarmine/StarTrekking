@@ -6,12 +6,11 @@
 package music;
 
 import java.io.IOException;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import sun.audio.AudioPlayer;
 
 /**
  *
@@ -23,7 +22,7 @@ public class MusicGame {
 
     public void setMusic(String nameMusic) {
         try {
-            AudioInputStream audio = AudioSystem.getAudioInputStream(AudioPlayer.class.getResourceAsStream("/sounds/" + nameMusic + "Music.wav"));
+            AudioInputStream audio = AudioSystem.getAudioInputStream(getClass().getClassLoader().getResourceAsStream("sounds/" + nameMusic + "Music.wav"));
             clip = AudioSystem.getClip();
             clip.open(audio);
         } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {

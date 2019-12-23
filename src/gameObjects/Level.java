@@ -41,14 +41,36 @@ public class Level extends Assembly{
         Position.setWorldVar(map.getX(), map.getY());
         
         EntitySprite playerSprite = new EntitySprite("entity/wizard", 64, 64);
-        EntitySprite enemieSprite = new EntitySprite("entity/goblin", 64, 64);
+        EntitySprite enemieSprite;
         
         switch (level) {
             case 1:
                 tf = new TileFacade("tiles/LevelOne.xml");
+                enemieSprite = new EntitySprite("entity/goblin", 64, 64);
+                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(1000, groundY) , 96));
+                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(1500, groundY) , 96));
+                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(2100, groundY) , 96));
+                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(3080, groundY) , 96));
+                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(4700, groundY) , 96));
+                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(5500, groundY) , 96));
+                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(7400, groundY) , 96));
+                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(7400, 220) , 96));
+                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(9500, groundY) , 96));
                 break;
             case 2:
                 tf = new TileFacade("tiles/LevelTwo.xml");
+                enemieSprite = new EntitySprite("entity/skeleton", 32, 32);
+                int enemieSize = 64;
+                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(1000, groundY) , enemieSize));
+                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(1700, 340) , enemieSize));
+                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(3200, groundY) , enemieSize));
+                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(3600, 210) , enemieSize));
+                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(5000, 220) , enemieSize));
+                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(6000, groundY) , enemieSize));
+                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(7200, groundY) , enemieSize));
+                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(8000, groundY) , enemieSize));
+                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(10000, groundY) , enemieSize));
+                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(12000, groundY) , enemieSize));
                 break;
             default:
                 System.err.println("[map index: "+level+"] map file error.");
@@ -58,11 +80,11 @@ public class Level extends Assembly{
         player = new Player(playerSprite, new Position(0, 0 + groundY), 96);
         key.addObserver(player);
         player.setKeyHandler(key);
-        groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(1000, groundY) , 96));
-        groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(1500, groundY) , 96));
-        groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(2100, groundY) , 96));
-        groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(3080, groundY) , 96));
-        groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(4700, groundY) , 96));
+//        groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(1000, groundY) , 96));
+//        groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(1500, groundY) , 96));
+//        groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(2100, groundY) , 96));
+//        groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(3080, groundY) , 96));
+//        groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(4700, groundY) , 96));
         addObj(player);
         addObj(groundEnemies);
         hpimg = new Sprite("entity/heart.png", 32,32);

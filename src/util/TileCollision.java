@@ -34,27 +34,6 @@ public class TileCollision {
             int yt = (int) ((eBounds.getPos().getY() + ay) + ((int) (c / 2)) * eBounds.getHeight() + eBounds.getYOffset()) / 16;
 
             if (TileMapObj.tmobs_blocks.containsKey(String.valueOf(xt) + "," + String.valueOf(yt))) {
-                Block block = TileMapObj.tmobs_blocks.get(String.valueOf(xt) + "," + String.valueOf(yt));
-//                int nextXt = (int) ((((eBounds.getPos().getX() + ax) + eBounds.getXOffset()) / 16) + eBounds.getWidth() / 32);
-//                int nextYt = (int) ((((eBounds.getPos().getY() + ay) + eBounds.getYOffset()) / 16) + eBounds.getHeight() / 32);
-//
-//                if (block.isInside(eBounds)) {
-//                    System.out.println("MORTO");
-//                    return false;
-//                } else if (nextXt == yt + 1 || nextXt == xt + 1 || nextYt == yt - 1 || nextXt == xt - 1) {
-//                    if (TileMapObj.tmobj_blocks.containsKey(String.valueOf(nextXt) + "," + String.valueOf(nextYt))) {
-//                        Block nextblock = TileMapObj.tmobj_blocks.get(String.valueOf(nextXt) + "," + String.valueOf(nextYt));
-//
-//                        if (eBounds.getPos().getX() + e.getBounds().getXOffset() > block.getPos().getX()
-//                                && eBounds.getPos().getY() + e.getBounds().getYOffset() > block.getPos().getY()
-//                                && nextblock.getWidth() + nextblock.getPos().getX() > e.getBounds().getWidth() + (eBounds.getPos().getX() + e.getBounds().getXOffset())
-//                                && nextblock.getHeight() + nextblock.getPos().getY() > e.getBounds().getHeight() + (eBounds.getPos().getY() + e.getBounds().getYOffset())) {
-//                            System.out.println("MORTO");
-//                        }
-//                        return false;
-//                    }
-//                }
-                System.out.println("MORTO");
                 return true;
             }
         }

@@ -48,7 +48,7 @@ public class Player extends Entity implements Observer {
         df.setMaximumFractionDigits(2);
         this.initialSpeed = 0.3f;
         this.vx = initialSpeed;
-        this.acc = 0.00003f;
+        this.acc = 0.00002f;
         this.visible = true;
         this.invincible = false;
         
@@ -178,6 +178,8 @@ public class Player extends Entity implements Observer {
         visible = false;
         invStartTime = System.nanoTime();
         if(--hp==0){
+            mg.setMusic("GameOver");
+            mg.play();
             isDead();
             state = EntityState.DEAD;
         }
@@ -226,8 +228,10 @@ public class Player extends Entity implements Observer {
                 }
             }
         }
-        if(pos.getY() > GamePanel.HEIGHT){
-                dead = true;  
+        if(pos.getY() > GamePanel.HEIGHT && state != EntityState.DEAD){
+            //dead = true; 
+            hp = 1;
+            hitted();
         }
     }
 
@@ -256,10 +260,13 @@ public class Player extends Entity implements Observer {
             }
             if (key == 3 && currentState == EntityState.RUN) {
                 state = EntityState.ATTACK;
+                mg.setMusic("Shot");
+                mg.play();
             }
             if(key == 5 && (state == EntityState.RUN || state == EntityState.CROUCH)){
                 state = EntityState.CROUCH;
-                
+                mg.setMusic("Crouch");
+                mg.play();
                 this.bounds.setBox(16, 12, 40, 52);
                 if(!b){
                     this.bounds.setBox(16, 32, 40, 32);

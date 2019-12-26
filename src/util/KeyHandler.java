@@ -87,17 +87,17 @@ public class KeyHandler implements KeyListener {
         if (!pressed) {
             switch (ke.getKeyCode()) {
                 case 32:                        //space -> 32
-                    System.out.println("Jump");
+                    //System.out.println("Jump");
                     this.cmdInvoker.setCommand(jumpPlayerC);
                     pressed = true;
                     break;
                 case 17://KeyEvent.VK_CONTROL:                     //control -> 17
-                    System.out.println("Crouch");
+                    //System.out.println("Crouch");
                     this.cmdInvoker.setCommand(crouchPlayerC);
                     pressed = true;
                     break;
                 case 88://KeyEvent.VK_X:                          //x -> 88
-                    System.out.println("Attack");
+                    //System.out.println("Attack");
                     this.cmdInvoker.setCommand(attackPlayerC);
                     pressed = true;
                     break;

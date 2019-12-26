@@ -17,7 +17,7 @@ public class CommandInvoker {
      * @param command command to be setted 
      */
     public void setCommand(Command command){
-        System.out.println("Set new Command");
+        //System.out.println("Set new Command");
         this.command = command;
         executeCommand();
     }
@@ -34,7 +34,7 @@ public class CommandInvoker {
      * Execute the current setted command.
      */
     public void executeCommand(){
-        System.out.println("Command Execution");
+        //System.out.println("Command Execution");
         this.command.execute();
     }
 }

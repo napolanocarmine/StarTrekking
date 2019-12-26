@@ -174,7 +174,6 @@ public class Player extends Entity{
     }
     
     public void updateGame(){
-        horizontalMove();
         super.updateGame();
         if(invincible){
             if(System.nanoTime()%9000 < 100 || System.nanoTime()%9000 > 100) visible = !visible;

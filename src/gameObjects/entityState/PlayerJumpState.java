@@ -22,7 +22,6 @@ public class PlayerJumpState extends PlayerState{
     public void updateGame() {
         p.horizontalMove();
         if(p.getTimey() == 0 ){
-            System.err.println("inizio salto");
             if(!(p.getFalling())) p.setVy(-(float)((4*p.getH()*p.getInstantVx())/p.getDIST()));
                 p.setGravity(-(float)((p.getH()*8*Math.pow(p.getInstantVx(), 2))/Math.pow(p.getDIST(), 2)));
             }

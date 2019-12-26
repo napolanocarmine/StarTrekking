@@ -17,6 +17,8 @@ public class PlayerDeadState extends PlayerState{
     */
     @Override
     public void updateGame() {
+        p.horizontalMove();
+        p.verticalMove();
         p.setTimeX(p.getTimeX() - 1);
         if(p.getAnimation().playingLastFrame()){
             p.setDeadAniEnded(true);

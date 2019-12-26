@@ -1,6 +1,7 @@
 package gameObjects;
 
 import gameObjects.entityState.PlayerDeadState;
+import gameObjects.entityState.PlayerJumpState;
 import gameObjects.entityState.PlayerState;
 import gameObjects.entityState.PlayerRunState;
 import graphics.Animation;
@@ -58,7 +59,7 @@ public class Player extends Entity{
         mg = new MusicGame();
     }
 
-    public void move() {
+    public boolean horizontalMove() {
         //PLAYER HORIZONTAL MOTION
         
         /*
@@ -83,10 +84,15 @@ public class Player extends Entity{
         */
         if(tc.collisionTileObj(dx-previousX, 0)){
             dx = previousX;
+            return false;
         } else {
-            timex += 1f;
+            timex ++;
             previousX = dx;
+            return true;
         }
+    }
+    
+    public boolean verticalMove(){
 
         //PLAYER VERTICAL MOTION
         
@@ -98,21 +104,23 @@ public class Player extends Entity{
         /*
         Collision detection: if the player is on the ground he will not fall, if he is jumping and he touches a solid tile above is head he will start to fall..
         */
-        if(tc.collisionTileDown(0, dy-previousY)){
-            //System.err.println("collision down");
+        if(tc.collisionTileDown(0, dy-previousY) /*&& !(state instanceof PlayerJumpState)*/){
             dy = previousY;
-            timey = 0;
             dy0 = dy;
+            timey = 0;
             falling = false;
+            return false;
         }else if(tc.collisionTileUp(0, dy-previousY)){
             dy = previousY;
-            dy0 = previousY;
-            vy = 0;
+            dy0 = dy;
             timey = 0;
+            vy = 0;
             falling = true;
+            return true;
         } else {
-            timey ++;
             previousY = dy;
+            timey ++;
+            return true;
         }
     }
     
@@ -148,6 +156,7 @@ public class Player extends Entity{
     
     public ArrayList<Shot> getShots(){ return shots; }
     public boolean getFalling(){ return falling; }
+    public void setFalling(boolean b){ falling = b; }
     public float getDIST(){ return DIST; }
     public float getH(){ return H; }
     public float getInstantVx(){ return instantVx; }
@@ -165,6 +174,8 @@ public class Player extends Entity{
     }
     
     public void updateGame(){
+        horizontalMove();
+        super.updateGame();
         if(invincible){
             if(System.nanoTime()%9000 < 100 || System.nanoTime()%9000 > 100) visible = !visible;
             if(System.nanoTime() - invStartTime>= unitTime){
@@ -172,11 +183,7 @@ public class Player extends Entity{
                 visible = true;
             }
         }
-        move();
-        super.updateGame();
-//        if(tc.collisionTileObs(0, dy-previousY) || tc.collisionTileObs(dx-previousX, 0)){
-//            hitted();
-//        }
+        //move();
         pos.setX(dx);    //update x position
         if (Level.getMapPos().getX() + GamePanel.WIDTH < TileFacade.mapWidth * 16) {
             Level.getMapPos().setX(dx);

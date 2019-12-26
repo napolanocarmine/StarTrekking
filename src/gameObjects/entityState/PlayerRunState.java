@@ -13,7 +13,8 @@ public class PlayerRunState extends PlayerState{
 
     @Override
     public void updateGame() {
-        
+        p.horizontalMove();
+        p.verticalMove();
     }
 
     @Override

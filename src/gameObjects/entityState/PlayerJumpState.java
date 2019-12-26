@@ -20,19 +20,20 @@ public class PlayerJumpState extends PlayerState{
     */
     @Override
     public void updateGame() {
-        if(p.getTc().collisionTileDown(0, p.getDy()-p.getPreviousY())){
-            System.err.println("FINE SALTO");
-            p.setVy(0);            //definire come costante di player
-            p.setGravity(-0.01f);  //definire come costante di player
-            nextState(1);
-        }
-        if(p.getTimey() == 0){
+        p.horizontalMove();
+        if(p.getTimey() == 0 ){
             System.err.println("inizio salto");
             if(!(p.getFalling())) p.setVy(-(float)((4*p.getH()*p.getInstantVx())/p.getDIST()));
                 p.setGravity(-(float)((p.getH()*8*Math.pow(p.getInstantVx(), 2))/Math.pow(p.getDIST(), 2)));
             }
         if (p.getAnimation().playingLastFrame()) {
             p.getAnimation().setDelay(-1);
+        }
+        
+        if(!p.verticalMove()){
+            p.setVy(0);            //definire come costante di player
+            p.setGravity(-0.01f);  //definire come costante di player
+            nextState(1);
         }
         
     }

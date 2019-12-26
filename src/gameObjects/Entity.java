@@ -64,8 +64,8 @@ public abstract class Entity implements GameObject{
         this.size = size;
         this.dx0 = pos.getX();
         this.dy0 = pos.getY();
-        this.previousY = dx0;
-        this.previousX = dy0;
+        this.previousY = dy0;
+        this.previousX = dx0;
         this.tc = new TileCollision(this);
         this.ani = new Animation();
         
@@ -98,6 +98,8 @@ public abstract class Entity implements GameObject{
     public void setTimeY(float t){ this.timey = t; }
     public float getVy(){ return vy; }
     public void setVy(float v){ vy = v; }
+    public void setDy(float dy){ this.dy = dy; }
+    public void setDy0(float dy){ dy0 = dy; }
     public float getGravity(){ return gravity; }
     public void setGravity(float g){ gravity = g; }
     public TileCollision getTc(){ return tc; }

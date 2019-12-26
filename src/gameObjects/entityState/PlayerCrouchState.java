@@ -27,6 +27,8 @@ public class PlayerCrouchState extends PlayerState{
     */
     @Override
     public void updateGame() {
+        p.horizontalMove();
+        p.verticalMove();
         if (p.getAnimation().playingLastFrame()) {
             p.getAnimation().setDelay(-1);
         }

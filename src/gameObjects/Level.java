@@ -42,33 +42,35 @@ public class Level extends Assembly{
         Position.setWorldVar(map.getX(), map.getY());
         
         EntitySprite playerSprite = new EntitySprite("entity/wizard", 64, 64);
-        EntitySprite enemieSprite = new EntitySprite("entity/goblin", 64, 64);
+        EntitySprite goblinSprite = new EntitySprite("entity/goblin", 64, 64);
+        EntitySprite skeletonSprite = new EntitySprite("entity/skeleton", 64, 64);
+        
         System.out.println("gameObjects.Level.init() -> level: " + level);
         if(level == 1){
             tf = new TileFacade("tiles/LevelOne.xml");
-            groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(1000, groundY) , 96));
-            groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(1500, groundY) , 96));
-            groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(2100, groundY) , 96));
-            groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(3080, groundY) , 96));
-            groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(4700, groundY) , 96));
-            groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(5500, groundY) , 96));
-            groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(7400, groundY) , 96));
-            groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(7400, 220) , 96));
-            groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(9500, groundY) , 96));
+            groundEnemies.addObj(new GroundEnemy(goblinSprite, new Position(1000, groundY) , 96));
+            groundEnemies.addObj(new GroundEnemy(goblinSprite, new Position(1500, groundY) , 96));
+            groundEnemies.addObj(new GroundEnemy(goblinSprite, new Position(2100, groundY) , 96));
+            groundEnemies.addObj(new GroundEnemy(goblinSprite, new Position(3080, groundY) , 96));
+            groundEnemies.addObj(new GroundEnemy(goblinSprite, new Position(4700, groundY) , 96));
+            groundEnemies.addObj(new GroundEnemy(goblinSprite, new Position(5500, groundY) , 96));
+            groundEnemies.addObj(new GroundEnemy(goblinSprite, new Position(7400, groundY) , 96));
+            groundEnemies.addObj(new GroundEnemy(goblinSprite, new Position(7400, 220) , 96));
+            groundEnemies.addObj(new GroundEnemy(goblinSprite, new Position(9500, groundY) , 96));
             player = new Player(playerSprite, new Position(0, 0 + groundY), 96, key);
         }
         if(level == 2){
             tf = new TileFacade("tiles/LevelTwo.xml");
-            groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(1000, groundY) , 105));
-            groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(1700, 340) , 105));
-            groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(3200, groundY) , 105));
-            groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(3600, 210) , 105));
-            groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(5000, 220) , 105));
-            groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(6000, groundY) , 105));
-            groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(7200, groundY) , 105));
-            groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(8000, groundY) , 105));
-            groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(10000, groundY) , 105));
-            groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(12000, groundY) , 105));
+            groundEnemies.addObj(new GroundEnemy(skeletonSprite, new Position(1000, groundY) , 105));
+            groundEnemies.addObj(new GroundEnemy(skeletonSprite, new Position(1700, 340) , 105));
+            groundEnemies.addObj(new GroundEnemy(skeletonSprite, new Position(3200, groundY) , 105));
+            groundEnemies.addObj(new GroundEnemy(skeletonSprite, new Position(3600, 210) , 105));
+            groundEnemies.addObj(new GroundEnemy(skeletonSprite, new Position(5000, 220) , 105));
+            groundEnemies.addObj(new GroundEnemy(skeletonSprite, new Position(6000, groundY) , 105));
+            groundEnemies.addObj(new GroundEnemy(skeletonSprite, new Position(7200, groundY) , 105));
+            groundEnemies.addObj(new GroundEnemy(skeletonSprite, new Position(8000, groundY) , 105));
+            groundEnemies.addObj(new GroundEnemy(skeletonSprite, new Position(10000, groundY) , 105));
+            groundEnemies.addObj(new GroundEnemy(skeletonSprite, new Position(12000, groundY) , 105));
             player = new Player(playerSprite, new Position(0, 0 + groundY), 105, key);
         }
         

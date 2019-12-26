@@ -9,6 +9,7 @@ import java.util.ListIterator;
 import panels.GamePanel;
 import static panels.GamePanel.unitTime;
 import tiles.TileFacade;
+import util.AABB;
 import util.EntityState;
 import util.KeyHandler;
 import util.Position;
@@ -61,9 +62,10 @@ public class Level extends Assembly{
                 groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(9500, groundY) , 96));
                 break;
             case 2:
+                player.setBounds(new AABB(player.getPos(), 16, 24, 40, 32));
                 tf = new TileFacade("tiles/LevelTwo.xml");
-                enemieSprite = new EntitySprite("entity/skeleton", 32, 32);
-                int enemieSize = 64;
+                enemieSprite = new EntitySprite("entity/skeleton", 64, 64);
+                int enemieSize = 96;
                 groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(1000, groundY) , enemieSize));
                 groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(1700, 340) , enemieSize));
                 groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(3200, groundY) , enemieSize));

@@ -21,7 +21,6 @@ public class Player extends Entity implements Observer {
     private final float H = 100;
     private final float DIST = 150;
     private int hp;
-    private float vx2;
     
     private KeyHandler khdl;
     int action;
@@ -33,21 +32,24 @@ public class Player extends Entity implements Observer {
     private boolean visible;
     private boolean falling = false;
     
-    float instantVx = 0;
+    private float instantVx = 0;
+    private boolean changeMotion = false;
     
-    boolean changeMotion = false;
-
+    private AABB standBounds;
+    private AABB crouchBounds;
+    
     public Player(EntitySprite sprite, Position origin, int size) {
         super(sprite, origin, size, EntityState.RUN);
         this.hp = MAXHEALTHPOINTS;
-        this.bounds = new AABB(pos, 16, 32, 40, 32);
+        this.standBounds = new AABB(pos, 16, 32, 40, 32);
+        this.crouchBounds = new AABB(pos, 16, 12, 40, 52);
+        this.bounds = this.standBounds;
         df.setMaximumFractionDigits(2);
         this.initialSpeed = 0.3f;
         this.vx = initialSpeed;
         this.acc = 0.00003f;
         this.visible = true;
-        this.invincible = false;
-        
+        this.invincible = false; 
     }
 
     public void move() {
@@ -162,6 +164,12 @@ public class Player extends Entity implements Observer {
         vx = maxSpeed;
     }
     
+    public void setBounds(AABB box){
+        this.standBounds = box;
+        this.crouchBounds = new AABB(pos, 16, 12, 40, 44);                       //new AABB(pos, 16, 24, 40, 32);
+        this.bounds = this.standBounds;
+    }
+    
     public void isDead(){
         if(ani.playingLastFrame()){
             dead = true;
@@ -230,8 +238,8 @@ public class Player extends Entity implements Observer {
     public void render(Graphics2D g) {  //draw the player in the panel
         if (visible == true) {
             g.drawImage(ani.getImage(), (int) pos.getWorldVar().getX(), (int) pos.getWorldVar().getY(), size, size, null);
-//            g.setColor(Color.blue);
-//            g.drawRect((int) (pos.getWorldVar().getX() + bounds.getXOffset()), (int) (pos.getWorldVar().getY() + bounds.getYOffset()), (int) bounds.getWidth(), (int) bounds.getHeight());
+            g.setColor(Color.blue);
+            g.drawRect((int) (pos.getWorldVar().getX() + bounds.getXOffset()), (int) (pos.getWorldVar().getY() + bounds.getYOffset()), (int) bounds.getWidth(), (int) bounds.getHeight());
         }
 
         if (!shots.isEmpty()) {
@@ -252,10 +260,9 @@ public class Player extends Entity implements Observer {
             }
             if(key == 5 && (state == EntityState.RUN || state == EntityState.CROUCH)){
                 state = EntityState.CROUCH;
-                
-                this.bounds.setBox(16, 12, 40, 52);
+                this.bounds = crouchBounds;
                 if(!b){
-                    this.bounds.setBox(16, 32, 40, 32);
+                    this.bounds = standBounds;
                     state = EntityState.RUN;
                 }
             } 

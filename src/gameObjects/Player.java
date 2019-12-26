@@ -23,7 +23,6 @@ public class Player extends Entity implements Observer {
     private final float H = 100;
     private final float DIST = 150;
     private int hp;
-    private float vx2;
     
     private KeyHandler khdl;
     int action;
@@ -35,16 +34,19 @@ public class Player extends Entity implements Observer {
     private boolean visible;
     private boolean falling = false;
     
-    float instantVx = 0;
-    
-    boolean changeMotion = false;
+    private float instantVx = 0;
+    private boolean changeMotion = false;
 
     private MusicGame mg;
+    private AABB standBounds;
+    private AABB crouchBounds;
     
     public Player(EntitySprite sprite, Position origin, int size) {
         super(sprite, origin, size, EntityState.RUN);
         this.hp = MAXHEALTHPOINTS;
-        this.bounds = new AABB(pos, 16, 32, 40, 32);
+        this.standBounds = new AABB(pos, 16, 32, 40, 32);
+        this.crouchBounds = new AABB(pos, 16, 12, 40, 52);
+        this.bounds = this.standBounds;
         df.setMaximumFractionDigits(2);
         this.initialSpeed = 0.3f;
         this.vx = initialSpeed;
@@ -167,6 +169,12 @@ public class Player extends Entity implements Observer {
         vx = maxSpeed;
     }
     
+    public void setBounds(AABB box){
+        this.standBounds = box;
+        this.crouchBounds = new AABB(pos, 16, 12, 40, 44);                       //new AABB(pos, 16, 24, 40, 32);
+        this.bounds = this.standBounds;
+    }
+    
     public void isDead(){
         if(ani.playingLastFrame()){
             dead = true;
@@ -267,9 +275,9 @@ public class Player extends Entity implements Observer {
                 state = EntityState.CROUCH;
                 mg.setMusic("Crouch");
                 mg.play();
-                this.bounds.setBox(16, 12, 40, 52);
+                this.bounds = this.crouchBounds;
                 if(!b){
-                    this.bounds.setBox(16, 32, 40, 32);
+                    this.bounds = this.standBounds;
                     state = EntityState.RUN;
                 }
             } 

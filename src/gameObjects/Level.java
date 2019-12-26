@@ -1,5 +1,7 @@
 package gameObjects;
 
+import gameObjects.entityState.GroundEnemyDeadState;
+import gameObjects.entityState.PlayerDeadState;
 import gamestate.StoryPlayState;
 import graphics.EntitySprite;
 import graphics.Sprite;
@@ -10,7 +12,6 @@ import panels.GamePanel;
 import static panels.GamePanel.unitTime;
 import tiles.TileFacade;
 import util.AABB;
-import util.EntityState;
 import util.KeyHandler;
 import util.Position;
 
@@ -44,8 +45,7 @@ public class Level extends Assembly{
         
         player = new Player(playerSprite, new Position(0, 0 + groundY), 96);
         KeyHandler key = gp.getKeyH();
-        key.addObserver(player);
-        player.setKeyHandler(key);
+        key.setPlayer(player);
         
         switch (level) {
             case 1:
@@ -92,7 +92,6 @@ public class Level extends Assembly{
         addObj(player);
         addObj(groundEnemies);
         hpimg = new Sprite("entity/heart.png", 32,32);
-        key.addObserver(player);
         font = new Sprite("font/Font.png", 10, 10);
     }
     
@@ -105,8 +104,7 @@ public class Level extends Assembly{
             GroundEnemy enemy = (GroundEnemy) leaf; 
             if(enemy.getPos().getWorldVar().getX() < GamePanel.WIDTH+100) enemy.updateGame();
         }
-                
-        if(player.getDead()) {
+        if(player.getDeadAniEnded()) {
             gp.setState(1);
             gp.stopThread();
         }
@@ -145,10 +143,10 @@ public class Level extends Assembly{
             Shot s = shotListIter.next();
             for(GameObject leaf : groundEnemies.getObjs()){
                 GroundEnemy enemy = (GroundEnemy) leaf; 
-                if(enemy.getState() != EntityState.DEAD && s.getBounds().collides(enemy.getBounds())){
+                if(!(enemy.getState() instanceof PlayerDeadState) && s.getBounds().collides(enemy.getBounds())){
                     System.err.println("Nemico colpito");
                     shotListIter.remove();
-                    enemy.isDead();
+                    enemy.setState(new GroundEnemyDeadState(enemy));
                 }
             }
         }
@@ -164,7 +162,7 @@ public class Level extends Assembly{
             }else{
                 for(GameObject leaf : groundEnemies.getObjs()){
                     GroundEnemy enemy = (GroundEnemy) leaf; 
-                    if(enemy.getState() != EntityState.DEAD && enemy.getBounds().collides(player.getBounds())){
+                    if(!(enemy.getState() instanceof PlayerDeadState) && enemy.getBounds().collides(player.getBounds())){
                             System.err.println("Collisione player");
                             player.hitted();
                             previousTickHitted = System.nanoTime();
@@ -182,7 +180,7 @@ public class Level extends Assembly{
         
         while(groundEnemiesLi.hasNext()){
             GroundEnemy cEnemy = (GroundEnemy)(groundEnemiesLi.next());
-            if(cEnemy.getDead()){
+            if(cEnemy.getDeadAniEnded()){
                 groundEnemiesLi.remove();
             }
         }

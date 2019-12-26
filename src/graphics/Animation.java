@@ -21,8 +21,7 @@ public class Animation {
         timesPlayed = 0;
         //System.out.println("arrivo prima io" + frames);
         numFrames = frames.length;
-        
-        delay = 5;
+        delay = 80;
     }
 
     public Animation() {

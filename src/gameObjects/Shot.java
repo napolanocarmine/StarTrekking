@@ -1,17 +1,18 @@
 package gameObjects;
 
+import gameObjects.entityState.ShotRunState;
 import graphics.EntitySprite;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import util.AABB;
-import util.EntityState;
 import util.Position;
 
 public class Shot extends Entity{
     
     public Shot(EntitySprite sprite, Position origin, int size, float initialSpeed) {
-        super(sprite, origin, size, EntityState.ATTACK);
+        super(sprite, origin, size);
         this.bounds = new AABB(pos, 16, 16, 16, 16);
+        this.state = new ShotRunState(this);
         this.initialSpeed = initialSpeed;
         this.vx = initialSpeed + 0.4f;
         this.acc = 0.001f;
@@ -32,7 +33,7 @@ public class Shot extends Entity{
 
     @Override
     public void updateGame() {
-        super.updateGame(state);
+        super.updateGame();
         move();
         pos.setX(dx);
     }
@@ -43,11 +44,6 @@ public class Shot extends Entity{
 //        g.setColor(Color.blue);
 //        g.drawRect((int) (pos.getWorldVar().getX() + bounds.getXOffset()),
 //                (int) (pos.getWorldVar().getY() + bounds.getYOffset()), (int) bounds.getWidth(), (int) bounds.getHeight());
-    }
-
-    @Override
-    public void isDead() {
-        
     }
     
 }

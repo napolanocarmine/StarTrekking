@@ -5,14 +5,13 @@
  */
 package gameObjects;
 
+import gameObjects.entityState.GroundEnemyRunState;
 import graphics.EntitySprite;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import panels.GamePanel;
 import util.AABB;
-import util.EntityState;
 import util.Position;
-import util.TileCollision;
 
 
 /**
@@ -22,20 +21,15 @@ import util.TileCollision;
 public class GroundEnemy extends Entity {
 
     public GroundEnemy(EntitySprite sprite, Position origin, int size) {
-        super(sprite, origin, size, EntityState.RUN);
+        super(sprite, origin, size);
         this.bounds = new AABB(pos, 16, 32, 40, 32);
+        this.state = new GroundEnemyRunState(this);
         this.initialSpeed = -0.05f;
         this.vx = initialSpeed;
     }
 
     public void move() {
-//        dx = previousX - moveleft;
-//        previousX= dx;
-
-        if(state != EntityState.DEAD) dx = vx*timex++ + dx0;
-        else{
-            if(ani.playingLastFrame()) dead = true;
-        }
+        dx = vx*timex++ + dx0;
 
         dy = (float)((-0.5*gravity*Math.pow(timey, 2))) + dy0;
         if (tc.collisionTileDown(0, dy - dy0)) {
@@ -44,36 +38,15 @@ public class GroundEnemy extends Entity {
             timey ++;
             previousY = dy;
         }
-        
-        if(state == EntityState.DEAD) isDead();
     }
     
     @Override
     public void updateGame() {
-        super.updateGame(state);
-        if(pos.getWorldVar().getX() < -100) dead = true;
+        super.updateGame();
+        if(pos.getWorldVar().getX() < -100) deadAniEnded = true;
         move();
         pos.setY(dy);
         pos.setX(dx);
-    }
-    
-    public void isDead(){
-        state = EntityState.DEAD;
-        if(ani.playingLastFrame()){
-            dead = true;
-        }
-    }
-    
-   
-    
-    public void restart(){
-        System.err.println("restart");
-        state = EntityState.RUN;
-        timex = 0;
-        timey = 0;
-        vx = initialSpeed;
-        pos.setPos(originPos.getX(), originPos.getY());
-        Level.getMapPos().setPos(0, 0);
     }
     
     @Override

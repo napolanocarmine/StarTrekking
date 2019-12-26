@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package util;
+package entitycommand;
 
 /**
  *
- * @author emiso
+ * @author Star Trekking
  */
-public enum EntityState {
-    RUN, SPEED_RUN, DEAD, ATTACK, JUMP, CROUCH, HIT, NONE
+public interface Command {
+    public void execute();
 }

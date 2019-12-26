@@ -4,13 +4,13 @@
  */
 package gameObjects;
 
+import gameObjects.entityState.EntityState;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import graphics.Animation;
 import graphics.EntitySprite;
 import util.AABB;
 import util.Position;
-import util.EntityState;
 import util.TileCollision;
 
 public abstract class Entity implements GameObject{
@@ -22,7 +22,7 @@ public abstract class Entity implements GameObject{
     protected int size;
 
     protected EntityState state; //Key premuta
-    protected EntityState currentState; //Animazione Corrente
+//    protected EntityState currentState; //Animazione Corrente
 
     protected float dx;
     protected float dy;
@@ -51,70 +51,69 @@ public abstract class Entity implements GameObject{
     protected float previousY;
     protected float previousX;
     
-    protected boolean dead = false;
+    protected boolean deadAniEnded = false;
+    
     
     //protected AABB hitBounds;
     //protected AABB bounds;
     //protected TileCollision tc;
-    public Entity(EntitySprite sprite, Position origin, int size, EntityState state) {
+    public Entity(EntitySprite sprite, Position origin, int size) {
         this.sprite = sprite;
         this.pos = origin;
         this.originPos = origin;
         this.size = size;
-        
-        this.ani = new Animation(sprite.getSprite(state));
-        this.ani.setDelay(aniDelay);
-        this.state = state;
-        this.currentState = state;
         this.dx0 = pos.getX();
         this.dy0 = pos.getY();
         this.previousY = dx0;
         this.previousX = dy0;
         this.tc = new TileCollision(this);
+        this.ani = new Animation();
+        
     }
-
-    public Entity(EntitySprite sprite, Position origin, int size) {
-        this.sprite = sprite;
-        pos = origin;
-        this.size = size;
-        this.ani = new Animation(sprite.getSprite(state));
-    }
+//
+//    public Entity(EntitySprite sprite, Position origin, int size) {
+//        this.sprite = sprite;
+//        pos = origin;
+//        this.size = size;
+//        this.ani = new Animation(sprite.getSprite(state));
+//    }
 
     public void setSprite(EntitySprite sprite) { this.sprite = sprite; }
-    public void setDead() { state = EntityState.DEAD; }
+    public EntitySprite getSprite() { return sprite; }
+    public void setDeadAniEnded( boolean b) { deadAniEnded = b; }
     public void setSize(int i) { size = i; }
     public void setMaxSpeed(float f) { maxSpeed = f; }
     public void setAcc(float f) { acc = f; }
     public int getSize() { return size; }
     public Animation getAnimation() { return ani; }
     public AABB getBounds(){ return bounds; }
+    public void setBounds(AABB bounds){ this.bounds = bounds; }
     public Position getPos(){ return pos; }
-    public boolean getDead(){ return dead; }
+    public boolean getDeadAniEnded(){ return deadAniEnded; }
     public EntityState getState(){ return state; }
+    public void setState(EntityState state){ this.state = state; }
+    public float getTimey(){ return timey; }
+    public float getTimeX(){ return timex; }
+    public void setTimeX(float t){ this.timex = t; }
+    public void setTimeY(float t){ this.timey = t; }
+    public float getVy(){ return vy; }
+    public void setVy(float v){ vy = v; }
+    public float getGravity(){ return gravity; }
+    public void setGravity(float g){ gravity = g; }
+    public TileCollision getTc(){ return tc; }
+    public float getDy(){ return dy; }
+    public float getPreviousY(){ return previousY; }
     
-    public void setAnimation(EntityState state, BufferedImage[] frames, int delay) {
-        this.state = state;
+    
+    
+    public void setAnimation(BufferedImage[] frames, int delay) {
         ani.setFrames(frames);
         ani.setDelay(delay);
     }
 
-    //Setta l'animazione sulla base dello stato;
-    public void animate(EntityState state) {
-        if (state != this.currentState) {
-            this.currentState = state;
-            setAnimation(state, sprite.getSprite(state), aniDelay);
-        }
-    }
-
-    public void updateGame(EntityState state) {
-        animate(state);
-        ani.updateGame();
-    }
-
     @Override
     public void updateGame() {
+        state.updateGame();
         ani.updateGame();
     }
-
-    public abstract void isDead();
 }

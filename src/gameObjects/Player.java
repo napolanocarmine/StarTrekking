@@ -131,16 +131,6 @@ public class Player extends Entity{
         vx = maxSpeed;
     }
     
-//    public void setBounds(AABB box){
-//        this.standBounds = box;
-//        this.crouchBounds = new AABB(pos, 16, 12, 40, 44);                       //new AABB(pos, 16, 24, 40, 32);
-//        this.bounds = this.standBounds;
-//    }
-    
-    public void setBounds(AABB bounds){
-        this.bounds = bounds;
-    }
-
     public void hitted() {
         invincible = true;
         visible = false;
@@ -163,6 +153,9 @@ public class Player extends Entity{
     public MusicGame getMg(){ return mg; }
     public AABB getStandBounds(){ return standBounds; }
     public AABB getCrouchBounds(){ return crouchBounds; }
+    public void setStandBounds(AABB bounds){ standBounds = bounds; }
+    public void setCrouchBounds(AABB bounds){ crouchBounds = bounds; }
+    public void setBounds(AABB bounds){ this.bounds = bounds; }
     
     public void deleteShot(Shot s) {
         shots.remove(s);

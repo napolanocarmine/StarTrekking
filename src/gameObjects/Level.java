@@ -62,7 +62,9 @@ public class Level extends Assembly{
                 groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(9500, groundY) , 96));
                 break;
             case 2:
-                player.setBounds(new AABB(player.getPos(), 16, 24, 40, 32));
+                player.setStandBounds(new AABB(player.getPos(), 16, 24, 40, 32));
+                player.setCrouchBounds(new AABB(player.getPos(), 16, 12, 40, 44));
+                player.setBounds(player.getStandBounds());
                 tf = new TileFacade("tiles/LevelTwo.xml");
                 enemieSprite = new EntitySprite("entity/skeleton", 64, 64);
                 int enemieSize = 96;

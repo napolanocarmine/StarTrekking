@@ -16,6 +16,7 @@ import entitycommand.CrouchPlayerCommand;
 import entitycommand.JumpPlayerCommand;
 import entitycommand.RunPlayerCommand;
 import gameObjects.Player;
+import gameObjects.entityState.PlayerDeadState;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -114,7 +115,7 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyReleased(KeyEvent ke) {
         pressed = false;
-        if (ke.getKeyCode() == 17) {
+        if (ke.getKeyCode() == 17 && !(player.getState() instanceof PlayerDeadState)) {
             this.cmdInvoker.setCommand(runPlayerC);
         }
     }

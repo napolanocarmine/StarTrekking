@@ -10,6 +10,8 @@ import javax.swing.*;
 /**
  *
  * @author StarTrekking
+ *
+ * Abstract class describing objects and actions performed on a State object
  */
 public abstract class State {
 
@@ -29,8 +31,8 @@ public abstract class State {
     public void setJPanel(JPanel panel) {
         this.panel = panel;
     }
-    
-    public void setGSM(GameStateManager gsm){
+
+    public void setGSM(GameStateManager gsm) {
         this.gsm = gsm;
     }
 }

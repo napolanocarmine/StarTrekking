@@ -5,68 +5,69 @@
  */
 package panels;
 
-
 import gamestate.SelectionLevelState;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JComponent;
 
 /**
  *
- * @author Gianluca
+ * @author StarTrekking
+ *
+ * Class that represents the panel of the selection level
  */
 public class SelectionLevelPanel extends javax.swing.JPanel {
+
     private SelectionLevelState state;
     private BufferedImage screen;
+
     /**
      * Creates new form SelectLevelPanel
+     *
+     * @param path is the parameter to obtain the file path of resources
+     * @param state is the selection level state to pass to the panel
+     * @throws java.io.IOException when there's an error opening a file
      */
     public SelectionLevelPanel(String path, SelectionLevelState state) throws IOException {
-        
+
         initComponents();
-        
+
         this.state = state;
         screen = ImageIO.read(getClass().getResource("/screen/forest.png"));
-        
+
         BufferedImage levelIcon = ImageIO.read(getClass().getResource("/menuIcon/levels.png"));
         BufferedImage levelOneIcon = ImageIO.read(getClass().getResource("/menuIcon/level_one_black.png"));
         BufferedImage levelTwoIcon = ImageIO.read(getClass().getResource("/menuIcon/level_two_black.png"));
         BufferedImage levelThreeIcon = ImageIO.read(getClass().getResource("/menuIcon/level_three_black.png"));
         BufferedImage backMenuIcon = ImageIO.read(getClass().getResource("/menuIcon/back_black.png"));
-        
+
         titleLabel1.setIcon(new javax.swing.ImageIcon(levelIcon));
         levelOneButton.setIcon(new javax.swing.ImageIcon(levelOneIcon));
         levelTwoButton.setIcon(new javax.swing.ImageIcon(levelTwoIcon));
         levelThreeButton.setIcon(new javax.swing.ImageIcon(levelThreeIcon));
         backMainMenuButton.setIcon(new javax.swing.ImageIcon(backMenuIcon));
-        
+
         titleLabel1.setBorder(null);
         levelOneButton.setBorder(null);
         levelTwoButton.setBorder(null);
         levelThreeButton.setBorder(null);
         backMainMenuButton.setBorder(null);
-        
-        
+
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         this.setVisible(true);
-        this.setSize( screen.getWidth(),screen.getHeight());
+        this.setSize(screen.getWidth(), screen.getHeight());
     }
-    
 
     @Override
     public void paintComponent(Graphics g) {
         g.drawImage(screen, 0, 0, null);
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -203,7 +204,7 @@ public class SelectionLevelPanel extends javax.swing.JPanel {
 
     private void backMainMenuButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMainMenuButtonMouseEntered
         BufferedImage level = null;
-        
+
         try {
             level = ImageIO.read(getClass().getResource("/menuIcon/back_yellow.png"));
         } catch (IOException ex) {

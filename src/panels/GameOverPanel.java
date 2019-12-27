@@ -8,48 +8,51 @@ package panels;
 import gamestate.GameOverState;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.swing.JComponent;
 
 /**
  *
- * @author Gianluca
+ * @author StarTrekking
+ *
+ * Class to define the panel when the the game pass in the game over state
  */
 public class GameOverPanel extends javax.swing.JPanel {
 
     private final GameOverState state;
     private BufferedImage screen;
+
     /**
      * Creates new form GameOverPanel
+     *
+     * @param state is the state in which the game must go
+     * @throws java.io.IOException if the application can't read some files
      */
     public GameOverPanel(GameOverState state) throws IOException {
         this.state = state;
-        
+
         screen = ImageIO.read(getClass().getResource("/screen/forest.png"));
-        
-        
+
         initComponents();
-        BufferedImage gameOverIcon=ImageIO.read(getClass().getResource("/menuIcon/gameover.png"));
+        BufferedImage gameOverIcon = ImageIO.read(getClass().getResource("/menuIcon/gameover.png"));
         BufferedImage menuIcon = ImageIO.read(getClass().getResource("/menuIcon/back_black.png"));
         BufferedImage restartIcon = ImageIO.read(getClass().getResource("/menuIcon/restart_black.png"));
-        
+
         titleLabel1.setIcon(new javax.swing.ImageIcon(gameOverIcon));
-      
+
         mainMenuButton.setIcon(new javax.swing.ImageIcon(menuIcon));
         mainMenuButton.setBorder(null);
         restartButton.setIcon(new javax.swing.ImageIcon(restartIcon));
         restartButton.setBorder(null);
-        
+
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         this.setVisible(true);
-        this.setSize( screen.getWidth(),screen.getHeight());
+        this.setSize(screen.getWidth(), screen.getHeight());
     }
 
     /**
@@ -140,8 +143,7 @@ public class GameOverPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void titleLabel1buttonPressedHandler(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_titleLabel1buttonPressedHandler
-        // TODO add your handling code here:
-        //this.setIconImage(image);
+
     }//GEN-LAST:event_titleLabel1buttonPressedHandler
 
     private void restartButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_restartButtonMouseEntered
@@ -204,10 +206,8 @@ public class GameOverPanel extends javax.swing.JPanel {
         state.handleNext(1);
     }//GEN-LAST:event_mainMenuButtonActionPerformed
 
-
-    
     @Override
-    public void paintComponent(Graphics g){
+    public void paintComponent(Graphics g) {
         g.drawImage(screen, 0, 0, null);
     }
 

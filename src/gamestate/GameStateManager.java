@@ -6,7 +6,6 @@
 package gamestate;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import music.MusicGame;
 import panels.*;
 
@@ -62,9 +61,9 @@ public class GameStateManager {
         this.gameState = gameState;
 
         if (getState() instanceof MainMenuState) {
-                mg.stop();
-                mg.setMusic("MainMenu");
-                mg.play();
+            mg.stop();
+            mg.setMusic("MainMenu");
+            mg.play();
         }
 
         if (getState() instanceof StoryPlayState && StoryPlayState.level == 1) {

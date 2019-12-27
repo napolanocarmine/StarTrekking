@@ -8,21 +8,23 @@ package gamestate;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import panels.GameFrame;
 import panels.GamePanel;
 import javax.swing.SwingUtilities;
 
 /**
  *
  * @author Star Trekking
+ *
+ * Class to describe the state of the game during he story mode
  */
 public class StoryPlayState extends State {
 
     public static int level;
+
     /**
-     * Create the Panel on which the Level is runned.
+     * Create the Panel on which the Level is run.
      */
-    public StoryPlayState(int level){
+    public StoryPlayState(int level) {
         this.level = level;
         this.panel = new GamePanel(this);
     }
@@ -38,24 +40,24 @@ public class StoryPlayState extends State {
             codice che gestisce il prossimo stato,
             per questo sprint quando il maghetto muore da settare al Game-Over.
          */
-         if(code == 1){
+        if (code == 1) {
             SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    gsm.setState(new GameOverState());
-                } catch (IOException ex) {
-                    Logger.getLogger(StoryPlayState.class.getName()).log(Level.SEVERE, null, ex);
+                @Override
+                public void run() {
+                    try {
+                        gsm.setState(new GameOverState());
+                    } catch (IOException ex) {
+                        Logger.getLogger(StoryPlayState.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
-            }
             });
-         }
-     };
+        }
+    }
+
+    ;
     
-    //Non so se per il play va settato.
     @Override
     public void handlePrevious(int code) {
     }
-    
 
 }

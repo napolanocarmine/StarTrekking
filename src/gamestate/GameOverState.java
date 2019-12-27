@@ -7,8 +7,6 @@ package gamestate;
 
 import panels.GameOverPanel;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -22,11 +20,10 @@ public class GameOverState extends State {
     /**
      * Create the Panel, which represents the Game Over Menu.
      *
-     * @param gsm gsm represent the gsm that managed this state
+     * @throws java.io.IOException
      */
     public GameOverState() throws IOException {
         this.panel = new GameOverPanel(this);
-        //metodo che inizializza le componenti del JPanel;
     }
 
     /**
@@ -39,9 +36,7 @@ public class GameOverState extends State {
      */
     @Override
     public void handleNext(int code) {
-        /*
-            codice che gestisce il prossimo stato,
-         */
+        //code to manage the next state
         int level = StoryPlayState.level;
         if (code == 0) {
             gsm.setState(new StoryPlayState(level));
@@ -54,7 +49,6 @@ public class GameOverState extends State {
 
     }
 
-    //Non so se per il game over va settato.
     @Override
     public void handlePrevious(int code) {
     }

@@ -2,41 +2,38 @@ package panels;
 
 import gameObjects.GroundEnemy;
 import gameObjects.Level;
-import gamestate.State;
 import gamestate.StoryPlayState;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Logger;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-import startrekking.GameLauncher;
 import util.KeyHandler;
 
+/**
+ *
+ * @author StarTrekking
+ *
+ * Class responsible to open and draw the frame and manage the updating thread
+ * of the User Interface
+ *
+ * Operations: - update in loop of the Map and Entity; - manage the refers to
+ * Map, Entity, KeyHandler and TileFacade objects
+ */
 public class GamePanel extends JPanel implements Runnable {
 
-    /*
-    Responsabilità:
-    aprire e disegnare il frame, thread di aggiornamento
-    
-    Operazioni:
-    1- update ciclico di Map e Entity
-    2- Riferimenti di oggetti Map, Entity, KeyHandler, TileFacade
-     */
-    //dimensione finestra
-    
+    //window dimensions    
     public static float unitTime = 700000000;
 
     public static final int WIDTH = GameFrame.WIDTH;
     public static final int HEIGHT = GameFrame.HEIGHT;
 
-    //nome JFrame
+    //JFrame name
     public static final String NAME = "STAR TREKKING";
-    
+
     public static int oldFrameCount;
 
     private Thread thread;
@@ -45,12 +42,16 @@ public class GamePanel extends JPanel implements Runnable {
     private BufferedImage img;
     private Graphics2D g;
 
-    
-    private ArrayList<GroundEnemy> goblins; 
+    private ArrayList<GroundEnemy> goblins;
     private StoryPlayState sps;
     private Level level;
     private KeyHandler key;
 
+    /**
+     *
+     * @param sps is the state of the game for a story mode This method
+     * initializes an array to keep refers to enemies
+     */
     public GamePanel(StoryPlayState sps) {
         this.goblins = new ArrayList<>();
         this.sps = sps;
@@ -61,6 +62,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     }
 
+    /**
+     * Method to start a new thread that manages the behavior of the game
+     */
     public final void startThread() {
         if (thread == null) {
             thread = new Thread(this, "GameThread");
@@ -74,17 +78,23 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    /**
+     * Method to initialize the image shown as background
+     */
     public void init() {
         running = true;
 
         img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
         g = (Graphics2D) img.getGraphics();
-        
+
         setKeyH();
         this.level = new Level(this);
     }
-    
-    private void setKeyH(){
+
+    /**
+     * Method to add a KeyListner object to capture pressed keys
+     */
+    private void setKeyH() {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -95,11 +105,14 @@ public class GamePanel extends JPanel implements Runnable {
         key = new KeyHandler();
         addKeyListener(key);
     }
-    
-    public KeyHandler getKeyH(){
+
+    public KeyHandler getKeyH() {
         return key;
     }
 
+    /**
+     * Method that updates the UI for each frame
+     */
     @Override
     public void run() {
 
@@ -134,19 +147,16 @@ public class GamePanel extends JPanel implements Runnable {
             if (now - lastUpdateTime > TBU) {
                 lastUpdateTime = now - TBU;
             }
-            
+
 //            render(g);
 //            draw();
             render();
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                   repaint(); 
+                    repaint();
                 }
             });
-            
-            
-            
 
             lastRenderTime = now;
             frameCount++;
@@ -184,28 +194,46 @@ public class GamePanel extends JPanel implements Runnable {
     public void render() {
         if (g != null) {
             level.render(g);
-        }   
+        }
     }
-    
-    
-    @Override   
-    public void paintComponent(Graphics g){
+
+    @Override
+    public void paintComponent(Graphics g) {
         super.paintComponents(g);
         g.drawImage(img, 0, 0, WIDTH, HEIGHT, null);
         g.dispose();
     }
 
-    public static int getWIDTH() { return WIDTH; }
-    public static int getHEIGHT() { return HEIGHT; }
-    public Thread getThread(){ return thread; }
-    public void setState(int code) { sps.handleNext(code); }
-    
-//
-//    public static void main(String[] args) {
-//        GamePanel gamePanel = new GamePanel();
-//    }
+    /**
+     *
+     * @return the width of the frame
+     */
+    public static int getWIDTH() {
+        return WIDTH;
+    }
 
+    /**
+     *
+     * @return the height of the frame
+     */
+    public static int getHEIGHT() {
+        return HEIGHT;
+    }
+
+    /**
+     *
+     * @return the refers to the thread
+     */
+    public Thread getThread() {
+        return thread;
+    }
+
+    /**
+     *
+     * @param code about which is the next state
+     */
+    public void setState(int code) {
+        sps.handleNext(code);
+    }
 
 }
-
-

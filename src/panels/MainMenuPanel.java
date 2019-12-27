@@ -8,58 +8,57 @@ package panels;
 import gamestate.MainMenuState;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JComponent;
 import music.MusicGame;
 
 /**
  *
- * @author Gianluca
+ * @author StarTrekking
+ *
+ * Class that represents the Main Menu panel keeping refers to the image shown
+ * and the music background
  */
 public class MainMenuPanel extends javax.swing.JPanel {
 
     private final MainMenuState state;
     private BufferedImage screen;
     public MusicGame mg;
+
     /**
      * Creates new form MainMenuPanel
+     *
+     * @param state is the state of the game about the main menu
+     * @throws java.io.IOException when there's an error due to open a file
      */
     public MainMenuPanel(MainMenuState state) throws IOException {
         initComponents();
         this.state = state;
         screen = ImageIO.read(getClass().getResource("/screen/forest.png"));
-        
+
         initComponents();
-        
-        
+
         BufferedImage storyModeIcon = ImageIO.read(getClass().getResource("/menuIcon/story_mode_black.png"));
         BufferedImage exitIcon = ImageIO.read(getClass().getResource("/menuIcon/exit_black.png"));
         BufferedImage titleIcon = ImageIO.read(getClass().getResource("/menuIcon/startrekking.png"));
-        
-        
+
         storyModeButton.setIcon(new javax.swing.ImageIcon(storyModeIcon));
         exitButton.setIcon(new javax.swing.ImageIcon(exitIcon));
         storyModeButton.setBorder(null);
         exitButton.setBorder(null);
         titleLabel.setIcon(new javax.swing.ImageIcon(titleIcon));
-        
+
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         this.setVisible(true);
         this.setSize(screen.getWidth(), screen.getHeight());
-        
-        
+
         //mg.setMusic("MainMenu");
         //mg.play();
-        
     }
 
     /**
@@ -220,9 +219,9 @@ public class MainMenuPanel extends javax.swing.JPanel {
 
         state.handleNext(1);
     }//GEN-LAST:event_exitButtonActionPerformed
-    
+
     @Override
-    public void paintComponent(Graphics g){
+    public void paintComponent(Graphics g) {
         g.drawImage(screen, 0, 0, null);
     }
 

@@ -6,10 +6,7 @@
 package gamestate;
 
 import panels.MainMenuPanel;
-import java.awt.Color;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -20,6 +17,7 @@ import java.util.logging.Logger;
  * Class which represents the state in which the game shows the main menu.
  */
 public class MainMenuState extends State {
+
     /**
      * Create the Main Menu.
      */
@@ -43,7 +41,6 @@ public class MainMenuState extends State {
         }
     }
 
-    //Non so se per il main menu va settato.
     @Override
     public void handlePrevious(int code) {
     }

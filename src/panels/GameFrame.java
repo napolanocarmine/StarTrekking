@@ -3,34 +3,33 @@ package panels;
 import gamestate.ExitState;
 import gamestate.GameStateManager;
 import gamestate.MainMenuState;
-import gamestate.SelectionLevelState;
 import gamestate.State;
-import gamestate.StoryPlayState;
 import java.awt.*;
 import java.io.IOException;
 import javax.swing.*;
-import util.KeyHandler;
 
-public final class GameFrame extends JFrame{
+/**
+ *
+ * @author StarTrekking Class to open and draw the frame and to update the
+ * thread
+ */
+public final class GameFrame extends JFrame {
 
-    /*
-    Responsabilità:
-    aprire e disegnare il frame, thread di aggiornamento
-    
-    Operazioni:
-    1- update ciclico di Map e Entity
-    2- Riferimenti di oggetti Map, Entity, KeyHandler, TileFacade
-     */
-    //dimensione finestra
+    //window dimensions
     public static final int WIDTH = 960;
     public static final int HEIGHT = 560;
-    //nome JFrame
+    //JFrame name
     public static final String NAME = "STAR TREKKING";
     private JPanel gamePanel;
     private GameStateManager gms;
     private State s;
-    
-    
+
+    /**
+     *
+     * @throws IOException Constructor of the class Update in loop of Map and
+     * Entity and it has refers to Map, Entity, KeyHandler and TileFacade
+     * objects
+     */
     public GameFrame() throws IOException {
         setTitle(NAME);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -40,27 +39,25 @@ public final class GameFrame extends JFrame{
         setLocationRelativeTo(null);
         setVisible(true);
         pack();
-        
-        this.s = new MainMenuState();    
+
+        this.s = new MainMenuState();
         this.gms = new GameStateManager(s);
         this.setContentPane(s.getPanel());
-        gms.setListener(new GsmListener(){
+        gms.setListener(new GsmListener() {
             @Override
-            public void stateChanged(State s){
+            public void stateChanged(State s) {
                 gamePanel = s.getPanel();
                 setContentPane(gamePanel);
                 pack();
                 revalidate();
                 repaint();
-                
-                if (s instanceof ExitState){
+
+                if (s instanceof ExitState) {
                     dispose();
                 }
             }
         });
-        
+
     }
-    
-    
-    
+
 }

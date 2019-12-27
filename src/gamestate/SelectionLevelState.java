@@ -12,14 +12,20 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Gianluca
+ * @author StarTrekking
+ *
+ * Class to define the state of the game in which one playable level can be
+ * choose
  */
 public class SelectionLevelState extends State {
 
-    public SelectionLevelState(){
-        try{
+    /**
+     * Initialize the background with a picture
+     */
+    public SelectionLevelState() {
+        try {
             this.panel = new SelectionLevelPanel("/screen/forest.png", this);
-        }catch(IOException e){
+        } catch (IOException e) {
             System.out.print(e);
         }
     }
@@ -31,14 +37,14 @@ public class SelectionLevelState extends State {
      * @param code button code
      */
     @Override
-    public void handleNext(int code){
-        if(code == 4){
+    public void handleNext(int code) {
+        if (code == 4) {
             try {
                 gsm.setState((new MainMenuState()));
             } catch (IOException ex) {
                 Logger.getLogger(SelectionLevelState.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }else{
+        } else {
             gsm.setState(new StoryPlayState(code));
         }
     }

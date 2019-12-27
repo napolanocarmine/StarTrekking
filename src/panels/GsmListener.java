@@ -9,8 +9,12 @@ import gamestate.State;
 
 /**
  *
- * @author Gianluca
+ * @author StarTrekking
+ *
+ * Interface about the behavior of a GameStateManager on the changing of the
+ * state
  */
 public interface GsmListener {
+
     public void stateChanged(State s);
 }

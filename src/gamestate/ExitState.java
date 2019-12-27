@@ -9,7 +9,8 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author Gianluca
+ * @author StarTrekking
+ * Class that represents the state of the game about the exit state
  */
 public class ExitState extends State {
 

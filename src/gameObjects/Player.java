@@ -199,8 +199,8 @@ public class Player extends Entity{
     public void render(Graphics2D g) {  //draw the player in the panel
         if (visible == true) {
             g.drawImage(ani.getImage(), (int) pos.getWorldVar().getX(), (int) pos.getWorldVar().getY(), size, size, null);
-            g.setColor(Color.blue);
-            g.drawRect((int) (pos.getWorldVar().getX() + bounds.getXOffset()), (int) (pos.getWorldVar().getY() + bounds.getYOffset()), (int) bounds.getWidth(), (int) bounds.getHeight());
+//            g.setColor(Color.blue);
+//            g.drawRect((int) (pos.getWorldVar().getX() + bounds.getXOffset()), (int) (pos.getWorldVar().getY() + bounds.getYOffset()), (int) bounds.getWidth(), (int) bounds.getHeight());
         }
 
         if (!shots.isEmpty()) {

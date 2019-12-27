@@ -8,7 +8,10 @@ package entitycommand;
 /**
  *
  * @author Star Trekking
+ *
+ * Interface which keep a method about the Command pattern
  */
 public interface Command {
+
     public void execute();
 }

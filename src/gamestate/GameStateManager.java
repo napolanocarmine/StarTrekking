@@ -6,7 +6,9 @@
 package gamestate;
 
 import java.io.IOException;
-import panels.GsmListener;
+import java.util.ArrayList;
+import music.MusicGame;
+import panels.*;
 
 /**
  *
@@ -19,6 +21,7 @@ public class GameStateManager {
 
     private State gameState;
     private GsmListener listener;
+    private MusicGame mg = new MusicGame("MainMenu");
 
     /**
      * Create a new GameStateManager and initialize the initial state
@@ -29,6 +32,7 @@ public class GameStateManager {
         this.listener = null;
         this.gameState = gameState;
         gameState.setGSM(this);
+        setState(gameState);
     }
 
     /**
@@ -56,16 +60,40 @@ public class GameStateManager {
      */
     public void setState(State gameState) {
         this.gameState = gameState;
-        if (listener != null){
+
+        if (getState() instanceof MainMenuState) {
+                mg.stop();
+                mg.setMusic("MainMenu");
+                mg.play();
+        }
+
+        if (getState() instanceof StoryPlayState && StoryPlayState.level == 1) {
+            mg.stop();
+            mg.setMusic("LevelOne");
+            mg.play();
+        }
+
+        if (getState() instanceof StoryPlayState && StoryPlayState.level == 2) {
+            mg.stop();
+            mg.setMusic("LevelTwo");
+            mg.play();
+        }
+
+        if (getState() instanceof GameOverState) {
+            mg.stop();
+            mg.setMusic("MainMenu");
+            mg.play();
+        }
+
+        if (listener != null) {
             gameState.setGSM(this);
             System.out.println(gameState);
             listener.stateChanged(gameState);
         }
     }
 
-    public void setListener(GsmListener l){
-        this.listener= l;
+    public void setListener(GsmListener l) {
+        this.listener = l;
     }
-    
-    
+
 }

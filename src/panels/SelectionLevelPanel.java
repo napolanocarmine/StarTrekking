@@ -203,7 +203,7 @@ public class SelectionLevelPanel extends javax.swing.JPanel {
 
     private void backMainMenuButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMainMenuButtonMouseEntered
         BufferedImage level = null;
-
+        
         try {
             level = ImageIO.read(getClass().getResource("/menuIcon/back_yellow.png"));
         } catch (IOException ex) {

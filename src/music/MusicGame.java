@@ -19,6 +19,21 @@ import javax.sound.sampled.Clip;
 public class MusicGame {
 
     private Clip clip;
+    private String name;
+
+    /*
+        Costruttore di default usato per la gestione degli effetti del Player
+    */
+    public MusicGame() {
+    }
+    
+    /*
+        Costruttore utilizzato per la gestione degli effetti dei menu (inizializzazione audio Main Menu)
+    */
+    public MusicGame(String music){
+        this.name = music;
+        setMusic(this.name);
+    }
 
     public void setMusic(String nameMusic) {
         try {
@@ -26,6 +41,7 @@ public class MusicGame {
             clip = AudioSystem.getClip();
             clip.open(audio);
         } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+            e.printStackTrace();
         }
     }
 

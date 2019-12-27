@@ -18,6 +18,7 @@ import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
+import music.MusicGame;
 
 /**
  *
@@ -27,6 +28,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
 
     private final MainMenuState state;
     private BufferedImage screen;
+    public MusicGame mg;
     /**
      * Creates new form MainMenuPanel
      */
@@ -53,6 +55,10 @@ public class MainMenuPanel extends javax.swing.JPanel {
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         this.setVisible(true);
         this.setSize(screen.getWidth(), screen.getHeight());
+        
+        
+        //mg.setMusic("MainMenu");
+        //mg.play();
         
     }
 

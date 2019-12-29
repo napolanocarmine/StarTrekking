@@ -9,6 +9,7 @@ import panels.SelectionLevelPanel;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import music.MusicGame;
 
 /**
  *
@@ -17,17 +18,19 @@ import java.util.logging.Logger;
  * Class to define the state of the game in which one playable level can be
  * choose
  */
-public class SelectionLevelState extends State {
+public class SelectionLevelState extends GameState {
 
     /**
      * Initialize the background with a picture
      */
-    public SelectionLevelState() {
+    public SelectionLevelState(GameStateManager gsm) {
         try {
             this.panel = new SelectionLevelPanel("/screen/forest.png", this);
         } catch (IOException e) {
             System.out.print(e);
         }
+        this.gsm = gsm;
+        this.mg = new MusicGame("MainMenu");
     }
 
     /**
@@ -38,14 +41,16 @@ public class SelectionLevelState extends State {
      */
     @Override
     public void handleNext(int code) {
+        this.stopMusic();
         if (code == 4) {
-            try {
-                gsm.setState((new MainMenuState()));
-            } catch (IOException ex) {
-                Logger.getLogger(SelectionLevelState.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            gsm.setState(gsm.getMms());
         } else {
-            gsm.setState(new StoryPlayState(code));
+            gsm.setState(gsm.getSps());
         }
+    }
+
+    @Override
+    public void handlePrevious(int code) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

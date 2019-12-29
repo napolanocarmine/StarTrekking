@@ -13,26 +13,7 @@ import javax.swing.*;
  *
  * Abstract class describing objects and actions performed on a State object
  */
-public abstract class State {
-
-    protected JPanel panel;
-    protected GameStateManager gsm;
-
-    public void handleNext(int code) {
-    }
-
-    public void handlePrevious(int code) {
-    }
-
-    public JPanel getPanel() {
-        return panel;
-    }
-
-    public void setJPanel(JPanel panel) {
-        this.panel = panel;
-    }
-
-    public void setGSM(GameStateManager gsm) {
-        this.gsm = gsm;
-    }
+public interface State {
+    public void handleNext(int code);
+    public void handlePrevious(int code);
 }

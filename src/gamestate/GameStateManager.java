@@ -6,7 +6,6 @@
 package gamestate;
 
 import java.io.IOException;
-import music.MusicGame;
 import panels.*;
 
 /**
@@ -18,42 +17,86 @@ import panels.*;
  */
 public class GameStateManager {
 
-    private State gameState;
+    private GameState mms;
+    private StoryPlayState sps;
+    private GameState gos;
+    private GameState ps;
+    private GameState vs;
+    private GameState sls;
+    private GameState es;
     private GsmListener listener;
-    private MusicGame mg = new MusicGame("MainMenu");
+    private GameState currentState;
 
     /**
      * Create a new GameStateManager and initialize the initial state
      *
      * @param gameState Initial state.
      */
-    public GameStateManager(State gameState) {
+    public GameStateManager() throws IOException {
         this.listener = null;
-        this.gameState = gameState;
-        gameState.setGSM(this);
-        setState(gameState);
+        this.mms = new MainMenuState(this);
+        this.sps = new StoryPlayState(1,this);
+        this.gos = new GameOverState(this);
+        this.ps = new PauseState(this);
+        this.vs = new VictoryState(this);
+        this.sls = new SelectionLevelState(this);
+        this.es = new ExitState(this);
+        this.currentState = mms;
+        currentState.set();
     }
 
     /**
      * Create a new GameStateManager and initialize the initial state to
      * MainMenuState.
      */
+    /*
     public GameStateManager() throws IOException {
         this.listener = null;
         this.gameState = new MainMenuState();
-    }
+    }*/
 
     /**
      * Return the current game state.
      *
      * @return the current State.
      */
+    /*
     public State getState() {
         return gameState;
+    }*/
+
+    public GameState getMms() {
+        return mms;
     }
-    
-    public MusicGame getMusicGame(){
-        return mg;
+
+    public StoryPlayState getSps() {
+        return sps;
+    }
+
+    public GameState getGos() {
+        return gos;
+    }
+
+    public GameState getPs() {
+        return ps;
+    }
+
+    public GameState getVs() {
+        return vs;
+    }
+
+    public GameState getSls() {
+        return sls;
+    }
+
+    public GsmListener getListener() {
+        return listener;
+    }
+
+
+
+    public GameState getEs() {
+        return es;
     }
 
     /**
@@ -61,48 +104,20 @@ public class GameStateManager {
      *
      * @param gameState represents the current state to be setted.
      */
-    public void setState(State gameState) {
-        this.gameState = gameState;
-
-        if (getState() instanceof MainMenuState) {
-            mg.stop();
-            mg.setMusic("MainMenu");
-            mg.play();
-        }
-
-        if (getState() instanceof StoryPlayState && StoryPlayState.level == 1) {
-            mg.stop();
-            mg.setMusic("LevelOne");
-            mg.play();
-        }
-
-        if (getState() instanceof StoryPlayState && StoryPlayState.level == 2) {
-            mg.stop();
-            mg.setMusic("LevelTwo");
-            mg.play();
-        }
+    public void setState(GameState gameState) {
+        this.currentState = gameState;
         
-        if (getState() instanceof StoryPlayState && StoryPlayState.level == 2) {
-            mg.stop();
-            mg.setMusic("LevelThree");
-            mg.play();
-        }
-
-        if (getState() instanceof GameOverState) {
-            mg.stop();
-            mg.setMusic("MainMenu");
-            mg.play();
-        }
-
         if (listener != null) {
-            gameState.setGSM(this);
-            System.out.println(gameState);
             listener.stateChanged(gameState);
         }
     }
 
     public void setListener(GsmListener l) {
         this.listener = l;
+    }
+
+    public GameState getCurrentState() {
+        return currentState;
     }
 
 }

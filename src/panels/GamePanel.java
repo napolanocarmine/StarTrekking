@@ -9,6 +9,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import util.KeyHandler;
@@ -37,7 +38,7 @@ public class GamePanel extends JPanel implements Runnable {
     public static int oldFrameCount;
 
     private Thread thread;
-    private boolean running = false;
+    private boolean running;
 
     private BufferedImage img;
     private Graphics2D g;
@@ -45,6 +46,8 @@ public class GamePanel extends JPanel implements Runnable {
     private StoryPlayState sps;
     private Level level;
     private KeyHandler key;
+    private boolean pause;
+    
 
     /**
      *
@@ -54,9 +57,12 @@ public class GamePanel extends JPanel implements Runnable {
     public GamePanel(StoryPlayState sps) {
         this.sps = sps;
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        this.running = false;
+        this.pause = false;
         setFocusable(true);
         requestFocus();
-        startThread();
+        key = new KeyHandler(sps);
+        //startThread();
 
     }
 
@@ -70,9 +76,10 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    public final void stopThread() {
+    public final void restart() {
         if (thread != null) {
-            thread.stop();
+            init();
+            setPause(true);
         }
     }
 
@@ -100,10 +107,9 @@ public class GamePanel extends JPanel implements Runnable {
                 requestFocusInWindow();
             }
         });
-        key = new KeyHandler();
         addKeyListener(key);
     }
-
+    
     public KeyHandler getKeyH() {
         return key;
     }
@@ -133,7 +139,9 @@ public class GamePanel extends JPanel implements Runnable {
         oldFrameCount = 0;
 
         while (running) {
-
+            //System.out.println("VEDO SE MI INTRAPPOLO");
+            isInPause();
+            //System.out.println("PROCEDO");
             double now = System.nanoTime();
             int updateCount = 0;
             while (((now - lastUpdateTime) > TBU) && (updateCount < MUBR)) {
@@ -233,5 +241,26 @@ public class GamePanel extends JPanel implements Runnable {
     public void setState(int code) {
         sps.handleNext(code);
     }
-
+    
+    private synchronized void isInPause(){
+        while(pause){
+            try {
+                System.out.println("ENTRO IN PAUSA, ADDIO");
+                wait();
+                System.out.println("PIPPO");
+            } catch (InterruptedException ex) {
+                System.out.println("INTERRUPTED EXCEPTION");
+            }
+        }
+        setKeyH();
+        
+        
+    }
+    
+    
+    public synchronized void setPause(boolean pause){
+        this.pause = pause;
+        notifyAll();
+    }
+    
 }

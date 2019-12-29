@@ -17,16 +17,16 @@ import javax.swing.SwingUtilities;
  *
  * Class to describe the state of the game during he story mode
  */
-public class StoryPlayState extends State {
+public class StoryPlayState extends GameState {
 
     public static int level;
-
     /**
      * Create the Panel on which the Level is run.
      */
-    public StoryPlayState(int level) {
+    public StoryPlayState(int level, GameStateManager gsm ) {
         this.level = level;
         this.panel = new GamePanel(this);
+        this.gsm = gsm; 
     }
 
     /**
@@ -44,11 +44,15 @@ public class StoryPlayState extends State {
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    try {
-                        gsm.setState(new GameOverState());
-                    } catch (IOException ex) {
-                        Logger.getLogger(StoryPlayState.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    gsm.setState(gsm.getGos());
+                }
+            });
+        }
+        if (code == 2) {
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    gsm.setState(gsm.getPs());
                 }
             });
         }
@@ -58,6 +62,26 @@ public class StoryPlayState extends State {
     
     @Override
     public void handlePrevious(int code) {
+    }
+    
+    public synchronized void pause(){
+        /*
+        1) 
+        2) settare variabile lock a true
+        3) lock.notifyAll()
+        4) handle next --> GSM stato di pausa.
+        */
+        ((GamePanel)panel).setPause(true);
+        this.handleNext(2);
+        notifyAll();
+    }
+    
+    @Override 
+    public void set(){
+        //super.set();
+        ((GamePanel) panel).startThread();
+        ((GamePanel) panel).setPause(false);
+        
     }
 
 }

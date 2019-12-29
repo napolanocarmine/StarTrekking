@@ -5,19 +5,15 @@
  */
 package gamestate;
 
-import javax.swing.JPanel;
-
 /**
  *
- * @author StarTrekking
- * Class that represents the state of the game about the exit state
+ * @author Gianluca
  */
-public class ExitState extends GameState {
-
-
-    public ExitState(GameStateManager gsm) {
+public class VictoryState extends GameState {
+    private GameStateManager gsm; 
+    
+    public VictoryState(GameStateManager gsm) {
         this.gsm = gsm;
-        this.panel = new JPanel();
     }
 
     @Override
@@ -29,5 +25,7 @@ public class ExitState extends GameState {
     public void handlePrevious(int code) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
 
+    
 }

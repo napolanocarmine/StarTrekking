@@ -17,6 +17,7 @@ import entitycommand.JumpPlayerCommand;
 import entitycommand.RunPlayerCommand;
 import gameObjects.Player;
 import gameObjects.entityState.PlayerDeadState;
+import gamestate.StoryPlayState;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -33,22 +34,26 @@ public class KeyHandler implements KeyListener {
     private Command attackPlayerC;
     private Command runPlayerC;
     private CommandInvoker cmdInvoker;
+    private StoryPlayState sps;
     
-    public KeyHandler(){
+    public KeyHandler(StoryPlayState sps){
         this.cmdInvoker = new CommandInvoker();
+        this.sps = sps;
     }
     
     /**
      * KeyHandler's constructor
      * @param player object that KeyHandler must manage;
      */
-    public KeyHandler(Player player) {
+    public KeyHandler(Player player, StoryPlayState sps) {
         this.player = player;
         this.jumpPlayerC = new JumpPlayerCommand(player);
         this.crouchPlayerC = new CrouchPlayerCommand(player);
         this.attackPlayerC = new AttackPlayerCommand(player);
         this.runPlayerC = new RunPlayerCommand(player);
         this.cmdInvoker = new CommandInvoker();
+        this.sps = sps;
+
 //        pressed = false;
 //        key = EntityState.NONE;
 //        currentKey = -1;
@@ -66,6 +71,7 @@ public class KeyHandler implements KeyListener {
         this.runPlayerC = new RunPlayerCommand(player);
         this.cmdInvoker = new CommandInvoker();
     }
+    
     
 
     /**
@@ -100,6 +106,10 @@ public class KeyHandler implements KeyListener {
                 case 88://KeyEvent.VK_X:                          //x -> 88
                     //System.out.println("Attack");
                     this.cmdInvoker.setCommand(attackPlayerC);
+                    pressed = true;
+                    break;
+                case 27:   //esc -> 27
+                    sps.pause();
                     pressed = true;
                     break;
                 default:

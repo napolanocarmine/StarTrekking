@@ -108,7 +108,7 @@ public class Level extends Assembly{
         }
         if(player.getDeadAniEnded()) {
             gp.setState(1);
-            gp.stopThread();
+            gp.restart();
         }
         checkCollision();
         removeEnemies();
@@ -145,7 +145,7 @@ public class Level extends Assembly{
             Shot s = shotListIter.next();
             for(GameObject leaf : groundEnemies.getObjs()){
                 GroundEnemy enemy = (GroundEnemy) leaf; 
-                if(!(enemy.getState() instanceof PlayerDeadState) && s.getBounds().collides(enemy.getBounds())){
+                if(!(enemy.getState() instanceof GroundEnemyDeadState) && s.getBounds().collides(enemy.getBounds())){
                     System.err.println("Nemico colpito");
                     shotListIter.remove();
                     enemy.setState(new GroundEnemyDeadState(enemy));
@@ -164,7 +164,7 @@ public class Level extends Assembly{
             }else{
                 for(GameObject leaf : groundEnemies.getObjs()){
                     GroundEnemy enemy = (GroundEnemy) leaf; 
-                    if(!(enemy.getState() instanceof GroundEnemyDeadState) && enemy.getBounds().collides(player.getBounds())){
+                    if(!(enemy.getState() instanceof PlayerDeadState) && enemy.getBounds().collides(player.getBounds())){
                             System.err.println("Collisione player");
                             player.hitted();
                             previousTickHitted = System.nanoTime();

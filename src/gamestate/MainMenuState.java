@@ -7,6 +7,7 @@ package gamestate;
 
 import panels.MainMenuPanel;
 import java.io.IOException;
+import music.MusicGame;
 
 /**
  *
@@ -43,5 +44,9 @@ public class MainMenuState extends State {
 
     @Override
     public void handlePrevious(int code) {
+    }
+    
+    public MusicGame getMusicGame(){
+        return gsm.getMusicGame();
     }
 }

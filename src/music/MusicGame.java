@@ -20,17 +20,18 @@ public class MusicGame {
 
     private Clip clip;
     private String name;
+    private static boolean mute = false;
 
     /*
         Costruttore di default usato per la gestione degli effetti del Player
-    */
+     */
     public MusicGame() {
     }
-    
+
     /*
         Costruttore utilizzato per la gestione degli effetti dei menu (inizializzazione audio Main Menu)
-    */
-    public MusicGame(String music){
+     */
+    public MusicGame(String music) {
         this.name = music;
         setMusic(this.name);
     }
@@ -46,8 +47,10 @@ public class MusicGame {
     }
 
     public void play() {
-        clip.setFramePosition(0);
-        //clip.start();
+        if (!mute) {
+            clip.setFramePosition(0);
+            clip.start();
+        }
     }
 
     public void stop() {
@@ -59,5 +62,26 @@ public class MusicGame {
     public void loop() {
         clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
-    
+
+    public Clip getClip() {
+        return clip;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public static boolean getMute() {
+        return mute;
+    }
+
+    public void toggleMute() {
+        this.mute = !this.mute;
+        if (mute == true) {
+            clip.stop();
+        } else {
+            clip.start();
+        }
+    }
+
 }

@@ -27,7 +27,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
 
     private final MainMenuState state;
     private BufferedImage screen;
-    public MusicGame mg;
+    public MusicGame mg = new MusicGame();
 
     /**
      * Creates new form MainMenuPanel
@@ -45,6 +45,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
         BufferedImage storyModeIcon = ImageIO.read(getClass().getResource("/menuIcon/story_mode_black.png"));
         BufferedImage exitIcon = ImageIO.read(getClass().getResource("/menuIcon/exit_black.png"));
         BufferedImage titleIcon = ImageIO.read(getClass().getResource("/menuIcon/startrekking.png"));
+        setSound();
 
         storyModeButton.setIcon(new javax.swing.ImageIcon(storyModeIcon));
         exitButton.setIcon(new javax.swing.ImageIcon(exitIcon));
@@ -57,8 +58,6 @@ public class MainMenuPanel extends javax.swing.JPanel {
         this.setVisible(true);
         this.setSize(screen.getWidth(), screen.getHeight());
 
-        //mg.setMusic("MainMenu");
-        //mg.play();
     }
 
     /**
@@ -73,6 +72,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
         titleLabel = new javax.swing.JLabel();
         storyModeButton = new javax.swing.JButton();
         exitButton = new javax.swing.JButton();
+        soundButton = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(980, 528));
 
@@ -125,6 +125,21 @@ public class MainMenuPanel extends javax.swing.JPanel {
             }
         });
 
+        soundButton.setBorder(null);
+        soundButton.setBorderPainted(false);
+        soundButton.setContentAreaFilled(false);
+        soundButton.setFocusPainted(false);
+        soundButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                soundButtonMouseClicked(evt);
+            }
+        });
+        soundButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                soundButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -136,8 +151,12 @@ public class MainMenuPanel extends javax.swing.JPanel {
                     .addComponent(exitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(241, Short.MAX_VALUE)
                 .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(241, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addComponent(soundButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -149,7 +168,9 @@ public class MainMenuPanel extends javax.swing.JPanel {
                 .addComponent(storyModeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(120, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
+                .addComponent(soundButton)
+                .addGap(48, 48, 48))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -220,13 +241,46 @@ public class MainMenuPanel extends javax.swing.JPanel {
         state.handleNext(1);
     }//GEN-LAST:event_exitButtonActionPerformed
 
+    private void soundButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_soundButtonActionPerformed
+       MusicGame mg;
+       mg = state.getMusicGame();
+       mg.toggleMute();
+    }//GEN-LAST:event_soundButtonActionPerformed
+
+    private void soundButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_soundButtonMouseClicked
+        setSound();
+    }//GEN-LAST:event_soundButtonMouseClicked
+
     @Override
     public void paintComponent(Graphics g) {
         g.drawImage(screen, 0, 0, null);
     }
 
+    public void setSound() {
+        BufferedImage sound = null, noSound = null;
+
+        if (!MusicGame.getMute()) {
+            try {
+                sound = ImageIO.read(getClass().getResource("/menuIcon/speaker_volume.png"));
+            } catch (IOException ex) {
+                Logger.getLogger(MainMenuPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            soundButton.setIcon(new javax.swing.ImageIcon(sound));
+        }else{
+             try {
+                noSound = ImageIO.read(getClass().getResource("/menuIcon/Speaker_volume_Mute.png"));
+            } catch (IOException ex) {
+                Logger.getLogger(MainMenuPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            soundButton.setIcon(new javax.swing.ImageIcon(noSound));
+        }
+            
+        
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton exitButton;
+    private javax.swing.JButton soundButton;
     private javax.swing.JButton storyModeButton;
     private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables

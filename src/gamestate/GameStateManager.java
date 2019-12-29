@@ -51,6 +51,10 @@ public class GameStateManager {
     public State getState() {
         return gameState;
     }
+    
+    public MusicGame getMusicGame(){
+        return mg;
+    }
 
     /**
      * Set the current state to gameState.
@@ -75,6 +79,12 @@ public class GameStateManager {
         if (getState() instanceof StoryPlayState && StoryPlayState.level == 2) {
             mg.stop();
             mg.setMusic("LevelTwo");
+            mg.play();
+        }
+        
+        if (getState() instanceof StoryPlayState && StoryPlayState.level == 2) {
+            mg.stop();
+            mg.setMusic("LevelThree");
             mg.play();
         }
 

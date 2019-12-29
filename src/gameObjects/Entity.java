@@ -4,7 +4,7 @@ import gameObjects.entityState.EntityState;
 import java.awt.image.BufferedImage;
 import graphics.Animation;
 import graphics.EntitySprite;
-import util.AABB;
+import util.EntityBox;
 import util.Position;
 import util.TileCollision;
 
@@ -31,7 +31,7 @@ public abstract class Entity implements GameObject {
     protected float maxSpeed = 0.5f;
     protected float acc = 0.0003f;
 
-    protected AABB bounds;
+    protected EntityBox bounds;
     protected TileCollision tc;
 
     protected int aniDelay = 80;
@@ -100,11 +100,11 @@ public abstract class Entity implements GameObject {
         return ani;
     }
 
-    public AABB getBounds() {
+    public EntityBox getBounds() {
         return bounds;
     }
 
-    public void setBounds(AABB bounds) {
+    public void setBounds(EntityBox bounds) {
         this.bounds = bounds;
     }
 

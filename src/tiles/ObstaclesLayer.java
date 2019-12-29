@@ -8,12 +8,12 @@ import tiles.blocks.HoleBlock;
 import tiles.blocks.ObjBlock;
 import util.Position;
 
-public class TileMapObs extends TileMap {
+public class ObstaclesLayer extends Layer {
 
     public static int width;
     public static int height;
 
-    public TileMapObs(String data, Sprite sprite, int width, int height, int tileWidth, int tileHeight, int tileColumns) {
+    public ObstaclesLayer(String data, Sprite sprite, int width, int height, int tileWidth, int tileHeight, int tileColumns) {
         Block tempBlock;
         tmobs_blocks = new HashMap<>();
         String[] block = data.split(",");
@@ -35,8 +35,3 @@ public class TileMapObs extends TileMap {
         }
     }
 }
-
-/*if (temp == 172) {
-                    tempBlock = new HoleBlock(sprite.getSprite((int) ((temp - 1) % tileColumns), (int) ((temp - 1) / tileColumns)),
-                            new Position((int) (i % width) * tileWidth, (int) (i / width) * tileHeight), tileWidth, tileHeight);
-                }*/

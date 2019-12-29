@@ -115,7 +115,7 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyReleased(KeyEvent ke) {
         pressed = false;
-        if (ke.getKeyCode() == 17 && !(player.getState() instanceof PlayerDeadState)) {
+        if (ke.getKeyCode() == 17) {
             this.cmdInvoker.setCommand(runPlayerC);
         }
     }

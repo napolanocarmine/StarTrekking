@@ -16,7 +16,7 @@ public class PlayerAttackState extends PlayerState{
     
     public PlayerAttackState(Player p){
         super(p);
-        p.setAnimation(p.getSprite().getSprite(EntityEnum.ATTACK), 80);
+        p.setAnimation(p.getSprite().getSprite(EntityEnum.ATTACK), 40);
         p.getMg().setMusic("Shot");
         p.getMg().play();
     }

@@ -3,7 +3,7 @@ package tiles.blocks;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import util.AABB;
+import util.EntityBox;
 import util.Position;
 
 public class ObjBlock extends Block {
@@ -18,7 +18,7 @@ public class ObjBlock extends Block {
     }
 
     @Override
-    public boolean isInside(AABB p) {
+    public boolean isInside(EntityBox p) {
         return false;
     }
 

@@ -11,7 +11,7 @@ import java.util.ListIterator;
 import panels.GamePanel;
 import static panels.GamePanel.unitTime;
 import tiles.TileFacade;
-import util.AABB;
+import util.EntityBox;
 import util.KeyHandler;
 import util.Position;
 
@@ -62,8 +62,8 @@ public class Level extends Assembly{
                 groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(9500, groundY) , 96));
                 break;
             case 2:
-                player.setStandBounds(new AABB(player.getPos(), 16, 24, 40, 32));
-                player.setCrouchBounds(new AABB(player.getPos(), 16, 12, 40, 44));
+                player.setStandBounds(new EntityBox(player.getPos(), 16, 24, 40, 32));
+                player.setCrouchBounds(new EntityBox(player.getPos(), 16, 12, 40, 44));
                 player.setBounds(player.getStandBounds());
                 tf = new TileFacade("tiles/LevelTwo.xml");
                 enemieSprite = new EntitySprite("entity/skeleton", 64, 64);
@@ -164,7 +164,7 @@ public class Level extends Assembly{
             }else{
                 for(GameObject leaf : groundEnemies.getObjs()){
                     GroundEnemy enemy = (GroundEnemy) leaf; 
-                    if(!(enemy.getState() instanceof PlayerDeadState) && enemy.getBounds().collides(player.getBounds())){
+                    if(!(enemy.getState() instanceof GroundEnemyDeadState) && enemy.getBounds().collides(player.getBounds())){
                             System.err.println("Collisione player");
                             player.hitted();
                             previousTickHitted = System.nanoTime();

@@ -7,9 +7,10 @@ package gameObjects;
 
 import gameObjects.entityState.GroundEnemyRunState;
 import graphics.EntitySprite;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import panels.GamePanel;
-import util.AABB;
+import util.EntityBox;
 import util.Position;
 
 /**
@@ -22,7 +23,7 @@ public class GroundEnemy extends Entity {
 
     public GroundEnemy(EntitySprite sprite, Position origin, int size) {
         super(sprite, origin, size);
-        this.bounds = new AABB(pos, 16, 32, 40, 32);
+        this.bounds = new EntityBox(pos, 16, 32, 40, 32);
         this.state = new GroundEnemyRunState(this);
         this.initialSpeed = -0.05f;
         this.vx = initialSpeed;
@@ -32,11 +33,13 @@ public class GroundEnemy extends Entity {
         dx = vx * timex++ + dx0;
 
         dy = (float) ((-0.5 * gravity * Math.pow(timey, 2))) + dy0;
-        if (tc.collisionTileDown(0, dy - dy0)) {
+        if (tc.collisionTileDown(0, dy - previousY)) {
             dy = previousY;
+            dy0 = dy;
+            timey = 0;
         } else {
-            timey++;
             previousY = dy;
+            timey++;
         }
     }
 
@@ -55,7 +58,7 @@ public class GroundEnemy extends Entity {
     public void render(Graphics2D g) {
         if (pos.getY() < GamePanel.HEIGHT) {// riduzione lag : perchè se non hanno una posizione di appoggio cadono e non vengono più renderizzati
             g.drawImage(ani.getImage(), (int) pos.getWorldVar().getX(), (int) pos.getWorldVar().getY(), size, size, null);
-//            g.setColor(Color.green);
+//            g.setColor(Color.BLUE);
 //            g.drawRect((int) (pos.getWorldVar().getX() + bounds.getXOffset()), (int) (pos.getWorldVar().getY() + bounds.getYOffset()), (int) bounds.getWidth(), (int) bounds.getHeight());
         }
     }

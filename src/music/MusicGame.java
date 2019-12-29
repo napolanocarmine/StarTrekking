@@ -47,7 +47,7 @@ public class MusicGame {
 
     public void play() {
         clip.setFramePosition(0);
-        clip.start();
+        //clip.start();
     }
 
     public void stop() {

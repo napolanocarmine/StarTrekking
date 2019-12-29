@@ -1,6 +1,6 @@
 package util;
 
-public class AABB {
+public class EntityBox {
 
     private Position pos;
     private float xOffset = 0;
@@ -9,7 +9,7 @@ public class AABB {
     private float h;
     private int size;
 
-    public AABB(Position pos, int w, int h) {
+    public EntityBox(Position pos, int w, int h) {
         this.pos = pos;
         this.w = w;
         this.h = h;
@@ -17,7 +17,7 @@ public class AABB {
         size = Math.max(w, h);
     }
 
-    public AABB(Position pos, int w, int h, int xOffset, int yOffset) {
+    public EntityBox(Position pos, int w, int h, int xOffset, int yOffset) {
         this.pos = pos;
         this.w = w;
         this.h = h;
@@ -62,7 +62,7 @@ public class AABB {
     public void setXOffset(float f){ xOffset = f; }
     public void setYOffset(float f){ yOffset = f; }
     
-    public boolean collides(AABB bBox){
+    public boolean collides(EntityBox bBox){
         float ax = ((pos.getWorldVar().getX() + (xOffset/2))+(w/2));
         float ay = ((pos.getWorldVar().getY() + (yOffset/2))+(h/2));
         //System.err.println("ax: " + ax + " ay: " + ay);

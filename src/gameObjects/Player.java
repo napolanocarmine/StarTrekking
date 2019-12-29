@@ -10,14 +10,11 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
 import music.MusicGame;
 import panels.GamePanel;
 import static panels.GamePanel.unitTime;
 import tiles.TileFacade;
-import util.AABB;
-import util.KeyHandler;
+import util.EntityBox;
 import util.Position;
 
 public class Player extends Entity{
@@ -41,14 +38,14 @@ public class Player extends Entity{
     private boolean changeMotion = false;
 
     private MusicGame mg;
-    private AABB standBounds;
-    private AABB crouchBounds;
+    private EntityBox standBounds;
+    private EntityBox crouchBounds;
     
     public Player(EntitySprite sprite, Position origin, int size) {
         super(sprite, origin, size);
         this.hp = MAXHEALTHPOINTS;
-        this.standBounds = new AABB(pos, 16, 32, 40, 32);
-        this.crouchBounds = new AABB(pos, 16, 12, 40, 52);
+        this.standBounds = new EntityBox(pos, 16, 32, 40, 32);
+        this.crouchBounds = new EntityBox(pos, 16, 12, 40, 52);
         this.state = new PlayerRunState(this);
         df.setMaximumFractionDigits(2);
         this.initialSpeed = 0.3f;
@@ -151,11 +148,11 @@ public class Player extends Entity{
     public float getH(){ return H; }
     public float getInstantVx(){ return instantVx; }
     public MusicGame getMg(){ return mg; }
-    public AABB getStandBounds(){ return standBounds; }
-    public AABB getCrouchBounds(){ return crouchBounds; }
-    public void setStandBounds(AABB bounds){ standBounds = bounds; }
-    public void setCrouchBounds(AABB bounds){ crouchBounds = bounds; }
-    public void setBounds(AABB bounds){ this.bounds = bounds; }
+    public EntityBox getStandBounds(){ return standBounds; }
+    public EntityBox getCrouchBounds(){ return crouchBounds; }
+    public void setStandBounds(EntityBox bounds){ standBounds = bounds; }
+    public void setCrouchBounds(EntityBox bounds){ crouchBounds = bounds; }
+    public void setBounds(EntityBox bounds){ this.bounds = bounds; }
     
     public void deleteShot(Shot s) {
         shots.remove(s);

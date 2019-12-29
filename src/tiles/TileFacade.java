@@ -17,7 +17,7 @@ import org.w3c.dom.NodeList;
  */
 public class TileFacade {
 
-    public static ArrayList<TileMap> tm;
+    public static ArrayList<Layer> tm;
     public static int mapWidth;
 
     public TileFacade() {
@@ -75,11 +75,11 @@ public class TileFacade {
                 data[i] = eElement.getElementsByTagName("data").item(0).getTextContent();
 
                 if(i == 1){
-                    tm.add(new TileMapObj(data[i], sprite, width, height, blockWidth, blockHeight, tileColumns));
+                    tm.add(new SolidLayer(data[i], sprite, width, height, blockWidth, blockHeight, tileColumns));
                 }else if(i == 2){
-                    tm.add(new TileMapObs(data[i], sprite, width, height, blockWidth, blockHeight, tileColumns));
+                    tm.add(new ObstaclesLayer(data[i], sprite, width, height, blockWidth, blockHeight, tileColumns));
                 } else {
-                    tm.add(new TileMapNorm(data[i], sprite, width, height, blockWidth, blockHeight, tileColumns));
+                    tm.add(new NormLayer(data[i], sprite, width, height, blockWidth, blockHeight, tileColumns));
                 }
             }
 

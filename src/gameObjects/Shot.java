@@ -4,18 +4,20 @@ import gameObjects.entityState.ShotRunState;
 import graphics.EntitySprite;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import util.AABB;
+import util.EntityBox;
 import util.Position;
 
 public class Shot extends Entity{
     
     public Shot(EntitySprite sprite, Position origin, int size, float initialSpeed) {
         super(sprite, origin, size);
-        this.bounds = new AABB(pos, 16, 16, 16, 16);
+        this.bounds = new EntityBox(pos, 16, 16, 16, 16);
         this.state = new ShotRunState(this);
         this.initialSpeed = initialSpeed;
         this.vx = initialSpeed + 0.4f;
         this.acc = 0.001f;
+//        dx = (float) ((0.5 * acc * Math.pow(timex, 2) + vx * timex)) + dx0 + 96;
+//        System.err.println("COLPO CREATO: dx: " + dx);
     }
 
     public boolean collides() {
@@ -26,8 +28,8 @@ public class Shot extends Entity{
         if (timex == 0) {
             vx = initialSpeed;
         }
-        previousX = dx;
         dx = (float) ((0.5 * acc * Math.pow(timex, 2) + vx * timex)) + dx0 + 96;
+        previousX = dx;
         timex++;
     }
 

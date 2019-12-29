@@ -8,14 +8,14 @@ import tiles.blocks.HoleBlock;
 import tiles.blocks.ObjBlock;
 import util.Position;
 
-public class TileMapObj extends TileMap {
+public class SolidLayer extends Layer {
 
     
 
     public static int width;
     public static int height;
 
-    public TileMapObj(String data, Sprite sprite, int width, int height, int tileWidth, int tileHeight, int tileColumns) {
+    public SolidLayer(String data, Sprite sprite, int width, int height, int tileWidth, int tileHeight, int tileColumns) {
         Block tempBlock;
         tmobj_blocks = new HashMap<>();
         String[] block = data.split(",");
@@ -37,8 +37,3 @@ public class TileMapObj extends TileMap {
         }
     }
 }
-
-/*if (temp == 172) {
-                    tempBlock = new HoleBlock(sprite.getSprite((int) ((temp - 1) % tileColumns), (int) ((temp - 1) / tileColumns)),
-                            new Position((int) (i % width) * tileWidth, (int) (i / width) * tileHeight), tileWidth, tileHeight);
-                }*/

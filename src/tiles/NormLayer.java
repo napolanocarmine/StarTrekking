@@ -7,11 +7,11 @@ import tiles.blocks.Block;
 import tiles.blocks.NormBlock;
 import util.Position;
 
-public class TileMapNorm extends TileMap {
+public class NormLayer extends Layer {
 
     private ArrayList<Block> blocks;
 
-    public TileMapNorm(String data, Sprite sprite, int width, int height, int tileWidth, int tileHeight, int tileColumns) {
+    public NormLayer(String data, Sprite sprite, int width, int height, int tileWidth, int tileHeight, int tileColumns) {
 
         blocks = new ArrayList<>();
 

@@ -1,6 +1,7 @@
 package entitycommand;
 
 import gameObjects.Player;
+import gameObjects.entityState.PlayerDeadState;
 import gameObjects.entityState.PlayerRunState;
 
 /**
@@ -20,7 +21,9 @@ public class RunPlayerCommand extends PlayerCommand {
      */
     @Override
     public void execute() {
-        player.setState(new PlayerRunState(player));
+        if(!(player.getState() instanceof PlayerDeadState)){
+            player.setState(new PlayerRunState(player));
+        }
     }
 
 }

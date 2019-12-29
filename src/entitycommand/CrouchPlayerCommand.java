@@ -22,7 +22,7 @@ public class CrouchPlayerCommand extends PlayerCommand {
     @Override
     public void execute() {
         if (player.getState() instanceof PlayerRunState || player.getState() instanceof PlayerCrouchState) {
-            player.setState(new PlayerCrouchState(player));
+            player.setState(player.getPlayerCrounchState());
         }
     }
 

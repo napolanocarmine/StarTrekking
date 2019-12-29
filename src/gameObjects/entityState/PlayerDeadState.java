@@ -7,9 +7,6 @@ public class PlayerDeadState extends PlayerState{
     
     public PlayerDeadState(Player p){
         super(p);
-        p.setAnimation(p.getSprite().getSprite(EntityEnum.DEAD), 80);
-        p.getMg().setMusic("GameOver");
-        p.getMg().play();
     }
 
     /*
@@ -17,8 +14,7 @@ public class PlayerDeadState extends PlayerState{
     */
     @Override
     public void updateGame() {
-        p.horizontalMove();
-        p.verticalMove();
+        super.updateGame();
         p.setTimeX(p.getTimeX() - 1);
         if(p.getAnimation().playingLastFrame()){
             p.setDeadAniEnded(true);
@@ -26,12 +22,15 @@ public class PlayerDeadState extends PlayerState{
     }
 
     @Override
-    public void nextState(int code) {
-        
+    public void nextState(EntityState state) {
+        p.setState(state);
     }
 
     @Override
-    public void previousState(int code) {
-    
+    public void set() {
+        p.setAnimation(p.getSprite().getSprite(EntityEnum.DEAD), 80);
+        p.getMg().setMusic("GameOver");
+        p.getMg().play();
     }
+
 }

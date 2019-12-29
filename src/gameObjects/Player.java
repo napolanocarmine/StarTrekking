@@ -1,9 +1,6 @@
 package gameObjects;
 
-import gameObjects.entityState.PlayerDeadState;
-import gameObjects.entityState.PlayerJumpState;
-import gameObjects.entityState.PlayerState;
-import gameObjects.entityState.PlayerRunState;
+import gameObjects.entityState.*;
 import graphics.Animation;
 import graphics.EntitySprite;
 import java.awt.Color;
@@ -44,12 +41,17 @@ public class Player extends Entity{
     private AABB standBounds;
     private AABB crouchBounds;
     
+    private PlayerState runState;
+    private PlayerState jumpState;
+    private PlayerState crounchState;
+    private PlayerState deadState;
+    private PlayerState attackState;
+    
     public Player(EntitySprite sprite, Position origin, int size) {
         super(sprite, origin, size);
         this.hp = MAXHEALTHPOINTS;
         this.standBounds = new AABB(pos, 16, 32, 40, 32);
         this.crouchBounds = new AABB(pos, 16, 12, 40, 52);
-        this.state = new PlayerRunState(this);
         df.setMaximumFractionDigits(2);
         this.initialSpeed = 0.3f;
         this.vx = initialSpeed;
@@ -57,6 +59,15 @@ public class Player extends Entity{
         this.visible = true;
         this.invincible = false;
         mg = new MusicGame();
+        
+        runState = new PlayerRunState(this);
+        jumpState = new PlayerJumpState(this);
+        crounchState = new PlayerCrouchState(this);
+        deadState = new PlayerDeadState(this);
+        attackState = new PlayerAttackState(this);
+        
+        this.state = runState;
+        state.set();
     }
 
     public boolean horizontalMove() {
@@ -136,7 +147,7 @@ public class Player extends Entity{
         visible = false;
         invStartTime = System.nanoTime();
         if(--hp==0){
-            setState(new PlayerDeadState(this));
+            state.nextState(this.getPlayerDeadState());
         }
     }
 
@@ -156,6 +167,26 @@ public class Player extends Entity{
     public void setStandBounds(AABB bounds){ standBounds = bounds; }
     public void setCrouchBounds(AABB bounds){ crouchBounds = bounds; }
     public void setBounds(AABB bounds){ this.bounds = bounds; }
+    
+    public PlayerState getPlayerRunState(){
+        return this.runState;
+    }
+    
+    public PlayerState getPlayerAttackState(){
+        return this.attackState;
+    }
+    
+    public PlayerState getPlayerJumpState(){
+        return this.jumpState;
+    }
+    
+    public PlayerState getPlayerCrounchState(){
+        return this.crounchState;
+    }
+    
+    public PlayerState getPlayerDeadState(){
+        return this.deadState;
+    }
     
     public void deleteShot(Shot s) {
         shots.remove(s);
@@ -191,7 +222,7 @@ public class Player extends Entity{
             }
         }
         if(pos.getY() > GamePanel.HEIGHT && !(state instanceof PlayerDeadState)){
-            setState(new PlayerDeadState(this));
+            state.nextState(this.getPlayerDeadState());
         }
     }
 
@@ -213,4 +244,12 @@ public class Player extends Entity{
     public int getHP() {
         return this.hp;
     }
+    
+    @Override
+    public void setState(EntityState st){
+        super.setState(st);
+        st.set();
+        //st.playMusic();
+    }
+
 }

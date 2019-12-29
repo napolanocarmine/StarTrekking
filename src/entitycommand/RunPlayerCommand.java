@@ -20,7 +20,7 @@ public class RunPlayerCommand extends PlayerCommand {
      */
     @Override
     public void execute() {
-        player.setState(new PlayerRunState(player));
+        player.setState(player.getPlayerRunState());
     }
 
 }

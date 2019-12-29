@@ -22,7 +22,7 @@ public class JumpPlayerCommand extends PlayerCommand {
     @Override
     public void execute() {
         if (player.getState() instanceof PlayerRunState && player.getTc().collisionTileDown(0, 1)) {
-            player.setState(new PlayerJumpState(player));
+            player.setState(player.getPlayerJumpState());
         }
     }
 

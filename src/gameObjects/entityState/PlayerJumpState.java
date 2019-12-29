@@ -7,10 +7,6 @@ public class PlayerJumpState extends PlayerState{
     
     public PlayerJumpState(Player p){
         super(p);
-        p.setAnimation(p.getSprite().getSprite(EntityEnum.JUMP), 80);
-        p.getMg().setMusic("Jump");
-        p.getMg().play();
-        p.setTimeY(0);
     }
 
     
@@ -32,26 +28,25 @@ public class PlayerJumpState extends PlayerState{
         if(!p.verticalMove()){
             p.setVy(0);            //definire come costante di player
             p.setGravity(-0.01f);  //definire come costante di player
-            nextState(1);
+            nextState(p.getPlayerRunState());
         }
         
     }
 
     @Override
-    public void nextState(int code) {
-        switch(code){
-            case 0:
-                break;
-            case 1:
-                p.setState(new PlayerRunState(p));
-        }
-        
+    public void nextState(EntityState state) {
+        p.setState(state);
     }
 
     @Override
-    public void previousState(int code) {
-    
+    public void set() {
+        System.err.println("Jump animation");
+        p.setAnimation(p.getSprite().getSprite(EntityEnum.JUMP), 80);
+        p.getMg().setMusic("Jump");
+        p.getMg().play();
+        p.setTimeY(0);
     }
+
 }
 
 

@@ -148,7 +148,7 @@ public class Level extends Assembly{
                 if(!(enemy.getState() instanceof PlayerDeadState) && s.getBounds().collides(enemy.getBounds())){
                     System.err.println("Nemico colpito");
                     shotListIter.remove();
-                    enemy.setState(new GroundEnemyDeadState(enemy));
+                    enemy.setState(enemy.getDeadState());
                 }
             }
         }

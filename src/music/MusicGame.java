@@ -53,7 +53,7 @@ public class MusicGame {
     public void stop() {
         clip.stop();
         clip.flush();
-        clip.close();
+        //clip.close();
     }
 
     public void loop() {

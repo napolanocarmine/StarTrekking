@@ -7,7 +7,6 @@ public class GroundEnemyDeadState extends GroundEnemyState{
     
     public GroundEnemyDeadState(GroundEnemy enemy){
         super(enemy);
-        this.enemy.setAnimation(this.enemy.getSprite().getSprite(EntityEnum.DEAD), 80);
     }
 
     /*
@@ -22,12 +21,14 @@ public class GroundEnemyDeadState extends GroundEnemyState{
     }
 
     @Override
-    public void nextState(int code) {
-        
+    public void nextState(EntityState state) {
+        enemy.setState(state);
     }
 
+
     @Override
-    public void previousState(int code) {
-    
+    public void set() {
+        this.enemy.setAnimation(this.enemy.getSprite().getSprite(EntityEnum.DEAD), 80);    
     }
+
 }

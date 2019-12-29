@@ -108,7 +108,7 @@ public class Level extends Assembly{
         }
         if(player.getDeadAniEnded()) {
             gp.setState(1);
-            gp.stopThread();
+            gp.restart();
         }
         checkCollision();
         removeEnemies();

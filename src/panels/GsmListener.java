@@ -5,7 +5,8 @@
  */
 package panels;
 
-import gamestate.State;
+import gamestate.GameState;
+
 
 /**
  *
@@ -16,5 +17,5 @@ import gamestate.State;
  */
 public interface GsmListener {
 
-    public void stateChanged(State s);
+    public void stateChanged(GameState s);
 }

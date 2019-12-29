@@ -7,6 +7,7 @@ package gamestate;
 
 import panels.MainMenuPanel;
 import java.io.IOException;
+import music.MusicGame;
 
 /**
  *
@@ -16,13 +17,14 @@ import java.io.IOException;
  *
  * Class which represents the state in which the game shows the main menu.
  */
-public class MainMenuState extends State {
-
+public class MainMenuState extends GameState {
     /**
      * Create the Main Menu.
      */
-    public MainMenuState() throws IOException {
+    public MainMenuState(GameStateManager gsm) throws IOException {
         this.panel = new MainMenuPanel(this);
+        this.gsm = gsm;
+        this.mg = new MusicGame("MainMenu");
     }
 
     /**
@@ -33,11 +35,11 @@ public class MainMenuState extends State {
      */
     @Override
     public void handleNext(int state) {
+        this.stopMusic();
         if (state == 0) {
-            System.out.println(gsm);
-            gsm.setState(new SelectionLevelState());
+            gsm.setState(gsm.getSls());
         } else if (state == 1) {
-            gsm.setState(new ExitState(gsm));
+            gsm.setState(gsm.getEs());
         }
     }
 

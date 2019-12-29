@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.ListIterator;
 import panels.GamePanel;
 import static panels.GamePanel.unitTime;
-import tiles.TileFacade;
+import tiles.LayerFacade;
 import util.EntityBox;
 import util.KeyHandler;
 import util.Position;
@@ -19,7 +19,7 @@ public class Level extends Assembly{
 
     private int level;
     private static Position map;
-    private TileFacade tf;
+    private LayerFacade tf;
     private Player player;
     private Assembly groundEnemies;
     private Sprite hpimg;
@@ -49,7 +49,7 @@ public class Level extends Assembly{
         
         switch (level) {
             case 1:
-                tf = new TileFacade("tiles/LevelOne.xml");
+                tf = new LayerFacade("tiles/LevelOne.xml");
                 enemieSprite = new EntitySprite("entity/goblin", 64, 64);
                 groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(1000, groundY) , 96));
                 groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(1500, groundY) , 96));
@@ -65,7 +65,7 @@ public class Level extends Assembly{
                 player.setStandBounds(new EntityBox(player.getPos(), 16, 24, 40, 32));
                 player.setCrouchBounds(new EntityBox(player.getPos(), 16, 12, 40, 44));
                 player.setBounds(player.getStandBounds());
-                tf = new TileFacade("tiles/LevelTwo.xml");
+                tf = new LayerFacade("tiles/LevelTwo.xml");
                 enemieSprite = new EntitySprite("entity/skeleton", 64, 64);
                 int enemieSize = 96;
                 groundY += 10;

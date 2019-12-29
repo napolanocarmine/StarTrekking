@@ -42,7 +42,6 @@ public class GamePanel extends JPanel implements Runnable {
     private BufferedImage img;
     private Graphics2D g;
 
-    private ArrayList<GroundEnemy> goblins;
     private StoryPlayState sps;
     private Level level;
     private KeyHandler key;
@@ -53,7 +52,6 @@ public class GamePanel extends JPanel implements Runnable {
      * initializes an array to keep refers to enemies
      */
     public GamePanel(StoryPlayState sps) {
-        this.goblins = new ArrayList<>();
         this.sps = sps;
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setFocusable(true);

@@ -15,16 +15,16 @@ import org.w3c.dom.NodeList;
  *
  * @author CARMINE
  */
-public class TileFacade {
+public class LayerFacade {
 
     public static ArrayList<Layer> tm;
     public static int mapWidth;
 
-    public TileFacade() {
+    public LayerFacade() {
         tm = new ArrayList<>();
     }
 
-    public TileFacade(String path) {
+    public LayerFacade(String path) {
         tm = new ArrayList<>();
         addTileMap(path, 16, 16);
     }

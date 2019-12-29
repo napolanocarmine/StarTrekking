@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import music.MusicGame;
 import panels.GamePanel;
 import static panels.GamePanel.unitTime;
-import tiles.TileFacade;
+import tiles.LayerFacade;
 import util.EntityBox;
 import util.Position;
 
@@ -174,7 +174,7 @@ public class Player extends Entity{
         }
         //move();
         pos.setX(dx);    //update x position
-        if (Level.getMapPos().getX() + GamePanel.WIDTH < TileFacade.mapWidth * 16) {
+        if (Level.getMapPos().getX() + GamePanel.WIDTH < LayerFacade.mapWidth * 16) {
             Level.getMapPos().setX(dx);
         }
         pos.setY(dy);

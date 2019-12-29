@@ -16,9 +16,6 @@ public class PlayerAttackState extends PlayerState{
     
     public PlayerAttackState(Player p){
         super(p);
-        p.setAnimation(p.getSprite().getSprite(EntityEnum.ATTACK), 40);
-        p.getMg().setMusic("Shot");
-        p.getMg().play();
     }
 
     /*
@@ -26,27 +23,23 @@ public class PlayerAttackState extends PlayerState{
     */
     @Override
     public void updateGame() {
-        p.horizontalMove();
-        p.verticalMove();
+        super.updateGame();
         if (p.getAnimation().playingLastFrame()) {
             p.attack();
-            nextState(1);
+            nextState(p.getPlayerRunState());
         }
     }
 
     @Override
-    public void nextState(int code) {
-        switch(code){
-            case 0:
-                break;
-            case 1:
-                p.setState(new PlayerRunState(p));
-        }
-        
+    public void nextState(EntityState state) {
+        p.setState(state);
     }
 
     @Override
-    public void previousState(int code) {
+    public void set() {
+        p.setAnimation(p.getSprite().getSprite(EntityEnum.ATTACK), 80);
+        p.getMg().setMusic("Shot");
+        p.getMg().play();
+    }
     
-    }
 }

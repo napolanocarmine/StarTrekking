@@ -11,8 +11,7 @@ public abstract class GroundEnemyState implements EntityState {
         this.enemy = enemy;
     }
     
-    public abstract void nextState(int code);
-    public abstract void previousState(int code);
+    public abstract void nextState(EntityState state);
     public abstract void updateGame();
     
 }

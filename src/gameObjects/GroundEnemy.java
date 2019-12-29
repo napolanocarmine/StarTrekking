@@ -5,7 +5,10 @@
  */
 package gameObjects;
 
+import gameObjects.entityState.EntityState;
+import gameObjects.entityState.GroundEnemyDeadState;
 import gameObjects.entityState.GroundEnemyRunState;
+import gameObjects.entityState.GroundEnemyState;
 import graphics.EntitySprite;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -21,14 +24,36 @@ import util.Position;
  */
 public class GroundEnemy extends Entity {
 
+    private GroundEnemyState runState;
+    private GroundEnemyState deadState;
+    
     public GroundEnemy(EntitySprite sprite, Position origin, int size) {
         super(sprite, origin, size);
         this.bounds = new EntityBox(pos, 16, 32, 40, 32);
         this.state = new GroundEnemyRunState(this);
         this.initialSpeed = -0.05f;
         this.vx = initialSpeed;
+        
+        runState = new GroundEnemyRunState(this);
+        deadState = new GroundEnemyDeadState(this);
+        this.state = runState;
+        state.set();
     }
 
+    public GroundEnemyState getRunState(){
+        return runState;
+    }
+    
+    public GroundEnemyState getDeadState(){
+        return deadState;
+    }
+    
+    @Override
+    public void setState(EntityState st){
+        super.setState(st);
+        st.set();
+    }
+    
     public void move() {
         dx = vx * timex++ + dx0;
 

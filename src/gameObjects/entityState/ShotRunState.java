@@ -7,7 +7,7 @@ public class ShotRunState extends ShotState{
     
     public ShotRunState(Shot s){
         super(s);
-        s.setAnimation(s.getSprite().getSprite(EntityEnum.ATTACK), 80);
+        set();
     }
 
     @Override
@@ -16,12 +16,12 @@ public class ShotRunState extends ShotState{
     }
 
     @Override
-    public void nextState(int code) {
-        
+    public void nextState(EntityState state) {
+        this.s.setState(state);
     }
 
     @Override
-    public void previousState(int code) {
-    
+    public void set() {
+        s.setAnimation(s.getSprite().getSprite(EntityEnum.ATTACK), 80);
     }
 }

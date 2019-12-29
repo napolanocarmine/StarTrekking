@@ -1,9 +1,6 @@
 package gameObjects;
 
-import gameObjects.entityState.PlayerDeadState;
-import gameObjects.entityState.PlayerJumpState;
-import gameObjects.entityState.PlayerState;
-import gameObjects.entityState.PlayerRunState;
+import gameObjects.entityState.*;
 import graphics.Animation;
 import graphics.EntitySprite;
 import java.awt.Color;
@@ -41,6 +38,12 @@ public class Player extends Entity{
     private EntityBox standBounds;
     private EntityBox crouchBounds;
     
+    private PlayerState runState;
+    private PlayerState jumpState;
+    private PlayerState crounchState;
+    private PlayerState deadState;
+    private PlayerState attackState;
+    
     public Player(EntitySprite sprite, Position origin, int size) {
         super(sprite, origin, size);
         this.hp = MAXHEALTHPOINTS;
@@ -54,6 +57,15 @@ public class Player extends Entity{
         this.visible = true;
         this.invincible = false;
         mg = new MusicGame();
+        
+        runState = new PlayerRunState(this);
+        jumpState = new PlayerJumpState(this);
+        crounchState = new PlayerCrouchState(this);
+        deadState = new PlayerDeadState(this);
+        attackState = new PlayerAttackState(this);
+        
+        this.state = runState;
+        state.set();
     }
 
     public boolean horizontalMove() {
@@ -133,7 +145,7 @@ public class Player extends Entity{
         visible = false;
         invStartTime = System.nanoTime();
         if(--hp==0){
-            setState(new PlayerDeadState(this));
+            state.nextState(this.getPlayerDeadState());
         }
     }
 
@@ -153,6 +165,26 @@ public class Player extends Entity{
     public void setStandBounds(EntityBox bounds){ standBounds = bounds; }
     public void setCrouchBounds(EntityBox bounds){ crouchBounds = bounds; }
     public void setBounds(EntityBox bounds){ this.bounds = bounds; }
+    
+    public PlayerState getPlayerRunState(){
+        return this.runState;
+    }
+    
+    public PlayerState getPlayerAttackState(){
+        return this.attackState;
+    }
+    
+    public PlayerState getPlayerJumpState(){
+        return this.jumpState;
+    }
+    
+    public PlayerState getPlayerCrounchState(){
+        return this.crounchState;
+    }
+    
+    public PlayerState getPlayerDeadState(){
+        return this.deadState;
+    }
     
     public void deleteShot(Shot s) {
         shots.remove(s);
@@ -188,7 +220,7 @@ public class Player extends Entity{
             }
         }
         if(pos.getY() > GamePanel.HEIGHT && !(state instanceof PlayerDeadState)){
-            setState(new PlayerDeadState(this));
+            state.nextState(this.getPlayerDeadState());
         }
     }
 
@@ -210,4 +242,12 @@ public class Player extends Entity{
     public int getHP() {
         return this.hp;
     }
+    
+    @Override
+    public void setState(EntityState st){
+        super.setState(st);
+        st.set();
+        //st.playMusic();
+    }
+
 }

@@ -22,7 +22,7 @@ public class AttackPlayerCommand extends PlayerCommand {
     @Override
     public void execute() {
         if (player.getState() instanceof PlayerRunState) {
-            player.setState(new PlayerAttackState(player));
+            player.setState(player.getPlayerAttackState());
         }
     }
 

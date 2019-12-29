@@ -16,10 +16,6 @@ public class PlayerCrouchState extends PlayerState{
     
     public PlayerCrouchState(Player p){
         super(p);
-        p.setAnimation(p.getSprite().getSprite(EntityEnum.CROUCH), 80);
-        p.getMg().setMusic("Crouch");
-        p.getMg().play();
-        p.setBounds(p.getCrouchBounds());
     }
 
     /*
@@ -27,20 +23,23 @@ public class PlayerCrouchState extends PlayerState{
     */
     @Override
     public void updateGame() {
-        p.horizontalMove();
-        p.verticalMove();
+        super.updateGame();
         if (p.getAnimation().playingLastFrame()) {
             p.getAnimation().setDelay(-1);
         }
     }
 
     @Override
-    public void nextState(int code) {
-        
+    public void nextState(EntityState state) {
+        p.setState(state);
     }
 
     @Override
-    public void previousState(int code) {
-    
+    public void set() {
+        p.setAnimation(p.getSprite().getSprite(EntityEnum.CROUCH), 80);
+        p.setBounds(p.getCrouchBounds());
+        p.getMg().setMusic("Crouch");
+        p.getMg().play();
     }
+
 }

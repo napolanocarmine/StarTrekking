@@ -7,7 +7,6 @@ public class GroundEnemyRunState extends GroundEnemyState{
     
     public GroundEnemyRunState(GroundEnemy enemy){
         super(enemy);
-        enemy.setAnimation(enemy.getSprite().getSprite(EntityEnum.RUN), 80);
     }
 
     @Override
@@ -16,12 +15,13 @@ public class GroundEnemyRunState extends GroundEnemyState{
     }
 
     @Override
-    public void nextState(int code) {
-        
+    public void nextState(EntityState state) {
+        enemy.setState(state);
     }
 
     @Override
-    public void previousState(int code) {
-    
+    public void set() {
+        enemy.setAnimation(enemy.getSprite().getSprite(EntityEnum.RUN), 80);
     }
+
 }

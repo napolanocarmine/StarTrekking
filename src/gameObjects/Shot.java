@@ -25,11 +25,10 @@ public class Shot extends Entity{
     }
 
     public void move() {
-        if (timex == 0) {
-            vx = initialSpeed;
-        }
+//        if (timex == 0) {
+//            vx = initialSpeed;
+//        }
         dx = (float) ((0.5 * acc * Math.pow(timex, 2) + vx * timex)) + dx0 + 96;
-        previousX = dx;
         timex++;
     }
 

@@ -39,6 +39,8 @@ public class KeyHandler implements KeyListener {
     public KeyHandler(StoryPlayState sps){
         this.cmdInvoker = new CommandInvoker();
         this.sps = sps;
+        pressed = false;
+
     }
     
     /**
@@ -53,10 +55,8 @@ public class KeyHandler implements KeyListener {
         this.runPlayerC = new RunPlayerCommand(player);
         this.cmdInvoker = new CommandInvoker();
         this.sps = sps;
+        pressed = false;
 
-//        pressed = false;
-//        key = EntityState.NONE;
-//        currentKey = -1;
     }
 
     /**

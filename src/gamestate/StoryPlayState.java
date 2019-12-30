@@ -19,14 +19,15 @@ import javax.swing.SwingUtilities;
  */
 public class StoryPlayState extends GameState {
 
-    public static int level;
+    private int level;
+    private boolean pause;
     /**
      * Create the Panel on which the Level is run.
      */
-    public StoryPlayState(int level, GameStateManager gsm ) {
-        this.level = level;
+    public StoryPlayState(GameStateManager gsm ) {
         this.panel = new GamePanel(this);
-        this.gsm = gsm; 
+        this.gsm = gsm;
+        pause = false;
     }
 
     /**
@@ -36,14 +37,11 @@ public class StoryPlayState extends GameState {
      */
     @Override
     public void handleNext(int code) {
-        /*
-            codice che gestisce il prossimo stato,
-            per questo sprint quando il maghetto muore da settare al Game-Over.
-         */
         if (code == 1) {
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {
+                    System.err.println("vado nello stato di Game Over");
                     gsm.setState(gsm.getGos());
                 }
             });
@@ -58,7 +56,13 @@ public class StoryPlayState extends GameState {
         }
     }
 
-    ;
+    public void setLevel(int level){
+        this.level = level;
+    }
+    
+    public int getLevel(){
+        return level;
+    }
     
     @Override
     public void handlePrevious(int code) {
@@ -72,6 +76,7 @@ public class StoryPlayState extends GameState {
         4) handle next --> GSM stato di pausa.
         */
         ((GamePanel)panel).setPause(true);
+        pause = true; //Sto in pausa;
         this.handleNext(2);
         notifyAll();
     }
@@ -79,9 +84,15 @@ public class StoryPlayState extends GameState {
     @Override 
     public void set(){
         //super.set();
-        ((GamePanel) panel).startThread();
-        ((GamePanel) panel).setPause(false);
+        // Comunicate the level to the Panel;
+        if(pause != true)
+            ((GamePanel) panel).setLevel(level);
         
+        // Init the thread;
+        ((GamePanel) panel).startThread();
+        // Run the thread;
+        ((GamePanel) panel).setPause(false);
+        pause = false;
     }
 
 }

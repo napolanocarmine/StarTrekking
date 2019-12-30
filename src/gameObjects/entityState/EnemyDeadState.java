@@ -1,11 +1,11 @@
 package gameObjects.entityState;
 
-import gameObjects.GroundEnemy;
+import gameObjects.Enemy;
 import util.EntityEnum;
 
-public class GroundEnemyDeadState extends GroundEnemyState{
+public class EnemyDeadState extends EnemyState{
     
-    public GroundEnemyDeadState(GroundEnemy enemy){
+    public EnemyDeadState(Enemy enemy){
         super(enemy);
     }
 

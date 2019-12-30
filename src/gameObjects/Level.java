@@ -1,7 +1,8 @@
 package gameObjects;
 
-import gameObjects.entityState.GroundEnemyDeadState;
+import gameObjects.entityState.EnemyDeadState;
 import gameObjects.entityState.PlayerDeadState;
+import gamefactory.EnemiesFactory;
 import gamestate.StoryPlayState;
 import graphics.EntitySprite;
 import graphics.Sprite;
@@ -17,98 +18,57 @@ import util.Position;
 
 public class Level extends Assembly{
 
-    private int level;
+//    private int level;
     private static Position map;
-    private LayerFacade tf;
-    private Player player;
-    private Assembly groundEnemies;
+    protected LayerFacade tf;
+    protected EnemiesFactory ef;
+    protected Player player;
+    protected EnemiesLevel enemies;
     private Sprite hpimg;
     private Sprite font;
     private float previousTickHitted = 0;
     private GamePanel gp;
-    private float groundY = (GamePanel.HEIGHT) - 162;
+    protected float groundY = (GamePanel.HEIGHT) - 162;
     
-    public Level(GamePanel gp){
-        this.groundEnemies = new Assembly();
-        this.level = StoryPlayState.level;
-        this.gp = gp;
-        init();
+    public Level(){
+        this.ef = new EnemiesFactory();
     }
     
-    private void init(){
+    public void setPanel(GamePanel gp){
+        this.gp = gp;
+        KeyHandler key = gp.getKeyH();
+        key.setPlayer(player);
+    }
+    
+    protected void init(){
         
         map = new Position(0, 0);
         Position.setWorldVar(map.getX(), map.getY());
         
         EntitySprite playerSprite = new EntitySprite("entity/wizard", 64, 64);
-        EntitySprite enemieSprite;
+        EntitySprite enemieSprite;//dentro la factory
         
         player = new Player(playerSprite, new Position(0, 0 + groundY), 96);
-        KeyHandler key = gp.getKeyH();
-        key.setPlayer(player);
         
-        switch (level) {
-            case 1:
-                tf = new LayerFacade("tiles/LevelOne.xml");
-                enemieSprite = new EntitySprite("entity/goblin", 64, 64);
-                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(1000, groundY) , 96));
-                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(1500, groundY) , 96));
-                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(2100, groundY) , 96));
-                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(3080, groundY) , 96));
-                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(4700, groundY) , 96));
-                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(5500, groundY) , 96));
-                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(7400, groundY) , 96));
-                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(7400, 220) , 96));
-                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(9500, groundY) , 96));
-                break;
-            case 2:
-                player.setStandBounds(new EntityBox(player.getPos(), 16, 24, 40, 32));
-                player.setCrouchBounds(new EntityBox(player.getPos(), 16, 12, 40, 44));
-                player.setBounds(player.getStandBounds());
-                tf = new LayerFacade("tiles/LevelTwo.xml");
-                enemieSprite = new EntitySprite("entity/skeleton", 64, 64);
-                int enemieSize = 96;
-                groundY += 10;
-                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(1000, groundY) , enemieSize));
-                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(1700, 340) , enemieSize));
-                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(3200, groundY) , enemieSize));
-                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(3600, 210) , enemieSize));
-                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(5000, 220) , enemieSize));
-                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(6000, groundY) , enemieSize));
-                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(7200, groundY) , enemieSize));
-                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(8000, groundY) , enemieSize));
-                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(10000, groundY) , enemieSize));
-                groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(12000, groundY) , enemieSize));
-                break;
-            default:
-                System.err.println("[map index: "+level+"] map file error.");
-                break;
-        }
-        
-        
-//        groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(1000, groundY) , 96));
-//        groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(1500, groundY) , 96));
-//        groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(2100, groundY) , 96));
-//        groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(3080, groundY) , 96));
-//        groundEnemies.addObj(new GroundEnemy(enemieSprite, new Position(4700, groundY) , 96));
-        addObj(player);
-        addObj(groundEnemies);
         hpimg = new Sprite("entity/heart.png", 32,32);
         font = new Sprite("font/Font.png", 10, 10);
+        addObj(player);
+      
     }
+    
     
     @Override
     public void updateGame() {
         Position.setWorldVar(map.getX(), map.getY());
         player.updateGame();
         
-        for(GameObject leaf : groundEnemies.getObjs()){
-            GroundEnemy enemy = (GroundEnemy) leaf; 
+        for(GameObject leaf : enemies.getObjs()){
+            Enemy enemy = (Enemy) leaf; 
             if(enemy.getPos().getWorldVar().getX() < GamePanel.WIDTH+100) enemy.updateGame();
         }
         if(player.getDeadAniEnded()) {
-            gp.setState(1);
             gp.restart();
+            gp.setState(1);
         }
         checkCollision();
         removeEnemies();
@@ -143,12 +103,12 @@ public class Level extends Assembly{
         */
         while(shotListIter.hasNext()){
             Shot s = shotListIter.next();
-            for(GameObject leaf : groundEnemies.getObjs()){
-                GroundEnemy enemy = (GroundEnemy) leaf; 
-                if(!(enemy.getState() instanceof GroundEnemyDeadState) && s.getBounds().collides(enemy.getBounds())){
+            for(GameObject leaf : enemies.getObjs()){
+                Enemy enemy = (Enemy) leaf; 
+                if(!(enemy.getState() instanceof EnemyDeadState) && s.getBounds().collides(enemy.getBounds())){
                     System.err.println("Nemico colpito");
                     shotListIter.remove();
-                    enemy.setState(new GroundEnemyDeadState(enemy));
+                    enemy.setState(new EnemyDeadState(enemy));
                 }
             }
         }
@@ -162,8 +122,8 @@ public class Level extends Assembly{
                 player.hitted();
                 previousTickHitted = System.nanoTime();
             }else{
-                for(GameObject leaf : groundEnemies.getObjs()){
-                    GroundEnemy enemy = (GroundEnemy) leaf; 
+                for(GameObject leaf : enemies.getObjs()){
+                    Enemy enemy = (Enemy) leaf; 
                     if(!(enemy.getState() instanceof PlayerDeadState) && enemy.getBounds().collides(player.getBounds())){
                             System.err.println("Collisione player");
                             player.hitted();
@@ -178,10 +138,10 @@ public class Level extends Assembly{
     if an enemy die, he must be removed from the array of the enemies
     */
     private void removeEnemies(){
-        ListIterator<GameObject> groundEnemiesLi = groundEnemies.getObjs().listIterator();
+        ListIterator<GameObject> groundEnemiesLi = enemies.getObjs().listIterator();
         
         while(groundEnemiesLi.hasNext()){
-            GroundEnemy cEnemy = (GroundEnemy)(groundEnemiesLi.next());
+            Enemy cEnemy = (Enemy)(groundEnemiesLi.next());
             if(cEnemy.getDeadAniEnded()){
                 groundEnemiesLi.remove();
             }

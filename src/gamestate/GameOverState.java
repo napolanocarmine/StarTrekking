@@ -42,7 +42,6 @@ public class GameOverState extends GameState {
     public void handleNext(int code) {
         //code to manage the next state
         this.stopMusic();
-        int level = StoryPlayState.level;
         if (code == 0) {
             gsm.setState(gsm.getSps());
         } else if (code == 1) {

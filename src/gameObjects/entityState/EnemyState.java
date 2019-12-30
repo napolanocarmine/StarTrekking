@@ -1,13 +1,13 @@
 package gameObjects.entityState;
 
-import gameObjects.GroundEnemy;
+import gameObjects.Enemy;
 
 
-public abstract class GroundEnemyState implements EntityState {
+public abstract class EnemyState implements EntityState {
     
-    GroundEnemy enemy;
+    Enemy enemy;
     
-    public GroundEnemyState(GroundEnemy enemy){
+    public EnemyState(Enemy enemy){
         this.enemy = enemy;
     }
     

@@ -51,29 +51,19 @@ public final class GameFrame extends JFrame implements GsmListener {
     }
 
     @Override
-    public synchronized void stateChanged(GameState s) {
-        /*if ((s instanceof StoryPlayState)){
-            System.out.println("LO TOLGO DALLA PAUSA");
-            ((GamePanel)(gms.getSps().getPanel())).setPause(false);
-            notifyAll();
-        } else {
-            System.out.println("LO METTO IN PAUSA");
-            ((GamePanel)(gms.getSps().getPanel())).setPause(true);
-            notifyAll();
-        }*/
-        
+    public synchronized void stateChanged(GameState s) {        
         if (s instanceof ExitState) {
+            System.err.println("Exit State");
             this.dispose();
         } else {
+            s.set();
             gamePanel = s.getPanel();
             System.out.println(s);
             setContentPane(gamePanel);
-            s.set();
             pack();
             revalidate();
             repaint();
         }
-
     }
 
 }

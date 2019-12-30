@@ -1,7 +1,8 @@
 package panels;
 
-import gameObjects.GroundEnemy;
+import gameObjects.Enemy;
 import gameObjects.Level;
+import gamefactory.LevelFactory;
 import gamestate.StoryPlayState;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -47,6 +48,7 @@ public class GamePanel extends JPanel implements Runnable {
     private Level level;
     private KeyHandler key;
     private boolean pause;
+    private LevelFactory levelFactory;
     
 
     /**
@@ -62,8 +64,8 @@ public class GamePanel extends JPanel implements Runnable {
         setFocusable(true);
         requestFocus();
         key = new KeyHandler(sps);
-        //startThread();
-
+        levelFactory = new LevelFactory(); 
+//        startThread();
     }
 
     /**
@@ -71,15 +73,19 @@ public class GamePanel extends JPanel implements Runnable {
      */
     public final void startThread() {
         if (thread == null) {
+            System.err.println("Nuovo Thread");
             thread = new Thread(this, "GameThread");
+            thread.setDaemon(true);
             thread.start();
         }
     }
 
     public final void restart() {
         if (thread != null) {
-            init();
-            setPause(true);
+            running = false;
+            thread = null;
+//            init();
+//            setPause(true);
         }
     }
 
@@ -93,9 +99,28 @@ public class GamePanel extends JPanel implements Runnable {
         g = (Graphics2D) img.getGraphics();
 
         setKeyH();
-        this.level = new Level(this);
+       
     }
 
+    
+    public void setLevel(int code){
+        switch(code){
+            case 1:
+                System.err.println("Carico il livello 1");
+                level = (Level)levelFactory.build(1);
+                break;
+            case 2:
+               System.err.println("Carico il livello 2");
+               level = (Level)levelFactory.build(2);
+                break;
+            case 3:
+                System.err.println("Carico il livello 3");
+                level = (Level)levelFactory.build(3);
+                break;
+        }
+        level.setPanel(this);
+    }
+    
     /**
      * Method to add a KeyListner object to capture pressed keys
      */
@@ -252,9 +277,7 @@ public class GamePanel extends JPanel implements Runnable {
                 System.out.println("INTERRUPTED EXCEPTION");
             }
         }
-        setKeyH();
-        
-        
+        setKeyH();   
     }
     
     

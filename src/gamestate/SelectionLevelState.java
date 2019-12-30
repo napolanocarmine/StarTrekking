@@ -45,6 +45,25 @@ public class SelectionLevelState extends GameState {
         if (code == 4) {
             gsm.setState(gsm.getMms());
         } else {
+            // I know that I must go to StoryPlayState;
+            StoryPlayState sps = gsm.getSps();
+            switch (code) {
+                case 1:
+                    //call sps_level1;
+                    System.err.println("è stato selezionato il livello 1");
+                    sps.setLevel(1);
+                    break;
+                case 2:
+                    //call sps_level2;
+                    System.err.println("è stato selezionato il livello 2");
+                    sps.setLevel(2);
+                    break;
+                default:
+                    //call sps_level3;
+                    System.err.println("è stato selezionato il livello 3");
+                    sps.setLevel(3);
+                    break;
+            }
             gsm.setState(gsm.getSps());
         }
     }

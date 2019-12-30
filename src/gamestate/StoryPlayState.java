@@ -38,21 +38,10 @@ public class StoryPlayState extends GameState {
     @Override
     public void handleNext(int code) {
         if (code == 1) {
-            SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    System.err.println("vado nello stato di Game Over");
-                    gsm.setState(gsm.getGos());
-                }
-            });
+            gsm.setState(gsm.getGos());
         }
         if (code == 2) {
-            SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    gsm.setState(gsm.getPs());
-                }
-            });
+            gsm.setState(gsm.getPs());
         }
     }
 

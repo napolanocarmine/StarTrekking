@@ -30,13 +30,8 @@ public class PauseState extends GameState{
     @Override
     public void handlePrevious(int code) {
         if (code == 0){
-            SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
                     mg.stop();
                     gsm.setState(gsm.getSps());
-                }
-            });
         }
     }
 }

@@ -7,10 +7,15 @@ import gamestate.StoryPlayState;
 import graphics.EntitySprite;
 import graphics.Sprite;
 import java.awt.Graphics2D;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.ListIterator;
+import java.util.logging.Logger;
+import javax.swing.SwingUtilities;
+import panels.GameFrame;
 import panels.GamePanel;
 import static panels.GamePanel.unitTime;
+import startrekking.GameLauncher;
 import tiles.LayerFacade;
 import util.EntityBox;
 import util.KeyHandler;
@@ -67,8 +72,13 @@ public class Level extends Assembly{
             if(enemy.getPos().getWorldVar().getX() < GamePanel.WIDTH+100) enemy.updateGame();
         }
         if(player.getDeadAniEnded()) {
-            gp.restart();
-            gp.setState(1);
+            gp.restart(); //cancelliamo il thread. 
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                      gp.setState(1);
+                }
+            }); 
         }
         checkCollision();
         removeEnemies();

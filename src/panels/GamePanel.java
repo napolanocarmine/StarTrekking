@@ -84,8 +84,6 @@ public class GamePanel extends JPanel implements Runnable {
         if (thread != null) {
             running = false;
             thread = null;
-//            init();
-//            setPause(true);
         }
     }
 
@@ -162,14 +160,14 @@ public class GamePanel extends JPanel implements Runnable {
         int frameCount = 0;
         int lastSecondTime = (int) (lastUpdateTime / 1000000000);
         oldFrameCount = 0;
-
+        
         while (running) {
             //System.out.println("VEDO SE MI INTRAPPOLO");
             isInPause();
             //System.out.println("PROCEDO");
             double now = System.nanoTime();
             int updateCount = 0;
-            while (((now - lastUpdateTime) > TBU) && (updateCount < MUBR)) {
+            while (((now - lastUpdateTime) > TBU) && (updateCount < MUBR) && running) {
                 update();
                 lastUpdateTime += TBU;
                 updateCount++;

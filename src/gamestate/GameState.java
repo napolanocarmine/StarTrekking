@@ -32,7 +32,6 @@ public abstract class GameState implements State {
     
     public void set(){
         mg.play();
-        /*fare paintcomponent del panel*/
     }
     public void stopMusic(){
         mg.stop();

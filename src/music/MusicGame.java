@@ -41,6 +41,7 @@ public class MusicGame {
             AudioInputStream audio = AudioSystem.getAudioInputStream(getClass().getClassLoader().getResource("sounds/" + nameMusic + "Music.wav"));
             clip = AudioSystem.getClip();
             clip.open(audio);
+            audio.close();
         } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
             e.printStackTrace();
         }
@@ -56,7 +57,7 @@ public class MusicGame {
     public void stop() {
         clip.stop();
         clip.flush();
-        clip.close();
+//        clip.close();
     }
 
     public void loop() {

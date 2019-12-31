@@ -51,7 +51,6 @@ public class Level extends Assembly{
         Position.setWorldVar(map.getX(), map.getY());
         
         EntitySprite playerSprite = new EntitySprite("entity/wizard", 64, 64);
-        EntitySprite enemieSprite;//dentro la factory
         
         player = new Player(playerSprite, new Position(0, 0 + groundY), 96);
         
@@ -159,4 +158,8 @@ public class Level extends Assembly{
         }
     }
     
+    
+    public Player getPlayer(){
+        return player;
+    }
 }

@@ -12,6 +12,10 @@ import gameObjects.entityState.PlayerRunState;
  */
 public class CrouchPlayerCommand extends PlayerCommand {
 
+    /**
+     * Constructs a CrounchPlayerCommand
+     * @param player player affected by the Command
+     */
     public CrouchPlayerCommand(Player player) {
         super(player);
     }

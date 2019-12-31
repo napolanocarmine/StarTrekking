@@ -12,6 +12,11 @@ import gameObjects.entityState.PlayerRunState;
  */
 public class JumpPlayerCommand extends PlayerCommand {
 
+    /**
+     * Constructs a JumpPlayerCommand.
+     * @param player player affected by the command.
+     */
+    
     public JumpPlayerCommand(Player player) {
         super(player);
     }

@@ -54,6 +54,12 @@ public abstract class Entity implements GameObject {
 
     protected boolean deadAniEnded = false;
 
+    /**
+     * Creates a general entity object.
+     * @param sprite sprite of the entity.
+     * @param origin spawn position.
+     * @param size size of the enemy.
+     */
     public Entity(EntitySprite sprite, Position origin, int size) {
         this.sprite = sprite;
         this.pos = origin;
@@ -68,10 +74,18 @@ public abstract class Entity implements GameObject {
 
     }
 
+    /**
+     * Set the sprite of the entity.
+     * @param sprite 
+     */
     public void setSprite(EntitySprite sprite) {
         this.sprite = sprite;
     }
 
+    /**
+     * Return entity's sprite.
+     * @return entity's sprite.
+     */
     public EntitySprite getSprite() {
         return sprite;
     }

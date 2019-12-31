@@ -15,6 +15,9 @@ import util.Position;
  */
 public class EnemiesLevel2 extends EnemiesLevel{
     
+    /**
+     * Creates enemies of Level1.
+     */
     public EnemiesLevel2() {
         sprite = new EntitySprite("entity/skeleton", 64, 64);
         int enemieSize = 96;
@@ -23,6 +26,10 @@ public class EnemiesLevel2 extends EnemiesLevel{
         createEnemies();
     }
 
+    /**
+     * Produces the position of the enemies.
+     */
+    
     @Override
     protected final void initPositionArray() {
         positions = new ArrayList<>();
@@ -38,6 +45,9 @@ public class EnemiesLevel2 extends EnemiesLevel{
         positions.add(new Position(12000, groundY));
     }
 
+    /**
+     * Produces the enemies.
+     */  
     @Override
     protected final void createEnemies() {
         for (Position p : positions) {

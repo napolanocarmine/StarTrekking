@@ -18,16 +18,24 @@ import util.EntityBox;
 import util.Position;
 
 /**
- *
  * @author StarTrekking
- *
- *
+ */
+
+/**
+ * Represents the Enemy inside the level.
+ * @author Star Trekking
  */
 public class Enemy extends Entity {
 
     private EnemyState runState;
     private EnemyState deadState;
     
+    /**
+     * Creates an enemy object.
+     * @param sprite sprite of the enemy.
+     * @param origin spawn position.
+     * @param size size of the enemy.
+     */
     public Enemy(EntitySprite sprite, Position origin, int size) {
         super(sprite, origin, size);
         this.bounds = new EntityBox(pos, 16, 32, 40, 32);

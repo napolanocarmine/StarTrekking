@@ -27,7 +27,6 @@ public class MainMenuPanel extends javax.swing.JPanel {
 
     private final MainMenuState state;
     private BufferedImage screen;
-    public MusicGame mg = new MusicGame();
 
     /**
      * Creates new form MainMenuPanel

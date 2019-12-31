@@ -30,7 +30,7 @@ public class SelectionLevelState extends GameState {
             System.out.print(e);
         }
         this.gsm = gsm;
-        this.mg = new MusicGame("MainMenu");
+//        this.mg = new MusicGame("MainMenu");
     }
 
     /**
@@ -71,5 +71,10 @@ public class SelectionLevelState extends GameState {
     @Override
     public void handlePrevious(int code) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public void set(){
+        
     }
 }

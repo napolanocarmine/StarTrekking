@@ -16,7 +16,7 @@ public abstract class GameState implements State {
 
     protected JPanel panel;
     protected GameStateManager gsm;
-    protected MusicGame mg;
+//    protected MusicGame mg;
 
     public JPanel getPanel() {
         return panel;
@@ -30,18 +30,17 @@ public abstract class GameState implements State {
         this.gsm = gsm;
     }
     
-    public void set(){
-        mg.play();
-    }
+    public abstract void set();
+    
     public void stopMusic(){
-        mg.stop();
+        gsm.getMusicGame().stop();
     }
     public void loopMusic(){
-        mg.loop();
+        gsm.getMusicGame().loop();
     }
     
     public MusicGame getMusicGame(){
-        return mg;
+        return gsm.getMusicGame();
     }
     
 }

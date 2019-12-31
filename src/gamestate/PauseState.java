@@ -19,7 +19,7 @@ public class PauseState extends GameState{
     public PauseState(GameStateManager gsm) {
         this.gsm = gsm;
         this.panel = new PausePanel(this);
-        this.mg = new MusicGame("MainMenu");
+//        this.mg = new MusicGame("MainMenu");
     }
 
     @Override
@@ -30,8 +30,14 @@ public class PauseState extends GameState{
     @Override
     public void handlePrevious(int code) {
         if (code == 0){
-                    mg.stop();
+                    gsm.getMusicGame().stop();
                     gsm.setState(gsm.getSps());
         }
+    }
+    
+    @Override
+    public void set(){
+        gsm.setMusic("MainMenu");
+        gsm.getMusicGame().play();
     }
 }

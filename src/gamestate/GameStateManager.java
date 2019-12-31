@@ -6,6 +6,7 @@
 package gamestate;
 
 import java.io.IOException;
+import music.MusicGame;
 import panels.*;
 
 /**
@@ -26,6 +27,7 @@ public class GameStateManager {
     private GameState es;
     private GsmListener listener;
     private GameState currentState;
+    private MusicGame mg;
 
     /**
      * Create a new GameStateManager and initialize the initial state
@@ -34,6 +36,7 @@ public class GameStateManager {
      */
     public GameStateManager() throws IOException {
         this.listener = null;
+        this.mg = new MusicGame();
         this.mms = new MainMenuState(this);
         this.sps = new StoryPlayState(this);
         this.gos = new GameOverState(this);
@@ -93,8 +96,6 @@ public class GameStateManager {
         return listener;
     }
 
-
-
     public GameState getEs() {
         return es;
     }
@@ -118,6 +119,18 @@ public class GameStateManager {
 
     public GameState getCurrentState() {
         return currentState;
+    }
+    
+    protected void setMusicGame(MusicGame mg){
+        this.mg = mg;
+    }
+    
+    protected MusicGame getMusicGame(){
+        return mg;
+    }
+    
+    protected void setMusic(String name){
+        mg.setMusic(name);
     }
 
 }

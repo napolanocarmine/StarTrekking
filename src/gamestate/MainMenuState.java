@@ -24,7 +24,8 @@ public class MainMenuState extends GameState {
     public MainMenuState(GameStateManager gsm) throws IOException {
         this.panel = new MainMenuPanel(this);
         this.gsm = gsm;
-        this.mg = new MusicGame("MainMenu");
+//        this.mg = new MusicGame("MainMenu");
+        gsm.setMusic("MainMenu");
     }
 
     /**
@@ -45,5 +46,16 @@ public class MainMenuState extends GameState {
 
     @Override
     public void handlePrevious(int code) {
+    }
+    
+    @Override
+    public void set(){
+        gsm.setMusic("MainMenu");
+        gsm.getMusicGame().play();
+    }
+    
+    @Override
+    public void stopMusic(){
+        
     }
 }

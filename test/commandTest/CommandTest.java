@@ -65,21 +65,36 @@ public class CommandTest {
     }
     
     @Test
+    public void testJumpCommand_assertTrue(){
+        invoker.setCommand(jump);
+        assertTrue("The state set by the command is JumpState", level1.getPlayer().getState() instanceof PlayerJumpState);
+    }
+    
+    @Test
     public void testCrounchCommand() {
         invoker.setCommand(crounch);
         assertTrue("The state set by the command is CrounchState", level1.getPlayer().getState() instanceof PlayerCrouchState);
     }
     
     @Test
-    public void testJumpCommand_assertFalse() {
-        invoker.setCommand(jump);
-        assertFalse("The state jump has not been set", level1.getPlayer().getState() instanceof PlayerJumpState);
+    public void testCrounchWhileNotRun(){
+        level1.getPlayer().setState(level1.getPlayer().getPlayerJumpState());
+        invoker.setCommand(crounch);
+        assertFalse("Crunch state has not been set", level1.getPlayer().getState() instanceof PlayerCrouchState);
+        
+        level1.getPlayer().setState(level1.getPlayer().getPlayerAttackState());
+        invoker.setCommand(crounch);
+        assertFalse("Crunch state has not been set", level1.getPlayer().getState() instanceof PlayerCrouchState);
     }
     
-//    @Test
-//    public void testJumpCommand_assertTrue(){
-//        level1.getPlayer().setState(level1.getPlayer().getPlayerRunState());
-//        assertTrue("The state set by the command is JumpState", level1.getPlayer().getState() instanceof PlayerJumpState);
-//    }
+    @Test
+    public void testAttackWhileNotRun() {
+        level1.getPlayer().setState(level1.getPlayer().getPlayerJumpState());
+        invoker.setCommand(attack);
+        assertFalse("Attack state has not been set", level1.getPlayer().getState() instanceof PlayerAttackState);
 
+        level1.getPlayer().setState(level1.getPlayer().getPlayerCrounchState());
+        invoker.setCommand(attack);
+        assertFalse("Attack state has not been set", level1.getPlayer().getState() instanceof  PlayerAttackState);
+    }
 }

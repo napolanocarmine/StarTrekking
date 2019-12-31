@@ -40,7 +40,6 @@ public class PlayerJumpState extends PlayerState{
 
     @Override
     public void set() {
-        System.err.println("Jump animation");
         p.setAnimation(p.getSprite().getSprite(EntityEnum.JUMP), 80);
         p.getMg().setMusic("Jump");
         p.getMg().play();

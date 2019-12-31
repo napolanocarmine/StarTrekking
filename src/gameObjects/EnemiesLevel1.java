@@ -38,7 +38,7 @@ public class EnemiesLevel1 extends EnemiesLevel{
     @Override
     protected final void createEnemies() {
         for (Position p : positions) {
-            addObj(new GroundEnemy(sprite, p, 96));
+            addObj(new GroundEnemy(sprite, p, enemySize));
         }
     }
     

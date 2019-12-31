@@ -14,14 +14,14 @@ public class Shot extends Entity{
         this.bounds = new EntityBox(pos, 16, 16, 16, 16);
         this.state = new ShotRunState(this);
         this.initialSpeed = initialSpeed;
-        this.vx = initialSpeed + 0.4f;
+        this.vx = initialSpeed + 0.2f;
         this.acc = 0.001f;
 //        dx = (float) ((0.5 * acc * Math.pow(timex, 2) + vx * timex)) + dx0 + 96;
 //        System.err.println("COLPO CREATO: dx: " + dx);
     }
 
     public boolean collides() {
-        return tc.collisionTileObj(dx - previousX, 0);
+        return tc.collisionTileObj(5, 0);
     }
 
     public void move() {

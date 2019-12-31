@@ -17,15 +17,15 @@ public class ObjBlock extends Block {
         return true;
     }
 
-    @Override
-    public boolean isInside(EntityBox p) {
-        return false;
-    }
+//    @Override
+//    public boolean isInside(EntityBox p) {
+//        return false;
+//    }
 
     @Override
     public void render(Graphics2D g) {
         super.render(g);
-//        g.setColor(Color.WHITE);
-//        g.drawRect((int) pos.getWorldVar().getX(), (int) pos.getWorldVar().getY(), w, h);
+        g.setColor(Color.WHITE);
+        g.drawRect((int) pos.getWorldVar().getX(), (int) pos.getWorldVar().getY(), w, h);
     }
 }

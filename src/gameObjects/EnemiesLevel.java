@@ -18,6 +18,7 @@ public abstract class  EnemiesLevel extends Assembly{
     protected ArrayList<Position> positions; 
     protected float groundY = (GamePanel.HEIGHT) - 162;
     protected EntitySprite sprite;
+    protected int enemySize = 96;
     
     protected abstract void initPositionArray();
     protected abstract void createEnemies();

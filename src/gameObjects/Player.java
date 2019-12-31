@@ -206,7 +206,7 @@ public class Player extends Entity{
         }
         //move();
         pos.setX(dx);    //update x position
-        if (Level.getMapPos().getX() + GamePanel.WIDTH < LayerFacade.mapWidth * 16) {
+        if (Level.getMapPos().getX() + GamePanel.WIDTH < LayerFacade.getMapWidth() * 16) {
             Level.getMapPos().setX(dx);
         }
         pos.setY(dy);
@@ -214,7 +214,7 @@ public class Player extends Entity{
             for(int i=0; i<shots.size(); i++){
                 if(shots.get(i).pos.getWorldVar().getX() - pos.getWorldVar().getX() > GamePanel.WIDTH || shots.get(i).collides()){
                     deleteShot(shots.get(i));
-                } else {
+                }else {
                     shots.get(i).updateGame();
                 }
             }

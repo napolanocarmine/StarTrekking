@@ -2,8 +2,6 @@ package gameObjects.entityState;
 
 import gameObjects.Player;
 import music.MusicGame;
-import util.EntityEnum;
-
 
 public abstract class PlayerState implements EntityState {
     

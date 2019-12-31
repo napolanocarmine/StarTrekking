@@ -21,7 +21,6 @@ public class EnemiesLevel3 extends EnemiesLevel{
      */
     public EnemiesLevel3() {
         sprite = new EntitySprite("entity/skeleton", 64, 64);
-        int enemieSize = 96;
         groundY += 10;
         initPositionArray();
         createEnemies();
@@ -52,7 +51,7 @@ public class EnemiesLevel3 extends EnemiesLevel{
     @Override
     protected final void createEnemies() {
         for (Position p : positions) {
-            addObj(new GroundEnemy(sprite, p, 96));
+            addObj(new GroundEnemy(sprite, p, enemySize));
         }
     }
     

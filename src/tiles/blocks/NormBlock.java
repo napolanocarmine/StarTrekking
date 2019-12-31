@@ -21,9 +21,9 @@ public class NormBlock extends Block {
         super.render(g);
     }
 
-    @Override
-    public boolean isInside(EntityBox p) {
-        return false;
-    }
+//    @Override
+//    public boolean isInside(EntityBox p) {
+//        return false;
+//    }
 
 }

@@ -20,10 +20,6 @@ public class LayerFacade {
     public static ArrayList<Layer> tm;
     public static int mapWidth;
 
-    public LayerFacade() {
-        tm = new ArrayList<>();
-    }
-
     public LayerFacade(String path) {
         tm = new ArrayList<>();
         addTileMap(path, 16, 16);
@@ -88,6 +84,8 @@ public class LayerFacade {
             System.exit(0);
         }
     }
+    
+    public static int getMapWidth(){ return mapWidth; }
 
     public void render(Graphics2D g) {
         for (int i = 0; i < tm.size(); i++) {

@@ -37,7 +37,7 @@ public class PlayerAttackState extends PlayerState{
 
     @Override
     public void set() {
-        p.setAnimation(p.getSprite().getSprite(EntityEnum.ATTACK), 80);
+        p.setAnimation(p.getSprite().getSprite(EntityEnum.ATTACK), 30);
         p.getMg().setMusic("Shot");
         p.getMg().play();
     }

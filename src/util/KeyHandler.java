@@ -94,7 +94,7 @@ public class KeyHandler implements KeyListener {
         if (!pressed) {
             switch (ke.getKeyCode()) {
                 case 32:                        //space -> 32
-                    System.err.println("Jump");
+//                    System.err.println("Jump");
                     this.cmdInvoker.setCommand(jumpPlayerC);
                     pressed = true;
                     break;

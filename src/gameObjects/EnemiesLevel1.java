@@ -34,7 +34,6 @@ public class EnemiesLevel1 extends EnemiesLevel{
         positions.add(new Position(1500, groundY));
         positions.add(new Position(2100, groundY));
         positions.add(new Position(3080, groundY));
-        positions.add(new Position(3080, groundY));
         positions.add(new Position(4700, groundY));
         positions.add(new Position(5500, groundY));
         positions.add(new Position(7400, groundY));
@@ -48,7 +47,7 @@ public class EnemiesLevel1 extends EnemiesLevel{
     @Override
     protected final void createEnemies() {
         for (Position p : positions) {
-            addObj(new GroundEnemy(sprite, p, 96));
+            addObj(new GroundEnemy(sprite, p, enemySize));
         }
     }
     

@@ -25,8 +25,7 @@ public abstract class Block {
     }
 
     public abstract boolean update();
-
-    public abstract boolean isInside(EntityBox p);
+//    public abstract boolean isInside(EntityBox p);
 
     public int getWidth() {
         return w;

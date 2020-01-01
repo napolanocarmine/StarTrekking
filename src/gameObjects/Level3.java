@@ -13,7 +13,7 @@ public class Level3 extends Level{
     public void init(){
         super.init();
         tf = new LayerFacade("tiles/LevelThree.xml");
-        enemies = (EnemiesLevel)ef.build(2);
+        enemies = (EnemiesLevel)ef.build(3);
         addObj(enemies);
     }
 }

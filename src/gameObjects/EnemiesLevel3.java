@@ -20,7 +20,7 @@ public class EnemiesLevel3 extends EnemiesLevel{
      * Creates enemies of Level1.
      */
     public EnemiesLevel3() {
-        sprite = new EntitySprite("entity/skeleton", 64, 64);
+        sprite = new EntitySprite("entity/dragon", 64, 64);
         groundY += 10;
         initPositionArray();
         createEnemies();
@@ -33,16 +33,23 @@ public class EnemiesLevel3 extends EnemiesLevel{
     @Override
     protected final void initPositionArray() {
         positions = new ArrayList<>();
-        positions.add(new Position(1000, groundY));
-        positions.add(new Position(1700, 340));
-        positions.add(new Position(3200, groundY));
-        positions.add(new Position(3600, 210));
-        positions.add(new Position(5000, 220));
-        positions.add(new Position(6000, groundY));
-        positions.add(new Position(7200, groundY));
-        positions.add(new Position(8000, groundY));
-        positions.add(new Position(10000, groundY));
-        positions.add(new Position(12000, groundY));
+        positions.add(new Position(1400, groundY-50));
+        positions.add(new Position(3200, groundY-50));
+        positions.add(new Position(3700, groundY+50));
+        positions.add(new Position(3700, groundY-250));
+        positions.add(new Position(3900, groundY-250));
+        positions.add(new Position(4000, groundY-350));
+        positions.add(new Position(4200, groundY-350));
+        positions.add(new Position(4500, groundY-350));
+        positions.add(new Position(4700, groundY+50));
+        positions.add(new Position(5000, groundY+50));
+        positions.add(new Position(5000, groundY+250));
+        positions.add(new Position(5500, groundY+50));
+        positions.add(new Position(6000, groundY+50));
+        positions.add(new Position(7200, groundY+50));
+        positions.add(new Position(8000, groundY+50));
+        positions.add(new Position(10000, groundY+50));
+        positions.add(new Position(12000, groundY+50));
     }
     
     /**

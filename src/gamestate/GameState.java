@@ -10,7 +10,7 @@ import music.MusicGame;
 
 /**
  *
- * @author Gianluca
+ * @author Star Trekking
  */
 public abstract class GameState implements State {
 
@@ -35,6 +35,7 @@ public abstract class GameState implements State {
     public void stopMusic(){
         gsm.getMusicGame().stop();
     }
+    
     public void loopMusic(){
         gsm.getMusicGame().loop();
     }

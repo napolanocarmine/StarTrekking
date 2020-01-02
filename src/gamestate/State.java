@@ -9,7 +9,7 @@ import javax.swing.*;
 
 /**
  *
- * @author StarTrekking
+ * @author Star Trekking
  *
  * Abstract class describing objects and actions performed on a State object
  */

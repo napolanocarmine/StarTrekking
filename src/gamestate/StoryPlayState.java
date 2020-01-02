@@ -37,6 +37,7 @@ public class StoryPlayState extends GameState {
      */
     @Override
     public void handleNext(int code) {
+        this.stopMusic();
         if (code == 1) {
             gsm.setState(gsm.getGos());
         }
@@ -82,6 +83,17 @@ public class StoryPlayState extends GameState {
         // Run the thread;
         ((GamePanel) panel).setPause(false);
         pause = false;
+        
+        if(level == 1){    
+            gsm.setMusic("LevelOne");
+            gsm.getMusicGame().play();
+        }else if(level == 2){    
+            gsm.setMusic("LevelTwo");
+            gsm.getMusicGame().play();
+        }if(level == 3){    
+            gsm.setMusic("LevelThree");
+            gsm.getMusicGame().play();
+        }
     }
 
 }

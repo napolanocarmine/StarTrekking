@@ -121,14 +121,30 @@ public class GameStateManager {
         return currentState;
     }
     
+    /**
+     * It is used to set a MusicGame variable
+     *
+     * @param mg represents the MusicGame variable.
+     */    
     protected void setMusicGame(MusicGame mg){
         this.mg = mg;
     }
     
+    /**
+     * It is used to get a MusicGame variable
+     *
+     * @return mg represents the MusicGame variable.
+     */
     protected MusicGame getMusicGame(){
         return mg;
     }
     
+    /**
+     * It is used to set a .wav file in Clip object;
+     * Note: this methods calls MusicGame.setMusic(String)
+     *
+     * @param name represents the name of the file .wav to be setted.
+     */
     protected void setMusic(String name){
         mg.setMusic(name);
     }

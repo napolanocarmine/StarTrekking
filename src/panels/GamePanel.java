@@ -17,7 +17,7 @@ import util.KeyHandler;
 
 /**
  *
- * @author StarTrekking
+ * @author Star Trekking
  *
  * Class responsible to open and draw the frame and manage the updating thread
  * of the User Interface

@@ -35,7 +35,7 @@ public class GameStateManager {
     public GameStateManager() throws IOException {
         this.listener = null;
         this.mms = new MainMenuState(this);
-        this.sps = new StoryPlayState(1,this);
+        this.sps = new StoryPlayState(this);
         this.gos = new GameOverState(this);
         this.ps = new PauseState(this);
         this.vs = new VictoryState(this);
@@ -92,8 +92,6 @@ public class GameStateManager {
     public GsmListener getListener() {
         return listener;
     }
-
-
 
     public GameState getEs() {
         return es;

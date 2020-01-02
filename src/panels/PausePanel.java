@@ -36,6 +36,7 @@ public class PausePanel extends javax.swing.JPanel {
         initComponents();
         setOpaque(false);
         this.state = state;
+        
         screen = ImageIO.read(getClass().getResource("/screen/forest.png"));
 
         initComponents();

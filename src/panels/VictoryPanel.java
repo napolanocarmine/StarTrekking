@@ -34,18 +34,21 @@ public class VictoryPanel extends javax.swing.JPanel{
      * Creates new form VictoryPanel
      */
     public VictoryPanel(VictoryState state) throws IOException {
-
-        this.state = state;
         initComponents();
+        
+        this.state = state;
+        
 
-        titleIcon = ImageIO.read(getClass().getResource("/menuIcon/startrekking.png"));
+        titleIcon = ImageIO.read(getClass().getResource("/menuIcon/LevelCompleted.png"));
         screen = ImageIO.read(getClass().getResource("/screen/forest.png"));
+        
+        
 
-        nextLevelIcon_black = ImageIO.read(getClass().getResource("/menuIcon/resume_black.png"));
+        nextLevelIcon_black = ImageIO.read(getClass().getResource("/menuIcon/nextLevelNero.png"));
         restartIcon_black = ImageIO.read(getClass().getResource("/menuIcon/restart_black.png"));
         mainMenuIcon_black = ImageIO.read(getClass().getResource("/menuIcon/back_black.png"));
 
-        nextLevelIcon_yellow = ImageIO.read(getClass().getResource("/menuIcon/resume_yellow.png"));
+        nextLevelIcon_yellow = ImageIO.read(getClass().getResource("/menuIcon/NextLevelGiallo.png"));
         restartIcon_yellow = ImageIO.read(getClass().getResource("/menuIcon/restart_yellow.png"));
         mainMenuIcon_yellow = ImageIO.read(getClass().getResource("/menuIcon/back_yellow.png"));
 
@@ -57,6 +60,8 @@ public class VictoryPanel extends javax.swing.JPanel{
     }
 
     private void initIcon() {
+        victoryLabel.setIcon(new javax.swing.ImageIcon(titleIcon));
+        
         mainMenuButton.setIcon(new javax.swing.ImageIcon(mainMenuIcon_black));
         mainMenuButton.setBorder(null);
 

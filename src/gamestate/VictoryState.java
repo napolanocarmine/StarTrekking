@@ -5,27 +5,54 @@
  */
 package gamestate;
 
+import static gamestate.StoryPlayState.level;
+import java.io.IOException;
+import javax.swing.SwingUtilities;
+import panels.VictoryPanel;
+
 /**
  *
  * @author Gianluca
  */
 public class VictoryState extends GameState {
-    private GameStateManager gsm; 
-    
-    public VictoryState(GameStateManager gsm) {
+
+    private GameStateManager gsm;
+    private int level;
+
+    public VictoryState(GameStateManager gsm) throws IOException {
         this.gsm = gsm;
+        this.panel = new VictoryPanel(this);
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     @Override
     public void handleNext(int code) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (code == 0) {
+            if (level != 3) {
+                ((StoryPlayState) gsm.getSps()).setLevel(level + 1);
+            }
+            ((StoryPlayState) gsm.getSps()).restartGame();
+            gsm.setState(gsm.getSps());
+
+        }
+        if (code == 1) {
+            ((StoryPlayState) gsm.getSps()).restartGame();
+            gsm.setState(gsm.getSps());
+
+        }
+        if (code == 2) {
+            ((StoryPlayState) gsm.getSps()).restartGame();
+            gsm.setState(gsm.getMms());
+
+        }
     }
 
     @Override
     public void handlePrevious(int code) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       
     }
-    
 
-    
 }

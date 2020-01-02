@@ -24,7 +24,7 @@ import util.KeyHandler;
  * Operations: - update in loop of the Map and Entity; - manage the refers to
  * Map, Entity, KeyHandler and TileFacade objects
  */
-public class GamePanel extends JPanel implements Runnable {
+public class GamePanel extends JPanel implements Runnable{
 
     //window dimensions    
     public static float unitTime = 700000000;
@@ -78,10 +78,14 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    public final void restart() {
+    public void reset() {
         if (thread != null) {
+            if (level != null){
+                level.resetLevel();
+            }
             init();
             setPause(true);
+            
         }
     }
 
@@ -95,6 +99,7 @@ public class GamePanel extends JPanel implements Runnable {
         g = (Graphics2D) img.getGraphics();
 
         setKeyH();
+        
         this.level = new Level(this);
     }
 
@@ -247,9 +252,7 @@ public class GamePanel extends JPanel implements Runnable {
     private synchronized void isInPause(){
         while(pause){
             try {
-                System.out.println("ENTRO IN PAUSA, ADDIO");
                 wait();
-                System.out.println("PIPPO");
             } catch (InterruptedException ex) {
                 System.out.println("INTERRUPTED EXCEPTION");
             }
@@ -259,10 +262,11 @@ public class GamePanel extends JPanel implements Runnable {
         
     }
     
-    
     public synchronized void setPause(boolean pause){
         this.pause = pause;
         notifyAll();
     }
+    
+    
     
 }

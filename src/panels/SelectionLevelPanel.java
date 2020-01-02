@@ -21,10 +21,20 @@ import javax.imageio.ImageIO;
  *
  * Class that represents the panel of the selection level
  */
-public class SelectionLevelPanel extends javax.swing.JPanel {
+public class SelectionLevelPanel extends javax.swing.JPanel{
 
     private SelectionLevelState state;
     private BufferedImage screen;
+    BufferedImage levelIcon;
+
+    BufferedImage levelOneIcon_black;
+    BufferedImage levelTwoIcon_black;
+    BufferedImage levelThreeIcon_black;
+    BufferedImage backMenuIcon_black;
+    BufferedImage levelOneIcon_yellow;
+    BufferedImage levelTwoIcon_yellow;
+    BufferedImage levelThreeIcon_yellow;
+    BufferedImage backMenuIcon_yellow;
 
     /**
      * Creates new form SelectLevelPanel
@@ -40,28 +50,24 @@ public class SelectionLevelPanel extends javax.swing.JPanel {
         this.state = state;
         screen = ImageIO.read(getClass().getResource("/screen/forest.png"));
 
-        BufferedImage levelIcon = ImageIO.read(getClass().getResource("/menuIcon/levels.png"));
-        BufferedImage levelOneIcon = ImageIO.read(getClass().getResource("/menuIcon/level_one_black.png"));
-        BufferedImage levelTwoIcon = ImageIO.read(getClass().getResource("/menuIcon/level_two_black.png"));
-        BufferedImage levelThreeIcon = ImageIO.read(getClass().getResource("/menuIcon/level_three_black.png"));
-        BufferedImage backMenuIcon = ImageIO.read(getClass().getResource("/menuIcon/back_black.png"));
+        levelIcon = ImageIO.read(getClass().getResource("/menuIcon/levels.png"));
+
+        levelOneIcon_black = ImageIO.read(getClass().getResource("/menuIcon/level_one_black.png"));
+        levelTwoIcon_black = ImageIO.read(getClass().getResource("/menuIcon/level_two_black.png"));
+        levelThreeIcon_black = ImageIO.read(getClass().getResource("/menuIcon/level_three_black.png"));
+        backMenuIcon_black = ImageIO.read(getClass().getResource("/menuIcon/back_black.png"));
+
+        levelOneIcon_yellow = ImageIO.read(getClass().getResource("/menuIcon/level_one_yellow.png"));
+        levelTwoIcon_yellow = ImageIO.read(getClass().getResource("/menuIcon/level_two_yellow.png"));
+        levelThreeIcon_yellow = ImageIO.read(getClass().getResource("/menuIcon/level_three_yellow.png"));
+        backMenuIcon_yellow = ImageIO.read(getClass().getResource("/menuIcon/back_yellow.png"));
 
         titleLabel1.setIcon(new javax.swing.ImageIcon(levelIcon));
-        levelOneButton.setIcon(new javax.swing.ImageIcon(levelOneIcon));
-        levelTwoButton.setIcon(new javax.swing.ImageIcon(levelTwoIcon));
-        levelThreeButton.setIcon(new javax.swing.ImageIcon(levelThreeIcon));
-        backMainMenuButton.setIcon(new javax.swing.ImageIcon(backMenuIcon));
 
-        titleLabel1.setBorder(null);
-        levelOneButton.setBorder(null);
-        levelTwoButton.setBorder(null);
-        levelThreeButton.setBorder(null);
-        backMainMenuButton.setBorder(null);
+        initIcon();
 
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         this.setVisible(true);
-        this.setSize(screen.getWidth(), screen.getHeight());
+        this.setSize(GameFrame.WIDTH, GameFrame.HEIGHT);
     }
 
     @Override
@@ -202,125 +208,87 @@ public class SelectionLevelPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public void initIcon() {
+
+        backMainMenuButton.setIcon(new javax.swing.ImageIcon(backMenuIcon_black));
+        backMainMenuButton.setBorder(null);
+
+        levelOneButton.setIcon(new javax.swing.ImageIcon(levelOneIcon_black));
+        levelOneButton.setBorder(null);
+
+        levelTwoButton.setIcon(new javax.swing.ImageIcon(levelTwoIcon_black));
+        levelTwoButton.setBorder(null);
+
+        levelThreeButton.setIcon(new javax.swing.ImageIcon(levelThreeIcon_black));
+        levelThreeButton.setBorder(null);
+    }
+
     private void backMainMenuButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMainMenuButtonMouseEntered
-        BufferedImage level = null;
 
-        try {
-            level = ImageIO.read(getClass().getResource("/menuIcon/back_yellow.png"));
-        } catch (IOException ex) {
-            Logger.getLogger(MainMenuPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        backMainMenuButton.setIcon(new javax.swing.ImageIcon(level));
+        backMainMenuButton.setIcon(new javax.swing.ImageIcon(backMenuIcon_yellow));
         backMainMenuButton.setBorder(null);
     }//GEN-LAST:event_backMainMenuButtonMouseEntered
 
     private void backMainMenuButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMainMenuButtonMouseExited
-        BufferedImage level = null;
 
-        try {
-            level = ImageIO.read(getClass().getResource("/menuIcon/back_black.png"));
-        } catch (IOException ex) {
-            Logger.getLogger(MainMenuPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        backMainMenuButton.setIcon(new javax.swing.ImageIcon(level));
+        backMainMenuButton.setIcon(new javax.swing.ImageIcon(backMenuIcon_black));
         backMainMenuButton.setBorder(null);
     }//GEN-LAST:event_backMainMenuButtonMouseExited
 
     private void backMainMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backMainMenuButtonActionPerformed
         // TODO add your handling code here:
+        backMainMenuButton.setIcon(new javax.swing.ImageIcon(backMenuIcon_black));
         state.handleNext(4);
     }//GEN-LAST:event_backMainMenuButtonActionPerformed
 
     private void levelThreeButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_levelThreeButtonMouseEntered
-        BufferedImage level = null;
 
-        try {
-            level = ImageIO.read(getClass().getResource("/menuIcon/level_three_yellow.png"));
-        } catch (IOException ex) {
-            Logger.getLogger(MainMenuPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        levelThreeButton.setIcon(new javax.swing.ImageIcon(level));
+        levelThreeButton.setIcon(new javax.swing.ImageIcon(levelThreeIcon_yellow));
         levelThreeButton.setBorder(null);
     }//GEN-LAST:event_levelThreeButtonMouseEntered
 
     private void levelThreeButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_levelThreeButtonMouseExited
-        BufferedImage level = null;
 
-        try {
-            level = ImageIO.read(getClass().getResource("/menuIcon/level_three_black.png"));
-        } catch (IOException ex) {
-            Logger.getLogger(MainMenuPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        levelThreeButton.setIcon(new javax.swing.ImageIcon(level));
+        levelThreeButton.setIcon(new javax.swing.ImageIcon(levelThreeIcon_black));
         levelThreeButton.setBorder(null);
     }//GEN-LAST:event_levelThreeButtonMouseExited
 
     private void levelThreeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_levelThreeButtonActionPerformed
-        System.err.println("LEVEL STILL NOT IMPLEMENTED");
+        levelThreeButton.setIcon(new javax.swing.ImageIcon(levelThreeIcon_black));
         state.handleNext(3);
     }//GEN-LAST:event_levelThreeButtonActionPerformed
 
     private void levelTwoButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_levelTwoButtonMouseEntered
-        BufferedImage level = null;
 
-        try {
-            level = ImageIO.read(getClass().getResource("/menuIcon/level_two_yellow.png"));
-        } catch (IOException ex) {
-            Logger.getLogger(MainMenuPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        levelTwoButton.setIcon(new javax.swing.ImageIcon(level));
+        levelTwoButton.setIcon(new javax.swing.ImageIcon(levelTwoIcon_yellow));
         levelTwoButton.setBorder(null);
     }//GEN-LAST:event_levelTwoButtonMouseEntered
 
     private void levelTwoButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_levelTwoButtonMouseExited
-        BufferedImage level = null;
 
-        try {
-            level = ImageIO.read(getClass().getResource("/menuIcon/level_two_black.png"));
-        } catch (IOException ex) {
-            Logger.getLogger(MainMenuPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        levelTwoButton.setIcon(new javax.swing.ImageIcon(level));
+        levelTwoButton.setIcon(new javax.swing.ImageIcon(levelTwoIcon_black));
         levelTwoButton.setBorder(null);
     }//GEN-LAST:event_levelTwoButtonMouseExited
 
     private void levelTwoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_levelTwoButtonActionPerformed
+        levelTwoButton.setIcon(new javax.swing.ImageIcon(levelTwoIcon_black));
         state.handleNext(2);
     }//GEN-LAST:event_levelTwoButtonActionPerformed
 
     private void levelOneButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_levelOneButtonMouseEntered
-        BufferedImage levelOne = null;
 
-        try {
-            levelOne = ImageIO.read(getClass().getResource("/menuIcon/level_one_yellow.png"));
-        } catch (IOException ex) {
-            Logger.getLogger(MainMenuPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        levelOneButton.setIcon(new javax.swing.ImageIcon(levelOne));
+        levelOneButton.setIcon(new javax.swing.ImageIcon(levelOneIcon_yellow));
         levelOneButton.setBorder(null);
     }//GEN-LAST:event_levelOneButtonMouseEntered
 
     private void levelOneButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_levelOneButtonMouseExited
-        BufferedImage levelOne = null;
 
-        try {
-            levelOne = ImageIO.read(getClass().getResource("/menuIcon/level_one_black.png"));
-        } catch (IOException ex) {
-            Logger.getLogger(MainMenuPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        levelOneButton.setIcon(new javax.swing.ImageIcon(levelOne));
+        levelOneButton.setIcon(new javax.swing.ImageIcon(levelOneIcon_black));
         levelOneButton.setBorder(null);
     }//GEN-LAST:event_levelOneButtonMouseExited
 
     private void levelOneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_levelOneButtonActionPerformed
+        levelOneButton.setIcon(new javax.swing.ImageIcon(levelOneIcon_black));
         state.handleNext(1);
     }//GEN-LAST:event_levelOneButtonActionPerformed
 
@@ -337,4 +305,5 @@ public class SelectionLevelPanel extends javax.swing.JPanel {
     private javax.swing.JButton levelTwoButton;
     private javax.swing.JLabel titleLabel1;
     // End of variables declaration//GEN-END:variables
+
 }

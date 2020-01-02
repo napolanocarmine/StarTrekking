@@ -9,7 +9,9 @@ import panels.SelectionLevelPanel;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.SwingUtilities;
 import music.MusicGame;
+import panels.GamePanel;
 
 /**
  *
@@ -42,15 +44,35 @@ public class SelectionLevelState extends GameState {
     @Override
     public void handleNext(int code) {
         this.stopMusic();
+
+        if (code == 1) {
+            ((StoryPlayState) gsm.getSps()).setLevel(1);
+            ((GamePanel) (gsm.getSps()).getPanel()).reset();
+            gsm.setState(gsm.getSps());
+
+        }
+
+        if (code == 2) {
+            ((StoryPlayState) gsm.getSps()).setLevel(2);
+            ((GamePanel) (gsm.getSps()).getPanel()).reset();
+            gsm.setState(gsm.getSps());
+
+        }
+
+        if (code == 3) {
+            ((StoryPlayState) gsm.getSps()).setLevel(3);
+            ((StoryPlayState) (gsm.getSps())).restartGame();
+            gsm.setState(gsm.getSps());
+
+        }
+
         if (code == 4) {
             gsm.setState(gsm.getMms());
-        } else {
-            gsm.setState(gsm.getSps());
         }
+
     }
 
     @Override
     public void handlePrevious(int code) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

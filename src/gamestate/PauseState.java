@@ -5,6 +5,7 @@
  */
 package gamestate;
 
+import java.io.IOException;
 import javax.swing.SwingUtilities;
 import music.MusicGame;
 import panels.PausePanel;
@@ -13,10 +14,11 @@ import panels.PausePanel;
  *
  * @author Gianluca
  */
-public class PauseState extends GameState{
-    private GameStateManager gsm; 
-    
-    public PauseState(GameStateManager gsm) {
+public class PauseState extends GameState {
+
+    private GameStateManager gsm;
+
+    public PauseState(GameStateManager gsm) throws IOException {
         this.gsm = gsm;
         this.panel = new PausePanel(this);
         this.mg = new MusicGame("MainMenu");
@@ -24,19 +26,26 @@ public class PauseState extends GameState{
 
     @Override
     public void handleNext(int code) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (code == 0) {
+            mg.stop();
+            gsm.getSps().restartGame();
+            gsm.setState(gsm.getSps());
+
+        }
+        if (code == 1) {
+            mg.stop();
+            gsm.setState(gsm.getMms());
+
+        }
     }
 
     @Override
     public void handlePrevious(int code) {
-        if (code == 0){
-            SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    mg.stop();
-                    gsm.setState(gsm.getSps());
-                }
-            });
+        if (code == 0) {
+
+            mg.stop();
+            gsm.setState(gsm.getSps());
+
         }
     }
 }

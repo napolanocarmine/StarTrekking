@@ -7,6 +7,7 @@ package gamestate;
 
 import panels.GameOverPanel;
 import java.io.IOException;
+import javax.swing.SwingUtilities;
 import music.MusicGame;
 
 /**
@@ -17,7 +18,6 @@ import music.MusicGame;
  * Class which represents the state in which the game shows the Game Over Menu.
  */
 public class GameOverState extends GameState {
-
 
     /**
      * Create the Panel, which represents the Game Over Menu.
@@ -42,11 +42,17 @@ public class GameOverState extends GameState {
     public void handleNext(int code) {
         //code to manage the next state
         this.stopMusic();
-        int level = StoryPlayState.level;
+
         if (code == 0) {
+
+            ((StoryPlayState) gsm.getSps()).restartGame();
             gsm.setState(gsm.getSps());
-        } else if (code == 1) {
+        }
+
+        if (code == 1) {
+
             gsm.setState(gsm.getMms());
+
         }
 
     }

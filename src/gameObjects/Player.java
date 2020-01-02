@@ -4,6 +4,7 @@ import gameObjects.entityState.PlayerDeadState;
 import gameObjects.entityState.PlayerJumpState;
 import gameObjects.entityState.PlayerState;
 import gameObjects.entityState.PlayerRunState;
+import gameObjects.entityState.PlayerVictoryState;
 import graphics.Animation;
 import graphics.EntitySprite;
 import java.awt.Color;
@@ -36,6 +37,7 @@ public class Player extends Entity{
     private float invStartTime;
     private boolean visible;
     private boolean falling = false;
+    private boolean victory;
     
     private float instantVx = 0;
     private boolean changeMotion = false;
@@ -56,6 +58,7 @@ public class Player extends Entity{
         this.acc = 0.00002f;
         this.visible = true;
         this.invincible = false;
+        this.victory = false;
         mg = new MusicGame();
     }
 
@@ -193,6 +196,10 @@ public class Player extends Entity{
         if(pos.getY() > GamePanel.HEIGHT && !(state instanceof PlayerDeadState)){
             setState(new PlayerDeadState(this));
         }
+        if(pos.getX() > TileFacade.mapWidth * 16){
+            setState(new PlayerVictoryState(this));
+            this.victory = true;
+        }
     }
 
     @Override
@@ -213,4 +220,9 @@ public class Player extends Entity{
     public int getHP() {
         return this.hp;
     }
+    
+    public boolean getVictory(){
+        return victory;
+    }
+    
 }

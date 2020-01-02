@@ -108,7 +108,12 @@ public class Level extends Assembly{
         }
         if(player.getDeadAniEnded()) {
             gp.setState(1);
-            gp.restart();
+            gp.reset();
+        }
+        if(player.getVictory()){
+            gp.setPause(true);
+            gp.setState(3);
+            System.out.println("cambio stato");
         }
         checkCollision();
         removeEnemies();
@@ -186,6 +191,10 @@ public class Level extends Assembly{
                 groundEnemiesLi.remove();
             }
         }
+    }
+    
+    public void resetLevel(){
+        this.init();
     }
     
 }

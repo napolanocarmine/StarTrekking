@@ -21,10 +21,17 @@ import javax.imageio.ImageIO;
  *
  * Class to define the panel when the the game pass in the game over state
  */
-public class GameOverPanel extends javax.swing.JPanel {
+public class GameOverPanel extends javax.swing.JPanel{
 
     private final GameOverState state;
     private BufferedImage screen;
+    BufferedImage gameOverIcon_black;
+
+    BufferedImage menuIcon_black;
+    BufferedImage restartIcon_black;
+
+    BufferedImage menuIcon_yellow;
+    BufferedImage restartIcon_yellow;
 
     /**
      * Creates new form GameOverPanel
@@ -38,21 +45,19 @@ public class GameOverPanel extends javax.swing.JPanel {
         screen = ImageIO.read(getClass().getResource("/screen/forest.png"));
 
         initComponents();
-        BufferedImage gameOverIcon = ImageIO.read(getClass().getResource("/menuIcon/gameover.png"));
-        BufferedImage menuIcon = ImageIO.read(getClass().getResource("/menuIcon/back_black.png"));
-        BufferedImage restartIcon = ImageIO.read(getClass().getResource("/menuIcon/restart_black.png"));
+        gameOverIcon_black = ImageIO.read(getClass().getResource("/menuIcon/gameover.png"));
+        menuIcon_black = ImageIO.read(getClass().getResource("/menuIcon/back_black.png"));
+        restartIcon_black = ImageIO.read(getClass().getResource("/menuIcon/restart_black.png"));
 
-        titleLabel1.setIcon(new javax.swing.ImageIcon(gameOverIcon));
+        restartIcon_yellow = ImageIO.read(getClass().getResource("/menuIcon/restart_yellow.png"));
+        menuIcon_yellow = ImageIO.read(getClass().getResource("/menuIcon/back_yellow.png"));
 
-        mainMenuButton.setIcon(new javax.swing.ImageIcon(menuIcon));
-        mainMenuButton.setBorder(null);
-        restartButton.setIcon(new javax.swing.ImageIcon(restartIcon));
-        restartButton.setBorder(null);
+        titleLabel1.setIcon(new javax.swing.ImageIcon(gameOverIcon_black));
 
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+        initIcon();
+
         this.setVisible(true);
-        this.setSize(screen.getWidth(), screen.getHeight());
+        this.setSize(GameFrame.WIDTH, GameFrame.HEIGHT);
     }
 
     /**
@@ -142,67 +147,50 @@ public class GameOverPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public void initIcon() {
+
+        restartButton.setIcon(new javax.swing.ImageIcon(restartIcon_black));
+        restartButton.setBorder(null);
+
+        mainMenuButton.setIcon(new javax.swing.ImageIcon(menuIcon_black));
+        mainMenuButton.setBorder(null);
+
+    }
     private void titleLabel1buttonPressedHandler(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_titleLabel1buttonPressedHandler
 
     }//GEN-LAST:event_titleLabel1buttonPressedHandler
 
     private void restartButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_restartButtonMouseEntered
-        BufferedImage exit = null;
 
-        try {
-            exit = ImageIO.read(getClass().getResource("/menuIcon/restart_yellow.png"));
-        } catch (IOException ex) {
-            Logger.getLogger(MainMenuPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        restartButton.setIcon(new javax.swing.ImageIcon(exit));
+        restartButton.setIcon(new javax.swing.ImageIcon(restartIcon_yellow));
         restartButton.setBorder(null);
     }//GEN-LAST:event_restartButtonMouseEntered
 
     private void restartButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_restartButtonMouseExited
-        BufferedImage exit = null;
 
-        try {
-            exit = ImageIO.read(getClass().getResource("/menuIcon/restart_black.png"));
-        } catch (IOException ex) {
-            Logger.getLogger(MainMenuPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        restartButton.setIcon(new javax.swing.ImageIcon(exit));
+        restartButton.setIcon(new javax.swing.ImageIcon(restartIcon_black));
         restartButton.setBorder(null);
     }//GEN-LAST:event_restartButtonMouseExited
 
     private void restartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restartButtonActionPerformed
+        restartButton.setIcon(new javax.swing.ImageIcon(restartIcon_black));
         state.handleNext(0);
     }//GEN-LAST:event_restartButtonActionPerformed
 
     private void mainMenuButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mainMenuButtonMouseEntered
-        BufferedImage exit = null;
 
-        try {
-            exit = ImageIO.read(getClass().getResource("/menuIcon/back_yellow.png"));
-        } catch (IOException ex) {
-            Logger.getLogger(MainMenuPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        mainMenuButton.setIcon(new javax.swing.ImageIcon(exit));
+        mainMenuButton.setIcon(new javax.swing.ImageIcon(menuIcon_yellow));
         mainMenuButton.setBorder(null);
     }//GEN-LAST:event_mainMenuButtonMouseEntered
 
     private void mainMenuButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mainMenuButtonMouseExited
-        BufferedImage exit = null;
 
-        try {
-            exit = ImageIO.read(getClass().getResource("/menuIcon/back_black.png"));
-        } catch (IOException ex) {
-            Logger.getLogger(MainMenuPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        mainMenuButton.setIcon(new javax.swing.ImageIcon(exit));
+        mainMenuButton.setIcon(new javax.swing.ImageIcon(menuIcon_black));
         mainMenuButton.setBorder(null);
     }//GEN-LAST:event_mainMenuButtonMouseExited
 
     private void mainMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainMenuButtonActionPerformed
+        mainMenuButton.setIcon(new javax.swing.ImageIcon(menuIcon_black));
         state.handleNext(1);
     }//GEN-LAST:event_mainMenuButtonActionPerformed
 
@@ -216,4 +204,5 @@ public class GameOverPanel extends javax.swing.JPanel {
     private javax.swing.JButton restartButton;
     private javax.swing.JLabel titleLabel1;
     // End of variables declaration//GEN-END:variables
+
 }

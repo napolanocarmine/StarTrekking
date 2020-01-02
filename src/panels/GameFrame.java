@@ -24,7 +24,7 @@ public final class GameFrame extends JFrame implements GsmListener {
     //JFrame name
     public static final String NAME = "STAR TREKKING";
     private JPanel gamePanel;
-    private GameStateManager gms;
+    private GameStateManager gsm;
 
     /**
      *
@@ -41,32 +41,23 @@ public final class GameFrame extends JFrame implements GsmListener {
         
         setVisible(true);
         
-        this.gms = new GameStateManager();
+        this.gsm = new GameStateManager();
 
-        this.setContentPane(gms.getCurrentState().getPanel());
+        this.setContentPane(gsm.getCurrentState().getPanel());
         pack();
         setLocationRelativeTo(null);
-        gms.setListener(this);
+        gsm.setListener(this);
         
     }
 
     @Override
     public synchronized void stateChanged(GameState s) {
-        /*if ((s instanceof StoryPlayState)){
-            System.out.println("LO TOLGO DALLA PAUSA");
-            ((GamePanel)(gms.getSps().getPanel())).setPause(false);
-            notifyAll();
-        } else {
-            System.out.println("LO METTO IN PAUSA");
-            ((GamePanel)(gms.getSps().getPanel())).setPause(true);
-            notifyAll();
-        }*/
         
         if (s instanceof ExitState) {
             this.dispose();
-        } else {
+        } 
+        else {
             gamePanel = s.getPanel();
-            System.out.println(s);
             setContentPane(gamePanel);
             s.set();
             pack();

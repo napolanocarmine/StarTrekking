@@ -43,6 +43,7 @@ public class Player extends Entity{
     private PlayerState crounchState;
     private PlayerState deadState;
     private PlayerState attackState;
+    private PlayerState winState;
     
     public Player(EntitySprite sprite, Position origin, int size) {
         super(sprite, origin, size);
@@ -63,6 +64,7 @@ public class Player extends Entity{
         crounchState = new PlayerCrouchState(this);
         deadState = new PlayerDeadState(this);
         attackState = new PlayerAttackState(this);
+        winState = new PlayerVictoryState(this);
         
         this.state = runState;
         state.set();
@@ -165,6 +167,8 @@ public class Player extends Entity{
     public void setStandBounds(EntityBox bounds){ standBounds = bounds; }
     public void setCrouchBounds(EntityBox bounds){ crouchBounds = bounds; }
     public void setBounds(EntityBox bounds){ this.bounds = bounds; }
+    public int getHP() { return this.hp; }
+    public boolean isWinner() { return state instanceof PlayerVictoryState; }
     
     public PlayerState getPlayerRunState(){
         return this.runState;
@@ -184,6 +188,10 @@ public class Player extends Entity{
     
     public PlayerState getPlayerDeadState(){
         return this.deadState;
+    }
+    
+    public PlayerState getPlayerVictoryState(){
+        return this.winState;
     }
     
     public void deleteShot(Shot s) {
@@ -222,6 +230,10 @@ public class Player extends Entity{
         if(pos.getY() > GamePanel.HEIGHT && !(state instanceof PlayerDeadState)){
             state.nextState(this.getPlayerDeadState());
         }
+        
+        if(pos.getWorldVar().getX() >= (LayerFacade.mapWidth-100)){
+            state.nextState(winState);
+        }
     }
 
     @Override
@@ -239,9 +251,6 @@ public class Player extends Entity{
         }
     }
 
-    public int getHP() {
-        return this.hp;
-    }
     
     @Override
     public void setState(EntityState st){

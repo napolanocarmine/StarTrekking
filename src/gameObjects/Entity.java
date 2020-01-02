@@ -111,6 +111,10 @@ public abstract class Entity implements GameObject {
     public Position getPos() {
         return pos;
     }
+    
+    public void setPos(Position p) {
+        this.pos = p;
+    }
 
     public boolean getDeadAniEnded() {
         return deadAniEnded;

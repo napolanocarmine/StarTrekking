@@ -40,7 +40,6 @@ public class KeyHandler implements KeyListener {
         this.cmdInvoker = new CommandInvoker();
         this.sps = sps;
         pressed = false;
-
     }
     
     /**

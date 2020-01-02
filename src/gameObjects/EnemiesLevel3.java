@@ -7,6 +7,7 @@ package gameObjects;
 
 import graphics.EntitySprite;
 import java.util.ArrayList;
+import util.EntityBox;
 import util.Position;
 
 /**
@@ -67,7 +68,9 @@ public class EnemiesLevel3 extends EnemiesLevel{
     @Override
     protected final void createEnemies() {
         for (Position p : positions) {
-            addObj(new FlyingEnemy(sprite, p, enemySize));
+            FlyingEnemy enemy = new FlyingEnemy(sprite, p, enemySize);
+            enemy.setBounds(new EntityBox(p, 70, 32, 13, 32));
+            addObj(enemy);
         }
     }
     

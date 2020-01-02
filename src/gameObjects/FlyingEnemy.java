@@ -21,6 +21,6 @@ public class FlyingEnemy extends Enemy{
     @Override
     public void move(){
         super.move();
-       dy = dy0;
+        dy = dy0;
     }
 }

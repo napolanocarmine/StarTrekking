@@ -17,9 +17,9 @@ import util.Position;
 public class Player extends Entity{
 
     private final int MAXHEALTHPOINTS = 3;
-    private final float H = 100;
-    private final float DIST = 150;
     private int hp;
+    private float h = 100;
+    private float dist = 150;
     
 //    private KeyHandler khdl;
     int action;
@@ -158,8 +158,10 @@ public class Player extends Entity{
     public ArrayList<Shot> getShots(){ return shots; }
     public boolean getFalling(){ return falling; }
     public void setFalling(boolean b){ falling = b; }
-    public float getDIST(){ return DIST; }
-    public float getH(){ return H; }
+    public float getDist(){ return dist; }
+    public void setDist(float dist){ this.dist = dist; }
+    public float getH(){ return h; }
+    public void setH(float h){ this.h = h;}
     public float getInstantVx(){ return instantVx; }
     public MusicGame getMg(){ return mg; }
     public EntityBox getStandBounds(){ return standBounds; }

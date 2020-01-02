@@ -14,6 +14,8 @@ public class Level3 extends Level{
     public void init(){
         super.init();
         //player.setPos(new Position(0, 0 + groundY-100));
+        player.setDist(300);
+        player.setH(150);
         tf = new LayerFacade("tiles/LevelThree.xml");
         enemies = (EnemiesLevel)ef.build(3);
         addObj(enemies);

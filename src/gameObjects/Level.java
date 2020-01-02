@@ -71,7 +71,7 @@ public class Level extends Assembly{
             if(enemy.getPos().getWorldVar().getX() < GamePanel.WIDTH+100) enemy.updateGame();
         }
         if(player.getDeadAniEnded()) {
-            gp.restart(); //cancelliamo il thread. 
+            gp.stopThread(); //cancelliamo il thread. 
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {
@@ -80,7 +80,15 @@ public class Level extends Assembly{
             }); 
         }
         
-        if(player.isWinner()) System.err.println("HO VINTO");
+        if(player.isWinner()){
+            gp.stopThread(); //cancelliamo il thread. 
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                      gp.setState(3);
+                }
+            }); 
+        }
         checkCollision();
         removeEnemies();
     }

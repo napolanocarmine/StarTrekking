@@ -44,7 +44,7 @@ public class StoryPlayState extends GameState {
         }else if (code == 3) {
             VictoryState vs = (VictoryState) gsm.getVs();
             vs.setLevel(level);
-            gsm.setState(gsm.getVs());
+            gsm.setState(vs);
         }
     }
 

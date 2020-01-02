@@ -15,6 +15,7 @@ public class VictoryState extends GameState {
     
     public VictoryState(GameStateManager gsm) {
         this.gsm = gsm;
+        //this.panel = new VictoryPanel(this);
     }
 
     public void setLevel(int level) {

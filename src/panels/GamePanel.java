@@ -1,6 +1,5 @@
 package panels;
 
-import gameObjects.Enemy;
 import gameObjects.Level;
 import gamefactory.LevelFactory;
 import gamestate.StoryPlayState;
@@ -9,8 +8,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.logging.Logger;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import util.KeyHandler;
@@ -80,7 +77,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    public final void restart() {
+    public final void stopThread() {
         if (thread != null) {
             running = false;
             thread = null;

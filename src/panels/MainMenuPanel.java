@@ -23,19 +23,10 @@ import music.MusicGame;
  * Class that represents the Main Menu panel keeping refers to the image shown
  * and the music background
  */
-public class MainMenuPanel extends javax.swing.JPanel{
+public class MainMenuPanel extends javax.swing.JPanel {
 
     private final MainMenuState state;
     private BufferedImage screen;
-    public MusicGame mg;
-
-    BufferedImage titleIcon;
-
-    BufferedImage storyModeIcon_black;
-    BufferedImage exitIcon_black ;
-
-    BufferedImage storyModeIcon_yellow;
-    BufferedImage exitIcon_yellow;
 
     /**
      * Creates new form MainMenuPanel
@@ -50,23 +41,22 @@ public class MainMenuPanel extends javax.swing.JPanel{
 
         initComponents();
 
-        titleIcon = ImageIO.read(getClass().getResource("/menuIcon/startrekking.png"));
+        BufferedImage storyModeIcon = ImageIO.read(getClass().getResource("/menuIcon/story_mode_black.png"));
+        BufferedImage exitIcon = ImageIO.read(getClass().getResource("/menuIcon/exit_black.png"));
+        BufferedImage titleIcon = ImageIO.read(getClass().getResource("/menuIcon/startrekking.png"));
+        setSound();
 
-        storyModeIcon_black = ImageIO.read(getClass().getResource("/menuIcon/story_mode_black.png"));
-        exitIcon_black = ImageIO.read(getClass().getResource("/menuIcon/exit_black.png"));
-
-        storyModeIcon_yellow = ImageIO.read(getClass().getResource("/menuIcon/story_mode_yellow.png"));
-        exitIcon_yellow = ImageIO.read(getClass().getResource("/menuIcon/exit_yellow.png"));
-
+        storyModeButton.setIcon(new javax.swing.ImageIcon(storyModeIcon));
+        exitButton.setIcon(new javax.swing.ImageIcon(exitIcon));
+        storyModeButton.setBorder(null);
+        exitButton.setBorder(null);
         titleLabel.setIcon(new javax.swing.ImageIcon(titleIcon));
 
-        initIcon();
-
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         this.setVisible(true);
-        this.setSize(GameFrame.WIDTH, GameFrame.HEIGHT);
+        this.setSize(screen.getWidth(), screen.getHeight());
 
-        //mg.setMusic("MainMenu");
-        //mg.play();
     }
 
     /**
@@ -81,6 +71,7 @@ public class MainMenuPanel extends javax.swing.JPanel{
         titleLabel = new javax.swing.JLabel();
         storyModeButton = new javax.swing.JButton();
         exitButton = new javax.swing.JButton();
+        soundButton = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(980, 528));
 
@@ -133,6 +124,21 @@ public class MainMenuPanel extends javax.swing.JPanel{
             }
         });
 
+        soundButton.setBorder(null);
+        soundButton.setBorderPainted(false);
+        soundButton.setContentAreaFilled(false);
+        soundButton.setFocusPainted(false);
+        soundButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                soundButtonMouseClicked(evt);
+            }
+        });
+        soundButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                soundButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -144,8 +150,12 @@ public class MainMenuPanel extends javax.swing.JPanel{
                     .addComponent(exitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(241, Short.MAX_VALUE)
                 .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(241, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addComponent(soundButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -157,18 +167,11 @@ public class MainMenuPanel extends javax.swing.JPanel{
                 .addComponent(storyModeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(120, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
+                .addComponent(soundButton)
+                .addGap(48, 48, 48))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void initIcon() {
-        storyModeButton.setIcon(new javax.swing.ImageIcon(storyModeIcon_black));
-        storyModeButton.setBorder(null);
-
-        exitButton.setIcon(new javax.swing.ImageIcon(exitIcon_black));
-        exitButton.setBorder(null);
-
-    }
 
     private void titleLabelbuttonPressedHandler(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_titleLabelbuttonPressedHandler
         // TODO add your handling code here:
@@ -176,42 +179,108 @@ public class MainMenuPanel extends javax.swing.JPanel{
     }//GEN-LAST:event_titleLabelbuttonPressedHandler
 
     private void storyModeButtonmouseSelectionStoryHandler(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_storyModeButtonmouseSelectionStoryHandler
-        storyModeButton.setIcon(new javax.swing.ImageIcon(storyModeIcon_yellow));
+
+        BufferedImage storyMode = null;
+
+        try {
+            storyMode = ImageIO.read(getClass().getResource("/menuIcon/story_mode_yellow.png"));
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        storyModeButton.setIcon(new javax.swing.ImageIcon(storyMode));
+        storyModeButton.setBorder(null);
     }//GEN-LAST:event_storyModeButtonmouseSelectionStoryHandler
 
     private void storyModeButtonmouseExitHandler(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_storyModeButtonmouseExitHandler
-        storyModeButton.setIcon(new javax.swing.ImageIcon(storyModeIcon_black));
+        BufferedImage storyMode = null;
+
+        try {
+            storyMode = ImageIO.read(getClass().getResource("/menuIcon/story_mode_black.png"));
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        storyModeButton.setIcon(new javax.swing.ImageIcon(storyMode));
+        storyModeButton.setBorder(null);
     }//GEN-LAST:event_storyModeButtonmouseExitHandler
 
     private void storyModeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_storyModeButtonActionPerformed
-        storyModeButton.setIcon(new javax.swing.ImageIcon(storyModeIcon_black));
         state.handleNext(0);
     }//GEN-LAST:event_storyModeButtonActionPerformed
 
     private void exitButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseEntered
-        exitButton.setIcon(new javax.swing.ImageIcon(exitIcon_yellow));
+        BufferedImage exit = null;
+
+        try {
+            exit = ImageIO.read(getClass().getResource("/menuIcon/exit_yellow.png"));
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        exitButton.setIcon(new javax.swing.ImageIcon(exit));
+        exitButton.setBorder(null);
     }//GEN-LAST:event_exitButtonMouseEntered
 
     private void exitButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseExited
+        BufferedImage exit = null;
 
-        exitButton.setIcon(new javax.swing.ImageIcon(exitIcon_black));
+        try {
+            exit = ImageIO.read(getClass().getResource("/menuIcon/exit_black.png"));
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        exitButton.setIcon(new javax.swing.ImageIcon(exit));
+        exitButton.setBorder(null);
     }//GEN-LAST:event_exitButtonMouseExited
 
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
-        exitButton.setIcon(new javax.swing.ImageIcon(exitIcon_black));
+
         state.handleNext(1);
     }//GEN-LAST:event_exitButtonActionPerformed
+
+    private void soundButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_soundButtonActionPerformed
+       MusicGame mg;
+       mg = state.getMusicGame();
+       mg.toggleMute();
+    }//GEN-LAST:event_soundButtonActionPerformed
+
+    private void soundButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_soundButtonMouseClicked
+        setSound();
+    }//GEN-LAST:event_soundButtonMouseClicked
 
     @Override
     public void paintComponent(Graphics g) {
         g.drawImage(screen, 0, 0, null);
     }
 
+    public void setSound() {
+        BufferedImage sound = null, noSound = null;
+
+        if (!MusicGame.getMute()) {
+            try {
+                sound = ImageIO.read(getClass().getResource("/menuIcon/speaker_volume.png"));
+            } catch (IOException ex) {
+                Logger.getLogger(MainMenuPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            soundButton.setIcon(new javax.swing.ImageIcon(sound));
+        }else{
+             try {
+                noSound = ImageIO.read(getClass().getResource("/menuIcon/Speaker_volume_Mute.png"));
+            } catch (IOException ex) {
+                Logger.getLogger(MainMenuPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            soundButton.setIcon(new javax.swing.ImageIcon(noSound));
+        }
+
+
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton exitButton;
+    private javax.swing.JButton soundButton;
     private javax.swing.JButton storyModeButton;
     private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
-
-
 }

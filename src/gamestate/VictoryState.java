@@ -5,6 +5,9 @@
  */
 package gamestate;
 
+import java.io.IOException;
+import panels.VictoryPanel;
+
 /**
  *
  * @author Gianluca
@@ -13,9 +16,9 @@ public class VictoryState extends GameState {
     private GameStateManager gsm;
     private int level;
     
-    public VictoryState(GameStateManager gsm) {
+    public VictoryState(GameStateManager gsm) throws IOException {
         this.gsm = gsm;
-        //this.panel = new VictoryPanel(this);
+        this.panel = new VictoryPanel(this);
     }
 
     public void setLevel(int level) {

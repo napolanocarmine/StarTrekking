@@ -15,7 +15,7 @@ public class Level3 extends Level{
         super.init();
         //player.setPos(new Position(0, 0 + groundY-100));
         tf = new LayerFacade("tiles/LevelThree.xml");
-        enemies = (EnemiesLevel)ef.build(2);
+        enemies = (EnemiesLevel)ef.build(3);
         addObj(enemies);
     }
 }

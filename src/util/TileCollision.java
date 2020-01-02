@@ -59,7 +59,7 @@ public class TileCollision {
             EntityBox eBounds = e.getBounds();
             int xt = (int) ((eBounds.getPos().getX() + ax) + (c % 2) * eBounds.getWidth() + eBounds.getXOffset()) / 16;
             int yt = (int) ((eBounds.getPos().getY() + ay) + ((int) (c / 2)) * eBounds.getHeight() + eBounds.getYOffset()) / 16;
-
+            System.err.println(" "+xt+" "+yt);
             if (SolidLayer.tmobj_blocks.containsKey(String.valueOf(xt) + "," + String.valueOf(yt))) {
                 Block block = SolidLayer.tmobj_blocks.get(String.valueOf(xt) + "," + String.valueOf(yt));
                 return block.update();

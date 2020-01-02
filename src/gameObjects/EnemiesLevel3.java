@@ -15,32 +15,59 @@ import util.Position;
  */
 public class EnemiesLevel3 extends EnemiesLevel{
     
+    
+    /**
+     * Creates enemies of Level1.
+     */
     public EnemiesLevel3() {
-        sprite = new EntitySprite("entity/skeleton", 64, 64);
+        sprite = new EntitySprite("entity/dragon", 64, 64);
         groundY += 10;
         initPositionArray();
         createEnemies();
     }
 
+    /**
+     * Produces the position of the enemies.
+     */    
+    
     @Override
     protected final void initPositionArray() {
         positions = new ArrayList<>();
-        positions.add(new Position(1000, groundY));
-        positions.add(new Position(1700, 340));
-        positions.add(new Position(3200, groundY));
-        positions.add(new Position(3600, 210));
-        positions.add(new Position(5000, 220));
-        positions.add(new Position(6000, groundY));
-        positions.add(new Position(7200, groundY));
-        positions.add(new Position(8000, groundY));
-        positions.add(new Position(10000, groundY));
-        positions.add(new Position(12000, groundY));
+        positions.add(new Position(700,groundY-300));
+        positions.add(new Position(1500,groundY-65));
+        positions.add(new Position(2700,groundY-25));
+        positions.add(new Position(3200,groundY-65));
+        positions.add(new Position(3700,groundY-85));
+        positions.add(new Position(4000,groundY-85));
+        positions.add(new Position(4700,groundY-25));
+        positions.add(new Position(4700,groundY-125));
+        positions.add(new Position(5500,groundY-25));
+        positions.add(new Position(6500,groundY-85));
+        positions.add(new Position(6900,groundY-85));
+        positions.add(new Position(6900,groundY));
+        positions.add(new Position(7100,groundY-85));
+        positions.add(new Position(7100,groundY));
+        positions.add(new Position(7700,groundY));
+        positions.add(new Position(7700,groundY- 125));
+        positions.add(new Position(8000,groundY- 125));
+        positions.add(new Position(8500,groundY- 125));
+        positions.add(new Position(9000,groundY));
+        positions.add(new Position(9500,groundY- 80));
+        positions.add(new Position(9900,groundY- 80));
+        positions.add(new Position(10500,groundY));
+        positions.add(new Position(11000,groundY-150));
+        //
+        positions.add(new Position(12000,groundY));
+        positions.add(new Position(13500,groundY-40));
     }
-
+    
+    /**
+     * Produces the enemies.
+     */  
     @Override
     protected final void createEnemies() {
         for (Position p : positions) {
-            addObj(new GroundEnemy(sprite, p, enemySize));
+            addObj(new FlyingEnemy(sprite, p, enemySize));
         }
     }
     

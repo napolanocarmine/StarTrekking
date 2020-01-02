@@ -12,6 +12,11 @@ import gameObjects.entityState.PlayerRunState;
  */
 public class JumpPlayerCommand extends PlayerCommand {
 
+    /**
+     * Constructs a JumpPlayerCommand.
+     * @param player player affected by the command.
+     */
+    
     public JumpPlayerCommand(Player player) {
         super(player);
     }
@@ -21,7 +26,7 @@ public class JumpPlayerCommand extends PlayerCommand {
      */
     @Override
     public void execute() {
-        if (player.getState() instanceof PlayerRunState && player.getTc().collisionTileDown(0, 1)) {
+        if (player.getState() instanceof PlayerRunState && player.getTc().collisionTileDown(0,3)) {
             player.setState(player.getPlayerJumpState());
         }
     }

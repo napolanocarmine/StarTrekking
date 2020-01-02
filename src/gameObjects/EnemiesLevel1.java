@@ -10,17 +10,23 @@ import java.util.ArrayList;
 import util.Position;
 
 /**
- *
+ * Concrete Class that represents the enemies inside the Level 1.
  * @author Star Trekking
  */
 public class EnemiesLevel1 extends EnemiesLevel{
     
+    /**
+     * Creates enemies of Level1.
+     */
     public EnemiesLevel1(){
         sprite = new EntitySprite("entity/goblin", 64, 64);
         initPositionArray();
         createEnemies();
     }
 
+    /**
+     * Produces the position of the enemies.
+     */
     @Override
     protected final void initPositionArray() {
         positions = new ArrayList<>();
@@ -35,6 +41,9 @@ public class EnemiesLevel1 extends EnemiesLevel{
         positions.add(new Position(9500, groundY));
     }
 
+     /**
+     * Produces the enemies.
+     */
     @Override
     protected final void createEnemies() {
         for (Position p : positions) {

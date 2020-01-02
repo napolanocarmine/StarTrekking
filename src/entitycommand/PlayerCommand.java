@@ -20,7 +20,7 @@ public abstract class PlayerCommand implements Command {
     /**
      * Create a PlayerCommand object that has a reference to the Receiver.
      *
-     * @param player
+     * @param player player affected by the command.
      */
     public PlayerCommand(Player player/*, PlayerState playerState*/) {
         this.player = player;

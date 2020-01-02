@@ -167,4 +167,8 @@ public class Level extends Assembly{
         }
     }
     
+    
+    public Player getPlayer(){
+        return player;
+    }
 }

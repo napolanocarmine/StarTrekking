@@ -12,6 +12,10 @@ import gameObjects.entityState.PlayerRunState;
  */
 public class RunPlayerCommand extends PlayerCommand {
 
+    /**
+     * Constructs a RunPlayerCommand.
+     * @param player player affected by the command.
+     */
     public RunPlayerCommand(Player player) {
         super(player);
     }

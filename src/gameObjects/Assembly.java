@@ -7,21 +7,29 @@ import java.util.ArrayList;
  *
  * @author StarTrekking
  *
- * Class to keep references to game objects
+ * Abstract Class to keep references to game objects.
  */
 public class Assembly implements GameObject {
 
     protected ArrayList<GameObject> objs;
-
+    
+    /**
+     * Create an empty Assembly objcets.
+     */
     public Assembly() {
         objs = new ArrayList<>();
     }
+    
 
     @Override
     public void updateGame() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
+    /**
+     * Perform the render operation above all the GameObjects.
+     * @param g Graphics2D object.
+     */
     @Override
     public void render(Graphics2D g) {
         for (GameObject obj : objs) {
@@ -30,23 +38,23 @@ public class Assembly implements GameObject {
     }
 
     /**
-     *
-     * @param obj that must be added
+     * Add a new GameObject to the Assembly.
+     * @param obj object that must be added
      */
     public void addObj(GameObject obj) {
         objs.add(obj);
     }
 
     /**
-     *
-     * @param obj that must be deleted
+     * Remove the given GameObject from the Assembly.
+     * @param obj object that must be deleted
      */
     public void removeObj(GameObject obj) {
         objs.remove(obj);
     }
 
     /**
-     *
+     *  Return the current Assembly.
      * @return an ArrayList of all game objects
      */
     public ArrayList<GameObject> getObjs() {

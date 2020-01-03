@@ -29,7 +29,8 @@ public class Level extends Assembly{
     protected EnemiesFactory ef;
     protected Player player;
     protected EnemiesLevel enemies;
-    private Sprite hpimg;
+    private Sprite hpImg;
+    private Sprite energyImg;
     private Sprite font;
     private float previousTickHitted = 0;
     private GamePanel gp;
@@ -54,7 +55,8 @@ public class Level extends Assembly{
         
         player = new Player(playerSprite, new Position(0, 0 + groundY), 96);
         
-        hpimg = new Sprite("entity/heart.png", 32,32);
+        hpImg = new Sprite("entity/heart.png", 32,32);
+        energyImg = new Sprite("entity/energy.png", 96, 96);
         font = new Sprite("font/Font.png", 10, 10);
         addObj(player);
       
@@ -101,11 +103,18 @@ public class Level extends Assembly{
             gobj.render(g);
         }
         
-        Sprite.drawArray(g, font, "FPS: " + GamePanel.oldFrameCount, new Position(GamePanel.WIDTH - (8 * 40), 10), 40, 40, 32, 0);
+        //Sprite.drawArray(g, font, "FPS: " + GamePanel.oldFrameCount, new Position(GamePanel.WIDTH - (8 * 40), 10), 40, 40, 32, 0);
         int space = 0;
         for (int i = 0; i < player.getHP(); i++) {
-            Sprite.drawArray(g, hpimg.getSprite(0, 0), new Position(space, 10), 90, 90);
+            Sprite.drawArray(g, hpImg.getSprite(0, 0), new Position(space, 10), 90, 90);
             space += 60;
+        }
+        
+        
+        space = GameFrame.WIDTH - energyImg.w;
+        for (int i = 0; i < player.getMana(); i++) {
+            Sprite.drawArray(g, energyImg.getSprite(0, 0), new Position(space, 10), energyImg.w, energyImg.w);
+            space -= 75;
         }
     }
     

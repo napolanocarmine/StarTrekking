@@ -17,7 +17,9 @@ import util.Position;
 public class Player extends Entity{
 
     private final int MAXHEALTHPOINTS = 3;
+    private final int MAXMANAPOINTS = 3;
     private int hp;
+    private int mana;
     private float h = 100;
     private float dist = 150;
     
@@ -28,6 +30,7 @@ public class Player extends Entity{
     DecimalFormat df = new DecimalFormat();
     private boolean invincible;
     private float invStartTime;
+    private float lastShotUsedTime;
     private boolean visible;
     private boolean falling = false;
     
@@ -48,6 +51,7 @@ public class Player extends Entity{
     public Player(EntitySprite sprite, Position origin, int size) {
         super(sprite, origin, size);
         this.hp = MAXHEALTHPOINTS;
+        this.mana = MAXMANAPOINTS;
         this.standBounds = new EntityBox(pos, 16, 32, 40, 32);
         this.crouchBounds = new EntityBox(pos, 16, 12, 40, 52);
         this.state = new PlayerRunState(this);
@@ -152,6 +156,7 @@ public class Player extends Entity{
     }
 
     public void attack() {
+        mana--;
         shots.add(new Shot(new EntitySprite("entity/shot", 32, 32), new Position(dx - 15, pos.getY() + 24), 48, vx + acc * (timex)));
     }
     
@@ -170,6 +175,7 @@ public class Player extends Entity{
     public void setCrouchBounds(EntityBox bounds){ crouchBounds = bounds; }
     public void setBounds(EntityBox bounds){ this.bounds = bounds; }
     public int getHP() { return this.hp; }
+    public int getMana() { return this.mana; }
     public boolean isWinner() { return state instanceof PlayerVictoryState; }
     
     public PlayerState getPlayerRunState(){
@@ -208,12 +214,16 @@ public class Player extends Entity{
     public void updateGame(){
         super.updateGame();
         if(invincible){
-            if(System.nanoTime()%9000 < 100 || System.nanoTime()%9000 > 100) visible = !visible;
+            if(System.nanoTime()%9000 < 100 || System.nanoTime()%9000 > -100) visible = !visible;
             if(System.nanoTime() - invStartTime>= unitTime){
                 invincible = false;
                 visible = true;
             }
         }
+        if(timex%1000 == 0){
+            if(mana < MAXMANAPOINTS) mana++;
+        }
+                
         //move();
         pos.setX(dx);    //update x position
         if (Level.getMapPos().getX() + GamePanel.WIDTH < LayerFacade.getMapWidth() * 16) {

@@ -21,7 +21,7 @@ public class AttackPlayerCommand extends PlayerCommand {
      */
     @Override
     public void execute() {
-        if (player.getState() instanceof PlayerRunState) {
+        if (player.getState() instanceof PlayerRunState && player.getMana() > 0) {
             player.setState(player.getPlayerAttackState());
         }
     }

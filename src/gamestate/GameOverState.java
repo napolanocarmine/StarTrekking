@@ -56,7 +56,7 @@ public class GameOverState extends GameState {
 
     @Override
     public void set(){
-        gsm.setMusic("MainMenu");
+        gsm.setMusic("GameOverMenu");
         gsm.getMusicGame().play();
     }
 

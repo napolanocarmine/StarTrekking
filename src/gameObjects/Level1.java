@@ -16,5 +16,4 @@ public class Level1 extends Level{
         enemies = (EnemiesLevel)ef.build(1);
         addObj(enemies);
     }
-    
 }

@@ -55,7 +55,6 @@ public class MainMenuState extends GameState {
     }
     
     @Override
-    public void stopMusic(){
-        
+    public void stopMusic(){  
     }
 }

@@ -74,7 +74,5 @@ public class SelectionLevelState extends GameState {
     }
     
     @Override
-    public void set(){
-        
-    }
+    public void set(){}
 }

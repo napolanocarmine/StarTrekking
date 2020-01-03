@@ -12,7 +12,7 @@ import panels.PausePanel;
 
 /**
  *
- * @author Gianluca
+ * @author Star Trekking
  */
 public class PauseState extends GameState{
     private GameStateManager gsm; 

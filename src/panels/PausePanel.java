@@ -6,13 +6,9 @@
 package panels;
 
 import gamestate.PauseState;
-import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /**
@@ -205,7 +201,6 @@ public class PausePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_mainMenuButtonActionPerformed
 
     private void restartButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_restartButtonMouseEntered
-
         restartButton.setIcon(new javax.swing.ImageIcon(restartIcon_yellow));
         restartButton.setBorder(null);
     }//GEN-LAST:event_restartButtonMouseEntered

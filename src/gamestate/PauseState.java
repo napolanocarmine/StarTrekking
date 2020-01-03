@@ -20,7 +20,7 @@ public class PauseState extends GameState{
     public PauseState(GameStateManager gsm) throws IOException {
         this.gsm = gsm;
         this.panel = new PausePanel(this);
-//        this.mg = new MusicGame("MainMenu");
+//       this.mg = new MusicGame("MainMenu");
     }
 
     @Override
@@ -29,8 +29,9 @@ public class PauseState extends GameState{
             gsm.setState(gsm.getSps());
         }
         if (code == 1) {
-            stopMusic();
+//            stopMusic();
             gsm.setState(gsm.getMms());
+            
 
         }
     }

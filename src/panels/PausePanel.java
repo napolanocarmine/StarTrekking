@@ -29,6 +29,7 @@ public class PausePanel extends javax.swing.JPanel {
     private BufferedImage resumeIcon_yellow;
     private BufferedImage restartIcon_yellow;
     private BufferedImage mainMenuIcon_yellow;
+    private BufferedImage titleIcon;
     /**
      * Creates new form PausePanel
      */
@@ -39,7 +40,8 @@ public class PausePanel extends javax.swing.JPanel {
         screen = ImageIO.read(getClass().getResource("/screen/forest.png"));
 
         initComponents();
-
+        
+        titleIcon = ImageIO.read(getClass().getResource("/menuIcon/Pause.png"));
         resumeIcon_black = ImageIO.read(getClass().getResource("/menuIcon/resume_black.png"));
         restartIcon_black = ImageIO.read(getClass().getResource("/menuIcon/restart_black.png"));
         mainMenuIcon_black = ImageIO.read(getClass().getResource("/menuIcon/back_black.png"));
@@ -67,6 +69,7 @@ public class PausePanel extends javax.swing.JPanel {
         restartButton = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         mainMenuButton = new javax.swing.JButton();
+        titleLabel = new javax.swing.JLabel();
 
         resumeButton.setBorder(null);
         resumeButton.setBorderPainted(false);
@@ -125,19 +128,33 @@ public class PausePanel extends javax.swing.JPanel {
             }
         });
 
+        titleLabel.setFont(new java.awt.Font("Beirut", 2, 36)); // NOI18N
+        titleLabel.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.highlight"));
+        titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titleLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                titleLabelbuttonPressedHandler(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(116, 116, 116)
-                .addComponent(jButton3)
-                .addGap(171, 171, 171)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(resumeButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(restartButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
-                    .addComponent(mainMenuButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(325, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(116, 116, 116)
+                        .addComponent(jButton3)
+                        .addGap(171, 171, 171)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(resumeButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(restartButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
+                            .addComponent(mainMenuButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(215, 215, 215)
+                        .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(247, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,6 +166,8 @@ public class PausePanel extends javax.swing.JPanel {
                         .addGap(54, 54, 54))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
+                        .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(resumeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)))
                 .addComponent(restartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -159,6 +178,7 @@ public class PausePanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     public void initIcon() {
+        titleLabel.setIcon(new javax.swing.ImageIcon(titleIcon) );
         mainMenuButton.setIcon(new javax.swing.ImageIcon(mainMenuIcon_black));
         mainMenuButton.setBorder(null);
 
@@ -218,6 +238,11 @@ public class PausePanel extends javax.swing.JPanel {
         resumeButton.setBorder(null);
     }//GEN-LAST:event_resumeButtonMouseExited
 
+    private void titleLabelbuttonPressedHandler(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_titleLabelbuttonPressedHandler
+        // TODO add your handling code here:
+        //this.setIconImage(image);
+    }//GEN-LAST:event_titleLabelbuttonPressedHandler
+
     @Override
     public void paintComponent(Graphics g) {
         g.drawImage(screen, 0, 0, null);
@@ -228,6 +253,7 @@ public class PausePanel extends javax.swing.JPanel {
     private javax.swing.JButton mainMenuButton;
     private javax.swing.JButton restartButton;
     private javax.swing.JButton resumeButton;
+    private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 
 

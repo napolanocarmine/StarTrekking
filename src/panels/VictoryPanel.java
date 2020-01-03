@@ -38,14 +38,14 @@ public class VictoryPanel extends javax.swing.JPanel{
         this.state = state;
         initComponents();
 
-        titleIcon = ImageIO.read(getClass().getResource("/menuIcon/startrekking.png"));
+        titleIcon = ImageIO.read(getClass().getResource("/menuIcon/LevelCompleted.png"));
         screen = ImageIO.read(getClass().getResource("/screen/forest.png"));
 
-        nextLevelIcon_black = ImageIO.read(getClass().getResource("/menuIcon/resume_black.png"));
+        nextLevelIcon_black = ImageIO.read(getClass().getResource("/menuIcon/NextLevelNero.png"));
         restartIcon_black = ImageIO.read(getClass().getResource("/menuIcon/restart_black.png"));
         mainMenuIcon_black = ImageIO.read(getClass().getResource("/menuIcon/back_black.png"));
 
-        nextLevelIcon_yellow = ImageIO.read(getClass().getResource("/menuIcon/resume_yellow.png"));
+        nextLevelIcon_yellow = ImageIO.read(getClass().getResource("/menuIcon/NextLevelGiallo.png"));
         restartIcon_yellow = ImageIO.read(getClass().getResource("/menuIcon/restart_yellow.png"));
         mainMenuIcon_yellow = ImageIO.read(getClass().getResource("/menuIcon/back_yellow.png"));
 
@@ -57,6 +57,10 @@ public class VictoryPanel extends javax.swing.JPanel{
     }
 
     private void initIcon() {
+        victoryLabel.setIcon(new javax.swing.ImageIcon(titleIcon));
+        
+
+        
         mainMenuButton.setIcon(new javax.swing.ImageIcon(mainMenuIcon_black));
         mainMenuButton.setBorder(null);
 
@@ -137,17 +141,18 @@ public class VictoryPanel extends javax.swing.JPanel{
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(mainMenuButton, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
-                    .addComponent(nextLevelButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(restartButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(313, 313, 313))
             .addGroup(layout.createSequentialGroup()
-                .addGap(180, 180, 180)
-                .addComponent(victoryLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 628, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(152, Short.MAX_VALUE))
+                .addContainerGap(193, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(mainMenuButton, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
+                            .addComponent(nextLevelButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(restartButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(313, 313, 313))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(victoryLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 628, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(139, 139, 139))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

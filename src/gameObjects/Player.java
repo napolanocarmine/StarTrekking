@@ -243,7 +243,8 @@ public class Player extends Entity{
             state.nextState(this.getPlayerDeadState());
         }
         
-        if(pos.getWorldVar().getX() >= (LayerFacade.mapWidth-100)){
+        if((pos.getWorldVar().getX()) >= (LayerFacade.getMapWidth() -100 ) ){
+            System.out.println("ciaoooo");
             state.nextState(winState);
         }
     }

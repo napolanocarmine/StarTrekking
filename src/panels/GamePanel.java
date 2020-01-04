@@ -10,7 +10,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-import util.KeyHandler;
+import KeyHandler.KeyHandler;
 
 /**
  *

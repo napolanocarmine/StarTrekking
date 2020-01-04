@@ -25,28 +25,25 @@ public class PauseState extends GameState{
 
     @Override
     public void handleNext(int code) {
+        gsm.stopMusic();
         if (code == 0) {
             gsm.setState(gsm.getSps());
         }
         if (code == 1) {
-//            stopMusic();
             gsm.setState(gsm.getMms());
-            
-
         }
     }
 
     @Override
     public void handlePrevious(int code) {
         if (code == 0){
-            stopMusic();
-            gsm.setState(gsm.getSps());
+            gsm.resumeState(gsm.getSps());
         }
     }
     
     @Override
     public void set(){
-        gsm.setMusic("MainMenu");
-        gsm.getMusicGame().play();
+//        gsm.setMusic("MainMenu");
+//        gsm.getMusicGame().play();
     }
 }

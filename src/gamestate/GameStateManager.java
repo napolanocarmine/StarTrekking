@@ -105,9 +105,27 @@ public class GameStateManager {
      *
      * @param gameState represents the current state to be setted.
      */
-    public void setState(GameState gameState) {
+    public void setState(GameState gameState){
+//        if(currentState instanceof PauseState){
+//            gameState.resume();
+//        }
+//        else if(!(currentState instanceof ExitState)) gameState.set();
+        currentState = gameState;
+        gameState.set();
         this.currentState = gameState;
-
+        if (listener != null) {
+            listener.stateChanged(gameState);
+        }
+    }
+    
+    public void resumeState(GameState gameState){
+//        if(currentState instanceof PauseState){
+//            gameState.resume();
+//        }
+//        else if(!(currentState instanceof ExitState)) gameState.set();
+        currentState = gameState;
+        gameState.resume();
+        this.currentState = gameState;
         if (listener != null) {
             listener.stateChanged(gameState);
         }
@@ -147,6 +165,10 @@ public class GameStateManager {
      */
     protected void setMusic(String name){
         mg.setMusic(name);
+    }
+    
+    protected void stopMusic(){
+        mg.stop();
     }
 
 }

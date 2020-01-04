@@ -37,12 +37,15 @@ public class StoryPlayState extends GameState {
      */
     @Override
     public void handleNext(int code) {
-        this.stopMusic();
+        //((GamePanel) panel).stopThread();
         if (code == 1) {
+            this.stopMusic();
             gsm.setState(gsm.getGos());
         }else if (code == 2) {
+            ((GamePanel)panel).setPause(true);
             gsm.setState(gsm.getPs());
         }else if (code == 3) {
+            this.stopMusic();
             VictoryState vs = (VictoryState) gsm.getVs();
             vs.setLevel(level);
             gsm.setState(vs);
@@ -68,35 +71,45 @@ public class StoryPlayState extends GameState {
         3) lock.notifyAll()
         4) handle next --> GSM stato di pausa.
         */
-        ((GamePanel)panel).setPause(true);
-        pause = true; //Sto in pausa;
+        //((GamePanel)panel).setPause(true);
         this.handleNext(2);
-        notifyAll();
+    }
+    
+    @Override
+    public void resume(){
+        //((GamePanel) panel).startThread();
+        ((GamePanel)panel).setPause(false);
+        //this.startMusic();
     }
     
     @Override 
     public void set(){
         //super.set();
         // Comunicate the level to the Panel;
-        if(pause != true)
-            ((GamePanel) panel).setLevel(level);
+        ((GamePanel) panel).setLevel(level);
         
+        ((GamePanel)panel).setPause(false);
         // Init the thread;
         ((GamePanel) panel).startThread();
-        // Run the thread;
-        ((GamePanel) panel).setPause(false);
-        pause = false;
         
+        System.err.println("THREAD STARTED");
+        // Run the thread;
+        System.err.println("PAUSE CHANGED");
+        this.startMusic();
+    }
+
+    @Override
+    public void startMusic(){
         if(level == 1){    
             gsm.setMusic("LevelOne");
             gsm.getMusicGame().play();
         }else if(level == 2){    
             gsm.setMusic("LevelTwo");
             gsm.getMusicGame().play();
-        }if(level == 3){    
+        }else if(level == 3){    
             gsm.setMusic("LevelThree");
             gsm.getMusicGame().play();
         }
     }
-
+    
 }

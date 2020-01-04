@@ -32,14 +32,14 @@ public class MainMenuState extends GameState {
      * Called when either "Story-Mode" or "Rush-Mode" is pressed, based on the
      * pressed button the next state is set.
      *
-     * @param state button code
+     * @param code button code
      */
     @Override
-    public void handleNext(int state) {
+    public void handleNext(int code) {
         this.stopMusic();
-        if (state == 0) {
+        if (code == 0) {
             gsm.setState(gsm.getSls());
-        } else if (state == 1) {
+        } else if (code == 1) {
             gsm.setState(gsm.getEs());
         }
     }
@@ -55,6 +55,6 @@ public class MainMenuState extends GameState {
     }
     
     @Override
-    public void stopMusic(){  
+    public void stopMusic(){
     }
 }

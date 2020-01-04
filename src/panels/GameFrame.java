@@ -56,8 +56,6 @@ public final class GameFrame extends JFrame implements GsmListener {
             System.err.println("Exit State");
             this.dispose();
         } else {
-            System.out.println(s);
-            s.set();
             gamePanel = s.getPanel();
             System.out.println(s);
             setContentPane(gamePanel);

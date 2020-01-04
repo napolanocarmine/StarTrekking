@@ -58,9 +58,10 @@ public class GamePanel extends JPanel implements Runnable {
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         this.running = false;
         this.pause = false;
-        setFocusable(true);
-        requestFocus();
+//        setFocusable(true);
+//        requestFocus();
         key = new KeyHandler(sps);
+        addKeyListener(key);
         levelFactory = new LevelFactory(); 
 //        startThread();
     }
@@ -70,8 +71,8 @@ public class GamePanel extends JPanel implements Runnable {
      */
     public final void startThread() {
         if (thread == null) {
-            System.err.println("Nuovo Thread");
             thread = new Thread(this, "GameThread");
+            thread.setName("GameThread");
             thread.setDaemon(true);
             thread.start();
         }
@@ -101,15 +102,12 @@ public class GamePanel extends JPanel implements Runnable {
     public void setLevel(int code){
         switch(code){
             case 1:
-                System.err.println("Carico il livello 1");
                 level = (Level)levelFactory.build(1);
                 break;
             case 2:
-               System.err.println("Carico il livello 2");
                level = (Level)levelFactory.build(2);
                 break;
             case 3:
-                System.err.println("Carico il livello 3");
                 level = (Level)levelFactory.build(3);
                 break;
         }
@@ -120,6 +118,7 @@ public class GamePanel extends JPanel implements Runnable {
      * Method to add a KeyListner object to capture pressed keys
      */
     private void setKeyH() {
+        System.err.println("SETKEYH: " + Thread.currentThread());
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -127,7 +126,6 @@ public class GamePanel extends JPanel implements Runnable {
                 requestFocusInWindow();
             }
         });
-        addKeyListener(key);
     }
     
     public KeyHandler getKeyH() {
@@ -263,18 +261,15 @@ public class GamePanel extends JPanel implements Runnable {
     }
     
     private synchronized void isInPause(){
-        while(pause){
+        if(pause){
             try {
-                System.out.println("ENTRO IN PAUSA, ADDIO");
                 wait();
-                System.out.println("PIPPO");
+                setKeyH();
             } catch (InterruptedException ex) {
                 System.out.println("INTERRUPTED EXCEPTION");
             }
-        }
-        setKeyH();   
+        } 
     }
-    
     
     public synchronized void setPause(boolean pause){
         this.pause = pause;

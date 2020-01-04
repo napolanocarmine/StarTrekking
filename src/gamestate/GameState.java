@@ -32,6 +32,14 @@ public abstract class GameState implements State {
     
     public abstract void set();
     
+    public void resume(){
+        throw new UnsupportedOperationException("method not overridden");
+    }
+    
+    public void startMusic(){
+        throw new UnsupportedOperationException("method not overridden");
+    }
+    
     public void stopMusic(){
         gsm.getMusicGame().stop();
     }

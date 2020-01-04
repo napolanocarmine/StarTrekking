@@ -7,14 +7,11 @@ public class EntityBox {
     private float yOffset = 0;
     private float w;
     private float h;
-    private int size;
 
     public EntityBox(Position pos, int w, int h) {
         this.pos = pos;
         this.w = w;
         this.h = h;
-
-        size = Math.max(w, h);
     }
 
     public EntityBox(Position pos, int w, int h, int xOffset, int yOffset) {
@@ -23,8 +20,6 @@ public class EntityBox {
         this.h = h;
         this.xOffset = xOffset;
         this.yOffset = yOffset;
-
-        size = Math.max(w, h);
     }
 
     public Position getPos() {
@@ -52,8 +47,6 @@ public class EntityBox {
         this.h = h;
         this.xOffset = xOffset;
         this.yOffset = yOffset;
-        
-        size = Math.max(h, w);
     }
     
     public void setWidth(float f){ w = f; }

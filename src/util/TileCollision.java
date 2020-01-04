@@ -3,7 +3,7 @@ package util;
 import gameObjects.Entity;
 import tiles.SolidLayer;
 import tiles.blocks.Block;
-import tiles.blocks.HoleBlock;
+import tiles.blocks.ObsBlock;
 
 public class TileCollision {
 

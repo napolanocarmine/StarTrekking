@@ -14,7 +14,7 @@ import util.Position;
  * Abstract class that represents the Enemies in the generic Level.
  * @author Star Trekking
  */
-public abstract class  EnemiesLevel extends Assembly{
+public abstract class EnemiesLevel extends Assembly{
     /**
     * Array represented enemy positions insiede the level.
     */

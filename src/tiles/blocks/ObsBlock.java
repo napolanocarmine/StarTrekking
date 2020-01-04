@@ -6,9 +6,9 @@ import java.awt.image.BufferedImage;
 import util.EntityBox;
 import util.Position;
 
-public class HoleBlock extends Block {
+public class ObsBlock extends Block {
 
-    public HoleBlock(BufferedImage img, Position pos, int w, int h) {
+    public ObsBlock(BufferedImage img, Position pos, int w, int h) {
         super(img, pos, w, h);
     }
 

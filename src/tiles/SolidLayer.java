@@ -4,7 +4,7 @@ import graphics.Sprite;
 import java.awt.Graphics2D;
 import java.util.HashMap;
 import tiles.blocks.Block;
-import tiles.blocks.HoleBlock;
+import tiles.blocks.ObsBlock;
 import tiles.blocks.ObjBlock;
 import util.Position;
 

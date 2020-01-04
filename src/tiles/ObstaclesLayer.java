@@ -4,7 +4,7 @@ import graphics.Sprite;
 import java.awt.Graphics2D;
 import java.util.HashMap;
 import tiles.blocks.Block;
-import tiles.blocks.HoleBlock;
+import tiles.blocks.ObsBlock;
 import tiles.blocks.ObjBlock;
 import util.Position;
 
@@ -21,7 +21,7 @@ public class ObstaclesLayer extends Layer {
         for (int i = 0; i < (width * height); i++) {
             int temp = Integer.parseInt(block[i].replaceAll("\\s+", ""));
             if (temp != 0) {
-                tempBlock = new HoleBlock(sprite.getSprite((int) ((temp - 1) % tileColumns), (int) ((temp - 1) / tileColumns)),
+                tempBlock = new ObsBlock(sprite.getSprite((int) ((temp - 1) % tileColumns), (int) ((temp - 1) / tileColumns)),
                         new Position((int) (i % width) * tileWidth, (int) (i / width) * tileHeight), tileWidth, tileHeight);
                 tmobs_blocks.put(String.valueOf((int) (i % width)) + "," + String.valueOf((int) (i / width)), tempBlock);
             }

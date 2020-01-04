@@ -19,7 +19,7 @@ public class EnemiesLevel2 extends EnemiesLevel{
      * Creates enemies of Level1.
      */
     public EnemiesLevel2() {
-        sprite = new EntitySprite("entity/skeleton", 64, 64);
+        sprite = new EntitySprite("entity/Skeleton", 64, 64);
         groundY += 10;
         initPositionArray();
         createEnemies();

@@ -11,7 +11,8 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-import util.KeyHandler;
+import KeyHandler.KeyHandler;
+import entitycommand.SPSCommandInvoker;
 
 /**
  *
@@ -61,8 +62,9 @@ public class GamePanel extends JPanel implements Runnable {
         this.pause = false;
 //        setFocusable(true);
 //        requestFocus();
-        key = new KeyHandler(sps);
+        key = new KeyHandler();
         addKeyListener(key);
+        key.setListener(new SPSCommandInvoker(sps));
         levelFactory = new LevelFactory(); 
 //        startThread();
     }
@@ -278,11 +280,12 @@ public class GamePanel extends JPanel implements Runnable {
         if(pause){
             try {
                 wait();
-                setKeyH();
             } catch (InterruptedException ex) {
                 System.out.println("INTERRUPTED EXCEPTION");
-            }
+            } 
+            
         } 
+        setKeyH();
     }
     
     public synchronized void setPause(boolean pause){

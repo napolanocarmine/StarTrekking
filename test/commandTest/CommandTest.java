@@ -6,7 +6,7 @@
 package commandTest;
 
 import entitycommand.AttackPlayerCommand;
-import entitycommand.CommandInvoker;
+import entitycommand.PlayerCommandInvoker;
 import entitycommand.CrouchPlayerCommand;
 import entitycommand.JumpPlayerCommand;
 import entitycommand.RunPlayerCommand;
@@ -14,13 +14,8 @@ import gameObjects.Level1;
 import gameObjects.Player;
 import gameObjects.entityState.PlayerAttackState;
 import gameObjects.entityState.PlayerCrouchState;
-import gameObjects.entityState.PlayerDeadState;
 import gameObjects.entityState.PlayerJumpState;
 import gameObjects.entityState.PlayerRunState;
-import gameObjects.entityState.PlayerState;
-import graphics.EntitySprite;
-import util.Position;
-
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -31,7 +26,7 @@ import static org.junit.Assert.*;
  */
 public class CommandTest {
     private Player player;
-    private CommandInvoker invoker;
+    private PlayerCommandInvoker invoker;
     private CrouchPlayerCommand crounch;
     private JumpPlayerCommand jump;
     private RunPlayerCommand run;
@@ -45,7 +40,7 @@ public class CommandTest {
         this.crounch = new CrouchPlayerCommand(level1.getPlayer());
         this.jump = new JumpPlayerCommand(level1.getPlayer());
         this.run = new RunPlayerCommand(level1.getPlayer());
-        this.invoker = new CommandInvoker();
+        this.invoker = new PlayerCommandInvoker();
     }
    
     @After

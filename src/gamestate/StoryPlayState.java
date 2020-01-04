@@ -5,11 +5,7 @@
  */
 package gamestate;
 
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import panels.GamePanel;
-import javax.swing.SwingUtilities;
 
 /**
  *

@@ -1,24 +1,19 @@
 package gameObjects;
 
 import gameObjects.entityState.EnemyDeadState;
-import gameObjects.entityState.PlayerDeadState;
 import gamefactory.EnemiesFactory;
-import gamestate.StoryPlayState;
 import graphics.EntitySprite;
 import graphics.Sprite;
 import java.awt.Graphics2D;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.ListIterator;
-import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
 import panels.GameFrame;
 import panels.GamePanel;
 import static panels.GamePanel.unitTime;
-import startrekking.GameLauncher;
 import tiles.LayerFacade;
-import util.EntityBox;
-import util.KeyHandler;
+import KeyHandler.KeyHandler;
+import entitycommand.PlayerCommandInvoker;
 import util.Position;
 
 public class Level extends Assembly{
@@ -35,6 +30,7 @@ public class Level extends Assembly{
     private float previousTickHitted = 0;
     private GamePanel gp;
     protected float groundY = (GamePanel.HEIGHT) - 162;
+    protected PlayerCommandInvoker inv;
     
     public Level(){
         this.ef = new EnemiesFactory();
@@ -43,7 +39,7 @@ public class Level extends Assembly{
     public void setPanel(GamePanel gp){
         this.gp = gp;
         KeyHandler key = gp.getKeyH();
-        key.setPlayer(player);
+        key.setListener(inv);
     }
     
     protected void init(){
@@ -54,6 +50,8 @@ public class Level extends Assembly{
         EntitySprite playerSprite = new EntitySprite("entity/wizard", 64, 64);
         
         player = new Player(playerSprite, new Position(0, 0 + groundY), 96);
+        
+        inv = new PlayerCommandInvoker(player);
         
         hpImg = new Sprite("entity/heart.png", 32,32);
         energyImg = new Sprite("entity/energy.png", 96, 96);

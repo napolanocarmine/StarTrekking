@@ -226,7 +226,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
 
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
         //exitButton.setIcon(new javax.swing.ImageIcon(exitIconYellow));
-        state.handleNext(1);
+        state.getGSM().exit();
     }//GEN-LAST:event_exitButtonActionPerformed
 
     private void soundButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_soundButtonActionPerformed

@@ -24,7 +24,6 @@ public class GameStateManager {
     private GameState ps;
     private GameState vs;
     private GameState sls;
-    private GameState es;
     private GsmListener listener;
     private GameState currentState;
     private MusicGame mg;
@@ -43,7 +42,6 @@ public class GameStateManager {
         this.ps = new PauseState(this);
         this.vs = new VictoryState(this);
         this.sls = new SelectionLevelState(this);
-        this.es = new ExitState(this);
         this.currentState = mms;
         currentState.set();
     }
@@ -96,38 +94,36 @@ public class GameStateManager {
         return listener;
     }
 
-    public GameState getEs() {
-        return es;
-    }
-
     /**
      * Set the current state to gameState.
      *
      * @param gameState represents the current state to be setted.
      */
     public void setState(GameState gameState){
-//        if(currentState instanceof PauseState){
-//            gameState.resume();
-//        }
-//        else if(!(currentState instanceof ExitState)) gameState.set();
         currentState = gameState;
-        gameState.set();
+        try{
+            gameState.set();
+        }catch(UnsupportedOperationException e){
+            System.err.println("EXIT FROM GSM");
+        }
         this.currentState = gameState;
-        if (listener != null) {
+        if (listener != null){
             listener.stateChanged(gameState);
         }
     }
     
     public void resumeState(GameState gameState){
-//        if(currentState instanceof PauseState){
-//            gameState.resume();
-//        }
-//        else if(!(currentState instanceof ExitState)) gameState.set();
         currentState = gameState;
         gameState.resume();
         this.currentState = gameState;
-        if (listener != null) {
+        if (listener != null){
             listener.stateChanged(gameState);
+        }
+    }
+    
+    public void exit(){
+        if (listener != null){
+            listener.exit();
         }
     }
 

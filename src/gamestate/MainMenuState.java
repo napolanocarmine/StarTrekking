@@ -39,8 +39,6 @@ public class MainMenuState extends GameState {
         this.stopMusic();
         if (code == 0) {
             gsm.setState(gsm.getSls());
-        } else if (code == 1) {
-            gsm.setState(gsm.getEs());
         }
     }
 

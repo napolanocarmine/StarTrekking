@@ -30,6 +30,10 @@ public abstract class GameState implements State {
         this.gsm = gsm;
     }
     
+    public GameStateManager getGSM() {
+        return gsm;
+    }
+    
     public abstract void set();
     
     public void resume(){

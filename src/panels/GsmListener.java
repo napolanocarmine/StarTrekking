@@ -18,4 +18,5 @@ import gamestate.GameState;
 public interface GsmListener {
 
     public void stateChanged(GameState s);
+    public void exit();
 }

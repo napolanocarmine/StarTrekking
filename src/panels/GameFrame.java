@@ -1,6 +1,5 @@
 package panels;
 
-import gamestate.ExitState;
 import gamestate.GameState;
 import gamestate.GameStateManager;
 import gamestate.MainMenuState;
@@ -24,7 +23,7 @@ public final class GameFrame extends JFrame implements GsmListener {
     //JFrame name
     public static final String NAME = "STAR TREKKING";
     private JPanel gamePanel;
-    private GameStateManager gms;
+    private GameStateManager gsm;
 
     /**
      *
@@ -41,28 +40,29 @@ public final class GameFrame extends JFrame implements GsmListener {
         
         setVisible(true);
         
-        this.gms = new GameStateManager();
+        this.gsm = new GameStateManager();
 
-        this.setContentPane(gms.getCurrentState().getPanel());
+        this.setContentPane(gsm.getCurrentState().getPanel());
         pack();
         setLocationRelativeTo(null);
-        gms.setListener(this);
+        gsm.setListener(this);
         
+    }
+    
+    @Override
+    public synchronized void stateChanged(GameState s){        
+        gamePanel = s.getPanel();
+        System.out.println(s);
+        setContentPane(gamePanel);
+        pack();
+        revalidate();
+        repaint();
     }
 
     @Override
-    public synchronized void stateChanged(GameState s) {        
-        if (s instanceof ExitState) {
-            System.err.println("Exit State");
-            this.dispose();
-        } else {
-            gamePanel = s.getPanel();
-            System.out.println(s);
-            setContentPane(gamePanel);
-            pack();
-            revalidate();
-            repaint();
-        }
+    public void exit() {
+        System.err.println("Exit State");
+        this.dispose();
     }
 
 }

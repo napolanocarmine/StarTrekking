@@ -6,6 +6,7 @@
 package entitycommand;
 
 import gamestate.StoryPlayState;
+import panels.GamePanel;
 
 /**
  *
@@ -23,7 +24,7 @@ public class SPSCommandInvoker implements KeyHandler.KeyHandlerListener{
     @Override
     public void buttPressed(int code) {
         if(code == 27){
-            System.out.println("HAI PREMUTO ESC");
+            ((GamePanel)sps.getPanel()).setPause(true);
             sps.nextState(sps.getGSM().getPs());
         }
     }

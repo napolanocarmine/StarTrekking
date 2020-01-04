@@ -34,9 +34,8 @@ public class KeyHandler implements KeyListener {
     
     /**
      * KeyHandler's constructor
-     * @param player object that KeyHandler must manage;
      */
-    public KeyHandler(StoryPlayState sps){
+    public KeyHandler(){
         listeners = new ArrayList<>();
         pressed = false;
     }

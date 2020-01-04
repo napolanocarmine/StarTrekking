@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import KeyHandler.KeyHandler;
+import entitycommand.SPSCommandInvoker;
 
 /**
  *
@@ -60,8 +61,9 @@ public class GamePanel extends JPanel implements Runnable {
         this.pause = false;
 //        setFocusable(true);
 //        requestFocus();
-        key = new KeyHandler(sps);
+        key = new KeyHandler();
         addKeyListener(key);
+        key.setListener(new SPSCommandInvoker(sps));
         levelFactory = new LevelFactory(); 
 //        startThread();
     }

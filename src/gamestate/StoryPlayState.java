@@ -5,11 +5,7 @@
  */
 package gamestate;
 
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import panels.GamePanel;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -64,16 +60,16 @@ public class StoryPlayState extends GameState {
     public void handlePrevious(int code) {
     }
     
-    public synchronized void pause(){
-        /*
-        1) 
-        2) settare variabile lock a true
-        3) lock.notifyAll()
-        4) handle next --> GSM stato di pausa.
-        */
-        //((GamePanel)panel).setPause(true);
-        this.handleNext(2);
-    }
+//    public synchronized void pause(){
+//        /*
+//        1) 
+//        2) settare variabile lock a true
+//        3) lock.notifyAll()
+//        4) handle next --> GSM stato di pausa.
+//        */
+//        //((GamePanel)panel).setPause(true);
+//        this.handleNext(2);
+//    }
     
     @Override
     public void resume(){

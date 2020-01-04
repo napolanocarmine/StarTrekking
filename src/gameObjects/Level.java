@@ -1,23 +1,17 @@
 package gameObjects;
 
 import gameObjects.entityState.EnemyDeadState;
-import gameObjects.entityState.PlayerDeadState;
 import gamefactory.EnemiesFactory;
-import gamestate.StoryPlayState;
 import graphics.EntitySprite;
 import graphics.Sprite;
 import java.awt.Graphics2D;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.ListIterator;
-import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
 import panels.GameFrame;
 import panels.GamePanel;
 import static panels.GamePanel.unitTime;
-import startrekking.GameLauncher;
 import tiles.LayerFacade;
-import util.EntityBox;
 import KeyHandler.KeyHandler;
 import entitycommand.PlayerCommandInvoker;
 import util.Position;
@@ -36,7 +30,7 @@ public class Level extends Assembly{
     private float previousTickHitted = 0;
     private GamePanel gp;
     protected float groundY = (GamePanel.HEIGHT) - 162;
-    PlayerCommandInvoker inv;
+    protected PlayerCommandInvoker inv;
     
     public Level(){
         this.ef = new EnemiesFactory();

@@ -33,31 +33,27 @@ public class GameOverState extends GameState {
     /**
      * Define the menu's components.
      */
-    /**
-     * Method which handles the next state, that could be "Play" or "Main Menu"
-     *
-     * @param code code represented the next state.
-     */
-    @Override
-    public void handleNext(int code) {
-        //code to manage the next state
-        this.stopMusic();
-        if (code == 0) {
-            gsm.setState(gsm.getSps());
-        } else if (code == 1) {
-            gsm.setState(gsm.getMms());
-        }
-
-    }
-
-    @Override
-    public void handlePrevious(int code) {
-    }
-
     @Override
     public void set(){
         gsm.setMusic("GameOverMenu");
         gsm.getMusicGame().play();
     }
 
+    @Override
+    public void nextState(State state) {
+        this.stopMusic();
+        gsm.setState((GameState) state);
+    }
+    
+
+    @Override
+    public void updateGame() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public GameStateManager getGsm() {
+        return gsm;
+    }
+
+    
 }

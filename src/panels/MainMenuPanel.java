@@ -5,6 +5,7 @@
  */
 package panels;
 
+import gamestate.GameStateManager;
 import gamestate.MainMenuState;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -211,7 +212,8 @@ public class MainMenuPanel extends javax.swing.JPanel {
 
     private void storyModeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_storyModeButtonActionPerformed
        storyModeButton.setIcon(new javax.swing.ImageIcon(storyModeIcon));
-       state.handleNext(0);
+       state.stopMusic();
+       state.nextState(state.getGSM().getSls());
     }//GEN-LAST:event_storyModeButtonActionPerformed
 
     private void exitButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseEntered

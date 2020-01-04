@@ -1,6 +1,7 @@
 package gameObjects.entityState;
 
 import gameObjects.Enemy;
+import gamestate.State;
 import util.EntityEnum;
 
 public class EnemyRunState extends EnemyState{
@@ -15,7 +16,7 @@ public class EnemyRunState extends EnemyState{
     }
 
     @Override
-    public void nextState(EntityState state) {
+    public void nextState(State state) {
         enemy.setState(state);
     }
 

@@ -1,9 +1,10 @@
 package gameObjects.entityState;
 
 import gameObjects.Enemy;
+import gamestate.State;
 
 
-public abstract class EnemyState implements EntityState {
+public abstract class EnemyState implements State {
     
     Enemy enemy;
     
@@ -11,7 +12,7 @@ public abstract class EnemyState implements EntityState {
         this.enemy = enemy;
     }
     
-    public abstract void nextState(EntityState state);
+    public abstract void nextState(State state);
     public abstract void updateGame();
     
 }

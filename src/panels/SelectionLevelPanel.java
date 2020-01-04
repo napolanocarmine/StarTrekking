@@ -238,12 +238,14 @@ public class SelectionLevelPanel extends javax.swing.JPanel{
     private void backMainMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backMainMenuButtonActionPerformed
         // TODO add your handling code here:
         backMainMenuButton.setIcon(new javax.swing.ImageIcon(backMenuIcon_black));
-        state.handleNext(4);
+        state.stopMusic();
+        state.nextState(state.getGSM().getMms());
     }//GEN-LAST:event_backMainMenuButtonActionPerformed
 
     private void levelThreeButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_levelThreeButtonMouseEntered
 
         levelThreeButton.setIcon(new javax.swing.ImageIcon(levelThreeIcon_yellow));
+        state.stopMusic();
         levelThreeButton.setBorder(null);
     }//GEN-LAST:event_levelThreeButtonMouseEntered
 
@@ -255,7 +257,9 @@ public class SelectionLevelPanel extends javax.swing.JPanel{
 
     private void levelThreeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_levelThreeButtonActionPerformed
         levelThreeButton.setIcon(new javax.swing.ImageIcon(levelThreeIcon_black));
-        state.handleNext(3);
+        state.getGSM().getSps().setLevel(3);
+        state.stopMusic();
+        state.nextState(state.getGSM().getSps());
     }//GEN-LAST:event_levelThreeButtonActionPerformed
 
     private void levelTwoButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_levelTwoButtonMouseEntered
@@ -272,7 +276,9 @@ public class SelectionLevelPanel extends javax.swing.JPanel{
 
     private void levelTwoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_levelTwoButtonActionPerformed
         levelTwoButton.setIcon(new javax.swing.ImageIcon(levelTwoIcon_black));
-        state.handleNext(2);
+        state.getGSM().getSps().setLevel(2);
+        state.stopMusic();
+        state.nextState(state.getGSM().getSps());
     }//GEN-LAST:event_levelTwoButtonActionPerformed
 
     private void levelOneButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_levelOneButtonMouseEntered
@@ -289,7 +295,8 @@ public class SelectionLevelPanel extends javax.swing.JPanel{
 
     private void levelOneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_levelOneButtonActionPerformed
         levelOneButton.setIcon(new javax.swing.ImageIcon(levelOneIcon_black));
-        state.handleNext(1);
+        state.getGSM().getSps().setLevel(1);
+        state.nextState(state.getGSM().getSps());
     }//GEN-LAST:event_levelOneButtonActionPerformed
 
     private void titleLabel1buttonPressedHandler(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_titleLabel1buttonPressedHandler

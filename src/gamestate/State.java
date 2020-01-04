@@ -13,7 +13,9 @@ import javax.swing.*;
  *
  * Abstract class describing objects and actions performed on a State object
  */
+
 public interface State {
-    public void handleNext(int code);
-    public void handlePrevious(int code);
+    public void nextState(State state);
+    public void updateGame();
+    public void set();
 }

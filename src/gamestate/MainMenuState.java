@@ -34,17 +34,6 @@ public class MainMenuState extends GameState {
      *
      * @param code button code
      */
-    @Override
-    public void handleNext(int code) {
-        this.stopMusic();
-        if (code == 0) {
-            gsm.setState(gsm.getSls());
-        }
-    }
-
-    @Override
-    public void handlePrevious(int code) {
-    }
     
     @Override
     public void set(){
@@ -54,5 +43,16 @@ public class MainMenuState extends GameState {
     
     @Override
     public void stopMusic(){
+    }
+
+    @Override
+    public void nextState(State state) {
+        this.stopMusic();
+        gsm.setState((GameState)state);
+    }
+
+    @Override
+    public void updateGame() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

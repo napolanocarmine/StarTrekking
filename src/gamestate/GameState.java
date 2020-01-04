@@ -34,8 +34,6 @@ public abstract class GameState implements State {
         return gsm;
     }
     
-    public abstract void set();
-    
     public void resume(){
         throw new UnsupportedOperationException("method not overridden");
     }

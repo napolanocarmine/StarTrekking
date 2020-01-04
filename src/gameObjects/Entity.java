@@ -1,6 +1,6 @@
 package gameObjects;
 
-import gameObjects.entityState.EntityState;
+import gamestate.State;
 import java.awt.image.BufferedImage;
 import graphics.Animation;
 import graphics.EntitySprite;
@@ -15,7 +15,7 @@ import util.TileCollision;
  * Abstract class to represent each game object as an entity with animations,
  * position, collision, velocity, gravity
  */
-public abstract class Entity implements GameObject {
+public abstract class Entity implements GameObject, State {
 
     protected Animation ani;
     protected EntitySprite sprite;
@@ -23,7 +23,7 @@ public abstract class Entity implements GameObject {
     protected Position originPos;
     protected int size;
 
-    protected EntityState state; //Key premuta
+    protected State state; //Key premuta
 
     protected float dx;
     protected float dy;
@@ -134,11 +134,11 @@ public abstract class Entity implements GameObject {
         return deadAniEnded;
     }
 
-    public EntityState getState() {
+    public State getState() {
         return state;
     }
 
-    public void setState(EntityState state) {
+    public void setState(State state) {
         this.state = state;
     }
 

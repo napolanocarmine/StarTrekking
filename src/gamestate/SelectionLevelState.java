@@ -33,43 +33,17 @@ public class SelectionLevelState extends GameState {
 //        this.mg = new MusicGame("MainMenu");
     }
 
-    /**
-     * Called when "Level 1" or "Level 2" or "Level 3" is pressed, based on the
-     * pressed button the next state is set.
-     *
-     * @param code button code
-     */
     @Override
-    public void handleNext(int code) {
+    public void set(){}
+
+    @Override
+    public void nextState(State state) {
         this.stopMusic();
-        if (code == 4) {
-            gsm.setState(gsm.getMms());
-        } else {
-            // I know that I must go to StoryPlayState;
-            StoryPlayState sps = gsm.getSps();
-            switch (code) {
-                case 1:
-                    //call sps_level1;
-                    sps.setLevel(1);
-                    break;
-                case 2:
-                    //call sps_level2;
-                    sps.setLevel(2);
-                    break;
-                default:
-                    //call sps_level3;
-                    sps.setLevel(3);
-                    break;
-            }
-            gsm.setState(sps);
-        }
+        gsm.setState((GameState) state);
     }
 
     @Override
-    public void handlePrevious(int code) {
+    public void updateGame() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    @Override
-    public void set(){}
 }

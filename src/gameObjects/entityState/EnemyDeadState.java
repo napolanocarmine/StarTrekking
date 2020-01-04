@@ -1,6 +1,7 @@
 package gameObjects.entityState;
 
 import gameObjects.Enemy;
+import gamestate.State;
 import util.EntityEnum;
 
 public class EnemyDeadState extends EnemyState{
@@ -21,7 +22,7 @@ public class EnemyDeadState extends EnemyState{
     }
 
     @Override
-    public void nextState(EntityState state) {
+    public void nextState(State state) {
         enemy.setState(state);
     }
 
@@ -30,5 +31,6 @@ public class EnemyDeadState extends EnemyState{
     public void set() {
         this.enemy.setAnimation(this.enemy.getSprite().getSprite(EntityEnum.DEAD), 80);    
     }
+
 
 }

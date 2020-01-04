@@ -30,27 +30,6 @@ public class StoryPlayState extends GameState {
         pause = false;
     }
 
-    /**
-     * Method which handles the next state, that could be "Pause" or "Game-Over"
-     *
-     * @param code code represented the next state
-     */
-    @Override
-    public void handleNext(int code) {
-        //((GamePanel) panel).stopThread();
-        if (code == 1) {
-            this.stopMusic();
-            gsm.setState(gsm.getGos());
-        }else if (code == 2) {
-            ((GamePanel)panel).setPause(true);
-            gsm.setState(gsm.getPs());
-        }else if (code == 3) {
-            this.stopMusic();
-            VictoryState vs = (VictoryState) gsm.getVs();
-            vs.setLevel(level);
-            gsm.setState(vs);
-        }
-    }
 
     public void setLevel(int level){
         this.level = level;
@@ -60,9 +39,7 @@ public class StoryPlayState extends GameState {
         return level;
     }
     
-    @Override
-    public void handlePrevious(int code) {
-    }
+   
     
     public synchronized void pause(){
         /*
@@ -72,7 +49,8 @@ public class StoryPlayState extends GameState {
         4) handle next --> GSM stato di pausa.
         */
         //((GamePanel)panel).setPause(true);
-        this.handleNext(2);
+        ((GamePanel) panel).setPause(true);
+        this.nextState(gsm.getPs());
     }
     
     @Override
@@ -110,6 +88,16 @@ public class StoryPlayState extends GameState {
             gsm.setMusic("LevelThree");
             gsm.getMusicGame().play();
         }
+    }
+
+    @Override
+    public void nextState(State state) {
+        gsm.setState((GameState) state);
+    }
+
+    @Override
+    public void updateGame() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

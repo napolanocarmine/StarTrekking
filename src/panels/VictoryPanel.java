@@ -171,17 +171,21 @@ public class VictoryPanel extends javax.swing.JPanel{
 
     private void nextLevelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextLevelButtonActionPerformed
         nextLevelButton.setIcon(new javax.swing.ImageIcon(nextLevelIcon_black));
-        state.handleNext(0);
+        if (state.getLevel() != 3){
+            state.getGSM().getSps().setLevel(state.getLevel()+1);
+            state.setLevel(state.getLevel()+1);
+        }
+        state.nextState(state.getGSM().getSps());
     }//GEN-LAST:event_nextLevelButtonActionPerformed
 
     private void restartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restartButtonActionPerformed
         restartButton.setIcon(new javax.swing.ImageIcon(restartIcon_black));
-        state.handleNext(1);
+        state.nextState(state.getGSM().getSps());
     }//GEN-LAST:event_restartButtonActionPerformed
 
     private void mainMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainMenuButtonActionPerformed
         mainMenuButton.setIcon(new javax.swing.ImageIcon(mainMenuIcon_black));
-        state.handleNext(2);
+        state.nextState(state.getGSM().getMms());
     }//GEN-LAST:event_mainMenuButtonActionPerformed
 
     private void nextLevelButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nextLevelButtonMouseEntered

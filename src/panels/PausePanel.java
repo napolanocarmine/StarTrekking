@@ -187,17 +187,18 @@ public class PausePanel extends javax.swing.JPanel {
     }
     private void resumeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resumeButtonActionPerformed
         resumeButton.setIcon(new javax.swing.ImageIcon(resumeIcon_black));
-        state.handlePrevious(0);
+        state.setResume(true);
+        state.nextState(state.getGSM().getSps());
     }//GEN-LAST:event_resumeButtonActionPerformed
 
     private void restartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restartButtonActionPerformed
         restartButton.setIcon(new javax.swing.ImageIcon(restartIcon_black));
-        state.handleNext(0);
+        state.nextState(state.getGSM().getSps());
     }//GEN-LAST:event_restartButtonActionPerformed
 
     private void mainMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainMenuButtonActionPerformed
         mainMenuButton.setIcon(new javax.swing.ImageIcon(mainMenuIcon_black));
-        state.handleNext(1);
+        state.nextState(state.getGSM().getMms());
     }//GEN-LAST:event_mainMenuButtonActionPerformed
 
     private void restartButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_restartButtonMouseEntered

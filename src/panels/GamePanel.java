@@ -3,6 +3,7 @@ package panels;
 import gameObjects.Level;
 import gamefactory.LevelFactory;
 import gamestate.StoryPlayState;
+import gamestate.VictoryState;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -257,7 +258,20 @@ public class GamePanel extends JPanel implements Runnable {
      * @param code about which is the next state
      */
     public void setState(int code) {
-        sps.handleNext(code);
+        if(code == 1){
+            sps.stopMusic();
+            sps.nextState(sps.getGSM().getGos());
+        }/*
+        if(code == 2){
+            this.setPause(true);
+            sps.nextState(sps.getGSM().getPs());
+        }*/
+        if(code == 3){
+            sps.stopMusic();
+            VictoryState vs = (VictoryState) sps.getGSM().getVs();
+            vs.setLevel(sps.getLevel());
+            sps.nextState(sps.getGSM().getVs());
+        }
     }
     
     private synchronized void isInPause(){

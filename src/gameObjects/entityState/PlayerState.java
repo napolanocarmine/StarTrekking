@@ -1,9 +1,10 @@
 package gameObjects.entityState;
 
 import gameObjects.Player;
+import gamestate.State;
 import music.MusicGame;
 
-public abstract class PlayerState implements EntityState {
+public abstract class PlayerState implements State {
     
     Player p;
     MusicGame mg;
@@ -13,7 +14,7 @@ public abstract class PlayerState implements EntityState {
     }
     
     @Override
-    public abstract void nextState(EntityState state);
+    public abstract void nextState(State state);
     
     @Override
     public void updateGame(){

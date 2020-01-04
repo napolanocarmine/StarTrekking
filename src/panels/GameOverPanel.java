@@ -174,7 +174,7 @@ public class GameOverPanel extends javax.swing.JPanel{
 
     private void restartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restartButtonActionPerformed
         restartButton.setIcon(new javax.swing.ImageIcon(restartIcon_black));
-        state.handleNext(0);
+        state.nextState(state.getGSM().getSps());
     }//GEN-LAST:event_restartButtonActionPerformed
 
     private void mainMenuButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mainMenuButtonMouseEntered
@@ -191,7 +191,7 @@ public class GameOverPanel extends javax.swing.JPanel{
 
     private void mainMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainMenuButtonActionPerformed
         mainMenuButton.setIcon(new javax.swing.ImageIcon(menuIcon_black));
-        state.handleNext(1);
+        state.nextState(state.getGSM().getMms());
     }//GEN-LAST:event_mainMenuButtonActionPerformed
 
     @Override

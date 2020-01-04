@@ -6,6 +6,7 @@
 package gameObjects.entityState;
 
 import gameObjects.Player;
+import gamestate.State;
 
 /**
  *
@@ -18,7 +19,7 @@ public class PlayerVictoryState extends PlayerState{
     }
     
     @Override
-    public void nextState(EntityState state) { 
+    public void nextState(State state) { 
         p.setState(state);
     }
 

@@ -43,26 +43,16 @@ public class SelectionLevelPanel extends javax.swing.JPanel{
      * @param state is the selection level state to pass to the panel
      * @throws java.io.IOException when there's an error opening a file
      */
-    public SelectionLevelPanel(String path, SelectionLevelState state) throws IOException {
-
-        initComponents();
+    public SelectionLevelPanel(SelectionLevelState state) throws IOException {
 
         this.state = state;
-        screen = ImageIO.read(getClass().getResource("/screen/forest.png"));
-
-        levelIcon = ImageIO.read(getClass().getResource("/menuIcon/levels.png"));
-
-        levelOneIcon_black = ImageIO.read(getClass().getResource("/menuIcon/level_one_black.png"));
-        levelTwoIcon_black = ImageIO.read(getClass().getResource("/menuIcon/level_two_black.png"));
-        levelThreeIcon_black = ImageIO.read(getClass().getResource("/menuIcon/level_three_black.png"));
-        backMenuIcon_black = ImageIO.read(getClass().getResource("/menuIcon/back_black.png"));
-
-        levelOneIcon_yellow = ImageIO.read(getClass().getResource("/menuIcon/level_one_yellow.png"));
-        levelTwoIcon_yellow = ImageIO.read(getClass().getResource("/menuIcon/level_two_yellow.png"));
-        levelThreeIcon_yellow = ImageIO.read(getClass().getResource("/menuIcon/level_three_yellow.png"));
-        backMenuIcon_yellow = ImageIO.read(getClass().getResource("/menuIcon/back_yellow.png"));
-
-        titleLabel1.setIcon(new javax.swing.ImageIcon(levelIcon));
+        
+        initComponents();
+        
+        levelOneButton.setName("levelOneButton");
+        levelTwoButton.setName("levelTwoButton");
+        levelThreeButton.setName("levelThreeButton");
+        backMainMenuButton.setName("backMainMenuButton");
 
         initIcon();
 
@@ -208,14 +198,29 @@ public class SelectionLevelPanel extends javax.swing.JPanel{
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    public void initIcon() {
+    public void initIcon() throws IOException {
+
+        screen = ImageIO.read(getClass().getResource("/screen/forest.png"));
+        levelIcon = ImageIO.read(getClass().getResource("/menuIcon/levels.png"));
+
+        levelOneIcon_black = ImageIO.read(getClass().getResource("/menuIcon/level_one_black.png"));
+        levelTwoIcon_black = ImageIO.read(getClass().getResource("/menuIcon/level_two_black.png"));
+        levelThreeIcon_black = ImageIO.read(getClass().getResource("/menuIcon/level_three_black.png"));
+        backMenuIcon_black = ImageIO.read(getClass().getResource("/menuIcon/back_black.png"));
+
+        levelOneIcon_yellow = ImageIO.read(getClass().getResource("/menuIcon/level_one_yellow.png"));
+        levelTwoIcon_yellow = ImageIO.read(getClass().getResource("/menuIcon/level_two_yellow.png"));
+        levelThreeIcon_yellow = ImageIO.read(getClass().getResource("/menuIcon/level_three_yellow.png"));
+        backMenuIcon_yellow = ImageIO.read(getClass().getResource("/menuIcon/back_yellow.png"));
+
+        titleLabel1.setIcon(new javax.swing.ImageIcon(levelIcon));
 
         backMainMenuButton.setIcon(new javax.swing.ImageIcon(backMenuIcon_black));
         backMainMenuButton.setBorder(null);
-
+        
         levelOneButton.setIcon(new javax.swing.ImageIcon(levelOneIcon_black));
         levelOneButton.setBorder(null);
-
+        
         levelTwoButton.setIcon(new javax.swing.ImageIcon(levelTwoIcon_black));
         levelTwoButton.setBorder(null);
 
@@ -304,6 +309,47 @@ public class SelectionLevelPanel extends javax.swing.JPanel{
         //this.setIconImage(image);
     }//GEN-LAST:event_titleLabel1buttonPressedHandler
 
+    public BufferedImage getScreen() {
+        return screen;
+    }
+
+    public BufferedImage getLevelIcon() {
+        return levelIcon;
+    }
+
+    public BufferedImage getLevelOneIcon_black() {
+        return levelOneIcon_black;
+    }
+
+    public BufferedImage getLevelTwoIcon_black() {
+        return levelTwoIcon_black;
+    }
+
+    public BufferedImage getLevelThreeIcon_black() {
+        return levelThreeIcon_black;
+    }
+
+    public BufferedImage getBackMenuIcon_black() {
+        return backMenuIcon_black;
+    }
+
+    public BufferedImage getLevelOneIcon_yellow() {
+        return levelOneIcon_yellow;
+    }
+
+    public BufferedImage getLevelTwoIcon_yellow() {
+        return levelTwoIcon_yellow;
+    }
+
+    public BufferedImage getLevelThreeIcon_yellow() {
+        return levelThreeIcon_yellow;
+    }
+
+    public BufferedImage getBackMenuIcon_yellow() {
+        return backMenuIcon_yellow;
+    }
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backMainMenuButton;

@@ -32,6 +32,31 @@ public class GameOverPanel extends javax.swing.JPanel{
 
     BufferedImage menuIcon_yellow;
     BufferedImage restartIcon_yellow;
+    
+    public BufferedImage getGameOverIcon_black() {
+        return gameOverIcon_black;
+    }
+
+    public BufferedImage getMenuIcon_black() {
+        return menuIcon_black;
+    }
+
+    public BufferedImage getRestartIcon_black() {
+        return restartIcon_black;
+    }
+
+    public BufferedImage getMenuIcon_yellow() {
+        return menuIcon_yellow;
+    }
+
+    public BufferedImage getRestartIcon_yellow() {
+        return restartIcon_yellow;
+    }
+
+    public BufferedImage getScreen() {
+        return screen;
+    }
+
 
     /**
      * Creates new form GameOverPanel
@@ -42,20 +67,12 @@ public class GameOverPanel extends javax.swing.JPanel{
     public GameOverPanel(GameOverState state) throws IOException {
         this.state = state;
 
-        screen = ImageIO.read(getClass().getResource("/screen/forest.png"));
-
         initComponents();
-        gameOverIcon_black = ImageIO.read(getClass().getResource("/menuIcon/gameover.png"));
-        menuIcon_black = ImageIO.read(getClass().getResource("/menuIcon/back_black.png"));
-        restartIcon_black = ImageIO.read(getClass().getResource("/menuIcon/restart_black.png"));
-
-        restartIcon_yellow = ImageIO.read(getClass().getResource("/menuIcon/restart_yellow.png"));
-        menuIcon_yellow = ImageIO.read(getClass().getResource("/menuIcon/back_yellow.png"));
-
-        titleLabel1.setIcon(new javax.swing.ImageIcon(gameOverIcon_black));
-
+        restartButton.setName("restartButton");
+        mainMenuButton.setName("mainMenuButton");
+        
         initIcon();
-
+        
         this.setVisible(true);
         this.setSize(GameFrame.WIDTH, GameFrame.HEIGHT);
     }
@@ -147,8 +164,18 @@ public class GameOverPanel extends javax.swing.JPanel{
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    public void initIcon() {
+    public void initIcon() throws IOException {
 
+        screen = ImageIO.read(getClass().getResource("/screen/forest.png"));
+
+        gameOverIcon_black = ImageIO.read(getClass().getResource("/menuIcon/gameover.png"));
+        menuIcon_black = ImageIO.read(getClass().getResource("/menuIcon/back_black.png"));
+        restartIcon_black = ImageIO.read(getClass().getResource("/menuIcon/restart_black.png"));
+
+        restartIcon_yellow = ImageIO.read(getClass().getResource("/menuIcon/restart_yellow.png"));
+        menuIcon_yellow = ImageIO.read(getClass().getResource("/menuIcon/back_yellow.png"));
+        
+        titleLabel1.setIcon(new javax.swing.ImageIcon(gameOverIcon_black));
         restartButton.setIcon(new javax.swing.ImageIcon(restartIcon_black));
         restartButton.setBorder(null);
 

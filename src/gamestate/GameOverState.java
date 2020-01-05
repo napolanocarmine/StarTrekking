@@ -48,12 +48,7 @@ public class GameOverState extends GameState {
 
     @Override
     public void updateGame() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
-    public GameStateManager getGsm() {
-        return gsm;
-    }
-
-    
 }

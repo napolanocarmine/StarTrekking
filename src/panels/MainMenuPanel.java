@@ -33,7 +33,30 @@ public class MainMenuPanel extends javax.swing.JPanel {
     BufferedImage exitIcon;
     BufferedImage storyModeIconYellow;
     BufferedImage exitIconYellow;
-    
+
+    public BufferedImage getScreen() {
+        return screen;
+    }
+
+    public BufferedImage getStoryModeIcon() {
+        return storyModeIcon;
+    }
+
+    public BufferedImage getTitleIcon() {
+        return titleIcon;
+    }
+
+    public BufferedImage getExitIcon() {
+        return exitIcon;
+    }
+
+    public BufferedImage getStoryModeIconYellow() {
+        return storyModeIconYellow;
+    }
+
+    public BufferedImage getExitIconYellow() {
+        return exitIconYellow;
+    }
 
     /**
      * Creates new form MainMenuPanel
@@ -42,44 +65,38 @@ public class MainMenuPanel extends javax.swing.JPanel {
      * @throws java.io.IOException when there's an error due to open a file
      */
     public MainMenuPanel(MainMenuState state) throws IOException {
-        initComponents();
         this.state = state;
-        screen = ImageIO.read(getClass().getResource("/screen/forest.png"));
 
         initComponents();
+        storyModeButton.setName("storyModeButton");
+        exitButton.setName("exitButton");
+        soundButton.setName("soundButton");
 
-        storyModeIcon = ImageIO.read(getClass().getResource("/menuIcon/story_mode_black.png"));
-        exitIcon = ImageIO.read(getClass().getResource("/menuIcon/exit_black.png"));
-        titleIcon = ImageIO.read(getClass().getResource("/menuIcon/startrekking.png"));
-        
-        storyModeIconYellow = ImageIO.read(getClass().getResource("/menuIcon/story_mode_yellow.png"));
-        exitIconYellow = ImageIO.read(getClass().getResource("/menuIcon/exit_yellow.png"));
         setSound();
-
-        storyModeButton.setIcon(new javax.swing.ImageIcon(storyModeIcon));
-        exitButton.setIcon(new javax.swing.ImageIcon(exitIcon));
-        storyModeButton.setBorder(null);
-        exitButton.setBorder(null);
-        titleLabel.setIcon(new javax.swing.ImageIcon(titleIcon));
-
         initIcon();
-                
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+
         this.setVisible(true);
         this.setSize(screen.getWidth(), screen.getHeight());
 
     }
-    
-    private void initIcon(){
-        
-        storyModeButton.setIcon(new javax.swing.ImageIcon(storyModeIcon));
-        exitButton.setIcon(new javax.swing.ImageIcon(exitIcon));
-        storyModeButton.setBorder(null);
-        exitButton.setBorder(null);
+
+    public void initIcon() throws IOException {
+
+        screen = ImageIO.read(getClass().getResource("/screen/forest.png"));
+        storyModeIcon = ImageIO.read(getClass().getResource("/menuIcon/story_mode_black.png"));
+        exitIcon = ImageIO.read(getClass().getResource("/menuIcon/exit_black.png"));
+        titleIcon = ImageIO.read(getClass().getResource("/menuIcon/startrekking.png"));
+        storyModeIconYellow = ImageIO.read(getClass().getResource("/menuIcon/story_mode_yellow.png"));
+        exitIconYellow = ImageIO.read(getClass().getResource("/menuIcon/exit_yellow.png"));
+
         titleLabel.setIcon(new javax.swing.ImageIcon(titleIcon));
-        
-        
+
+        storyModeButton.setIcon(new javax.swing.ImageIcon(storyModeIcon));
+        storyModeButton.setBorder(null);
+
+        exitButton.setIcon(new javax.swing.ImageIcon(exitIcon));
+        exitButton.setBorder(null);
+
     }
 
     /**
@@ -211,9 +228,9 @@ public class MainMenuPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_storyModeButtonmouseExitHandler
 
     private void storyModeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_storyModeButtonActionPerformed
-       storyModeButton.setIcon(new javax.swing.ImageIcon(storyModeIcon));
-       state.stopMusic();
-       state.nextState(state.getGSM().getSls());
+        storyModeButton.setIcon(new javax.swing.ImageIcon(storyModeIcon));
+        state.stopMusic();
+        state.nextState(state.getGSM().getSls());
     }//GEN-LAST:event_storyModeButtonActionPerformed
 
     private void exitButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseEntered
@@ -228,13 +245,13 @@ public class MainMenuPanel extends javax.swing.JPanel {
 
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
         //exitButton.setIcon(new javax.swing.ImageIcon(exitIconYellow));
-        state.getGSM().exit();
+        state.exit();
     }//GEN-LAST:event_exitButtonActionPerformed
 
     private void soundButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_soundButtonActionPerformed
-       MusicGame mg;
-       mg = state.getMusicGame();
-       mg.toggleMute();
+        MusicGame mg;
+        mg = state.getMusicGame();
+        mg.toggleMute();
     }//GEN-LAST:event_soundButtonActionPerformed
 
     private void soundButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_soundButtonMouseClicked
@@ -256,15 +273,14 @@ public class MainMenuPanel extends javax.swing.JPanel {
                 Logger.getLogger(MainMenuPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
             soundButton.setIcon(new javax.swing.ImageIcon(sound));
-        }else{
-             try {
+        } else {
+            try {
                 noSound = ImageIO.read(getClass().getResource("/menuIcon/Speaker_volume_Mute.png"));
             } catch (IOException ex) {
                 Logger.getLogger(MainMenuPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
             soundButton.setIcon(new javax.swing.ImageIcon(noSound));
         }
-
 
     }
 

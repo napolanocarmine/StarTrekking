@@ -81,7 +81,7 @@ public class MusicGameIT {
         mg.play();
         mg.stop();
         Clip clip = mg.getClip();
-        assertTrue(!clip.isOpen()  && !MusicGame.getMute());
+        assertTrue(!clip.isRunning()  && !MusicGame.getMute());
         System.out.println("testStop ok");
     }
 

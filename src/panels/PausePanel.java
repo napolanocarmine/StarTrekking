@@ -193,6 +193,7 @@ public class PausePanel extends javax.swing.JPanel {
 
     private void restartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restartButtonActionPerformed
         restartButton.setIcon(new javax.swing.ImageIcon(restartIcon_black));
+        state.stopMusic();
         state.nextState(state.getGSM().getSps());
     }//GEN-LAST:event_restartButtonActionPerformed
 

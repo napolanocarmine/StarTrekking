@@ -59,6 +59,7 @@ public class KeyHandler implements KeyListener {
         if (!pressed) {
             int code = ke.getKeyCode();
             if(code == 32 || code == 17 || code == 88 || code == 27) {
+                pressed = true;
                 for (KeyHandlerListener l : listeners){
                     l.buttPressed(code);
                 }

@@ -280,12 +280,12 @@ public class GamePanel extends JPanel implements Runnable {
         if(pause){
             try {
                 wait();
+                setKeyH();
             } catch (InterruptedException ex) {
                 System.out.println("INTERRUPTED EXCEPTION");
             } 
             
-        } 
-        setKeyH();
+        }
     }
     
     public synchronized void setPause(boolean pause){

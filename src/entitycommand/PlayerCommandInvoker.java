@@ -21,6 +21,7 @@ public class PlayerCommandInvoker implements KeyHandlerListener{
     private Command crouchPlayerC;
     private Command attackPlayerC;
     private Command runPlayerC;
+    
     /**
      * Command setter
      *
@@ -38,10 +39,10 @@ public class PlayerCommandInvoker implements KeyHandlerListener{
     @Override
     public void buttPressed(int code) {
         switch(code){        
-            case 32:                        //space -> 32
+            case 32:
                 jumpPlayerC.execute();
                 break;
-            case 17://KeyEvent.VK_CONTROL:   
+            case 17://KeyEvent.VK_CONTROL:
                 crouchPlayerC.execute();
                 break;
             case 88://KeyEvent.VK_X:         

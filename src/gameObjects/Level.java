@@ -85,7 +85,7 @@ public class Level extends Assembly{
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    gp.setState(3);
+                    gp.setState(2);
                 }
             }); 
         }

@@ -48,7 +48,6 @@ public class GamePanel extends JPanel implements Runnable {
     private KeyHandler key;
     private boolean pause;
     private LevelFactory levelFactory;
-    
 
     /**
      *
@@ -65,7 +64,7 @@ public class GamePanel extends JPanel implements Runnable {
         key = new KeyHandler();
         addKeyListener(key);
         key.setListener(new SPSCommandInvoker(sps));
-        levelFactory = new LevelFactory(); 
+        levelFactory = new LevelFactory();
 //        startThread();
     }
 
@@ -98,25 +97,24 @@ public class GamePanel extends JPanel implements Runnable {
         g = (Graphics2D) img.getGraphics();
 
         setKeyH();
-       
+
     }
 
-    
-    public void setLevel(int code){
-        switch(code){
+    public void setLevel(int code) {
+        switch (code) {
             case 1:
-                level = (Level)levelFactory.build(1);
+                level = (Level) levelFactory.build(1);
                 break;
             case 2:
-               level = (Level)levelFactory.build(2);
+                level = (Level) levelFactory.build(2);
                 break;
             case 3:
-                level = (Level)levelFactory.build(3);
+                level = (Level) levelFactory.build(3);
                 break;
         }
         level.setPanel(this);
     }
-    
+
     /**
      * Method to add a KeyListner object to capture pressed keys
      */
@@ -130,7 +128,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
         });
     }
-    
+
     public KeyHandler getKeyH() {
         return key;
     }
@@ -158,7 +156,7 @@ public class GamePanel extends JPanel implements Runnable {
         int frameCount = 0;
         int lastSecondTime = (int) (lastUpdateTime / 1000000000);
         oldFrameCount = 0;
-        
+
         while (running) {
             //System.out.println("VEDO SE MI INTRAPPOLO");
             isInPause();
@@ -260,24 +258,20 @@ public class GamePanel extends JPanel implements Runnable {
      * @param code about which is the next state
      */
     public void setState(int code) {
-        if(code == 1){
+        if (code == 1) {
             sps.stopMusic();
             sps.nextState(sps.getGSM().getGos());
-        }/*
-        if(code == 2){
-            this.setPause(true);
-            sps.nextState(sps.getGSM().getPs());
-        }*/
-        if(code == 3){
+        }
+        if (code == 2) {
             sps.stopMusic();
             VictoryState vs = (VictoryState) sps.getGSM().getVs();
             vs.setLevel(sps.getLevel());
             sps.nextState(sps.getGSM().getVs());
         }
     }
-    
-    private synchronized void isInPause(){
-        if(pause){
+
+    private synchronized void isInPause() {
+        if (pause) {
             try {
                 wait();
                 setKeyH();
@@ -287,10 +281,18 @@ public class GamePanel extends JPanel implements Runnable {
             
         }
     }
-    
-    public synchronized void setPause(boolean pause){
+
+    public synchronized void setPause(boolean pause) {
         this.pause = pause;
         notifyAll();
     }
-    
+
+    public Level getLevel() {
+        return level;
+    }
+
+    public boolean getPause() {
+        return pause;
+    }
+
 }

@@ -36,8 +36,20 @@ public class VictoryPanel extends javax.swing.JPanel{
     public VictoryPanel(VictoryState state) throws IOException {
 
         this.state = state;
+        
         initComponents();
+        mainMenuButton.setName("mainMenuButton");
+        nextLevelButton.setName("nextLevelButton");
+        restartButton.setName("restartButton");
+        
+        initIcon();
 
+        this.setVisible(true);
+        this.setSize(GameFrame.WIDTH, GameFrame.HEIGHT);
+    }
+
+    public void initIcon() throws IOException {
+        
         titleIcon = ImageIO.read(getClass().getResource("/menuIcon/LevelCompleted.png"));
         screen = ImageIO.read(getClass().getResource("/screen/forest.png"));
 
@@ -49,17 +61,7 @@ public class VictoryPanel extends javax.swing.JPanel{
         restartIcon_yellow = ImageIO.read(getClass().getResource("/menuIcon/restart_yellow.png"));
         mainMenuIcon_yellow = ImageIO.read(getClass().getResource("/menuIcon/back_yellow.png"));
 
-        initIcon();
-
-        this.setVisible(true);
-        this.setSize(GameFrame.WIDTH, GameFrame.HEIGHT);
-
-    }
-
-    private void initIcon() {
         victoryLabel.setIcon(new javax.swing.ImageIcon(titleIcon));
-        
-
         
         mainMenuButton.setIcon(new javax.swing.ImageIcon(mainMenuIcon_black));
         mainMenuButton.setBorder(null);
@@ -221,6 +223,38 @@ public class VictoryPanel extends javax.swing.JPanel{
     @Override
     public void paintComponent(Graphics g) {
         g.drawImage(screen, 0, 0, null);
+    }
+    
+    public BufferedImage getScreen() {
+        return screen;
+    }
+
+    public BufferedImage getTitleIcon() {
+        return titleIcon;
+    }
+
+    public BufferedImage getRestartIcon_black() {
+        return restartIcon_black;
+    }
+
+    public BufferedImage getNextLevelIcon_black() {
+        return nextLevelIcon_black;
+    }
+
+    public BufferedImage getMainMenuIcon_black() {
+        return mainMenuIcon_black;
+    }
+
+    public BufferedImage getRestartIcon_yellow() {
+        return restartIcon_yellow;
+    }
+
+    public BufferedImage getNextLevelIcon_yellow() {
+        return nextLevelIcon_yellow;
+    }
+
+    public BufferedImage getMainMenuIcon_yellow() {
+        return mainMenuIcon_yellow;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

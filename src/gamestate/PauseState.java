@@ -48,4 +48,10 @@ public class PauseState extends GameState{
     public void updateGame() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public boolean isResume() {
+        return resume;
+    }
+    
+    
 }

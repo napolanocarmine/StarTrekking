@@ -30,25 +30,17 @@ public class PausePanel extends javax.swing.JPanel {
      * Creates new form PausePanel
      */
     public PausePanel(PauseState state) throws IOException {
-        initComponents();
-        setOpaque(false);
         this.state = state;
-        screen = ImageIO.read(getClass().getResource("/screen/forest.png"));
-
-        initComponents();
         
-        titleIcon = ImageIO.read(getClass().getResource("/menuIcon/Pause.png"));
-        resumeIcon_black = ImageIO.read(getClass().getResource("/menuIcon/resume_black.png"));
-        restartIcon_black = ImageIO.read(getClass().getResource("/menuIcon/restart_black.png"));
-        mainMenuIcon_black = ImageIO.read(getClass().getResource("/menuIcon/back_black.png"));
-
-        resumeIcon_yellow = ImageIO.read(getClass().getResource("/menuIcon/resume_yellow.png"));
-        restartIcon_yellow = ImageIO.read(getClass().getResource("/menuIcon/restart_yellow.png"));
-        mainMenuIcon_yellow = ImageIO.read(getClass().getResource("/menuIcon/back_yellow.png"));
-
+        initComponents();
+        resumeButton.setName("resumeButton");
+        restartButton.setName("restartButton");
+        mainMenuButton.setName("mainMenuButton");
+        
         initIcon();
 
-        this.setSize(GameFrame.WIDTH/2, GameFrame.HEIGHT/2);
+        setOpaque(false);
+        this.setSize(GameFrame.WIDTH, GameFrame.HEIGHT);
         this.setVisible(true);
     }
 
@@ -173,7 +165,18 @@ public class PausePanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    public void initIcon() {
+    public void initIcon() throws IOException {
+        screen = ImageIO.read(getClass().getResource("/screen/forest.png"));
+        titleIcon = ImageIO.read(getClass().getResource("/menuIcon/Pause.png"));
+        resumeIcon_black = ImageIO.read(getClass().getResource("/menuIcon/resume_black.png"));
+        restartIcon_black = ImageIO.read(getClass().getResource("/menuIcon/restart_black.png"));
+        mainMenuIcon_black = ImageIO.read(getClass().getResource("/menuIcon/back_black.png"));
+
+        resumeIcon_yellow = ImageIO.read(getClass().getResource("/menuIcon/resume_yellow.png"));
+        restartIcon_yellow = ImageIO.read(getClass().getResource("/menuIcon/restart_yellow.png"));
+        mainMenuIcon_yellow = ImageIO.read(getClass().getResource("/menuIcon/back_yellow.png"));
+
+        
         titleLabel.setIcon(new javax.swing.ImageIcon(titleIcon) );
         mainMenuButton.setIcon(new javax.swing.ImageIcon(mainMenuIcon_black));
         mainMenuButton.setBorder(null);
@@ -243,6 +246,38 @@ public class PausePanel extends javax.swing.JPanel {
     @Override
     public void paintComponent(Graphics g) {
         g.drawImage(screen, 0, 0, null);
+    }
+    
+    public BufferedImage getScreen() {
+        return screen;
+    }
+
+    public BufferedImage getResumeIcon_black() {
+        return resumeIcon_black;
+    }
+
+    public BufferedImage getRestartIcon_black() {
+        return restartIcon_black;
+    }
+
+    public BufferedImage getMainMenuIcon_black() {
+        return mainMenuIcon_black;
+    }
+
+    public BufferedImage getResumeIcon_yellow() {
+        return resumeIcon_yellow;
+    }
+
+    public BufferedImage getRestartIcon_yellow() {
+        return restartIcon_yellow;
+    }
+
+    public BufferedImage getMainMenuIcon_yellow() {
+        return mainMenuIcon_yellow;
+    }
+
+    public BufferedImage getTitleIcon() {
+        return titleIcon;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

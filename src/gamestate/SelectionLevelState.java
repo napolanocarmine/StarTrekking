@@ -23,18 +23,16 @@ public class SelectionLevelState extends GameState {
     /**
      * Initialize the background with a picture
      */
-    public SelectionLevelState(GameStateManager gsm) {
-        try {
-            this.panel = new SelectionLevelPanel("/screen/forest.png", this);
-        } catch (IOException e) {
-            System.out.print(e);
-        }
+    public SelectionLevelState(GameStateManager gsm) throws IOException {
+
+        this.panel = new SelectionLevelPanel(this);
         this.gsm = gsm;
 //        this.mg = new MusicGame("MainMenu");
     }
 
     @Override
-    public void set(){}
+    public void set() {
+    }
 
     @Override
     public void nextState(State state) {

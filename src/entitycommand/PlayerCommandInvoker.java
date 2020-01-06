@@ -35,7 +35,10 @@ public class PlayerCommandInvoker implements KeyHandlerListener{
         this.attackPlayerC = new AttackPlayerCommand(player);
         this.runPlayerC = new RunPlayerCommand(player);
     }
-
+/**
+ * set correct command based on input code
+ * @param code 
+ */
     @Override
     public void buttPressed(int code) {
         switch(code){        
@@ -51,7 +54,11 @@ public class PlayerCommandInvoker implements KeyHandlerListener{
             default:
         }
     }
-
+    /**
+     * set running state if input code 
+     * is related to crouch button
+     * @param code 
+     */
     @Override
     public void buttReleased(int code) {
         if(code == 17) runPlayerC.execute();

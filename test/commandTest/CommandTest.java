@@ -25,71 +25,65 @@ import static org.junit.Assert.*;
  * @author Star Trekking
  */
 public class CommandTest {
-    private Player player;
     private PlayerCommandInvoker invoker;
-    private CrouchPlayerCommand crounch;
-    private JumpPlayerCommand jump;
-    private RunPlayerCommand run;
-    private AttackPlayerCommand attack;
     private Level1 level1;
+    
     @Before
     public void setUp(){
-        this.level1 = new Level1();
-        //this.player = new Player(new EntitySprite("entity/wizard", 64, 64), new Position(0,0), 0);
-        this.attack = new AttackPlayerCommand(level1.getPlayer());
-        this.crounch = new CrouchPlayerCommand(level1.getPlayer());
-        this.jump = new JumpPlayerCommand(level1.getPlayer());
-        this.run = new RunPlayerCommand(level1.getPlayer());
-        this.invoker = new PlayerCommandInvoker();
+       level1.getPlayer().setState((level1.getPlayer().getPlayerRunState()));
     }
    
     @After
     public void clear(){
-        invoker.setCommand(run);
     }
-    @Test
-    public void testRunCommand() {
-        invoker.setCommand(run);
-        assertTrue("The state set by the command is RunState", level1.getPlayer().getState() instanceof PlayerRunState);
-    }
-    
+    /**
+     * Test method for attack command
+     */
     @Test
     public void testAttackCommand(){
-        invoker.setCommand(attack);
+        invoker.buttPressed(88);
         assertTrue("The state set by the command is AttackState", level1.getPlayer().getState() instanceof PlayerAttackState);
     }
-    
+    /**
+     * Test method for jump command
+     */
     @Test
-    public void testJumpCommand_assertTrue(){
-        invoker.setCommand(jump);
+    public void testJumpCommand(){
+        invoker.buttPressed(32);
         assertTrue("The state set by the command is JumpState", level1.getPlayer().getState() instanceof PlayerJumpState);
     }
-    
+    /**
+     * Test method for crouch command
+     */
     @Test
     public void testCrounchCommand() {
-        invoker.setCommand(crounch);
+        invoker.buttPressed(17);
         assertTrue("The state set by the command is CrounchState", level1.getPlayer().getState() instanceof PlayerCrouchState);
     }
-    
+    /**
+     * method for testing if player crouches while jumping or attacking
+     */
     @Test
     public void testCrounchWhileNotRun(){
         level1.getPlayer().setState(level1.getPlayer().getPlayerJumpState());
-        invoker.setCommand(crounch);
+        invoker.buttPressed(17);
         assertFalse("Crunch state has not been set", level1.getPlayer().getState() instanceof PlayerCrouchState);
         
         level1.getPlayer().setState(level1.getPlayer().getPlayerAttackState());
-        invoker.setCommand(crounch);
+        invoker.buttPressed(17);
         assertFalse("Crunch state has not been set", level1.getPlayer().getState() instanceof PlayerCrouchState);
     }
-    
+    /**
+     * Test method for testing if player attacks while running or attacking crouching
+     */
     @Test
     public void testAttackWhileNotRun() {
         level1.getPlayer().setState(level1.getPlayer().getPlayerJumpState());
-        invoker.setCommand(attack);
+        invoker.buttPressed(88);
         assertFalse("Attack state has not been set", level1.getPlayer().getState() instanceof PlayerAttackState);
 
         level1.getPlayer().setState(level1.getPlayer().getPlayerCrounchState());
-        invoker.setCommand(attack);
+        invoker.buttPressed(88);
         assertFalse("Attack state has not been set", level1.getPlayer().getState() instanceof  PlayerAttackState);
     }
 }

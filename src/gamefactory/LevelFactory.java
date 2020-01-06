@@ -14,9 +14,16 @@ import gameObjects.Level3;
 /**
  *
  * @author Star Trekking
+ * 
+ * Class that generates levels
  */
 public class LevelFactory  extends GameObjectsFactory{
-   
+   /**
+    * Creates a specific level related to input par
+    * @param code
+    * @return GameObject
+    * @throws IllegalArgumentException 
+    */
     @Override
     protected GameObject selectGameObject(int code) throws IllegalArgumentException{
         switch (code) {

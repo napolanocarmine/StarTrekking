@@ -16,7 +16,7 @@ import KeyHandler.KeyHandler;
 import entitycommand.PlayerCommandInvoker;
 import util.Position;
 
-public class Level extends Assembly{
+public abstract class Level extends Assembly{
 
 //    private int level;
     private static Position map;

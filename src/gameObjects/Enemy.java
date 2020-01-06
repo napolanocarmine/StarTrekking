@@ -70,12 +70,14 @@ public class Enemy extends Entity {
     @Override
     public void updateGame() {
         super.updateGame();
-        if (pos.getWorldVar().getX() < -100) {
-            deadAniEnded = true;
+        if(pos.getWorldVar().getX() < GamePanel.WIDTH+100){
+            if (pos.getWorldVar().getX() < -100) {
+                deadAniEnded = true;
+            }
+            move();
+            pos.setY(dy);
+            pos.setX(dx);
         }
-        move();
-        pos.setY(dy);
-        pos.setX(dx);
     }
 
     @Override

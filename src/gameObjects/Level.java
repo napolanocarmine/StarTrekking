@@ -63,13 +63,9 @@ public abstract class Level extends Assembly{
     
     @Override
     public void updateGame() {
+        super.updateGame();
         Position.setWorldVar(map.getX(), map.getY());
-        player.updateGame();
         
-        for(GameObject leaf : enemies.getObjs()){
-            Enemy enemy = (Enemy) leaf; 
-            if(enemy.getPos().getWorldVar().getX() < GamePanel.WIDTH+100) enemy.updateGame();
-        }
         if(player.getDeadAniEnded()) {
             gp.stopThread(); //cancelliamo il thread. 
             SwingUtilities.invokeLater(new Runnable() {

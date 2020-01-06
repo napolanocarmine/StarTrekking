@@ -13,11 +13,16 @@ import gamestate.StoryPlayState;
 public abstract class SPSCommand implements Command{
 
     StoryPlayState sps;
-    
+    /**
+     * Default constructor of SPSCommand abstract class.
+     * @param sps   as the state to set
+     */
     public void StoryPlayStateCommand(StoryPlayState sps){
         this.sps = sps;
     }
-    
+    /**
+     * Method that executes the command
+     */
     @Override
     public abstract void execute();
     

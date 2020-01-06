@@ -41,4 +41,5 @@ public abstract class EnemiesLevel extends Assembly{
      */
     protected abstract void createEnemies();
     
+    
 }

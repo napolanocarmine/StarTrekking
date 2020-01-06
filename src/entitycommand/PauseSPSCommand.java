@@ -10,7 +10,9 @@ package entitycommand;
  * @author Star Trekking
  */
 public class PauseSPSCommand extends SPSCommand{
-
+    /**
+     * Method that executes the command
+     */
     @Override
     public void execute() {
         this.sps.nextState(sps.getGSM().getPs());

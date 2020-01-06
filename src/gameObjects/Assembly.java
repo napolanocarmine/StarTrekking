@@ -9,7 +9,7 @@ import java.util.ArrayList;
  *
  * Abstract Class to keep references to game objects.
  */
-public class Assembly implements GameObject {
+public abstract class Assembly implements GameObject {
 
     protected ArrayList<GameObject> objs;
     
@@ -20,10 +20,11 @@ public class Assembly implements GameObject {
         objs = new ArrayList<>();
     }
     
-
     @Override
     public void updateGame() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for(GameObject obj: objs){
+            obj.updateGame();
+        }
     }
     
     /**

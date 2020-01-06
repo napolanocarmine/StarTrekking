@@ -9,9 +9,17 @@ import gameObjects.GameObject;
 /**
  *
  * @author Star Trekking
+ * 
+ * Abstract class useful for factory design pattern
  */
 public abstract class GameObjectsFactory {
-    
+    /**
+     * Returns a GameObject instance related to
+     * input param
+     * 
+     * @param code related to the specific GameObject class to return
+     * @return GameObject
+     */
     public GameObject build(int code){
         return selectGameObject(code);
     }

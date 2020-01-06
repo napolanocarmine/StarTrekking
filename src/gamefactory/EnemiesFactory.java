@@ -13,9 +13,16 @@ import gameObjects.GameObject;
 /**
  *
  * @author Star Trekking
+ * 
+ * Class that generates level enemies
  */
 public class EnemiesFactory extends GameObjectsFactory{
-
+    /**
+     * Creates all the enemies for the specific level related to input par
+     * @param code related to specific EnemiesLevel class
+     * @return GameObject
+     * @throws IllegalArgumentException when input param does not refer to a known EnemiesLevel class
+     */
      @Override
     protected GameObject selectGameObject(int code) throws IllegalArgumentException{
         switch (code) {

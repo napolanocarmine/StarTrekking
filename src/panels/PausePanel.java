@@ -13,7 +13,7 @@ import javax.imageio.ImageIO;
 
 /**
  *
- * @author Gianluca
+ *  Class to define the panel when the the game pass in the Pause state.
  */
 public class PausePanel extends javax.swing.JPanel {
 
@@ -28,6 +28,8 @@ public class PausePanel extends javax.swing.JPanel {
     private BufferedImage titleIcon;
     /**
      * Creates new form PausePanel
+     * @param state is the state which the panel belongs.
+     * @throws java.io.IOException if the application can't read some files.
      */
     public PausePanel(PauseState state) throws IOException {
         this.state = state;
@@ -165,6 +167,11 @@ public class PausePanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * It is used to read from resources package and set the right icons in the 
+     * panel.
+     * @throws java.io.IOException if the application can't read some files.
+     */
     public void initIcon() throws IOException {
         screen = ImageIO.read(getClass().getResource("/screen/forest.png"));
         titleIcon = ImageIO.read(getClass().getResource("/menuIcon/Pause.png"));
@@ -243,39 +250,75 @@ public class PausePanel extends javax.swing.JPanel {
         //this.setIconImage(image);
     }//GEN-LAST:event_titleLabelbuttonPressedHandler
 
+    /**
+     * It is used to draw the image in the panel.
+     * @param g is the graphics object. 
+     */
     @Override
     public void paintComponent(Graphics g) {
         g.drawImage(screen, 0, 0, null);
     }
     
+    /**
+     * It is used to return the background of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getScreen() {
         return screen;
     }
 
+    /**
+     * It is used to return the Resume black icon of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getResumeIcon_black() {
         return resumeIcon_black;
     }
 
+    /**
+     * It is used to return the Restart black icon of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getRestartIcon_black() {
         return restartIcon_black;
     }
 
+    /**
+     * It is used to return the Main Menu black icon of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getMainMenuIcon_black() {
         return mainMenuIcon_black;
     }
 
+    /**
+     * It is used to return the Resume yellow icon of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getResumeIcon_yellow() {
         return resumeIcon_yellow;
     }
 
+    /**
+     * It is used to return the Restart yellow icon of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getRestartIcon_yellow() {
         return restartIcon_yellow;
     }
 
+    /**
+     * It is used to return the Main Menu yellow icon of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getMainMenuIcon_yellow() {
         return mainMenuIcon_yellow;
     }
 
+    /**
+     * It is used to return the Title icon of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getTitleIcon() {
         return titleIcon;
     }

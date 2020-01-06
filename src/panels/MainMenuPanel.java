@@ -21,8 +21,7 @@ import music.MusicGame;
  *
  * @author StarTrekking
  *
- * Class that represents the Main Menu panel keeping refers to the image shown
- * and the music background
+ * Class to define the panel when the the game pass in the Main Menu state.
  */
 public class MainMenuPanel extends javax.swing.JPanel {
 
@@ -34,35 +33,58 @@ public class MainMenuPanel extends javax.swing.JPanel {
     BufferedImage storyModeIconYellow;
     BufferedImage exitIconYellow;
 
+    /**
+     * It is used to return the background of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getScreen() {
         return screen;
     }
 
+    /**
+     * It is used to return the Story Mode black icon of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getStoryModeIcon() {
         return storyModeIcon;
     }
 
+    /**
+     * It is used to return the Title icon of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getTitleIcon() {
         return titleIcon;
     }
 
+    /**
+     * It is used to return the Exit icon of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getExitIcon() {
         return exitIcon;
     }
 
+    /**
+     * It is used to return the Story Mode Yellow icon of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getStoryModeIconYellow() {
         return storyModeIconYellow;
     }
 
+    /**
+     * It is used to return the Exit yellow icon of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getExitIconYellow() {
         return exitIconYellow;
     }
 
     /**
      * Creates new form MainMenuPanel
-     *
-     * @param state is the state of the game about the main menu
-     * @throws java.io.IOException when there's an error due to open a file
+     * @param state is the state which the panel belongs.
+     * @throws java.io.IOException if the application can't read some files.
      */
     public MainMenuPanel(MainMenuState state) throws IOException {
         this.state = state;
@@ -80,6 +102,11 @@ public class MainMenuPanel extends javax.swing.JPanel {
 
     }
 
+    /**
+     * It is used to read from resources package and set the right icons in the 
+     * panel.
+     * @throws java.io.IOException if the application can't read some files.
+     */
     public void initIcon() throws IOException {
 
         screen = ImageIO.read(getClass().getResource("/screen/forest.png"));
@@ -258,11 +285,18 @@ public class MainMenuPanel extends javax.swing.JPanel {
         setSound();
     }//GEN-LAST:event_soundButtonMouseClicked
 
+    /**
+     * It is used to draw the image in the panel.
+     * @param g is the graphics object. 
+     */
     @Override
     public void paintComponent(Graphics g) {
         g.drawImage(screen, 0, 0, null);
     }
 
+    /**
+     *It is used to set the icon of sound button in the panel. 
+     */
     public void setSound() {
         BufferedImage sound = null, noSound = null;
 

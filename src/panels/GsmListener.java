@@ -17,6 +17,14 @@ import gamestate.GameState;
  */
 public interface GsmListener {
 
+    /**
+     *
+     * @param s
+     */
     public void stateChanged(GameState s);
+
+    /**
+     *
+     */
     public void exit();
 }

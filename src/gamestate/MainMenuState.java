@@ -19,7 +19,9 @@ import music.MusicGame;
  */
 public class MainMenuState extends GameState {
     /**
-     * Create the Main Menu.
+     * Create the panel, which represents the Main Menu.
+     * @param gsm is the manager of the game's state.
+     * @throws java.io.IOException if MainMenuPanel raises IOException.
      */
     public MainMenuState(GameStateManager gsm) throws IOException {
         this.panel = new MainMenuPanel(this);
@@ -29,10 +31,8 @@ public class MainMenuState extends GameState {
     }
 
     /**
-     * Called when either "Story-Mode" or "Rush-Mode" is pressed, based on the
-     * pressed button the next state is set.
+     *It is used to set and then play the right music to Main Menu. 
      *
-     * @param code button code
      */
     
     @Override
@@ -41,22 +41,34 @@ public class MainMenuState extends GameState {
         gsm.getMusicGame().play();
     }
     
+    /**
+     * It is used to stop music.
+     */
     @Override
     public void stopMusic(){
     }
 
+    /**
+     *It is used to pass in the next state and to stop the corresponding music. 
+     * @param state is the next state handles by gsm.
+     */
     @Override
     public void nextState(State state) {
         this.stopMusic();
         gsm.setState((GameState)state);
     }
 
+    /**
+     *
+     */
     @Override
     public void updateGame() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    
+    /**
+     *It is used when you want to close the game.
+     */
     public void exit(){
         this.gsm.exit();
     }

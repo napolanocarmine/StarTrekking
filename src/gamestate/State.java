@@ -11,11 +11,24 @@ import javax.swing.*;
  *
  * @author Star Trekking
  *
- * Abstract class describing objects and actions performed on a State object
+ * Interface describing objects and actions performed on a State object.
  */
 
 public interface State {
+
+    /**
+     *It is used to pass in the next state.
+     * @param state is the next state that has to be setted.
+     */
     public void nextState(State state);
+
+    /**
+     *It is used to implements the actions that update the game.
+     */
     public void updateGame();
+
+    /**
+     *It is used to implement setter operations on the state.
+     */
     public void set();
 }

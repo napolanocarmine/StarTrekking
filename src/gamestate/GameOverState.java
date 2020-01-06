@@ -21,8 +21,9 @@ public class GameOverState extends GameState {
 
     /**
      * Create the Panel, which represents the Game Over Menu.
-     *
-     * @throws java.io.IOException
+     * @param gsm is the manager of the game's state.
+     * 
+     * @throws java.io.IOException if GameOverPanel raises IOException.
      */
     public GameOverState(GameStateManager gsm) throws IOException {
         this.panel = new GameOverPanel(this);
@@ -31,13 +32,20 @@ public class GameOverState extends GameState {
     }
 
     /**
-     * Define the menu's components.
+     *
+     * It is used to set and then play the right music corresponding to the Game
+     * Over Menu.  
      */
     @Override
     public void set(){
         gsm.setMusic("GameOverMenu");
         gsm.getMusicGame().play();
     }
+    
+    /**
+     * It is used to pass in the next state.
+     * @param state is the next state handles by gsm.
+     */
 
     @Override
     public void nextState(State state) {

@@ -12,11 +12,16 @@ import panels.PausePanel;
 
 /**
  *
- * @author Star Trekking
+ * Class which represents the state in which the game shows the Pause menu.
  */
 public class PauseState extends GameState{
     private boolean resume;
     
+    /**
+     *Create the panel, which represents the Pause Menu.
+     * @param gsm is the manager of the game's state.
+     * @@throws java.io.IOException if PausePanel raises IOException.
+     */
     public PauseState(GameStateManager gsm) throws IOException {
         this.gsm = gsm;
         this.panel = new PausePanel(this);
@@ -24,16 +29,29 @@ public class PauseState extends GameState{
 //       this.mg = new MusicGame("MainMenu");
     }
 
+    /**
+     *It is used to set a boolean variable when the game is in the pause state.
+     * @param resume is setted by the pause panel when the game has to be 
+     * resumed.
+     */
     public void setResume(boolean resume) {
         this.resume = resume;
     }
     
+    /**
+     *
+     */
     @Override
     public void set(){
 //        gsm.setMusic("MainMenu");
 //        gsm.getMusicGame().play();
     }
 
+    /**
+     It is used to pass in the next state based on the value of boolean variable
+     * 'resume'.
+     * @param state is the next state handles by gsm.
+     */
     @Override
     public void nextState(State state) {
         if(resume){
@@ -44,11 +62,18 @@ public class PauseState extends GameState{
         
     }
 
+    /**
+     *
+     */
     @Override
     public void updateGame() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     *It is used to get the resume variable.
+     * @return the value of variable resume.
+     */
     public boolean isResume() {
         return resume;
     }

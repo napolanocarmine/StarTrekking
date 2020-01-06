@@ -13,7 +13,7 @@ import javax.imageio.ImageIO;
 
 /**
  *
- * @author Gianluca
+ * Class to define the panel when the the game pass in the Victory state.
  */
 public class VictoryPanel extends javax.swing.JPanel{
 
@@ -32,6 +32,8 @@ public class VictoryPanel extends javax.swing.JPanel{
 
     /**
      * Creates new form VictoryPanel
+     * @param state is the state which the panel belongs.
+     * @throws java.io.IOException if the application can't read some files.
      */
     public VictoryPanel(VictoryState state) throws IOException {
 
@@ -48,6 +50,11 @@ public class VictoryPanel extends javax.swing.JPanel{
         this.setSize(GameFrame.WIDTH, GameFrame.HEIGHT);
     }
 
+    /**
+     *It is used to read from resources package and set the right icons in the 
+     * panel.
+     * @throws java.io.IOException if the application can't read some files.
+     */
     public void initIcon() throws IOException {
         
         titleIcon = ImageIO.read(getClass().getResource("/menuIcon/LevelCompleted.png"));
@@ -219,40 +226,75 @@ public class VictoryPanel extends javax.swing.JPanel{
         mainMenuButton.setIcon(new javax.swing.ImageIcon(mainMenuIcon_black));
         mainMenuButton.setBorder(null);
     }//GEN-LAST:event_mainMenuButtonMouseExited
-
+    /**
+     * It is used to draw the image in the panel.
+     * @param g is the graphics object. 
+     */
     @Override
     public void paintComponent(Graphics g) {
         g.drawImage(screen, 0, 0, null);
     }
     
+    /**
+     * It is used to return the background of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getScreen() {
         return screen;
     }
 
+    /**
+     * It is used to return the title icon of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getTitleIcon() {
         return titleIcon;
     }
 
+    /**
+     * It is used to return the Restart black icon of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getRestartIcon_black() {
         return restartIcon_black;
     }
 
+    /**
+     ** It is used to return the Next Level black icon of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getNextLevelIcon_black() {
         return nextLevelIcon_black;
     }
 
+    /**
+     * It is used to return the Main Menu Black of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getMainMenuIcon_black() {
         return mainMenuIcon_black;
     }
 
+    /**
+     * It is used to return the restart yellow icon of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getRestartIcon_yellow() {
         return restartIcon_yellow;
     }
 
+    /**
+     * It is used to return the Next Level yellow icon of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getNextLevelIcon_yellow() {
         return nextLevelIcon_yellow;
     }
 
+    /**
+     * It is used to return the Main Menu yellow icon of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getMainMenuIcon_yellow() {
         return mainMenuIcon_yellow;
     }

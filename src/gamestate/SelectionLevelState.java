@@ -13,15 +13,17 @@ import music.MusicGame;
 
 /**
  *
- * @author StarTrekking
  *
+ * 
  * Class to define the state of the game in which one playable level can be
- * choose
+ * choose.
  */
 public class SelectionLevelState extends GameState {
 
     /**
-     * Initialize the background with a picture
+     *Create the panel, which represents the Pause Menu.
+     * @param gsm is the manager of the game's state.
+     * @throws @throws java.io.IOException if SelectionPanel raises IOException.
      */
     public SelectionLevelState(GameStateManager gsm) throws IOException {
 
@@ -30,16 +32,26 @@ public class SelectionLevelState extends GameState {
 //        this.mg = new MusicGame("MainMenu");
     }
 
+    /**
+     *
+     */
     @Override
     public void set() {
     }
 
+    /**
+     *It is used to pass in the next state and to stop the corresponding music. 
+     * @param state is the next state handles by gsm.
+     */
     @Override
     public void nextState(State state) {
         this.stopMusic();
         gsm.setState((GameState) state);
     }
 
+    /**
+     *
+     */
     @Override
     public void updateGame() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

@@ -17,7 +17,7 @@ public abstract class GameObjectsFactory {
      * Returns a GameObject instance related to
      * input param
      * 
-     * @param code
+     * @param code related to the specific GameObject class to return
      * @return GameObject
      */
     public GameObject build(int code){

@@ -25,7 +25,7 @@ public class PlayerCommandInvoker implements KeyHandlerListener{
     /**
      * Command setter
      *
-     * @param command command to be set
+     * @param player to listen
      */
     
     public PlayerCommandInvoker(Player player){
@@ -37,7 +37,7 @@ public class PlayerCommandInvoker implements KeyHandlerListener{
     }
 /**
  * set correct command based on input code
- * @param code 
+ * @param code refers to the specific button pressed
  */
     @Override
     public void buttPressed(int code) {
@@ -57,7 +57,7 @@ public class PlayerCommandInvoker implements KeyHandlerListener{
     /**
      * set running state if input code 
      * is related to crouch button
-     * @param code 
+     * @param code refers to the specific button released
      */
     @Override
     public void buttReleased(int code) {

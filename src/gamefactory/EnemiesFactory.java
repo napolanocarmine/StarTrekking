@@ -19,9 +19,9 @@ import gameObjects.GameObject;
 public class EnemiesFactory extends GameObjectsFactory{
     /**
      * Creates all the enemies for the specific level related to input par
-     * @param code
+     * @param code related to specific EnemiesLevel class
      * @return GameObject
-     * @throws IllegalArgumentException 
+     * @throws IllegalArgumentException when input param does not refer to a known EnemiesLevel class
      */
      @Override
     protected GameObject selectGameObject(int code) throws IllegalArgumentException{

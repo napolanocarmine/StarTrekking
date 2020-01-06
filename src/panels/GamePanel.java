@@ -27,14 +27,32 @@ import entitycommand.SPSCommandInvoker;
 public class GamePanel extends JPanel implements Runnable {
 
     //window dimensions    
+
+    /**
+     *
+     */
     public static float unitTime = 700000000;
 
+    /**
+     *
+     */
     public static final int WIDTH = GameFrame.WIDTH;
+
+    /**
+     *
+     */
     public static final int HEIGHT = GameFrame.HEIGHT;
 
     //JFrame name
+
+    /**
+     *
+     */
     public static final String NAME = "STAR TREKKING";
 
+    /**
+     *
+     */
     public static int oldFrameCount;
 
     private Thread thread;
@@ -80,6 +98,9 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    /**
+     *
+     */
     public final void stopThread() {
         if (thread != null) {
             running = false;
@@ -100,6 +121,10 @@ public class GamePanel extends JPanel implements Runnable {
 
     }
 
+    /**
+     *
+     * @param code
+     */
     public void setLevel(int code) {
         switch (code) {
             case 1:
@@ -129,6 +154,10 @@ public class GamePanel extends JPanel implements Runnable {
         });
     }
 
+    /**
+     *
+     * @return
+     */
     public KeyHandler getKeyH() {
         return key;
     }
@@ -210,12 +239,21 @@ public class GamePanel extends JPanel implements Runnable {
 
     }
 
+    /**
+     *
+     */
     public Color color;
 
+    /**
+     *
+     */
     public void update() {
         level.updateGame();
     }
 
+    /**
+     *
+     */
     public void render() {
         if (g != null) {
             level.render(g);
@@ -282,15 +320,27 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    /**
+     *
+     * @param pause
+     */
     public synchronized void setPause(boolean pause) {
         this.pause = pause;
         notifyAll();
     }
 
+    /**
+     *
+     * @return
+     */
     public Level getLevel() {
         return level;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean getPause() {
         return pause;
     }

@@ -19,7 +19,7 @@ import javax.imageio.ImageIO;
  *
  * @author StarTrekking
  *
- * Class that represents the panel of the selection level
+ * Class to define the panel when the the game pass in the Selection Level state.
  */
 public class SelectionLevelPanel extends javax.swing.JPanel{
 
@@ -37,11 +37,9 @@ public class SelectionLevelPanel extends javax.swing.JPanel{
     BufferedImage backMenuIcon_yellow;
 
     /**
-     * Creates new form SelectLevelPanel
-     *
-     * @param path is the parameter to obtain the file path of resources
-     * @param state is the selection level state to pass to the panel
-     * @throws java.io.IOException when there's an error opening a file
+     * Creates new form Selection LevelPane
+     * @param state is the state which the panel belongs.
+     * @throws java.io.IOException if the application can't read some files.
      */
     public SelectionLevelPanel(SelectionLevelState state) throws IOException {
 
@@ -59,7 +57,11 @@ public class SelectionLevelPanel extends javax.swing.JPanel{
         this.setVisible(true);
         this.setSize(GameFrame.WIDTH, GameFrame.HEIGHT);
     }
-
+    
+    /**
+     *  It is used to draw the image in the panel.
+     * @param g is the graphics object. 
+     */
     @Override
     public void paintComponent(Graphics g) {
         g.drawImage(screen, 0, 0, null);
@@ -198,6 +200,11 @@ public class SelectionLevelPanel extends javax.swing.JPanel{
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     *It is used to read from resources package and set the right icons in the 
+     * panel.
+     * @throws java.io.IOException if the application can't read some files.
+     */
     public void initIcon() throws IOException {
 
         screen = ImageIO.read(getClass().getResource("/screen/forest.png"));
@@ -309,42 +316,82 @@ public class SelectionLevelPanel extends javax.swing.JPanel{
         //this.setIconImage(image);
     }//GEN-LAST:event_titleLabel1buttonPressedHandler
 
+    /**
+     * It is used to return the background of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getScreen() {
         return screen;
     }
 
+    /**
+    * It is used to return the title icon of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getLevelIcon() {
         return levelIcon;
     }
 
+    /**
+     It is used to return the Level 1 black icon of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getLevelOneIcon_black() {
         return levelOneIcon_black;
     }
 
+    /**
+     It is used to return the Level 2 black icon of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getLevelTwoIcon_black() {
         return levelTwoIcon_black;
     }
 
+    /**
+     It is used to return the Level 3 black icon of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getLevelThreeIcon_black() {
         return levelThreeIcon_black;
     }
 
+    /**
+    It is used to return the Main Menu black icon of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getBackMenuIcon_black() {
         return backMenuIcon_black;
     }
 
+    /**
+     *It is used to return the Level 1 yellow icon of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getLevelOneIcon_yellow() {
         return levelOneIcon_yellow;
     }
 
+    /**
+     * It is used to return the Level 2 yellow icon of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getLevelTwoIcon_yellow() {
         return levelTwoIcon_yellow;
     }
 
+    /**
+     * It is used to return the Level 3 yellow icon of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getLevelThreeIcon_yellow() {
         return levelThreeIcon_yellow;
     }
 
+    /**
+     * It is used to return the Main Menu yellow icon of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getBackMenuIcon_yellow() {
         return backMenuIcon_yellow;
     }

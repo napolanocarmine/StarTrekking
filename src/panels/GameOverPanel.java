@@ -19,7 +19,7 @@ import javax.imageio.ImageIO;
  *
  * @author StarTrekking
  *
- * Class to define the panel when the the game pass in the game over state
+ * Class to define the panel when the the game pass in the game over state.
  */
 public class GameOverPanel extends javax.swing.JPanel{
 
@@ -33,26 +33,50 @@ public class GameOverPanel extends javax.swing.JPanel{
     BufferedImage menuIcon_yellow;
     BufferedImage restartIcon_yellow;
     
+    /**
+     *It is used to return the Game Over black Icon of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getGameOverIcon_black() {
         return gameOverIcon_black;
     }
 
+    /**
+     *It is used to return the Menu black icon of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getMenuIcon_black() {
         return menuIcon_black;
     }
 
+    /**
+     It is used to return the Restart black icon of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getRestartIcon_black() {
         return restartIcon_black;
     }
 
+    /**
+     *It is used to return the Menu yellow icon of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getMenuIcon_yellow() {
         return menuIcon_yellow;
     }
 
+    /**
+     *It is used to return the Restart yellow icon of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getRestartIcon_yellow() {
         return restartIcon_yellow;
     }
 
+    /**
+     *It is used to return the backgound of the panel.
+     * @return a bufferd image.
+     */
     public BufferedImage getScreen() {
         return screen;
     }
@@ -60,11 +84,10 @@ public class GameOverPanel extends javax.swing.JPanel{
 
     /**
      * Creates new form GameOverPanel
-     *
-     * @param state is the state in which the game must go
-     * @throws java.io.IOException if the application can't read some files
+     *@param state is the state which the panel belongs.
+     * @throws java.io.IOException if the application can't read some files.
      */
-    public GameOverPanel(GameOverState state) throws IOException {
+    public GameOverPanel(GameOverState state) throws IOException  {
         this.state = state;
 
         initComponents();
@@ -164,6 +187,12 @@ public class GameOverPanel extends javax.swing.JPanel{
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     *It is used to read from resources package and set the right icons in the 
+     * panel.
+     * @throws java.io.IOException if the application 
+     * can't read some files.
+     */
     public void initIcon() throws IOException {
 
         screen = ImageIO.read(getClass().getResource("/screen/forest.png"));

@@ -5,6 +5,7 @@
  */
 package gamestate;
 
+import State.State;
 import javax.swing.JPanel;
 import music.MusicGame;
 
@@ -52,6 +53,11 @@ public abstract class GameState implements State {
      */
     public GameStateManager getGSM() {
         return gsm;
+    }
+    
+    @Override
+    public void set(){
+        throw new UnsupportedOperationException("method not overridden");
     }
     
     /**

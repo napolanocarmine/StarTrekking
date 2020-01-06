@@ -6,7 +6,7 @@
 package gameObjects.entityState;
 
 import gameObjects.Player;
-import gamestate.State;
+import State.State;
 import util.EntityEnum;
 
 /**

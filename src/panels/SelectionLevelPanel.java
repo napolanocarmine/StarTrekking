@@ -6,6 +6,7 @@
 package panels;
 
 import gamestate.SelectionLevelState;
+import gamestate.StoryPlayState;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
@@ -269,7 +270,7 @@ public class SelectionLevelPanel extends javax.swing.JPanel{
 
     private void levelThreeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_levelThreeButtonActionPerformed
         levelThreeButton.setIcon(new javax.swing.ImageIcon(levelThreeIcon_black));
-        state.getGSM().getSps().setLevel(3);
+        ((StoryPlayState)(state.getGSM().getSps())).setLevel(3);
         state.stopMusic();
         state.nextState(state.getGSM().getSps());
     }//GEN-LAST:event_levelThreeButtonActionPerformed
@@ -288,7 +289,7 @@ public class SelectionLevelPanel extends javax.swing.JPanel{
 
     private void levelTwoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_levelTwoButtonActionPerformed
         levelTwoButton.setIcon(new javax.swing.ImageIcon(levelTwoIcon_black));
-        state.getGSM().getSps().setLevel(2);
+        ((StoryPlayState)(state.getGSM().getSps())).setLevel(2);
         state.stopMusic();
         state.nextState(state.getGSM().getSps());
     }//GEN-LAST:event_levelTwoButtonActionPerformed
@@ -307,7 +308,7 @@ public class SelectionLevelPanel extends javax.swing.JPanel{
 
     private void levelOneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_levelOneButtonActionPerformed
         levelOneButton.setIcon(new javax.swing.ImageIcon(levelOneIcon_black));
-        state.getGSM().getSps().setLevel(1);
+        ((StoryPlayState)(state.getGSM().getSps())).setLevel(1);
         state.nextState(state.getGSM().getSps());
     }//GEN-LAST:event_levelOneButtonActionPerformed
 

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gamestate;
+package State;
 
 import javax.swing.*;
 
@@ -22,12 +22,7 @@ public interface State {
      */
     public void nextState(State state);
 
-    /**
-     *It is used to implements the actions that update the game.
-     */
-    public void updateGame();
-
-    /**
+          /**
      *It is used to implement setter operations on the state.
      */
     public void set();

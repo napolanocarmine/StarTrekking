@@ -1,7 +1,7 @@
 package gameObjects;
 
 import gameObjects.entityState.ShotRunState;
-import gamestate.State;
+import State.State;
 import graphics.EntitySprite;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -48,14 +48,5 @@ public class Shot extends Entity{
 //                (int) (pos.getWorldVar().getY() + bounds.getYOffset()), (int) bounds.getWidth(), (int) bounds.getHeight());
     }
 
-    @Override
-    public void nextState(State state) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void set() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
 }

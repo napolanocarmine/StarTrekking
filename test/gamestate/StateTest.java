@@ -5,6 +5,7 @@
  */
 package gamestate;
 
+import State.State;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

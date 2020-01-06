@@ -8,7 +8,8 @@ package gameObjects;
 import gameObjects.entityState.EnemyDeadState;
 import gameObjects.entityState.EnemyRunState;
 import gameObjects.entityState.EnemyState;
-import gamestate.State;
+import gameObjects.entityState.EntityState;
+import State.State;
 import graphics.EntitySprite;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -27,8 +28,8 @@ import util.Position;
  */
 public class Enemy extends Entity {
 
-    private State runState;
-    private State deadState;
+    private EntityState runState;
+    private EntityState deadState;
     
     /**
      * Creates an enemy object.
@@ -39,7 +40,6 @@ public class Enemy extends Entity {
     public Enemy(EntitySprite sprite, Position origin, int size) {
         super(sprite, origin, size);
         this.bounds = new EntityBox(pos, 16, 32, 40, 32);
-        this.state = new EnemyRunState(this);
         this.initialSpeed = -0.05f;
         this.vx = initialSpeed;
         
@@ -57,11 +57,7 @@ public class Enemy extends Entity {
         return deadState;
     }
     
-    @Override
-    public void setState(State st){
-        super.setState(st);
-        st.set();
-    }
+ 
     
     public void move() {
         dx = vx * timex++ + dx0;
@@ -85,16 +81,6 @@ public class Enemy extends Entity {
 //            g.setColor(Color.BLUE);
 //            g.drawRect((int) (pos.getWorldVar().getX() + bounds.getXOffset()), (int) (pos.getWorldVar().getY() + bounds.getYOffset()), (int) bounds.getWidth(), (int) bounds.getHeight());
         }
-    }
-
-    @Override
-    public void nextState(State state) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void set() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

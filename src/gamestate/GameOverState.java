@@ -5,6 +5,7 @@
  */
 package gamestate;
 
+import State.State;
 import panels.GameOverPanel;
 import java.io.IOException;
 import music.MusicGame;
@@ -53,10 +54,5 @@ public class GameOverState extends GameState {
         gsm.setState((GameState) state);
     }
     
-
-    @Override
-    public void updateGame() {
-        
-    }
 
 }

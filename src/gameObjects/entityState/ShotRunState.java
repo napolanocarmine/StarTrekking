@@ -1,7 +1,7 @@
 package gameObjects.entityState;
 
 import gameObjects.Shot;
-import gamestate.State;
+import State.State;
 import util.EntityEnum;
 
 public class ShotRunState extends ShotState{

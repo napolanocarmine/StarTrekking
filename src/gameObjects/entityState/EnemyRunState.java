@@ -1,7 +1,7 @@
 package gameObjects.entityState;
 
 import gameObjects.Enemy;
-import gamestate.State;
+import State.State;
 import util.EntityEnum;
 
 public class EnemyRunState extends EnemyState{

@@ -209,6 +209,7 @@ public class PausePanel extends javax.swing.JPanel {
 
     private void mainMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainMenuButtonActionPerformed
         mainMenuButton.setIcon(new javax.swing.ImageIcon(mainMenuIcon_black));
+        state.stopMusic();
         state.nextState(state.getGSM().getMms());
     }//GEN-LAST:event_mainMenuButtonActionPerformed
 

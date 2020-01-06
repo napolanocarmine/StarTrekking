@@ -1,7 +1,7 @@
 package gameObjects;
 
 import gameObjects.entityState.*;
-import gamestate.State;
+import State.State;
 import graphics.Animation;
 import graphics.EntitySprite;
 import java.awt.Color;
@@ -266,22 +266,5 @@ public class Player extends Entity{
         }
     }
 
-    
-    @Override
-    public void setState(State st){
-        super.setState(st);
-        st.set();
-        //st.playMusic();
-    }
-
-    @Override
-    public void nextState(State state) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void set() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
 }

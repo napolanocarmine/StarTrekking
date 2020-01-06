@@ -5,6 +5,7 @@
  */
 package gamestate;
 
+import State.State;
 import java.io.IOException;
 import org.junit.After;
 import org.junit.AfterClass;

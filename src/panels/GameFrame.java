@@ -4,7 +4,7 @@ import gamestate.GameState;
 import gamestate.GameStateManager;
 import gamestate.MainMenuState;
 import gamestate.PauseState;
-import gamestate.State;
+import State.State;
 import gamestate.StoryPlayState;
 import java.awt.*;
 import java.io.IOException;

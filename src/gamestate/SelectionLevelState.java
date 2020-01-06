@@ -5,6 +5,7 @@
  */
 package gamestate;
 
+import State.State;
 import panels.SelectionLevelPanel;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -49,11 +50,4 @@ public class SelectionLevelState extends GameState {
         gsm.setState((GameState) state);
     }
 
-    /**
-     *
-     */
-    @Override
-    public void updateGame() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

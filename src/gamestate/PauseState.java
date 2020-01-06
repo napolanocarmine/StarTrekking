@@ -5,6 +5,7 @@
  */
 package gamestate;
 
+import State.State;
 import java.io.IOException;
 import javax.swing.SwingUtilities;
 import music.MusicGame;
@@ -60,14 +61,6 @@ public class PauseState extends GameState{
         }else
             gsm.setState((GameState) state);
         
-    }
-
-    /**
-     *
-     */
-    @Override
-    public void updateGame() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**

@@ -5,6 +5,7 @@
  */
 package gamestate;
 
+import State.State;
 import java.io.IOException;
 import panels.VictoryPanel;
 
@@ -56,14 +57,5 @@ public class VictoryState extends GameState {
     public void nextState(State state) {
         gsm.setState((GameState) state);
     }
-
-    /**
-     *
-     */
-    @Override
-    public void updateGame() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    
+  
 }

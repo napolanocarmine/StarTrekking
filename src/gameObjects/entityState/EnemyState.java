@@ -1,10 +1,10 @@
 package gameObjects.entityState;
 
 import gameObjects.Enemy;
-import gamestate.State;
+import State.State;
 
 
-public abstract class EnemyState implements State {
+public abstract class EnemyState extends EntityState {
     
     Enemy enemy;
     
@@ -12,7 +12,7 @@ public abstract class EnemyState implements State {
         this.enemy = enemy;
     }
     
-    public abstract void nextState(State state);
     public abstract void updateGame();
+    public abstract void set();
     
 }

@@ -5,6 +5,7 @@
  */
 package gamestate;
 
+import State.State;
 import panels.MainMenuPanel;
 import java.io.IOException;
 import music.MusicGame;
@@ -35,7 +36,7 @@ public class MainMenuState extends GameState {
      *
      */
     
-    @Override
+    
     public void set(){
         gsm.setMusic("MainMenu");
         gsm.getMusicGame().play();
@@ -58,14 +59,6 @@ public class MainMenuState extends GameState {
         gsm.setState((GameState)state);
     }
 
-    /**
-     *
-     */
-    @Override
-    public void updateGame() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
     /**
      *It is used when you want to close the game.
      */

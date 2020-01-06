@@ -5,6 +5,8 @@
  */
 package gamestate;
 
+import State.Context;
+import State.State;
 import java.io.IOException;
 import music.MusicGame;
 import panels.*;
@@ -16,10 +18,10 @@ import panels.*;
 /**
  * Class which handles the game's state.
  */
-public class GameStateManager {
+public class GameStateManager implements Context {
 
     private GameState mms;
-    private StoryPlayState sps;
+    private GameState sps;
     private GameState gos;
     private GameState ps;
     private GameState vs;
@@ -31,8 +33,8 @@ public class GameStateManager {
     /**
      * Create a new GameStateManager and initialize the initial state
      *
-     * @throws java.io.IOException if the panel corresponding to the state 
-     * raises the IO  Exception.
+     * @throws java.io.IOException if the panel corresponding to the state
+     * raises the IO Exception.
      */
     public GameStateManager() throws IOException {
         this.listener = null;
@@ -56,7 +58,6 @@ public class GameStateManager {
         this.listener = null;
         this.gameState = new MainMenuState();
     }*/
-
     /**
      * Return the current game state.
      *
@@ -66,9 +67,9 @@ public class GameStateManager {
     public State getState() {
         return gameState;
     }*/
-
     /**
      * It is used to get the Main Menu state.
+     *
      * @return the main menu state.
      */
     public GameState getMms() {
@@ -77,14 +78,16 @@ public class GameStateManager {
 
     /**
      * It is used to get the Story Play state.
+     *
      * @return the story play state.
      */
-    public StoryPlayState getSps() {
+    public GameState getSps() {
         return sps;
     }
 
     /**
      * It is used to get the Game Over state.
+     *
      * @return the Game Over state.
      */
     public GameState getGos() {
@@ -93,6 +96,7 @@ public class GameStateManager {
 
     /**
      * It is used to get Pause state.
+     *
      * @return the Pause state.
      */
     public GameState getPs() {
@@ -101,6 +105,7 @@ public class GameStateManager {
 
     /**
      * It is used to get the Victory state.
+     *
      * @return the Victory state.
      */
     public GameState getVs() {
@@ -109,6 +114,7 @@ public class GameStateManager {
 
     /**
      * It is used to get the Selection Level state.
+     *
      * @return the Selection Level state.
      */
     public GameState getSls() {
@@ -116,8 +122,9 @@ public class GameStateManager {
     }
 
     /**
-     *It is used to get the listner which handles the modification of the shown 
+     * It is used to get the listner which handles the modification of the shown
      * panel.
+     *
      * @return the listner which comunicates with game frame.
      */
     public GsmListener getListener() {
@@ -129,43 +136,42 @@ public class GameStateManager {
      *
      * @param gameState represents the current state to be setted.
      */
-    public void setState(GameState gameState){
-        currentState = gameState;
-        try{
-            gameState.set();
-        }catch(UnsupportedOperationException e){
-            System.err.println("EXIT FROM GSM");
-        }
-        this.currentState = gameState;
-        if (listener != null){
-            listener.stateChanged(gameState);
+    @Override
+    public void setState(State gameState) {
+        currentState = (GameState) gameState;
+
+        currentState.set();
+        if (listener != null) {
+            listener.stateChanged(currentState);
         }
     }
-    
+
     /**
-     *It is used to resume a previuos  given game state.
+     * It is used to resume a previuos given game state.
+     *
      * @param gameState is the state to be resumed.
      */
-    public void resumeState(GameState gameState){
+    public void resumeState(GameState gameState) {
         currentState = gameState;
         gameState.resume();
         this.currentState = gameState;
-        if (listener != null){
+        if (listener != null) {
             listener.stateChanged(gameState);
         }
     }
-    
+
     /**
-     *It is used to comunicate to game frame to dispose the frame.
+     * It is used to comunicate to game frame to dispose the frame.
      */
-    public void exit(){
-        if (listener != null){
+    public void exit() {
+        if (listener != null) {
             listener.exit();
         }
     }
 
     /**
-     *It is used to set the listner.
+     * It is used to set the listner.
+     *
      * @param l is the listner to be setted.
      */
     public void setListener(GsmListener l) {
@@ -173,48 +179,47 @@ public class GameStateManager {
     }
 
     /**
-     *Getter method to the CurrentState.
+     * Getter method to the CurrentState.
+     *
      * @return the current state of the game.
      */
     public GameState getCurrentState() {
         return currentState;
     }
-    
+
     /**
      * It is used to set a MusicGame variable
      *
      * @param mg represents the MusicGame variable.
-     */    
-    protected void setMusicGame(MusicGame mg){
+     */
+    protected void setMusicGame(MusicGame mg) {
         this.mg = mg;
     }
-    
+
     /**
      * It is used to get a MusicGame variable
      *
      * @return mg represents the MusicGame variable.
      */
-    protected MusicGame getMusicGame(){
+    protected MusicGame getMusicGame() {
         return mg;
     }
-    
+
     /**
-     * It is used to set a .wav file in Clip object;
-     * Note: this methods calls MusicGame.setMusic(String)
+     * It is used to set a .wav file in Clip object; Note: this methods calls
+     * MusicGame.setMusic(String)
      *
      * @param name represents the name of the file .wav to be setted.
      */
-    protected void setMusic(String name){
+    protected void setMusic(String name) {
         mg.setMusic(name);
     }
-    
+
     /**
-     *It is used to stop the music clip.
+     * It is used to stop the music clip.
      */
-    protected void stopMusic(){
+    protected void stopMusic() {
         mg.stop();
     }
-    
-    
 
 }

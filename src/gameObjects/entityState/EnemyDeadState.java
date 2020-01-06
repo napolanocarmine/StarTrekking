@@ -1,7 +1,7 @@
 package gameObjects.entityState;
 
 import gameObjects.Enemy;
-import gamestate.State;
+import State.State;
 import util.EntityEnum;
 
 public class EnemyDeadState extends EnemyState{
@@ -11,7 +11,8 @@ public class EnemyDeadState extends EnemyState{
     }
 
     /*
-        When the player change his state into dead state, he will perform all the dead animation and then he will set himself to dead.
+     * When the player change his state into dead state, he will perform all the
+     * dead animation and then he will set himself to dead.
     */
     @Override
     public void updateGame() {
@@ -31,6 +32,9 @@ public class EnemyDeadState extends EnemyState{
     public void set() {
         this.enemy.setAnimation(this.enemy.getSprite().getSprite(EntityEnum.DEAD), 80);    
     }
+
+    
+
 
 
 }

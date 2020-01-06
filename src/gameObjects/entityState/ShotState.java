@@ -1,9 +1,9 @@
 package gameObjects.entityState;
 
 import gameObjects.Shot;
-import gamestate.State;
+import State.State;
 
-public abstract class ShotState implements State {
+public abstract class ShotState extends EntityState {
     
     Shot s;
     
@@ -13,5 +13,6 @@ public abstract class ShotState implements State {
     
     public abstract void nextState(State state);
     public abstract void updateGame();
+    public abstract void set();
     
 }

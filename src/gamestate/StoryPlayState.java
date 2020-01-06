@@ -5,6 +5,7 @@
  */
 package gamestate;
 
+import State.State;
 import panels.GamePanel;
 
 /**
@@ -114,12 +115,4 @@ public class StoryPlayState extends GameState {
         gsm.setState((GameState) state);
     }
 
-    /**
-     *
-     */
-    @Override
-    public void updateGame() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }

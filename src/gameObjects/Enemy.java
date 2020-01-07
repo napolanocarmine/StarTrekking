@@ -26,7 +26,7 @@ import util.Position;
  * Represents the Enemy inside the level.
  * @author Star Trekking
  */
-public class Enemy extends Entity {
+public abstract class Enemy extends Entity {
 
     private EntityState runState;
     private EntityState deadState;

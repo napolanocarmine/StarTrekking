@@ -18,7 +18,6 @@ import util.Position;
 
 public abstract class Level extends Assembly{
 
-//    private int level;
     private static Position map;
     protected LayerFacade tf;
     protected EnemiesFactory ef;

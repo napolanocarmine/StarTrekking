@@ -93,53 +93,97 @@ public abstract class Entity implements GameObject, Context{
     }
 
     /**
-     * 
+     * Set the animation of the entity to dead
      * @param b 
      */
     public void setDeadAniEnded(boolean b) {
         deadAniEnded = b;
     }
-
+    
+    /**
+     * Set the size of the entity
+     * @param i 
+     */
     public void setSize(int i) {
         size = i;
     }
 
+    /**
+     * Set the max speed of the entity
+     * @param f 
+     */
     public void setMaxSpeed(float f) {
         maxSpeed = f;
     }
 
+    /**
+     * Set the acceleration of the entity
+     * @param f 
+     */
     public void setAcc(float f) {
         acc = f;
     }
 
+    /**
+     * 
+     * @return the size of the entity
+     */
     public int getSize() {
         return size;
     }
 
+    /**
+     * 
+     * @return the animation played by the entity
+     */
     public Animation getAnimation() {
         return ani;
     }
 
+    /**
+     * 
+     * @return the collision bounds of the entity
+     */
     public EntityBox getBounds() {
         return bounds;
     }
 
+    /**
+     * Set the collision bounds of the entity
+     * @param bounds 
+     */
     public void setBounds(EntityBox bounds) {
         this.bounds = bounds;
     }
 
+    /**
+     * 
+     * @return the position of the entity
+     */
     public Position getPos() {
         return pos;
     }
     
+    /**
+     * Set the position of the entity
+     * @param p 
+     */
     public void setPos(Position p) {
         this.pos = p;
     }
 
+    /**
+     * 
+     * @return true if the dead animation is ended
+     */
     public boolean getDeadAniEnded() {
         return deadAniEnded;
     }
 
+    /**
+     * 
+     * @return the current state of the entity
+     */
     public State getState() {
         return state;
     }
@@ -160,26 +204,50 @@ public abstract class Entity implements GameObject, Context{
         this.timey = t;
     }
 
+    /**
+     * 
+     * @return the vertical speed of the entity
+     */
     public float getVy() {
         return vy;
     }
 
+    /**
+     * Set the vertical speed
+     * @param v 
+     */
     public void setVy(float v) {
         vy = v;
     }
 
+    /**
+     * Set the vertical movement
+     * @param dy 
+     */
     public void setDy(float dy) {
         this.dy = dy;
     }
 
+    /**
+     * Set the initial vertical movement
+     * @param dy 
+     */
     public void setDy0(float dy) {
         dy0 = dy;
     }
 
+    /**
+     * 
+     * @return the gravity applied on the entity
+     */
     public float getGravity() {
         return gravity;
     }
 
+    /**
+     * Set the gravity
+     * @param g 
+     */
     public void setGravity(float g) {
         gravity = g;
     }
@@ -188,25 +256,45 @@ public abstract class Entity implements GameObject, Context{
         return tc;
     }
 
+    /**
+     * 
+     * @return the vertical movement
+     */
     public float getDy() {
         return dy;
     }
 
+    /**
+     * 
+     * @return the old vertical position
+     */
     public float getPreviousY() {
         return previousY;
     }
 
+    /**
+     * Set the animation of the entity
+     * @param frames
+     * @param delay 
+     */
     public void setAnimation(BufferedImage[] frames, int delay) {
         ani.setFrames(frames);
         ani.setDelay(delay);
     }
 
+    /**
+     * Update the game state and animation
+     */
     @Override
     public void updateGame() {
         state.updateGame();
         ani.updateGame();
     }
     
+    /**
+     * Set the current state to a new state
+     * @param st 
+     */
     @Override
     public void setState(State st){
         state = (EntityState) st;

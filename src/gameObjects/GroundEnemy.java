@@ -9,15 +9,24 @@ import util.graphics.EntitySprite;
 import util.Position;
 
 /**
- *
+ * Class that represents a walking enemy on the ground
  * @author Star Trekking
  */
 public class GroundEnemy extends Enemy{
     
+    /**
+     * Call the constructor of the enemy class
+     * @param sprite
+     * @param origin
+     * @param size 
+     */
     public GroundEnemy(EntitySprite sprite, Position origin, int size) {
         super(sprite, origin, size);
     }
     
+    /**
+     * Apply a movement to the enemy
+     */
     @Override
     public void move(){
         super.move();

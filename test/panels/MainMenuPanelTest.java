@@ -46,18 +46,6 @@ public class MainMenuPanelTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of paintComponent method, of class MainMenuPanel.
-     */
-    /*@Test
-    public void testPaintComponent() {
-        System.out.println("paintComponent");
-        Graphics g = null;
-        MainMenuPanel instance = null;
-        instance.paintComponent(g);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }*/
 
     /**
      * Test of setSound method, of class MainMenuPanel.
@@ -95,21 +83,6 @@ public class MainMenuPanelTest {
             }
         });
     }
-    
-    /*@Test
-    public void testExitButtonActionPerformed(){
-        System.out.println("exitButtonActionPerformed");
-        assertNotNull(mmp);
-        JButton b = (JButton) TestUtils.getChildNamed(mmp, "exitButton");
-        assertNotNull(b);
-        SwingUtilities.invokeLater(new Runnable(){
-            @Override
-            public void run(){
-                b.doClick();
-                assertEquals(gsm.getEs(), gsm.getCurrentState());
-            }
-        });
-    }*/
     
     @Test
     public void testInitIcon() throws IOException{

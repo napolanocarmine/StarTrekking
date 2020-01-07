@@ -240,19 +240,14 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     /**
-     *
-     */
-    public Color color;
-
-    /**
-     *
+     *update method for level istance
      */
     public void update() {
         level.updateGame();
     }
 
     /**
-     *
+     * render of level 
      */
     public void render() {
         if (g != null) {
@@ -268,7 +263,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     /**
-     *
+     *getter method for WIDTH variable
      * @return the width of the frame
      */
     public static int getWIDTH() {
@@ -276,7 +271,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     /**
-     *
+     *getter method for HEIGHT variable 
      * @return the height of the frame
      */
     public static int getHEIGHT() {
@@ -284,7 +279,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     /**
-     *
+     * getter method for thread variable 
      * @return the refers to the thread
      */
     public Thread getThread() {
@@ -308,6 +303,9 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    /**
+     * method that checks if to set in pause the game.
+     */
     private synchronized void isInPause() {
         if (pause) {
             try {
@@ -322,7 +320,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     /**
      *
-     * @param pause
+     * setter for pause variable
+     * @param pause is the value to set
      */
     public synchronized void setPause(boolean pause) {
         this.pause = pause;
@@ -330,19 +329,36 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     /**
-     *
-     * @return
+     * getter method of level 
+     * @return level istance
      */
     public Level getLevel() {
         return level;
     }
 
     /**
-     *
-     * @return
+     * getter method for pause istance
+     * @return boolean pause
      */
     public boolean getPause() {
         return pause;
     }
+    /**
+     * getter method for running istance
+     * @return boolean running
+     */
+    public boolean isRunning() {
+        return running;
+    }
+
+    /**
+     * Getter method for img instance
+     * @return the BufferedImage of img istance
+     */
+    public BufferedImage getImg() {
+        return img;
+    }
+    
+    
 
 }

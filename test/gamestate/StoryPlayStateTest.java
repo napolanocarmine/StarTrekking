@@ -27,7 +27,7 @@ public class StoryPlayStateTest {
     public StoryPlayStateTest() throws IOException {
 
         gsm = new GameStateManager();
-        sps = gsm.getSps();
+        sps = (StoryPlayState) gsm.getSps();
 
     }
 
@@ -47,36 +47,6 @@ public class StoryPlayStateTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of setLevel method, of class StoryPlayState.
-     */
-    /*@Test
-    public void testSetLevel() {
-        System.out.println("setLevel");
-        int level = 0;
-        StoryPlayState instance = null;
-        instance.setLevel(level);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getLevel method, of class StoryPlayState.
-     */
- /*@Test
-    public void testGetLevel() {
-        System.out.println("getLevel");
-        StoryPlayState instance = null;
-        int expResult = 0;
-        int result = instance.getLevel();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of pause method, of class StoryPlayState.
-     */
     @Test
     public void testPause() {
         System.out.println("pause");
@@ -106,17 +76,6 @@ public class StoryPlayStateTest {
         assertEquals(false, ((GamePanel) gsm.getSps().getPanel()).getPause());
     }
 
-    /**
-     * Test of startMusic method, of class StoryPlayState.
-     */
-    /*@Test
-    public void testStartMusic() {
-        System.out.println("startMusic");
-        StoryPlayState instance = null;
-        instance.startMusic();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 
     /**
      * Test of nextState method, of class StoryPlayState.
@@ -137,16 +96,4 @@ public class StoryPlayStateTest {
         assertEquals(gsm.getGos(), gsm.getCurrentState());
     }
 
-    /**
-     * Test of updateGame method, of class StoryPlayState.
-     */
-    /*@Test
-    public void testUpdateGame() {
-        System.out.println("updateGame");
-        StoryPlayState instance = null;
-        instance.updateGame();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-*/
 }

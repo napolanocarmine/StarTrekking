@@ -51,17 +51,17 @@ public class SelectionLevelStateTest {
     public void testNextState() {
         System.out.println("nextState");
         State state = gsm.getSps();
-        gsm.getSps().setLevel(1);
+        ((StoryPlayState) gsm.getSps()).setLevel(1);
         gsm.getSps().set();
         sls.nextState(state);
         assertEquals(state, gsm.getCurrentState());
         
-        gsm.getSps().setLevel(2);
+        ((StoryPlayState) gsm.getSps()).setLevel(2);
         gsm.getSps().set();
         sls.nextState(state);
         assertEquals(state, gsm.getCurrentState());
         
-        gsm.getSps().setLevel(3);
+        ((StoryPlayState) gsm.getSps()).setLevel(3);
         gsm.getSps().set();
         sls.nextState(state);
         assertEquals(state, gsm.getCurrentState());

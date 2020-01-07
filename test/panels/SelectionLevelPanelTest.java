@@ -46,20 +46,6 @@ public class SelectionLevelPanelTest {
     }
 
     /**
-     * Test of paintComponent method, of class SelectionLevelPanel.
-     */
-    /*
-    @Test
-    public void testPaintComponent() {
-        System.out.println("paintComponent");
-        Graphics g = null;
-        SelectionLevelPanel instance = null;
-        instance.paintComponent(g);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }*/
-
-    /**
      * Test of initIcon method, of class SelectionLevelPanel.
      * @throws java.io.IOException
      */

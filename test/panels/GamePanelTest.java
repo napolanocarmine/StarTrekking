@@ -68,13 +68,12 @@ public class GamePanelTest {
     /**
      * Test of init method, of class GamePanel.
      */
-    /*@Test
+    @Test
     public void testInit() {
         System.out.println("init");
-        GamePanel instance = null;
-        instance.init();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        gp.init();
+        assertEquals(true, gp.isRunning());
+        assertNotNull(gp.getImg());
     }
 
     /**
@@ -138,19 +137,6 @@ public class GamePanelTest {
         System.out.println("render");
         GamePanel instance = null;
         instance.render();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of paintComponent method, of class GamePanel.
-     */
-    /*@Test
-    public void testPaintComponent() {
-        System.out.println("paintComponent");
-        Graphics g = null;
-        GamePanel instance = null;
-        instance.paintComponent(g);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

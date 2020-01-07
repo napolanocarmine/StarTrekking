@@ -62,8 +62,8 @@ public class GameStateManagerTest {
     @Test
     public void testGetSps() {
         System.out.println("getSps");
-        StoryPlayState expResult = gsm.getSps();
-        StoryPlayState result = gsm.getSps();
+        StoryPlayState expResult = (StoryPlayState) gsm.getSps();
+        StoryPlayState result = (StoryPlayState) gsm.getSps();
         assertEquals(expResult, result);
     }
 
@@ -141,7 +141,7 @@ public class GameStateManagerTest {
         
         gameState = gsm.getSps();
         for (int i = 1; i< 4; i++){
-            gsm.getSps().setLevel(i);
+            ((StoryPlayState) gsm.getSps()).setLevel(i);
             gsm.getSps().set();
             gsm.setState(gameState);
             assertEquals(gameState, gsm.getCurrentState());

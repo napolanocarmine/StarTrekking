@@ -56,20 +56,6 @@ public class VictoryStateTest {
     }
 
     /**
-     * Test of getLevel method, of class VictoryState.
-     */
-    /*@Test
-    public void testGetLevel() {
-        System.out.println("getLevel");
-        VictoryState instance = null;
-        int expResult = 0;
-        int result = instance.getLevel();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    
-    /**
      * Test of nextState method, of class VictoryState.
      */
     @Test
@@ -77,13 +63,19 @@ public class VictoryStateTest {
         System.out.println("nextState");
         State state = gsm.getSps();
         vs.setLevel(1);
-        gsm.getSps().setLevel(1);
+        ((StoryPlayState) gsm.getSps()).setLevel(1);
         gsm.getSps().set();
         vs.nextState(state);
         assertEquals(state, gsm.getCurrentState());
         
         vs.setLevel(2);
-        gsm.getSps().setLevel(2);
+        ((StoryPlayState) gsm.getSps()).setLevel(2);
+        gsm.getSps().set();
+        vs.nextState(state);
+        assertEquals(state, gsm.getCurrentState());
+        
+        vs.setLevel(3);
+        ((StoryPlayState) gsm.getSps()).setLevel(3);
         gsm.getSps().set();
         vs.nextState(state);
         assertEquals(state, gsm.getCurrentState());

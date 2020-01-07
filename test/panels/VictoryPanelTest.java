@@ -6,6 +6,7 @@
 package panels;
 
 import gamestate.GameStateManager;
+import gamestate.StoryPlayState;
 import java.awt.Graphics;
 import java.io.IOException;
 import javax.swing.JButton;
@@ -46,18 +47,6 @@ public class VictoryPanelTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of paintComponent method, of class VictoryPanel.
-     */
-    /*@Test
-    public void testPaintComponent() {
-        System.out.println("paintComponent");
-        Graphics g = null;
-        VictoryPanel instance = null;
-        instance.paintComponent(g);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }*/
     
     @Test
     public void testInitIcon() throws IOException{
@@ -98,16 +87,16 @@ public class VictoryPanelTest {
             public void run(){
                 b.doClick();
                 assertEquals(gsm.getSps(),gsm.getCurrentState());
-                assertEquals(2, gsm.getSps().getLevel());
+                assertEquals(2, ((StoryPlayState)gsm.getSps()).getLevel());
                 b.doClick();
                 assertEquals(gsm.getSps(),gsm.getCurrentState());
-                assertEquals(2, gsm.getSps().getLevel());
+                assertEquals(2, ((StoryPlayState)gsm.getSps()).getLevel());
                 b.doClick();
                 assertEquals(gsm.getSps(),gsm.getCurrentState());
-                assertEquals(3, gsm.getSps().getLevel());
+                assertEquals(3, ((StoryPlayState)gsm.getSps()).getLevel());
                 b.doClick();
                 assertEquals(gsm.getSps(),gsm.getCurrentState());
-                assertEquals(3, gsm.getSps().getLevel());
+                assertEquals(3, ((StoryPlayState)gsm.getSps()).getLevel());
             }
         });
     }
@@ -123,7 +112,7 @@ public class VictoryPanelTest {
             public void run(){
                 b.doClick();
                 assertEquals(gsm.getSps(),gsm.getCurrentState());
-                assertEquals(1, gsm.getSps().getLevel());
+                assertEquals(1, ((StoryPlayState)gsm.getSps()).getLevel());
             }
         });
     }

@@ -14,6 +14,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import panels.GameOverPanel;
+import panels.GamePanel;
 
 /**
  *
@@ -60,6 +61,8 @@ public class GameOverStateTest {
     public void testNextState() {
         System.out.println("nextState");
         State state = (MainMenuState) gsm.getMms();
+        StoryPlayState sps = (StoryPlayState) gsm.getSps();
+        ((GamePanel) sps.getPanel()).setLevel(1);
         gos.nextState(state);
         assertEquals(state, gsm.getCurrentState());
         

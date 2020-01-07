@@ -7,7 +7,7 @@ package State;
 
 /**
  *
- * @author Gianluca
+ * Interface that implements the state of entitystate.
  */
 public interface Context {
     public void setState(State state);

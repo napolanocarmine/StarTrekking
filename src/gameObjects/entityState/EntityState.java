@@ -8,8 +8,8 @@ package gameObjects.entityState;
 import State.State;
 
 /**
- *
- * @author Gianluca
+ * Abstract Class to keep references to State.
+ * @author Star Trekking
  */
 public abstract class EntityState implements State {
     

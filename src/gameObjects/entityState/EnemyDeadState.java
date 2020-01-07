@@ -4,8 +4,16 @@ import gameObjects.Enemy;
 import State.State;
 import util.EntityEnum;
 
+/**
+ * Represent the DeadState of the Enemy
+ * @author Star Trekking
+ */
 public class EnemyDeadState extends EnemyState{
     
+    /**
+     *
+     * @param enemy
+     */
     public EnemyDeadState(Enemy enemy){
         super(enemy);
     }

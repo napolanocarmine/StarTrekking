@@ -10,11 +10,15 @@ import State.State;
 import util.EntityEnum;
 
 /**
- *
- * @author Demetrio
+ * Represent the AttackState of the Player
+ * @author Star Trekking
  */
 public class PlayerAttackState extends PlayerState{
     
+    /**
+     * Constructor of the Player Attack State
+     * @param p
+     */
     public PlayerAttackState(Player p){
         super(p);
     }

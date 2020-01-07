@@ -4,8 +4,16 @@ import gameObjects.Player;
 import State.State;
 import util.EntityEnum;
 
+/**
+ * Represent the DeadState of the Player
+ * @author Star Trekking
+ */
 public class PlayerDeadState extends PlayerState{
     
+    /**
+     * Constructor of the Player Dead State
+     * @param p is the player to set the state
+     */
     public PlayerDeadState(Player p){
         super(p);
     }

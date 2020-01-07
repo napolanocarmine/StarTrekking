@@ -11,10 +11,14 @@ import util.EntityEnum;
 
 /**
  *
- * @author Demetrio
+ * @author Star Trekking
  */
 public class PlayerCrouchState extends PlayerState{
     
+    /**
+     *
+     * @param p
+     */
     public PlayerCrouchState(Player p){
         super(p);
     }

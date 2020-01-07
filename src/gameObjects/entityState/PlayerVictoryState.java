@@ -9,11 +9,15 @@ import gameObjects.Player;
 import State.State;
 
 /**
- *
- * @author Demetrio
+ * Represent the VictoryState of the Player
+ * @author Star Trekking
  */
 public class PlayerVictoryState extends PlayerState{
 
+    /**
+     * Constructor of the Player Victory State
+     * @param p is the player to set the state
+     */
     public PlayerVictoryState(Player p){
         super(p);
     }

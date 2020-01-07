@@ -4,8 +4,16 @@ import gameObjects.Player;
 import State.State;
 import util.EntityEnum;
 
+/**
+ * Represent the JumpState of the Player
+ * @author Star Trekking
+ */
 public class PlayerJumpState extends PlayerState{
     
+    /**
+     * Constructor of the Player Jump State
+     * @param p is the player to set the state
+     */
     public PlayerJumpState(Player p){
         super(p);
     }

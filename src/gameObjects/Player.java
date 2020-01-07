@@ -290,69 +290,69 @@ public class Player extends Entity{
     
     /**
      * Getter of the PlayerRunState 
-     * @return PlayerRunState
+     * @return RunState
      */
     public PlayerState getPlayerRunState(){
         return this.runState;
     }
     
     /**
-     *
-     * @return
+     * Getter of the PlayerAttackState
+     * @return attackState
      */
     public PlayerState getPlayerAttackState(){
         return this.attackState;
     }
     
     /**
-     *
-     * @return
+     * Getter of the PlayerJumpState
+     * @return jumpState
      */
     public PlayerState getPlayerJumpState(){
         return this.jumpState;
     }
     
     /**
-     *
-     * @return
+     * Getter of the PlayerCrounchState
+     * @return crounchState
      */
     public PlayerState getPlayerCrounchState(){
         return this.crounchState;
     }
     
     /**
-     *
-     * @return
+     * Getter of the PlayerDeadState
+     * @return deadState
      */
     public PlayerState getPlayerDeadState(){
         return this.deadState;
     }
     
     /**
-     *
-     * @return
+     * Getter of the PlayerVictoryState
+     * @return winState
      */
     public PlayerState getPlayerVictoryState(){
         return this.winState;
     }
     
     /**
-     *
-     * @param s
+     * this method allows the delete the shot from the array
+     * @param s the shot to remove
      */
     public void deleteShot(Shot s) {
         shots.remove(s);
     }
     
     /**
-     *
-     * @return
+     * This method verify if the player hit an Obstacle
+     * @return true if collide otherwise false
      */
     public boolean hitObs(){
-        if(tc.collisionTileObs(0, dy-previousY) || tc.collisionTileObs(dx-previousX, 0)) return true;
-        return false;
+        return tc.collisionTileObs(0, dy-previousY) || tc.collisionTileObs(dx-previousX, 0);
     }
     
+    @Override
     public void updateGame(){
         super.updateGame();
         if(invincible){

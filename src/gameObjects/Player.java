@@ -12,6 +12,10 @@ import tiles.LayerFacade;
 import util.EntityBox;
 import util.Position;
 
+/**
+ * Represents the Player inside the game.
+ * @author Star Trekking
+ */
 public class Player extends Entity{
 
     private final int MAXHEALTHPOINTS = 3;
@@ -21,6 +25,7 @@ public class Player extends Entity{
     private float h = 100;
     private float dist = 150;
     
+//    private KeyHandler khdl;
     int action;
     private ArrayList<Shot> shots = new ArrayList<Shot>();
     
@@ -45,6 +50,12 @@ public class Player extends Entity{
     private PlayerState attackState;
     private PlayerState winState;
     
+    /**
+     * Creates an Player object.
+     * @param sprite sprite associated with the Player
+     * @param origin start position of the Player
+     * @param size size of the Player
+     */
     public Player(EntitySprite sprite, Position origin, int size) {
         super(sprite, origin, size);
         this.hp = MAXHEALTHPOINTS;
@@ -71,6 +82,10 @@ public class Player extends Entity{
         state.set();
     }
 
+    /**
+     * This method update the coordinate of the player along the horizontal axis
+     * @return true if collide during the movement otherwise false
+     */
     public boolean horizontalMove() {
         //PLAYER HORIZONTAL MOTION
         
@@ -104,6 +119,10 @@ public class Player extends Entity{
         }
     }
     
+    /**
+     * This method update the coordinate of the player along the vertical axis
+     * @return true if collide during the movement otherwise false
+     */
     public boolean verticalMove(){
 
         //PLAYER VERTICAL MOTION
@@ -136,6 +155,9 @@ public class Player extends Entity{
         }
     }
     
+    /**
+     * this methods allows to change the motion change from linear accelerated motion to linear motion
+     */
     public void changeMotion(){
         dx0 = previousX;
         timex = 0;
@@ -143,6 +165,9 @@ public class Player extends Entity{
         vx = maxSpeed;
     }
     
+    /**
+     * This method change hp of the player ad if the player loses all hp he dies, so the player change the state in PlayerDeadState
+     */
     public void hitted() {
         invincible = true;
         visible = false;
@@ -152,57 +177,177 @@ public class Player extends Entity{
         }
     }
 
+    /**
+     * this method allows the player to shot if the mana are available
+     */
     public void attack() {
         mana--;
         shots.add(new Shot(new EntitySprite("entity/shot", 32, 32), new Position(dx - 15, pos.getY() + 24), 48, vx + acc * (timex)));
     }
     
+    /**
+     * Getter of the shots of the player
+     * @return ArrayList of Shot
+     */
     public ArrayList<Shot> getShots(){ return shots; }
+
+    /**
+     * Getter of the falling status of the player
+     * @return true o false
+     */
     public boolean getFalling(){ return falling; }
+
+    /**
+     * Setter of the falling status of the player
+     * @param b
+     */
     public void setFalling(boolean b){ falling = b; }
+
+    /**
+     * Getter of the distance of the player
+     * @return distance
+     */
     public float getDist(){ return dist; }
+
+    /**
+     * Setter of the distance of the player
+     * @param dist distance to set
+     */
     public void setDist(float dist){ this.dist = dist; }
+
+    /**
+     * Getter of the H of the player
+     * @return h
+     */
     public float getH(){ return h; }
+
+    /**
+     * Setter of the player H
+     * @param h to set
+     */
     public void setH(float h){ this.h = h;}
+
+    /**
+     * Getter of the player's instant speed along x
+     * @return instant speed along x
+     */
     public float getInstantVx(){ return instantVx; }
+
+    /**
+     *  Getter of the Player's music game
+     * @return Music Game
+     */
     public MusicGame getMg(){ return mg; }
+
+    /**
+     * Getter of the player's Stand Bounds 
+     * @return EntityBox
+     */
     public EntityBox getStandBounds(){ return standBounds; }
+
+    /**
+     * Getter of the player's Crouch Bounds
+     * @return EntityBox
+     */
     public EntityBox getCrouchBounds(){ return crouchBounds; }
+
+    /**
+     * Getter of the player's Stand Bounds
+     * @param bounds
+     */
     public void setStandBounds(EntityBox bounds){ standBounds = bounds; }
+
+    /**
+     * Setter of the player's Crouch Bounds
+     * @param bounds
+     */
     public void setCrouchBounds(EntityBox bounds){ crouchBounds = bounds; }
+    
+    /**
+     * Setter of the Player's Bounds
+     * @param bounds are the bounds to set
+     */
+    @Override
     public void setBounds(EntityBox bounds){ this.bounds = bounds; }
+
+    /**
+     * Getter of the Player's HP
+     * @return HP of the player
+     */
     public int getHP() { return this.hp; }
+
+    /**
+     * Getter of the Player's Mana
+     * @return Mana of the player
+     */
     public int getMana() { return this.mana; }
+
+    /**
+     * This method return the play victory state of the player
+     * @return state of victory
+     */
     public boolean isWinner() { return state instanceof PlayerVictoryState; }
     
+    /**
+     * Getter of the PlayerRunState 
+     * @return PlayerRunState
+     */
     public PlayerState getPlayerRunState(){
         return this.runState;
     }
     
+    /**
+     *
+     * @return
+     */
     public PlayerState getPlayerAttackState(){
         return this.attackState;
     }
     
+    /**
+     *
+     * @return
+     */
     public PlayerState getPlayerJumpState(){
         return this.jumpState;
     }
     
+    /**
+     *
+     * @return
+     */
     public PlayerState getPlayerCrounchState(){
         return this.crounchState;
     }
     
+    /**
+     *
+     * @return
+     */
     public PlayerState getPlayerDeadState(){
         return this.deadState;
     }
     
+    /**
+     *
+     * @return
+     */
     public PlayerState getPlayerVictoryState(){
         return this.winState;
     }
     
+    /**
+     *
+     * @param s
+     */
     public void deleteShot(Shot s) {
         shots.remove(s);
     }
     
+    /**
+     *
+     * @return
+     */
     public boolean hitObs(){
         if(tc.collisionTileObs(0, dy-previousY) || tc.collisionTileObs(dx-previousX, 0)) return true;
         return false;

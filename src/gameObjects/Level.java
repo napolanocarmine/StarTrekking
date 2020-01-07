@@ -16,6 +16,10 @@ import KeyHandler.KeyHandler;
 import entitycommand.PlayerCommandInvoker;
 import util.Position;
 
+/**
+ * Abstract Class to keep references to Assembly
+ * @author Star Trekking
+ */
 public abstract class Level extends Assembly{
 
     private static Position map;
@@ -31,16 +35,26 @@ public abstract class Level extends Assembly{
     protected float groundY = (GamePanel.HEIGHT) - 162;
     protected PlayerCommandInvoker inv;
     
+    /**
+     * Costructor of the Level
+     */
     public Level(){
         this.ef = new EnemiesFactory();
     }
     
+    /**
+     * Setter of the GamePanel of Level
+     * @param gp 
+     */
     public void setPanel(GamePanel gp){
         this.gp = gp;
         KeyHandler key = gp.getKeyH();
         key.setListener(inv);
     }
     
+    /**
+     * This method initialize all the GameObject of the Level
+     */
     protected void init(){
         
         map = new Position(0, 0);
@@ -59,7 +73,9 @@ public abstract class Level extends Assembly{
       
     }
     
-    
+    /**
+     * Performs the update operation above all the GameObjects.
+     */
     @Override
     public void updateGame() {
         super.updateGame();
@@ -88,6 +104,10 @@ public abstract class Level extends Assembly{
         removeEnemies();
     }
 
+    /**
+     * Perform the render operation above all the GameObjects.
+     * @param g Graphics2D object.
+     */
     @Override
     public void render(Graphics2D g) {
         tf.render(g);
@@ -111,10 +131,17 @@ public abstract class Level extends Assembly{
         }
     }
     
+    /**
+     * Getter of the Position of the Map
+     * @return Map's position
+     */
     public static Position getMapPos() {
         return map;
     }
     
+    /**
+     * This method check the collision among all the entity of the level
+     */
     public void checkCollision() {
         ArrayList<Shot> shots = player.getShots();
         ListIterator<Shot> shotListIter = shots.listIterator();
@@ -155,12 +182,11 @@ public abstract class Level extends Assembly{
         } 
     }
     
-    /*
-    if an enemy die, he must be removed from the array of the enemies
-    */
+    /**
+     * This method remove a enemy if die, he must be removed from the array of the enemies
+     */
     private void removeEnemies(){
         ListIterator<GameObject> groundEnemiesLi = enemies.getObjs().listIterator();
-        
         while(groundEnemiesLi.hasNext()){
             Enemy cEnemy = (Enemy)(groundEnemiesLi.next());
             if(cEnemy.getDeadAniEnded()){
@@ -169,7 +195,10 @@ public abstract class Level extends Assembly{
         }
     }
     
-    
+    /**
+     * This method return the player of the level
+     * @return player of the level
+     */
     public Player getPlayer(){
         return player;
     }

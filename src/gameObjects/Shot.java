@@ -8,7 +8,7 @@ import util.Position;
 
 /**
  * Class representing the shot of the player (it is an entity object)
- * @author giomig
+ * @author Star Trekking
  */
 public class Shot extends Entity {
 

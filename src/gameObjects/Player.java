@@ -11,6 +11,7 @@ import static panels.GamePanel.unitTime;
 import tiles.LayerFacade;
 import util.EntityBox;
 import util.Position;
+import util.TileCollision;
 
 /**
  * Represents the Player inside the game.
@@ -105,7 +106,7 @@ public class Player extends Entity{
         Equation of the linear accelerated motion on the horizontal axis.
         */
         dx = (float)((0.5*acc*Math.pow(timex, 2) + vx*timex)) + dx0;
-        
+        //System.out.println("dx : "+ dx);
         /*
         Collision detection: if the player touches a solid tile during his motion he will stop moving.
         */
@@ -131,7 +132,7 @@ public class Player extends Entity{
         Equation of the linear accelerated motion on the vertical axis.
         */
         dy = (float)((-0.5*gravity*Math.pow(timey, 2)+vy*timey)+dy0);
-        
+        System.out.println("dy :"+dy);
         /*
         Collision detection: if the player is on the ground he will not fall, if he is jumping and he touches a solid tile above is head he will start to fall..
         */
@@ -209,11 +210,22 @@ public class Player extends Entity{
      */
     public float getDist(){ return dist; }
 
+    public float getDx() {
+        return dx;
+    }
+
+    
+    
+    
+    public void setTc(TileCollision tc){ this.tc = tc; }
+    
     /**
      * Setter of the distance of the player
      * @param dist distance to set
      */
-    public void setDist(float dist){ this.dist = dist; }
+    public void setDist(float dist) {
+        this.dist = dist;
+    }
 
     /**
      * Getter of the H of the player

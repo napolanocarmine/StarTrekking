@@ -16,7 +16,7 @@ import util.Position;
  */
 public abstract class EnemiesLevel extends Assembly{
     /**
-    * Array represented enemy positions insiede the level.
+    * Array represented enemy positions inside the level.
     */
     protected ArrayList<Position> positions; 
     /**

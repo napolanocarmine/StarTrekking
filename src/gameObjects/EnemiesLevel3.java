@@ -49,7 +49,6 @@ public class EnemiesLevel3 extends EnemiesLevel{
         positions.add(new Position(9000,groundY+20));
         positions.add(new Position(9500,groundY- 80));
         positions.add(new Position(9900,groundY- 80));
-        //
         positions.add(new Position(12000,groundY-40));
         positions.add(new Position(13500,groundY-40));
     }

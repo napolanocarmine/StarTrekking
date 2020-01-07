@@ -7,13 +7,10 @@ package gameObjects;
 
 import gameObjects.entityState.EnemyDeadState;
 import gameObjects.entityState.EnemyRunState;
-import gameObjects.entityState.EnemyState;
 import gameObjects.entityState.EntityState;
 import State.State;
 import util.graphics.EntitySprite;
-import java.awt.Color;
 import java.awt.Graphics2D;
-import panels.GameFrame;
 import panels.GamePanel;
 import util.EntityBox;
 import util.Position;
@@ -49,20 +46,32 @@ public abstract class Enemy extends Entity {
         state.set();
     }
 
+    /**
+     * 
+     * @return the run state of the enemy
+     */
     public State getRunState(){
         return runState;
     }
     
+    /**
+     * 
+     * @return the dead state of the enemy
+     */
     public State getDeadState(){
         return deadState;
     }
     
- 
-    
+    /**
+     * This method let evaluate next position of the enemy
+     */
     public void move() {
         dx = vx * timex++ + dx0;
     }
 
+    /**
+     * Update the position of the enemy with the new one
+     */
     @Override
     public void updateGame() {
         super.updateGame();
@@ -76,12 +85,14 @@ public abstract class Enemy extends Entity {
         }
     }
 
+    /**
+     * Render graphically the entity enemy
+     * @param g 
+     */
     @Override
     public void render(Graphics2D g) {
         if (pos.getY() < GamePanel.HEIGHT) {// riduzione lag : perchè se non hanno una posizione di appoggio cadono e non vengono più renderizzati
             g.drawImage(ani.getImage(), (int) pos.getWorldVar().getX(), (int) pos.getWorldVar().getY(), size, size, null);
-//            g.setColor(Color.BLUE);
-//            g.drawRect((int) (pos.getWorldVar().getX() + bounds.getXOffset()), (int) (pos.getWorldVar().getY() + bounds.getYOffset()), (int) bounds.getWidth(), (int) bounds.getHeight());
         }
     }
 

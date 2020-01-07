@@ -14,7 +14,7 @@ public abstract class Assembly implements GameObject {
     protected ArrayList<GameObject> objs;
     
     /**
-     * Create an empty Assembly objcets.
+     * Create an empty Assembly objects.
      */
     public Assembly() {
         objs = new ArrayList<>();

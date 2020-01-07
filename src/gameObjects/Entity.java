@@ -92,6 +92,10 @@ public abstract class Entity implements GameObject, Context{
         return sprite;
     }
 
+    /**
+     * 
+     * @param b 
+     */
     public void setDeadAniEnded(boolean b) {
         deadAniEnded = b;
     }

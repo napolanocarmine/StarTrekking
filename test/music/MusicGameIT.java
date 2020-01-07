@@ -5,12 +5,7 @@
  */
 package music;
 
-import java.io.IOException;
-import javax.sound.sampled.*;
-import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

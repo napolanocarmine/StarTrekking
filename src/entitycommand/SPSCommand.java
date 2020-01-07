@@ -17,7 +17,7 @@ public abstract class SPSCommand implements Command{
      * Default constructor of SPSCommand abstract class.
      * @param sps   as the state to set
      */
-    public void StoryPlayStateCommand(StoryPlayState sps){
+    public SPSCommand(StoryPlayState sps){
         this.sps = sps;
     }
     /**

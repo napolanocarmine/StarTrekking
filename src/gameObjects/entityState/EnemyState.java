@@ -12,7 +12,11 @@ public abstract class EnemyState extends EntityState {
         this.enemy = enemy;
     }
     
+    @Override
+    public abstract void nextState(State state);
+    @Override
     public abstract void updateGame();
+    @Override
     public abstract void set();
     
 }

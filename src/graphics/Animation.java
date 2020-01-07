@@ -19,7 +19,6 @@ public class Animation {
         currentFrame = 0;
         count = 0;
         timesPlayed = 0;
-        //System.out.println("arrivo prima io" + frames);
         numFrames = frames.length;
         delay = 80;
     }
@@ -48,6 +47,26 @@ public class Animation {
         numFrames = i;
     }
 
+    public int getDelay() {
+        return delay;
+    }
+
+    public int getFrame() {
+        return currentFrame;
+    }
+
+    public int getCount() {
+        return count;
+    }
+    
+    public void setCount(int count) {
+        this.count = count;
+    }
+    
+    public BufferedImage getImage() {
+        return frames[currentFrame];
+    }
+    
     public void updateGame() {
         if (delay == -1) {
             return;
@@ -64,23 +83,7 @@ public class Animation {
             timesPlayed++;
         }
     }
-
-    public int getDelay() {
-        return delay;
-    }
-
-    public int getFrame() {
-        return currentFrame;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public BufferedImage getImage() {
-        return frames[currentFrame];
-    }
-
+    
     public boolean hasPlayedOnce() {
         return timesPlayed > 0;
     }

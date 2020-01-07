@@ -17,6 +17,7 @@ import panels.GamePanel;
 public class SPSCommandInvoker implements KeyHandler.KeyHandlerListener{
 
     StoryPlayState sps;
+    Command setPauseState;
     
     /**
      * Default constructor of SPSCommandInvoker class.
@@ -24,6 +25,7 @@ public class SPSCommandInvoker implements KeyHandler.KeyHandlerListener{
      */
     public SPSCommandInvoker(StoryPlayState sps){
         this.sps = sps;
+        this.setPauseState = new PauseCommand(sps);
     }
     /**
      * Pause the game if input param is related to pause button
@@ -32,8 +34,7 @@ public class SPSCommandInvoker implements KeyHandler.KeyHandlerListener{
     @Override
     public void buttPressed(int code) {
         if(code == 27){
-            ((GamePanel)sps.getPanel()).setPause(true);
-            sps.nextState(sps.getGSM().getPs());
+            setPauseState.execute();
         }
     }
     /**

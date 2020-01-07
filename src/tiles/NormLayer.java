@@ -1,6 +1,6 @@
 package tiles;
 
-import graphics.Sprite;
+import util.graphics.Sprite;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import tiles.blocks.Block;
@@ -8,8 +8,6 @@ import tiles.blocks.NormBlock;
 import util.Position;
 
 public class NormLayer extends Layer {
-
-    private ArrayList<Block> blocks;
 
     public NormLayer(String data, Sprite sprite, int width, int height, int tileWidth, int tileHeight, int tileColumns) {
 

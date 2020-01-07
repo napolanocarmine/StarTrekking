@@ -2,8 +2,8 @@ package gameObjects;
 
 import gameObjects.entityState.EnemyDeadState;
 import gamefactory.EnemiesFactory;
-import graphics.EntitySprite;
-import graphics.Sprite;
+import util.graphics.EntitySprite;
+import util.graphics.Sprite;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.ListIterator;

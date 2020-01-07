@@ -2,13 +2,13 @@ package gameObjects;
 
 import gameObjects.entityState.*;
 import State.State;
-import graphics.Animation;
-import graphics.EntitySprite;
+import util.graphics.Animation;
+import util.graphics.EntitySprite;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import music.MusicGame;
+import util.music.MusicGame;
 import panels.GamePanel;
 import static panels.GamePanel.unitTime;
 import tiles.LayerFacade;

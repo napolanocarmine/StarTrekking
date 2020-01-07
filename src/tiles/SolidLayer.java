@@ -1,6 +1,6 @@
 package tiles;
 
-import graphics.Sprite;
+import util.graphics.Sprite;
 import java.awt.Graphics2D;
 import java.util.HashMap;
 import tiles.blocks.Block;

@@ -8,7 +8,7 @@ package gamestate;
 import State.State;
 import panels.MainMenuPanel;
 import java.io.IOException;
-import music.MusicGame;
+import util.music.MusicGame;
 
 /**
  *

@@ -2,7 +2,7 @@ package gameObjects;
 
 import gameObjects.entityState.ShotRunState;
 import State.State;
-import graphics.EntitySprite;
+import util.graphics.EntitySprite;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import util.EntityBox;

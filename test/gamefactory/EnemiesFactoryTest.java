@@ -7,7 +7,7 @@ package gamefactory;
 
 import gamefactory.EnemiesFactory;
 import gameObjects.*;
-import graphics.EntitySprite;
+import util.graphics.EntitySprite;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;

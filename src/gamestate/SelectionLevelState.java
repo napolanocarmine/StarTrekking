@@ -10,7 +10,7 @@ import panels.SelectionLevelPanel;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import music.MusicGame;
+import util.music.MusicGame;
 
 /**
  *

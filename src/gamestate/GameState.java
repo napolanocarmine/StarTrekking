@@ -7,7 +7,7 @@ package gamestate;
 
 import State.State;
 import javax.swing.JPanel;
-import music.MusicGame;
+import util.music.MusicGame;
 
 /**
  *

@@ -6,7 +6,7 @@
 package gamestate;
 
 import java.io.IOException;
-import music.MusicGame;
+import util.music.MusicGame;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

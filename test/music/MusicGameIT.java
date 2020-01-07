@@ -5,6 +5,7 @@
  */
 package music;
 
+import util.music.MusicGame;
 import javax.sound.sampled.Clip;
 import org.junit.After;
 import org.junit.AfterClass;

@@ -5,7 +5,7 @@
  */
 package gameObjects;
 
-import graphics.EntitySprite;
+import util.graphics.EntitySprite;
 import java.util.ArrayList;
 import panels.GamePanel;
 import util.Position;

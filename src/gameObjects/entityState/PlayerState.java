@@ -2,7 +2,7 @@ package gameObjects.entityState;
 
 import gameObjects.Player;
 import State.State;
-import music.MusicGame;
+import util.music.MusicGame;
 
 public abstract class PlayerState extends EntityState {
     

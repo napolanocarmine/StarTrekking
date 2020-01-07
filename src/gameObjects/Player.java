@@ -1,10 +1,7 @@
 package gameObjects;
 
 import gameObjects.entityState.*;
-import State.State;
-import util.graphics.Animation;
 import util.graphics.EntitySprite;
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -24,7 +21,6 @@ public class Player extends Entity{
     private float h = 100;
     private float dist = 150;
     
-//    private KeyHandler khdl;
     int action;
     private ArrayList<Shot> shots = new ArrayList<Shot>();
     

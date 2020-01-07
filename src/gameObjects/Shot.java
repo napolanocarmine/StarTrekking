@@ -1,15 +1,17 @@
 package gameObjects;
 
 import gameObjects.entityState.ShotRunState;
-import State.State;
 import util.graphics.EntitySprite;
-import java.awt.Color;
 import java.awt.Graphics2D;
 import util.EntityBox;
 import util.Position;
 
-public class Shot extends Entity{
-    
+/**
+ * Class representing the shot of the player (it is an entity object)
+ * @author giomig
+ */
+public class Shot extends Entity {
+
     public Shot(EntitySprite sprite, Position origin, int size, float initialSpeed) {
         super(sprite, origin, size);
         this.bounds = new EntityBox(pos, 16, 16, 16, 16);
@@ -17,22 +19,27 @@ public class Shot extends Entity{
         this.initialSpeed = initialSpeed;
         this.vx = initialSpeed + 0.2f;
         this.acc = 0.001f;
-//        dx = (float) ((0.5 * acc * Math.pow(timex, 2) + vx * timex)) + dx0 + 96;
-//        System.err.println("COLPO CREATO: dx: " + dx);
     }
 
+    /**
+     * 
+     * @return true if the shot collided with another object
+     */
     public boolean collides() {
         return tc.collisionTileObj(5, 0);
     }
 
+    /**
+     * Change the position of the shot object
+     */
     public void move() {
-//        if (timex == 0) {
-//            vx = initialSpeed;
-//        }
         dx = (float) ((0.5 * acc * Math.pow(timex, 2) + vx * timex)) + dx0 + 96;
         timex++;
     }
 
+    /**
+     * Update the position of the shot
+     */
     @Override
     public void updateGame() {
         super.updateGame();
@@ -40,13 +47,13 @@ public class Shot extends Entity{
         pos.setX(dx);
     }
 
+    /**
+     * Render graphically the shot object
+     * @param g 
+     */
     @Override
     public void render(Graphics2D g) {  //draw the player in the panel
         g.drawImage(ani.getImage(), (int) pos.getWorldVar().getX(), (int) pos.getWorldVar().getY(), size, size, null);
-//        g.setColor(Color.blue);
-//        g.drawRect((int) (pos.getWorldVar().getX() + bounds.getXOffset()),
-//                (int) (pos.getWorldVar().getY() + bounds.getYOffset()), (int) bounds.getWidth(), (int) bounds.getHeight());
     }
 
-    
 }

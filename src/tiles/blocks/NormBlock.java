@@ -2,7 +2,7 @@ package tiles.blocks;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import util.AABB;
+import util.EntityBox;
 import util.Position;
 
 public class NormBlock extends Block {
@@ -21,9 +21,9 @@ public class NormBlock extends Block {
         super.render(g);
     }
 
-    @Override
-    public boolean isInside(AABB p) {
-        return false;
-    }
+//    @Override
+//    public boolean isInside(EntityBox p) {
+//        return false;
+//    }
 
 }

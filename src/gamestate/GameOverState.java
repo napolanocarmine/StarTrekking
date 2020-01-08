@@ -5,10 +5,10 @@
  */
 package gamestate;
 
-import frames.GameOverFrame;
+import State.State;
+import panels.GameOverPanel;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import util.music.MusicGame;
 
 /**
  *
@@ -17,56 +17,42 @@ import java.util.logging.Logger;
 /**
  * Class which represents the state in which the game shows the Game Over Menu.
  */
-public class GameOverState extends State {
+public class GameOverState extends GameState {
 
-    private GameStateManager gsm;
 
     /**
      * Create the Panel, which represents the Game Over Menu.
-     *
-     * @param gsm gsm represent the gsm that managed this state
+     * @param gsm is the manager of the game's state.
+     * 
+     * @throws java.io.IOException if GameOverPanel raises IOException.
      */
-    public GameOverState(GameStateManager gsm) {
+    public GameOverState(GameStateManager gsm) throws IOException {
+        this.panel = new GameOverPanel(this);
         this.gsm = gsm;
-        try {
-            this.frame = new GameOverFrame(this);
-            //metodo che inizializza le componenti del JPanel;
-        } catch (IOException ex) {
-            System.err.println(ex);
-        }
+//        this.mg = new MusicGame("MainMenu");
     }
 
     /**
-     * Define the menu's components.
-     */
-    /**
-     * Method which handles the next state, that could be "Play" or "Main Menu"
      *
-     * @param code code represented the next state.
+     * It is used to set and then play the right music corresponding to the Game
+     * Over Menu.  
      */
     @Override
-    public void handleNext(int code) {
-        /*
-            codice che gestisce il prossimo stato,
-         */
-
-        if (code == 0) {
-            frame.dispose();
-            gsm.setState(new StoryPlayState(gsm));
-        } else if (code == 1) {
-            frame.dispose();
-            try {
-                gsm.setState(new MainMenuState(gsm));
-            } catch (IOException ex) {
-                Logger.getLogger(GameOverState.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
+    public void set(){
+        gsm.setMusic("GameOverMenu");
+        gsm.getMusicGame().play();
     }
+    
+    /**
+     * It is used to pass in the next state.
+     * @param state is the next state handles by gsm.
+     */
 
-    //Non so se per il game over va settato.
     @Override
-    public void handlePrevious(int code) {
+    public void nextState(State state) {
+        this.stopMusic();
+        gsm.setState((GameState) state);
     }
+    
 
 }

@@ -5,55 +5,49 @@
  */
 package gamestate;
 
-import frames.*;
+import State.State;
+import panels.SelectionLevelPanel;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import util.music.MusicGame;
 
 /**
  *
- * @author Gianluca
+ *
+ * 
+ * Class to define the state of the game in which one playable level can be
+ * choose.
  */
-public class SelectionLevelState extends State {
+public class SelectionLevelState extends GameState {
 
-    private GameStateManager gsm;
+    /**
+     *Create the panel, which represents the Pause Menu.
+     * @param gsm is the manager of the game's state.
+     * @throws @throws java.io.IOException if SelectionPanel raises IOException.
+     */
+    public SelectionLevelState(GameStateManager gsm) throws IOException {
 
-    public SelectionLevelState(GameStateManager gsm){
+        this.panel = new SelectionLevelPanel(this);
         this.gsm = gsm;
-        try{
-            this.frame = new SelectionLevelFrame("/screen/forest.png", this);
-        }catch(IOException e){
-            System.out.print(e);
-        }
+//        this.mg = new MusicGame("MainMenu");
     }
 
     /**
-     * Called when "Level 1" or "Level 2" or "Level 3" is pressed, based on the
-     * pressed button the next state is set.
      *
-     * @param code button code
      */
     @Override
-    public void handleNext(int code){
-        if(code == 1){
-           
-            frame.dispose();
-            gsm.setState(new StoryPlayState(gsm));
-//            frame.dispose();
-//            gsm.setState(new StoryPlayState(gsm));
-        }else if(code == 2){
-        }else{
-            frame.dispose();
-            try{
-            gsm.setState((new MainMenuState(gsm)));
-        }catch(IOException e){
-            System.err.println(e);
-        }
-        } 
+    public void set() {
     }
-    //Non so se per il main menu va settato.
+
+    /**
+     *It is used to pass in the next state and to stop the corresponding music. 
+     * @param state is the next state handles by gsm.
+     */
     @Override
-    public void handlePrevious(int code) {
+    public void nextState(State state) {
+        this.stopMusic();
+        gsm.setState((GameState) state);
     }
 
 }

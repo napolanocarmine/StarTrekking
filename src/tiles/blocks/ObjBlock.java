@@ -3,7 +3,7 @@ package tiles.blocks;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import util.AABB;
+import util.EntityBox;
 import util.Position;
 
 public class ObjBlock extends Block {
@@ -17,14 +17,15 @@ public class ObjBlock extends Block {
         return true;
     }
 
-    @Override
-    public boolean isInside(AABB p) {
-        return false;
-    }
+//    @Override
+//    public boolean isInside(EntityBox p) {
+//        return false;
+//    }
 
     @Override
     public void render(Graphics2D g) {
         super.render(g);
-//         .drawRect((int) pos.getWorldVar().getX(), (int) pos.getWorldVar().getY(), w, h);
+//        g.setColor(Color.WHITE);
+//        g.drawRect((int) pos.getWorldVar().getX(), (int) pos.getWorldVar().getY(), w, h);
     }
 }

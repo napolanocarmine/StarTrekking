@@ -2,7 +2,7 @@ package tiles.blocks;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import util.AABB;
+import util.EntityBox;
 import util.Position;
 
 public abstract class Block {
@@ -25,8 +25,7 @@ public abstract class Block {
     }
 
     public abstract boolean update();
-
-    public abstract boolean isInside(AABB p);
+//    public abstract boolean isInside(EntityBox p);
 
     public int getWidth() {
         return w;

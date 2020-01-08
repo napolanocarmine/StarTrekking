@@ -5,7 +5,7 @@
  */
 package startrekking;
 
-import gamestate.*;
+import panels.GameFrame;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,7 +26,7 @@ public class GameLauncher {
             @Override
             public void run() {
                 try {
-                    new GameStateManager();
+                    new GameFrame();
                 } catch (IOException ex) {
                     Logger.getLogger(GameLauncher.class.getName()).log(Level.SEVERE, null, ex);
                 }

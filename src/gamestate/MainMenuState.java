@@ -5,11 +5,10 @@
  */
 package gamestate;
 
-import frames.MainMenuFrame;
-import java.awt.Color;
+import State.State;
+import panels.MainMenuPanel;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import util.music.MusicGame;
 
 /**
  *
@@ -19,45 +18,51 @@ import java.util.logging.Logger;
  *
  * Class which represents the state in which the game shows the main menu.
  */
-public class MainMenuState extends State {
-
-    GameStateManager gsm;
-
+public class MainMenuState extends GameState {
     /**
-     * Create the Main Menu.
+     * Create the panel, which represents the Main Menu.
+     * @param gsm is the manager of the game's state.
+     * @throws java.io.IOException if MainMenuPanel raises IOException.
      */
     public MainMenuState(GameStateManager gsm) throws IOException {
+        this.panel = new MainMenuPanel(this);
         this.gsm = gsm;
-        this.frame = new MainMenuFrame(this);
-        //metodo che inizializza le componenti del JPanel;
-        initComponent();
+//        this.mg = new MusicGame("MainMenu");
+        gsm.setMusic("MainMenu");
     }
 
     /**
-     * Define the main menu's components.
-     */
-    private void initComponent() {
-    }
-
-    /**
-     * Called when either "Story-Mode" or "Rush-Mode" is pressed, based on the
-     * pressed button the next state is set.
+     *It is used to set and then play the right music to Main Menu. 
      *
-     * @param state button code
+     */
+    
+    
+    public void set(){
+        gsm.setMusic("MainMenu");
+        gsm.getMusicGame().play();
+    }
+    
+    /**
+     * It is used to stop music.
      */
     @Override
-    public void handleNext(int state) {
-        if (state == 0) {
-            frame.dispose();
-            gsm.setState(new SelectionLevelState(gsm));
-        } else if (state == 1) {
-            frame.dispose();
-            gsm.setState(new ExitState(gsm));
-        }
+    public void stopMusic(){
     }
 
-    //Non so se per il main menu va settato.
+    /**
+     *It is used to pass in the next state and to stop the corresponding music. 
+     * @param state is the next state handles by gsm.
+     */
     @Override
-    public void handlePrevious(int code) {
+    public void nextState(State state) {
+        this.stopMusic();
+        gsm.setState((GameState)state);
+    }
+
+    /**
+     *It is used when you want to close the game.
+     */
+    public void exit(){
+        this.gsm.exit();
     }
 }

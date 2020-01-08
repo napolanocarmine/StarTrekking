@@ -5,7 +5,6 @@
  */
 package gamefactory;
 
-import gamefactory.EnemiesFactory;
 import gameObjects.*;
 import util.graphics.EntitySprite;
 import java.util.ArrayList;
@@ -53,7 +52,7 @@ public class EnemiesFactoryTest {
     public void loadEnemiesLevel1Test(){
         System.out.println("loading EnemiesLevel1");
         sprite = new EntitySprite("entity/goblin", 64, 64);
-        enemy = new Enemy(sprite, new Position(0, 0), 0);
+        enemy = new GroundEnemy(sprite, new Position(0, 0), 0);
         ef = new EnemiesFactory();
         enemies = (EnemiesLevel)ef.build(1);
         enemiesList = enemies.getObjs();
@@ -63,7 +62,7 @@ public class EnemiesFactoryTest {
     public void loadEnemiesLevel2Test(){
         System.out.println("loading EnemiesLevel2");
         sprite = new EntitySprite("entity/Skeleton", 64, 64);
-        enemy = new Enemy(sprite, new Position(0, 0), 0);
+        enemy = new GroundEnemy(sprite, new Position(0, 0), 0);
         ef = new EnemiesFactory();
         enemies = (EnemiesLevel)ef.build(2);
         enemiesList = enemies.getObjs();
@@ -73,7 +72,7 @@ public class EnemiesFactoryTest {
     public void loadEnemiesLevel3Test(){
         System.out.println("loading EnemiesLevel3");
         sprite = new EntitySprite("entity/dragon", 64, 64);
-        enemy = new Enemy(sprite, new Position(0, 0), 0);
+        enemy = new FlyingEnemy(sprite, new Position(0, 0), 0);
         ef = new EnemiesFactory();
         enemies = (EnemiesLevel)ef.build(3);
         enemiesList = enemies.getObjs();

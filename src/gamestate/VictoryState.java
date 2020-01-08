@@ -46,15 +46,24 @@ public class VictoryState extends GameState {
      */
     @Override
     public void set(){
-        
+        this.startMusic();
     }
-
+    
+    /**
+     *It is used to set the victory music. 
+     */
+    public void startMusic(){ 
+        gsm.setMusic("Victory");
+        gsm.getMusicGame().play();
+    }
+    
     /**
      *It is used to pass in the next state and to stop the corresponding music. 
      * @param state is the next state handles by gsm.
      */
     @Override
     public void nextState(State state) {
+        this.stopMusic();
         gsm.setState((GameState) state);
     }
   

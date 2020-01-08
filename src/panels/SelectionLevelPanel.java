@@ -256,14 +256,11 @@ public class SelectionLevelPanel extends javax.swing.JPanel{
     }//GEN-LAST:event_backMainMenuButtonActionPerformed
 
     private void levelThreeButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_levelThreeButtonMouseEntered
-
         levelThreeButton.setIcon(new javax.swing.ImageIcon(levelThreeIcon_yellow));
-        state.stopMusic();
         levelThreeButton.setBorder(null);
     }//GEN-LAST:event_levelThreeButtonMouseEntered
 
     private void levelThreeButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_levelThreeButtonMouseExited
-
         levelThreeButton.setIcon(new javax.swing.ImageIcon(levelThreeIcon_black));
         levelThreeButton.setBorder(null);
     }//GEN-LAST:event_levelThreeButtonMouseExited
@@ -282,7 +279,6 @@ public class SelectionLevelPanel extends javax.swing.JPanel{
     }//GEN-LAST:event_levelTwoButtonMouseEntered
 
     private void levelTwoButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_levelTwoButtonMouseExited
-
         levelTwoButton.setIcon(new javax.swing.ImageIcon(levelTwoIcon_black));
         levelTwoButton.setBorder(null);
     }//GEN-LAST:event_levelTwoButtonMouseExited

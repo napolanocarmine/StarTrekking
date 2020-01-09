@@ -112,7 +112,7 @@ public class StoryPlayState extends GameState {
      */
     @Override
     public void nextState(State state) {
-        gsm.setState((GameState) state);
+        gsm.setState(state);
     }
 
 }

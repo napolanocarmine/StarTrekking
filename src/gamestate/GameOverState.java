@@ -51,7 +51,7 @@ public class GameOverState extends GameState {
     @Override
     public void nextState(State state) {
         this.stopMusic();
-        gsm.setState((GameState) state);
+        gsm.setState(state);
     }
     
 

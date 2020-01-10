@@ -5,8 +5,19 @@ import java.awt.image.BufferedImage;
 import util.EntityBox;
 import util.Position;
 
+/**
+ * Class which represents a normal block
+ * @author Star Trekking
+ */
 public class NormBlock extends Block {
 
+    /**
+     * Constractor of a ObsBlock object
+     * @param img image of the tile
+     * @param pos position of the block
+     * @param w width of the block
+     * @param h height of the block
+     */
     public NormBlock(BufferedImage img, Position pos, int w, int h) {
         super(img, pos, w, h);
     }

@@ -6,8 +6,19 @@ import java.awt.image.BufferedImage;
 import util.EntityBox;
 import util.Position;
 
+/**
+ * Class which represents a obstacles block
+ * @author Star Trekking
+ */
 public class ObsBlock extends Block {
 
+    /**
+     * Constractor of a ObsBlock object
+     * @param img image of the tile
+     * @param pos position of the block
+     * @param w width of the block
+     * @param h height of the block
+     */
     public ObsBlock(BufferedImage img, Position pos, int w, int h) {
         super(img, pos, w, h);
     }
@@ -16,24 +27,6 @@ public class ObsBlock extends Block {
     public boolean update() {
         return false;
     }
-
-//    @Override
-//    public boolean isInside(EntityBox p) {
-//        if (p.getPos().getX() + p.getXOffset() < pos.getX()) {
-//            return false; //player right bound smaller than the left tile bound
-//        }
-//        if (p.getPos().getY() + p.getYOffset() < pos.getY()) {
-//            return false;
-//        }
-//        if (w + pos.getX() < (p.getPos().getX() + p.getXOffset())) {
-//            return false;  //right side of the tile smaller than the left side of the player bounds
-//        }
-//        if (h + pos.getY() < (p.getPos().getY() + p.getYOffset())) {
-//            return false;
-//        }
-//
-//        return true;
-//    }
 
     @Override
     public void render(Graphics2D g) {

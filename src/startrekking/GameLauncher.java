@@ -13,11 +13,8 @@ import javax.swing.SwingUtilities;
 
 /**
  *
- * @author Star Trekking
- */
-/**
- * *
  * Class that has the goal of launch the main menu.
+ * @author Star Trekking
  */
 public class GameLauncher {
 

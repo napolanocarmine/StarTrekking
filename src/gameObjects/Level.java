@@ -3,7 +3,7 @@ package gameObjects;
 import gameObjects.entityState.EnemyDeadState;
 import gamefactory.EnemiesFactory;
 import util.graphics.EntitySprite;
-import util.graphics.Sprite;
+import util.graphics.TileSet;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.ListIterator;
@@ -27,9 +27,9 @@ public abstract class Level extends Assembly{
     protected EnemiesFactory ef;
     protected Player player;
     protected EnemiesLevel enemies;
-    private Sprite hpImg;
-    private Sprite energyImg;
-    private Sprite font;
+    private TileSet hpImg;
+    private TileSet energyImg;
+    private TileSet font;
     private float previousTickHitted = 0;
     private GamePanel gp;
     protected float groundY = (GamePanel.HEIGHT) - 162;
@@ -66,9 +66,9 @@ public abstract class Level extends Assembly{
         
         inv = new PlayerCommandInvoker(player);
         
-        hpImg = new Sprite("entity/heart.png", 32,32);
-        energyImg = new Sprite("entity/energy.png", 96, 96);
-        font = new Sprite("font/Font.png", 10, 10);
+        hpImg = new TileSet("entity/heart.png", 32,32);
+        energyImg = new TileSet("entity/energy.png", 96, 96);
+        font = new TileSet("font/Font.png", 10, 10);
         addObj(player);
       
     }
@@ -119,14 +119,14 @@ public abstract class Level extends Assembly{
         //Sprite.drawArray(g, font, "FPS: " + GamePanel.oldFrameCount, new Position(GamePanel.WIDTH - (8 * 40), 10), 40, 40, 32, 0);
         int space = 0;
         for (int i = 0; i < player.getHP(); i++) {
-            Sprite.drawArray(g, hpImg.getSprite(0, 0), new Position(space, 10), 90, 90);
+            g.drawImage(hpImg.getTile(0, 0), space, 10, 90, 90, null);
             space += 60;
         }
         
         
-        space = GameFrame.WIDTH - energyImg.w;
+        space = GameFrame.WIDTH - energyImg.getTileWidth();
         for (int i = 0; i < player.getMana(); i++) {
-            Sprite.drawArray(g, energyImg.getSprite(0, 0), new Position(space, 10), energyImg.w, energyImg.w);
+            g.drawImage(energyImg.getTile(0, 0), space, 10, energyImg.getTileWidth(), energyImg.getTileWidth(), null);
             space -= 75;
         }
     }

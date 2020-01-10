@@ -6,8 +6,8 @@
 package util;
 
 /**
- *
- * @author emiso
+ * Enumeration of all the possible states of an entity
+ * @author Star Trekking
  */
 public enum EntityEnum {
     RUN, SPEED_RUN, DEAD, ATTACK, JUMP, CROUCH, HIT, NONE

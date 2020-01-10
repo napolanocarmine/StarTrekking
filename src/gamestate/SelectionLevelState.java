@@ -30,11 +30,11 @@ public class SelectionLevelState extends GameState {
 
         this.panel = new SelectionLevelPanel(this);
         this.gsm = gsm;
-//        this.mg = new MusicGame("MainMenu");
     }
 
     /**
-     *
+     * Set the behavior of the SelectionLevelState.
+     * It doesn't do anything.
      */
     @Override
     public void set() {
@@ -47,7 +47,7 @@ public class SelectionLevelState extends GameState {
     @Override
     public void nextState(State state) {
         this.stopMusic();
-        gsm.setState( state);
+        gsm.setState(state);
     }
 
 }

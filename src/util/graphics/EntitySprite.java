@@ -11,44 +11,50 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 public class EntitySprite {
 
-    public HashMap<EntityEnum, BufferedImage[]> spriteMap;
+    private HashMap<EntityEnum, BufferedImage[]> spriteMap;
 
-    public int w;
-    public int h;
+    private int w;
+    private int h;
 
-    public EntitySprite(String file, int w, int h) {
+    /**
+     * Constructor of an object EntitySprite.
+     * @param path path of the folder in which there are the image files realted with the entity animation.
+     * @param w width of the entity srite.
+     * @param h height of the entity sprite.
+     */
+    public EntitySprite(String path, int w, int h) {
         this.w = w;
         this.h = h;
 
-        loadSprites(file);
+        loadSprites(path);
     }
 
     private void loadSprites(String entity) {
 
-        BufferedImage sprite;
-        String file;
-        spriteMap = new HashMap<>();
+        BufferedImage spritesImage;  // image which will contains all the sprite of the entity realted to a certain state.
+        String path;  // path of the folder in which there are the entity sprites images.
+        spriteMap = new HashMap<>();  // map that will contains the sprites related to the different states of the entity.
 
-        for (EntityEnum state : EntityEnum.values()) {
-            file = entity + "_" + state.name() + ".png";
+        for (EntityEnum state : EntityEnum.values()) {  // iterate over all the possible states of an entity
+            path = entity + "_" + state.name() + ".png";  // path of the file related to the considered state
             try {
-                InputStream is = this.getClass().getClassLoader().getResourceAsStream(file);
-                sprite = ImageIO.read(is);
-                int wSprite = sprite.getWidth() / w;
-                BufferedImage[] spriteArray = getSpriteArray(sprite, wSprite);
-                spriteMap.put(state, spriteArray);
+                InputStream is = this.getClass().getClassLoader().getResourceAsStream(path);  // returns an input stream for reading the specified resource.
+                spritesImage = ImageIO.read(is);  // load the sprites Image
+                int numSprite = spritesImage.getWidth() / w;  // number of sprites in the image
+                BufferedImage[] spriteArray = getSpriteArray(spritesImage, numSprite);  // array of sprites
+                spriteMap.put(state, spriteArray);  // insertion of the sprites array inside the map
             } catch (IOException e) {
-                System.out.println("ERROR: could not load file: " + file);
+                System.out.println("ERROR: could not load file: " + path);
             } catch (IllegalArgumentException e) {
-                
+                System.out.println("ERROR: could not load file: " + path);
             }
         }
     }
 
-    private BufferedImage[] getSpriteArray(BufferedImage sprite, int wSprite) {
-        BufferedImage[] spriteArray = new BufferedImage[wSprite];
+    private BufferedImage[] getSpriteArray(BufferedImage sprite, int numSprite) {
+        BufferedImage[] spriteArray = new BufferedImage[numSprite];
 
-        for (int x = 0; x < wSprite; x++) {
+        for (int x = 0; x < numSprite; x++) {
             spriteArray[x] = sprite.getSubimage(x * w, 0, w, h);
         }
         return spriteArray;

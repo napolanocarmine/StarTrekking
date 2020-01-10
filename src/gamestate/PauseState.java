@@ -59,8 +59,7 @@ public class PauseState extends GameState{
             gsm.resumeState(gsm.getSps());
             resume = false;
         }else
-            gsm.setState((GameState) state);
-        
+            gsm.setState(state);
     }
 
     /**
